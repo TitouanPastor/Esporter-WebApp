@@ -18,9 +18,9 @@
             <input type="text" name="username" required placeholder="Entrer le nom d'utilisateur">
 
             <label for="mdp">Mot de passe :</label>
-            <input type="text" name="mdp" required placeholder="Entrer le mot de passe">
+            <input type="password" name="mdp" required placeholder="Entrer le mot de passe">
 
-            <div>
+            <div class="button">
                 <input type="button" name="mdp_oublie" value="Mot de passe oublié">
                 <input type="submit" name="login" value="Se Connecter">
             </div>
