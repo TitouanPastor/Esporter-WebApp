@@ -1,0 +1,11 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+    background-color: white;
+}
+
+form {
+    border: 1px solid black;
+}
+
