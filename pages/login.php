@@ -7,12 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
-        <p>My first paragraph.</p>
-        <p>test</p>
-        <p>Young-Way</p>
-    </div>
-    ta mer chi chi chi 
- 
+    
 </body>
 </html>
