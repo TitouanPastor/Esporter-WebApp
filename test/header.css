@@ -67,7 +67,7 @@ header {
 }
 
 .sous-menu {
-    width: 100%;
+    width: auto;
     text-align: left;
     background-color: white;
     border-radius: 2px;
@@ -145,4 +145,4 @@ li a {
 
 .menu-deroulant:hover > .sous-menu {
     animation: apparitionSousMenu 1s forwards;
-  
+}

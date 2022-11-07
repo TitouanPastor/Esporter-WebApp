@@ -17,11 +17,14 @@
             <section class="second_section">
                 <article class="menu">
                     <ul>
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#">Résultat</a></li>
+                        <li><a href="#">Calendrier</a></li> 
         ';
         }
 
         public function header_visiteur(){
-            echo '              <li><a href="#">Accueil</a></li>
+            return '              <li><a href="#">Accueil</a></li>
                                 <li><a href="#">Résultat</a></li>
                                 <li><a href="#">Calendrier</a></li> 
                             </ul>
@@ -30,7 +33,56 @@
                 </header>';
         }
 
-        
+        public function header_admin(){
+            return '
+            <li class="menu-deroulant">
+                <a href="#">Adminisatrateur</a>
+                     <ul class="sous-menu">
+                                <li><a href="#">Ajouter un tournoi</a></li>
+                                <li><a href="#">Tournois</a></li>
+                                <li><a href="#">Ajouter une écurie</a></li>
+                                <li><a href="#">Ecuries</a></li>
+                            </ul>
+                        </li>
+                     </ul>
+                </article>
+            </section>
+        </header>';
+        }
+
+        public function header_ecurie(){
+            return '
+            <li class="menu-deroulant">
+                <a href="#">Ecurie</a>
+                     <ul class="sous-menu">
+                                <li><a href="#">Ajouter une équipe</a></li>
+                                <li><a href="#">Equipes</a></li>
+                            </ul>
+                        </li>
+                     </ul>
+                </article>
+            </section>
+        </header>';
+        }
+
+        public function header_equipe(){
+            return '
+            <li>
+                <a href="#">Inscription</a></li>
+                </article>
+            </section>
+        </header>';
+        }
+
+        public function header_arbitre(){
+            return '
+            <li>
+                <a href="#">Tournois</a></li>
+                </article>
+            </section>
+        </header>';
+        }
+
 
     }
 
