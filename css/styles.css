@@ -3,7 +3,12 @@
 :root {
   --white: #fff;
   --dark-blue: rgb(56, 52, 84);
+  --yellow : #f1c40f;
   --border-radius: 0.22em;
+  --btn-submit : rgb(121, 241, 137);
+  --btn-submit-hover : rgb(78, 240, 100);
+  --background-shadow : 0 6.4px 14.4px 0 rgb(0 0 0 / 13%), 0 1.2px 3.6px 0 rgb(0 0 0 / 11%);
+  --little-shadow : rgba(0, 0, 0, 0.055) 0px 2px 4px 0px;
 }
 
 * {
@@ -13,13 +18,81 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+/* Spécification style des balises formulaires */
+
+input {
+  outline: none;
+}
+
+input[type="text"], input[type="date"] {
+  box-shadow: var(--little-shadow);
+  background: #125166;
+  display: inline-block;
+  padding: 0 16px 0 12px;
+  width: 100%;
+  line-height: 30px;
+  height: 32px;
+  border: 2px solid #dee1e2;
+  background: #dee1e2;
+  border-radius: 4px;
+  color: rgb(0, 0, 0);
+  transition: all .15s ease-in-out;
+}
+
+
+input[type="submit"] {
+  box-shadow: var(--background-shadow);
+  border-radius: var(--border-radius);
+  border: 0px;
+  padding: 8px 25px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  background-color: var(--btn-submit);
+  width: auto;
+  line-height: initial;
+  height: max-content;
+  transition: all .2s ease-in-out;
+}
+
+
+
+input[type="text"]:hover, input[type="date"]:hover {
+  border: 2px solid #d2d7d8;
+  background: #d2d7d8;
+}
+
+input[type="text"]:focus, input[type="date"]:focus {
+  border: 2px solid #696666;
+  background: #d2d7d8;
+}
+
+input[type="submit"]:hover {
+  background-color: var(--btn-submit-hover);
+}
+
 /* Creation d'un tournoi */
 
-.main-creation-tournoi {
-  background-color: var(--white);
-  border-radius: var(--border-radius);
+.creation-tournoi-container {
+  width: auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.creation-tournoi-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 75px;
+  gap: 50px;
+}
+
+.main-creation-tournoi {
+  display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
@@ -30,18 +103,32 @@
 }
 
 .creation-tournoi-title {
-  font-size: 1.5rem;
+  gap: 15px;
+  font-size: 2rem;
+  width: 115%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.creation-tournoi-title::after {
+  content: '';
+  width: 100%;
+  background-color: #000000;
+  opacity: .2;
+  height: 1px;
+  font-size: 2rem;
 }
 
 .creation-tournoi {
-  background-color: white;
+  gap: 110px;
   display: flex;
-  padding: 15px 0;
-  gap: 15%;
+  justify-content: space-between;
 }
 
 .creation-tournoi-input {
   padding: 10px 0;
   display: flex;
+  gap: 8px;
   flex-direction: column;
 }
