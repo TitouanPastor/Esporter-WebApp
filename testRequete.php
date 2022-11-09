@@ -9,14 +9,10 @@
 <body>
     <?php
 
-        require_once('SQL.php');
+        require_once('gestionnaire.php');
 
-        $test = new requeteSQL();
-        //$test->addArbitre('arbitre1', '123456');
-        $req = $test->getArbitre();
-        while ($data = $req->fetch()){
-            echo$data[1].' '.$data['Login'].' '.$data['Mot_de_passe'].'<br>';
-        }
+        $gest = Gestionnaire::getInstance();
+       
 
   
 
