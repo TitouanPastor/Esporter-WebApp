@@ -9,10 +9,12 @@
 <body>
     <?php
 
-        require_once('gestionnaire.php');
+        require_once('SQL.php');
 
-        $gest = Gestionnaire::getInstance();
-       
+        $test = new requeteSQL();
+        $test->addJeu('Minecraft');
+        
+        
 
   
 

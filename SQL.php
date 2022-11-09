@@ -14,7 +14,6 @@
             try {
                 $this->linkpdo = new PDO("mysql:host=$server;dbname=$db", $login, $mdp);
                 $this->linkpdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                echo 'Connexion : OK';
                 
             }
             ///Capture des erreurs éventuelles
@@ -25,9 +24,9 @@
 
         //Fonction pour ajouter un arbitre
         public function addTournoi($Type, $nom, $date_deb, $date_fin, $notoriete, $nbPtsMax, $IdGestionnaireEsport, $idArbitre){
-            $req = $this->linkpdo->prepare('INSERT INTO tournoi (NULL,Type, Nom, Date_debut, Date_fin, Notoriete, NbPtsMax, IdGestionnaireEsport, IdArbitre) VALUES (:Type, :Nom, :Date_debut, :Date_fin, :Notoriete, :NbPtsMax, :IdGestionnaireEsport, :IdArbitre)');
+            $req = $this->linkpdo->prepare('INSERT INTO tournoi VALUES (NULL, :TypeT, :Nom, :Date_debut, :Date_fin, :Notoriete, :NbPtsMax, :IdGestionnaireEsport, :IdArbitre)');
             $req->execute(array(
-                'Type' => $Type,
+                'TypeT' => $Type,
                 'Nom' => $nom,
                 'Date_debut' => $date_deb,
                 'Date_fin' => $date_fin,
@@ -43,6 +42,15 @@
             $req = $this->linkpdo->prepare('SELECT * FROM tournoi');
             $req->execute();
             return $req;
+        }
+
+        //Fonction qui retourne le dernier tuple de tournoi
+        public function getLastIDTournoi(){
+            $req = $this->linkpdo->prepare('SELECT Id_Tournoi FROM tournoi ORDER BY Id_Tournoi DESC LIMIT 1');
+            $req->execute();
+            while ($data = $req->fetch()){
+                return $data['Id_Tournoi'];
+            }
         }
 
         //Fonction pour ajouter un arbitre

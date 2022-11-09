@@ -2,11 +2,14 @@
 
 class Gestionnaire{
 
-    private static $_instance = null;
+    private static $_instance;
+    private $test;
     
     private function __construct(){
+        require_once('SQL.php');
         $sql = new requeteSQL();
         $sql->addGestionnaire('Esporter', 'gesP123');
+        
     }
 
     public static function getInstance(){
@@ -14,6 +17,10 @@ class Gestionnaire{
             self::$_instance = new Gestionnaire();
         }
         return self::$_instance;
+    }
+
+    public function getTest(){
+        return $this->test;
     }
 
 
