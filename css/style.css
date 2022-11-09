@@ -14,7 +14,7 @@
   --black: rgb(28, 26, 37);
   --black-grey: #2e2f3e;
   --orange: #ff8906;
-  --text: #fffffe;
+  --white-text: #ffffff;
   --paragraph: #a7a9be;
   --bg-input: #dee1e2;
 }
@@ -244,7 +244,7 @@ input[type="submit"].update:hover {
 
 .main-listes-filters li a:hover {
   box-shadow: var(--little-shadow);
-  color: var(--text);
+  color: var(--white-text);
   background-color: var(--black);
 }
 
@@ -257,7 +257,7 @@ input[type="submit"].update:hover {
 .main-listes .main-liste-article {
   cursor: pointer;
   position: relative;
-  color: var(--text);
+  color: var(--white-text);
   background-color: var(--black);
   padding: 25px 17px;
   padding-right: 75px;
@@ -286,7 +286,7 @@ input[type="submit"].update:hover {
 }
 
 .main-listes .article-btns a {
-  color: var(--text);
+  color: var(--white-text);
   padding: 0 15px;
 }
 
