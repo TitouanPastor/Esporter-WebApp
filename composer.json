@@ -1,0 +1,11 @@
+{
+    "name": "titouan/website",
+    "require": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Titouan\\Website\\": "src/"
+        }
+    }
+}
