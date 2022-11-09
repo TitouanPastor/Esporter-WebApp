@@ -14,7 +14,7 @@
             try {
                 $this->linkpdo = new PDO("mysql:host=$server;dbname=$db", $login, $mdp);
                 $this->linkpdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                echo 'cooucou bebe';
+                echo 'Connexion : OK';
                 
             }
             ///Capture des erreurs éventuelles
