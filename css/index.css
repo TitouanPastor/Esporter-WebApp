@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+h1 {
+    color: var(--text);
+}
+
+p,span {
+    color: var(--text);
+}
+
 main {
     color: white;
     display: flex;
@@ -11,7 +19,7 @@ main {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-image: url(../img/home-background.jpg);
+    background-image: url(../img/backgroundgif.webp);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -32,8 +40,8 @@ main {
     -webkit-user-select: none;
     touch-action: manipulation;
     transition: all 0.2s ease-in-out;
-    background-image: -webkit-linear-gradient(45deg, var(--yellow) 50%, transparent 50%);
-    background-image: linear-gradient(45deg, var(--yellow) 50%, transparent 50%);
+    background-image: -webkit-linear-gradient(45deg, var(--orange) 50%, transparent 50%);
+    background-image: linear-gradient(45deg, var(--orange) 50%, transparent 50%);
     background-position: 100%;
     background-size: 400%;
     -webkit-transition: all 300ms ease-in-out;
@@ -42,7 +50,7 @@ main {
 
 .main-btn:hover {
     background-position: 0;
-    background-color: var(--yellow);
+    background-color: var(--orange);
     box-shadow: var(--background-shadow);
 }
 

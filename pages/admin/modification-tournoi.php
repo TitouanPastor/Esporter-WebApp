@@ -14,7 +14,7 @@
         <section class="creation-tournoi-container">
             <form action="creation-tournoi.php" method="POST">
 
-                <h1 class="creation-tournoi-title">Création d'un tournoi</h1>
+                <h1 class="creation-tournoi-title">Modifier un tournoi</h1>
                 <div class="creation-tournoi">
                     <div class="creation-tournoi-left">
                         <div class="creation-tournoi-input">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div>
-                <input class="submit" type="submit" name="ajouter" value="Ajouter">
+                <input class="update" type="submit" name="modifier" value="Modifier">
             </form>
         </section>
     </main>
