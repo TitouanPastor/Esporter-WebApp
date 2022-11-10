@@ -1,15 +1,24 @@
 <?php return array(
     'root' => array(
-        'name' => 'titouan/website',
+        'name' => 'baptiste/website',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '034017d580feea7314d9816470e390723522b991',
+        'reference' => '39f4cab49f9140d3434d6e18c3c6e2e82cca2a65',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'baptiste/website' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '39f4cab49f9140d3434d6e18c3c6e2e82cca2a65',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'doctrine/instantiator' => array(
             'pretty_version' => '1.4.1',
             'version' => '1.4.1.0',
@@ -259,15 +268,6 @@
             'reference' => '34a41e998c2183e22995f158c581e7b5e755ab9e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../theseer/tokenizer',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
-        'titouan/website' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '034017d580feea7314d9816470e390723522b991',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

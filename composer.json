@@ -1,11 +1,17 @@
 {
-    "name": "titouan/website",
+    "name": "baptiste/website",
     "require": {
         "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
-            "Titouan\\Website\\": "src/"
+            "Baptiste\\Website\\": "src/"
         }
-    }
+    },
+    "authors": [
+        {
+            "name": "Baptiste Bayche",
+            "email": "baptiste.bayche@etu.iut-tlse3.fr"
+        }
+    ]
 }

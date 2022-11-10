@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
     <?php
-        $info_execution = "";
+        $info_execution = "Tournoi non ajouté";
         if(!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['jeux-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['notoriete-tournoi']) && !empty($_POST['points-tournoi'])){
             try{   
                 require_once('../../SQL.php');

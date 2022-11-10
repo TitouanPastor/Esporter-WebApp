@@ -8,7 +8,14 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="test/header.css">
 </head>
+<?php
+require_once('header.php');
+$header = new header();
+echo $header->header_admin();
+$header->header_arbitre();
+?>
 
 <body>
     <main>
