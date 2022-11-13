@@ -128,6 +128,68 @@ input[type="submit"].update:hover {
   background-color: var(--btn-update-hover);
 }
 
+/* HEADER */
+
+.btn-connexion {
+  color: var(--black);
+  font-weight: 600;
+  font-size: 1.3rem;
+  background-color: var(--btn-update);
+  transition: all .2s ease-in-out;
+  padding: 8px 30px;
+  border-radius: var(--border-radius);
+}
+
+.btn-connexion:hover {
+  background-color: var(--btn-update-hover);
+  box-shadow: var(--background-shadow);
+}
+
+header img {
+  width: 200px;
+}
+
+header a {
+  color: var(--black);
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+header ul {
+  list-style-type: none;
+}
+
+.topnavbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid rgb(34, 28, 28);
+}
+
+.navbar-menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid rgb(34, 28, 28);
+}
+
+.navbar-menu li {
+  width: 100%;
+  text-align: center;
+  border-right: 1px solid rgb(34, 28, 28);
+}
+
+.navbar-menu a {
+  height: auto;
+  display: block;
+  line-height: 35px;
+}
+
+.navbar-menu a:hover {
+  background-color: var(--orange);
+}
+
 /* Creation/Modification d'un tournoi */
 
 .creation-tournoi-container {
@@ -279,7 +341,7 @@ input[type="submit"].update:hover {
   right: 3%;
   position: absolute;
   transition: all .15s ease-in-out;
-} 
+}
 
 .arrow-active {
   transform: rotate(90deg);
