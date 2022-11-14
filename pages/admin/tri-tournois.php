@@ -40,7 +40,6 @@
 
         public function afficherLesTournois(){
             while ($row = $this->req->fetch()){
-                echo $row['Nom'], $row['Date_debut'], $row['Lieu'], 0, $row['Type'];
                 echo $this->afficherUnTournoi($row['Nom'], $row['Date_debut'], $row['Lieu'], '0', $row['Type']);
             }
             return $this->tournois;
