@@ -11,8 +11,14 @@
 </head>
 
 <body>
-    <form action="" method="post">
-        
+    <?php
+    require_once('..\..\header.php');
+    require_once(realpath(dirname(__FILE__) . '/../../header.php'));
+    $header = new header();
+    echo $header->header_admin();
+    $header->header_arbitre();
+    ?>
+    <form action="" method="post">  
         <div class="container">
             <div class="utilisateur"> 
             <!-- <label for="username"> Nom d'utilisateur : </label> -->

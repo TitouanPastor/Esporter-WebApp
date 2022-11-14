@@ -22,107 +22,15 @@
                 </ul>
             </div>
             <div class="liste">
-                <article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
-                    <span class="arrow">〉</span>
-                    <div class="nodescription-tournoi">
-                        <span class="title-tournoi">Tournoi chez bernard</span>
-                        <div class="article-btns">
-                            <a href="">Modifier</a>
-                            <a href="">Supprimer</a>
-                        </div>
-                    </div>
-                    <div class="description-tournoi">
-                        <p>Le tournoi se déroulera le 12/12/2021 à 12h00</p>
-                        <p>Le tournoi se déroulera à Paris</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                    </div>
-                </article>
+                <?php
+                    require_once('tri-tournois.php');
+                    $triTournois = new TriTournois();
+                    echo $triTournois->afficherLesTournois();
 
-                <article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
-                    <span class="arrow">〉</span>
-                    <div class="nodescription-tournoi">
-                        <span class="title-tournoi">Tournoi chez bernard</span>
-                        <div class="article-btns">
-                            <a href="">Modifier</a>
-                            <a href="">Supprimer</a>
-                        </div>
-                    </div>
-                    <div class="description-tournoi">
-                        <p>Le tournoi se déroulera le 12/12/2021 à 12h00</p>
-                        <p>Le tournoi se déroulera à Paris</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                    </div>
-                </article>
+                    
 
-                <article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
-                    <span class="arrow">〉</span>
-                    <div class="nodescription-tournoi">
-                        <span class="title-tournoi">Tournoi chez bernard</span>
-                        <div class="article-btns">
-                            <a href="">Modifier</a>
-                            <a href="">Supprimer</a>
-                        </div>
-                    </div>
-                    <div class="description-tournoi">
-                        <p>Le tournoi se déroulera le 12/12/2021 à 12h00</p>
-                        <p>Le tournoi se déroulera à Paris</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                    </div>
-                </article>
 
-                <article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
-                    <span class="arrow">〉</span>
-                    <div class="nodescription-tournoi">
-                        <span class="title-tournoi">Tournoi chez bernard</span>
-                        <div class="article-btns">
-                            <a href="">Modifier</a>
-                            <a href="">Supprimer</a>
-                        </div>
-                    </div>
-                    <div class="description-tournoi">
-                        <p>Le tournoi se déroulera le 12/12/2021 à 12h00</p>
-                        <p>Le tournoi se déroulera à Paris</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                    </div>
-                </article>
-
-                <article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
-                    <span class="arrow">〉</span>
-                    <div class="nodescription-tournoi">
-                        <span class="title-tournoi">Tournoi chez bernard</span>
-                        <div class="article-btns">
-                            <a href="">Modifier</a>
-                            <a href="">Supprimer</a>
-                        </div>
-                    </div>
-                    <div class="description-tournoi">
-                        <p>Le tournoi se déroulera le 12/12/2021 à 12h00</p>
-                        <p>Le tournoi se déroulera à Paris</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                    </div>
-                </article>
-
-                <article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
-                    <span class="arrow">〉</span>
-                    <div class="nodescription-tournoi">
-                        <span class="title-tournoi">Tournoi chez bernard</span>
-                        <div class="article-btns">
-                            <a href="">Modifier</a>
-                            <a href="">Supprimer</a>
-                        </div>
-                    </div>
-                    <div class="description-tournoi">
-                        <p>Le tournoi se déroulera le 12/12/2021 à 12h00</p>
-                        <p>Le tournoi se déroulera à Paris</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                        <p>Le tournoi se déroulera sur le jeu de société "Le jeu de la vie"</p>
-                    </div>
-                </article>
+                ?>
             </div>
         </section>
     </main>
