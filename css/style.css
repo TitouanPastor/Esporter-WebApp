@@ -63,7 +63,8 @@ input {
 
 input[type="text"],
 input[type="date"],
-input[type="password"] {
+input[type="password"],
+select {
   box-shadow: var(--little-shadow);
   display: inline-block;
   padding: 0 16px 0 12px;
@@ -91,6 +92,11 @@ input[type="submit"].submit {
   line-height: initial;
   height: max-content;
   transition: all .2s ease-in-out;
+}
+
+input[type="submit"].add {
+  font-size: 0.9rem;
+  background-color: var(--btn-update);
 }
 
 input[type="button"].bouton {
@@ -127,7 +133,8 @@ input[type="submit"].update {
 
 input[type="text"]:hover,
 input[type="date"]:hover,
-input[type="password"]:hover {
+input[type="password"]:hover,
+select:hover {
   border: 2px solid #d2d7d8;
   background: #d2d7d8;
 }
@@ -143,6 +150,10 @@ input[type="submit"].submit:hover {
 }
 
 input[type="submit"].update:hover {
+  background-color: var(--btn-update-hover);
+}
+
+input[type="submit"].add:hover {
   background-color: var(--btn-update-hover);
 }
 
