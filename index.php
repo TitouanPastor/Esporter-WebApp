@@ -11,7 +11,7 @@
 </head>
 <?php
 require_once(realpath(dirname(__FILE__) . '/class/header.php'));
-$header = new header();
+$header = new header(0);
 echo $header->header_admin();
 ?>
 
