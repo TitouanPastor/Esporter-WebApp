@@ -27,9 +27,6 @@
                     $triTournois = new TriTournois();
                     echo $triTournois->afficherLesTournois();
 
-                    
-
-
                 ?>
             </div>
         </section>
