@@ -20,7 +20,8 @@
 
         //function qui affiche un tournoi
         public function afficherUnTournoi($nom, $date_debut, $lieu, $jeux, $type){
-            $this->tournois += '<article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
+            return 
+                    '<article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
                         <span class="arrow">〉</span>
                         <div class="nodescription-tournoi">
                             <span class="title-tournoi"> ['.$type.'] '.$nom.'</span>
@@ -40,7 +41,7 @@
         public function afficherLesTournois(){
             while ($row = $this->req->fetch()){
                 echo $row['Nom'], $row['Date_debut'], $row['Lieu'], 0, $row['Type'];
-                $this->afficherUnTournoi($row['Nom'], $row['Date_debut'], $row['Lieu'], '0', $row['Type']);
+                echo $this->afficherUnTournoi($row['Nom'], $row['Date_debut'], $row['Lieu'], '0', $row['Type']);
             }
             return $this->tournois;
         }
