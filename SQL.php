@@ -45,8 +45,10 @@
             return $req;
         }
 
-        public function filtreTournoisByType(){
-            
+        public function tournoisByType(){
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Type");
+            $req->execute();
+            return $req;
         }
         
 
@@ -92,11 +94,11 @@
         }
 
         //Fonction pour ajouter une ecurie
-        public function addEcurie($Nom, $Statut, $mdp, $mail, $id_gestionnaireEsport){
+        public function addEcurie($nom, $statut, $mdp, $mail, $id_gestionnaireEsport){
             $req = $this->linkpdo->prepare('INSERT INTO ecurie VALUES (NULL, :Nom, :Statut, :mdp, :mail, :id_gestionnaireEsport)');
             $req->execute(array(
-                'Nom' => $Nom,
-                'Statut' => $Statut,
+                'Nom' => $nom,
+                'Statut' => $statut,
                 'mdp' => $mdp,
                 'mail' => $mail,
                 'id_gestionnaireEsport' => $id_gestionnaireEsport
