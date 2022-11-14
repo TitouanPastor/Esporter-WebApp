@@ -3,13 +3,14 @@
     class TriTournois{
 
         private $req;
+        private $sql;
         private $nbTournoi;
-        private $tournois;
+
 
         public function triTournois(){
             require_once('../../SQL.php');
-            $sql = new requeteSQL();
-            $this->req = $sql->getTournoi();
+            $this->sql = new requeteSQL();
+            $this->req = $this->sql-> getTournoi();
             $this->nbTournois = $this->req->rowCount();
             $this->tournois = '';
 
@@ -42,11 +43,34 @@
             while ($row = $this->req->fetch()){
                 echo $this->afficherUnTournoi($row['Nom'], $row['Date_debut'], $row['Lieu'], '0', $row['Type']);
             }
-            return $this->tournois;
         }
 
         public function getNombreTournois(): int{
             return $this->nbTournois;
+        }
+
+        //Fonction trie les tournois par type
+        public function trierParType(){
+            $this->req = $this->sql->tournoisByType();
+            $this->afficherLesTournois();
+        }
+
+        //Fonction trie les tournois par lieu
+        public function trierParLieu(){
+            $this->req = $this->sql->tournoisByLieu();
+            $this->afficherLesTournois();
+        }
+
+        //Fonction trie les tournois par nom
+        public function trierParNom(){
+            $this->req = $this->sql->tournoisByNom();
+            $this->afficherLesTournois();
+        }
+
+        //Fonction trie les tournois par id (filtre de base)
+        public function trierParId(){
+            $this->req = $this->sql-> getTournoi();
+            $this->afficherLesTournois();
         }
 
 
