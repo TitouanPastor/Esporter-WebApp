@@ -23,14 +23,15 @@
         }
 
         //Fonction pour ajouter un arbitre
-        public function addTournoi($Type, $nom, $date_deb, $date_fin, $notoriete, $nbPtsMax, $IdGestionnaireEsport, $idArbitre){
-            $req = $this->linkpdo->prepare('INSERT INTO tournoi VALUES (NULL, :TypeT, :Nom, :Date_debut, :Date_fin, :Notoriete, :NbPtsMax, :IdGestionnaireEsport, :IdArbitre)');
+        public function addTournoi($Type, $nom, $date_deb, $date_fin, $notoriete, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre){
+            $req = $this->linkpdo->prepare('INSERT INTO tournoi VALUES (NULL, :TypeT, :Nom, :Date_debut, :Date_fin, :Notoriete, :Lieu, :NbPtsMax, :IdGestionnaireEsport, :IdArbitre)');
             $req->execute(array(
                 'TypeT' => $Type,
                 'Nom' => $nom,
                 'Date_debut' => $date_deb,
                 'Date_fin' => $date_fin,
                 'Notoriete' => $notoriete,
+                'Lieu' => $lieu,
                 'NbPtsMax' => $nbPtsMax,
                 'IdGestionnaireEsport' => $IdGestionnaireEsport,
                 'IdArbitre' => $idArbitre

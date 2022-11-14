@@ -10,12 +10,12 @@
 </head>
     <?php
         $info_execution = "Tournoi non ajouté";
-        if(!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['jeux-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['notoriete-tournoi']) && !empty($_POST['points-tournoi'])){
+        if(!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['jeux-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['notoriete-tournoi']) && !empty($_POST['points-tournoi']) && !empty($_POST['lieu-tournoi'])){
             try{   
                 require_once('../../SQL.php');
                 $sql = new requeteSQL();
                 // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
-                $sql->addTournoi($_POST['type-tournoi'],$_POST['nom-tournoi'],$_POST['date-debut'],$_POST['date-fin'],$_POST['notoriete-tournoi'], $_POST['points-tournoi'], 1,1);
+                $sql->addTournoi($_POST['type-tournoi'],$_POST['nom-tournoi'],$_POST['date-debut'],$_POST['date-fin'],$_POST['notoriete-tournoi'], $_POST['lieu-tournoi'], $_POST['points-tournoi'], 1,1);
                 // Récupération de l'ID dernier tournoi créer
                 $idTournoi = $sql->getLastIDTournoi();
                 // Ajout des jeux du tournoi
