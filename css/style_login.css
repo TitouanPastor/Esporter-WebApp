@@ -29,11 +29,28 @@ form {
     background-color: white;
 }
 
+.utilisateur {
+    display : flex;
+    
+}
+
+svg {
+    width: 30px;
+}
+
+.mdp {
+    display: flex;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     padding: 16px;
     
+}
+
+hr {
+    margin: 10%;
 }
 
 .button {

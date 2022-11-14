@@ -12,6 +12,16 @@ class ComposerStaticInit03a85c87f0882ab89e3fdf1eb2f6ba63
     );
 
     public static $prefixLengthsPsr4 = array (
+<<<<<<< HEAD
+        'Y' => 
+        array (
+            'Young\\EsporterWebApp\\' => 21,
+=======
+        'T' => 
+        array (
+            'Theob\\EsporterWebApp\\' => 21,
+>>>>>>> 9e98e15bb93e24bb06fa68ffc8df028889d13d1b
+        ),
         'P' => 
         array (
             'PhpParser\\' => 10,
@@ -21,13 +31,17 @@ class ComposerStaticInit03a85c87f0882ab89e3fdf1eb2f6ba63
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
         ),
-        'B' => 
-        array (
-            'Baptiste\\Website\\' => 17,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
+<<<<<<< HEAD
+        'Young\\EsporterWebApp\\' => 
+=======
+        'Theob\\EsporterWebApp\\' => 
+>>>>>>> 9e98e15bb93e24bb06fa68ffc8df028889d13d1b
+        array (
+            0 => __DIR__ . '/../..' . '/src',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -39,10 +53,6 @@ class ComposerStaticInit03a85c87f0882ab89e3fdf1eb2f6ba63
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
-        ),
-        'Baptiste\\Website\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 

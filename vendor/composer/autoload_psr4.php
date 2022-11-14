@@ -6,8 +6,12 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+<<<<<<< HEAD
+    'Young\\EsporterWebApp\\' => array($baseDir . '/src'),
+=======
+    'Theob\\EsporterWebApp\\' => array($baseDir . '/src'),
+>>>>>>> 9e98e15bb93e24bb06fa68ffc8df028889d13d1b
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
     'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
-    'Baptiste\\Website\\' => array($baseDir . '/src'),
 );
