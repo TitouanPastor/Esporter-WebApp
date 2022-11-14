@@ -12,7 +12,8 @@
         <?php
         if (!isset($_POST['valider'])){
             require_once(realpath(dirname(__FILE__) . '/../SQL.php'));
-            echo 'test';
+        } else {
+            
         }
         ?>
 
@@ -30,8 +31,14 @@
                 </select>
                 
                 <select name="tournoi_jeu"> 
-                    
+                    <?php
+                        $sql = new requeteSQL();
+                        $jeu = $sql -> getJeu();
+                        while ($donnees = $jeu -> fetch()){?>
+                            <option value="<?php echo $donnees['Libelle'];?>"><?php echo $donnees['Libelle'];?></option>
+                    <?php } ?>     
                 </select>
+                
 
                 <input type="submit" value="valider">
 
