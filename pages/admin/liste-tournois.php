@@ -27,7 +27,7 @@
             </div>
             <div class="liste">
                 <?php
-                    require_once('tri-tournois.php');
+                    require_once(realpath(dirname(__FILE__) . '/tri-tournois.php'));
                     $triTournois = new TriTournois();
                     if (!isset($_GET['filter1']) && !isset($_GET['filter2']) && !isset($_GET['filter3']) && !isset($_GET['filter4']) && !isset($_GET['annuler'])) {
                         echo $triTournois->afficherLesTournois();

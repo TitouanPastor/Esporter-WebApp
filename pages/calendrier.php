@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/style_calendrier.css">
     </head>
 
     <body>
@@ -19,9 +20,9 @@
 
         <form action="" method="post">
             <div class="container">
-                <input type ="date" name ="date">
+                <input type ="date" name ="date" class="element">
 
-                <select name="tournoi_nom"> 
+                <select name="tournoi_nom" class="element" class="select"> 
                 <?php
                     $sql = new requeteSQL();
                     $tournoi = $sql -> getTournoi();
@@ -30,7 +31,7 @@
                 <?php } ?>
                 </select>
                 
-                <select name="tournoi_jeu"> 
+                <select name="tournoi_jeu" class="element" class="select"> 
                     <?php
                         $sql = new requeteSQL();
                         $jeu = $sql -> getJeu();
@@ -40,7 +41,7 @@
                 </select>
                 
 
-                <input type="submit" value="valider">
+                <input type="submit" class="submit" class="element" value="valider">
 
             </div>
         </form>
