@@ -12,9 +12,15 @@ class ComposerStaticInit03a85c87f0882ab89e3fdf1eb2f6ba63
     );
 
     public static $prefixLengthsPsr4 = array (
+<<<<<<< HEAD
         'Y' => 
         array (
             'Young\\EsporterWebApp\\' => 21,
+=======
+        'T' => 
+        array (
+            'Theob\\EsporterWebApp\\' => 21,
+>>>>>>> 9e98e15bb93e24bb06fa68ffc8df028889d13d1b
         ),
         'P' => 
         array (
@@ -28,7 +34,11 @@ class ComposerStaticInit03a85c87f0882ab89e3fdf1eb2f6ba63
     );
 
     public static $prefixDirsPsr4 = array (
+<<<<<<< HEAD
         'Young\\EsporterWebApp\\' => 
+=======
+        'Theob\\EsporterWebApp\\' => 
+>>>>>>> 9e98e15bb93e24bb06fa68ffc8df028889d13d1b
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

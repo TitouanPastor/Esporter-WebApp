@@ -1,14 +1,26 @@
 {
+<<<<<<< HEAD
     "name": "young/esporter-web-app",
     "autoload": {
         "psr-4": {
             "Young\\EsporterWebApp\\": "src/"
+=======
+    "name": "theob/esporter-web-app",
+    "autoload": {
+        "psr-4": {
+            "Theob\\EsporterWebApp\\": "src/"
+>>>>>>> 9e98e15bb93e24bb06fa68ffc8df028889d13d1b
         }
     },
     "authors": [
         {
+<<<<<<< HEAD
             "name": "Young-Way",
             "email": "young-way.tsan@etu.iut-tlse3.fr"
+=======
+            "name": "Theo Barat",
+            "email": "theo.barat@etu.iut-tlse3.fr"
+>>>>>>> 9e98e15bb93e24bb06fa68ffc8df028889d13d1b
         }
     ],
     "require": {}
