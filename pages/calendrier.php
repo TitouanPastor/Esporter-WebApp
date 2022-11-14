@@ -10,7 +10,10 @@
 
     <body>
         <?php
+        if (!isset($_POST['valider'])){
             require_once(realpath(dirname(__FILE__) . '/../SQL.php'));
+            echo 'test';
+        }
         ?>
 
         <form action="" method="post">
@@ -18,15 +21,21 @@
                 <input type ="date" name ="date">
 
                 <select name="tournoi_nom"> 
-
+                <?php
+                    $sql = new requeteSQL();
+                    $tournoi = $sql -> getTournoi();
+                    while ($donnees = $tournoi -> fetch()){?>
+                        <option value="<?php echo $donnees['Nom'];?>"><?php echo $donnees['Nom'];?></option>
+                <?php } ?>
                 </select>
                 
                 <select name="tournoi_jeu"> 
                     
                 </select>
 
+                <input type="submit" value="valider">
+
             </div>
         </form>
     </body>
 </html>
-
