@@ -1,17 +1,15 @@
 {
-    "name": "baptiste/website",
-    "require": {
-        "phpunit/phpunit": "^9.5"
-    },
+    "name": "theob/esporter-web-app",
     "autoload": {
         "psr-4": {
-            "Baptiste\\Website\\": "src/"
+            "Theob\\EsporterWebApp\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "Baptiste Bayche",
-            "email": "baptiste.bayche@etu.iut-tlse3.fr"
+            "name": "Theo Barat",
+            "email": "theo.barat@etu.iut-tlse3.fr"
         }
-    ]
+    ],
+    "require": {}
 }
