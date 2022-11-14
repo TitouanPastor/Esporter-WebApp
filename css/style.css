@@ -4,6 +4,7 @@
   --white: #fff;
   --dark-blue-logo: rgb(56, 52, 84);
   --border-radius: 0.22em;
+  --btn-bouton: rgb(228, 118, 118);
   --btn-submit: rgb(121, 241, 137);
   --btn-submit-hover: rgb(78, 240, 100);
   --btn-update: #45a7e9;
@@ -86,6 +87,21 @@ input[type="submit"].submit {
   font-weight: 600;
   font-size: 1.4rem;
   background-color: var(--btn-submit);
+  width: auto;
+  line-height: initial;
+  height: max-content;
+  transition: all .2s ease-in-out;
+}
+
+input[type="button"].bouton {
+  box-shadow: var(--background-shadow);
+  border-radius: var(--border-radius);
+  color: var(--black);
+  border: 0px;
+  padding: 8px 25px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  background-color: var(--btn-bouton);
   width: auto;
   line-height: initial;
   height: max-content;

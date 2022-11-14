@@ -29,6 +29,19 @@ form {
     background-color: white;
 }
 
+.utilisateur {
+    display : flex;
+    
+}
+
+svg {
+    width: 30px;
+}
+
+.mdp {
+    display: flex;
+}
+
 .container {
     display: flex;
     flex-direction: column;
