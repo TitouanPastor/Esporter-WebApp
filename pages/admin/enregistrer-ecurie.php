@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
     <?php
-        $info_execution = "Equipe non enregistrée";
+        $info_execution = "Ecurie non enregistrée";
         if(!empty($_POST['nom-ecurie']) && !empty($_POST['statut-ecurie']) && !empty($_POST['email-ecurie']) && !empty($_POST['mdp-ecurie'])){
             try{   
                 require_once('../../SQL.php');
