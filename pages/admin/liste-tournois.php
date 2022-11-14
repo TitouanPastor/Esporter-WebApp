@@ -13,19 +13,43 @@
     <main class="main-listes">
         <section class="main-listes-container">
             <h1>Liste des tournois</h1>
+            <span>Filtrer par: </span>
             <div class="main-listes-filters">
-                <ul>
-                    <li><a href="" class="btn-filter">filtre 1</a></li>
-                    <li><a href="" class="btn-filter">filtre 2</a></li>
-                    <li><a href="" class="btn-filter">filtre 3</a></li>
-                    <li><a href="" class="btn-filter">filtre 4</a></li>
-                </ul>
+                <form action="liste-tournois.php" method="get">
+                    <ul>
+                        <button type="submit" name="filter1"><li><a href="" class="btn-filter">Type</a></li></button>
+                        <button type="submit" name="filter2"><li><a href="" class="btn-filter">Lieu</a></li></button>
+                        <button type="submit" name="filter3"><li><a href="" class="btn-filter">Nom</a></li></button>
+                        <button type="submit" name="filter4"><li><a href="" class="btn-filter">Jeu</a></li></button>
+                        <button type="submit" name="annuler"><li><a href="" class="btn-filter">Supprimer les filtres</a></li></button>
+                    </ul>
+                </form>
             </div>
             <div class="liste">
                 <?php
                     require_once('tri-tournois.php');
                     $triTournois = new TriTournois();
-                    echo $triTournois->afficherLesTournois();
+                    if (!isset($_GET['filter1']) && !isset($_GET['filter2']) && !isset($_GET['filter3']) && !isset($_GET['filter4']) && !isset($_GET['annuler'])) {
+                        echo $triTournois->afficherLesTournois();
+                    }
+
+                    if (isset($_GET['filter1'])) {                       
+                        echo $triTournois->trierParType();
+                    }
+                    elseif (isset($_GET['filter2'])) {
+                        echo $triTournois->trierParLieu();
+                    }
+                    elseif (isset($_GET['filter3'])) {
+                        echo $triTournois->trierParNom();
+                    }
+                    elseif (isset($_GET['filter4'])) {
+                        //echo $triTournois->trierParJeu();
+                    }
+                    elseif (isset($_GET['annuler'])) {
+                        echo $triTournois->trierParId();
+                    }
+                    
+
 
                 ?>
             </div>

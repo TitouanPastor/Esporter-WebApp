@@ -50,6 +50,18 @@
             $req->execute();
             return $req;
         }
+
+        public function tournoisByLieu(){
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by lieu");
+            $req->execute();
+            return $req;
+        }
+
+        public function tournoisByNom(){
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Nom");
+            $req->execute();
+            return $req;
+        }
         
 
         //Fonction qui retourne le dernier tuple de tournoi
