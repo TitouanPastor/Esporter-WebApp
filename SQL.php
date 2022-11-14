@@ -62,6 +62,15 @@
             $req->execute();
             return $req;
         }
+
+        public function tournoiId($id){
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi where Id_Tournoi = :IdTournoi");
+            $req->execute(array(
+                'IdTournoi' => $id
+            ));
+            
+            return $req;
+        }
         
 
         //Fonction qui retourne le dernier tuple de tournoi
