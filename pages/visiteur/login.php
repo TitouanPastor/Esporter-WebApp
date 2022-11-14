@@ -12,7 +12,10 @@
 
 <body>
     <?php
-    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+    require_once(realpath(dirname(__FILE__) . '/../../header.php'));
+    $header = new header();
+    echo $header->header_admin();
+    $header->header_arbitre();
     ?>
     <form action="" method="post">  
         <div class="container">
