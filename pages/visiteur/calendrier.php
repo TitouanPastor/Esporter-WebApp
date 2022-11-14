@@ -11,10 +11,16 @@
 
     <body>
         <?php
+        require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
         if (!isset($_POST['valider'])){
-            require_once(realpath(dirname(__FILE__) . '/../SQL.php'));
-        } else {
-            
+            if (isset($_POST["tournoi_nom"]) == "default"){
+                
+            }
+
+            if (isset($_POST["tournoi_jeu"]) == "default"){
+
+            }
+
         }
         ?>
 
@@ -23,27 +29,52 @@
                 <input type ="date" name ="date" class="element">
 
                 <select name="tournoi_nom" class="element" class="select"> 
-                <?php
-                    $sql = new requeteSQL();
-                    $tournoi = $sql -> getTournoi();
-                    while ($donnees = $tournoi -> fetch()){?>
-                        <option value="<?php echo $donnees['Nom'];?>"><?php echo $donnees['Nom'];?></option>
-                <?php } ?>
+                    <option value ="default"selected>Sélectionner un nom de tournoi</option>
+                    <?php
+                        $sql = new requeteSQL();
+                        $tournoi = $sql -> getTournoi();
+                        while ($donnees = $tournoi -> fetch()){?>
+                            <option value="<?php echo $donnees['Nom'];?>"><?php echo $donnees['Nom'];?></option>
+                    <?php } ?>
                 </select>
                 
-                <select name="tournoi_jeu" class="element" class="select"> 
+                <select name="tournoi_jeu" class="element" class="select" value="Sélectionner un nom de jeu"> 
+                <   <option value="default" selected>Sélectionner un nom de jeu</option>
                     <?php
                         $sql = new requeteSQL();
                         $jeu = $sql -> getJeu();
                         while ($donnees = $jeu -> fetch()){?>
                             <option value="<?php echo $donnees['Libelle'];?>"><?php echo $donnees['Libelle'];?></option>
-                    <?php } ?>     
+                    <?php } ?>  
                 </select>
                 
 
                 <input type="submit" class="submit" class="element" value="valider">
-
+                
             </div>
+
+            <table>
+                <tr>
+                    <th> Nom du Tournoi </th>
+                    <th> Date du tournoi</th>
+                    <th> Jeu du Tournoi </th>
+                </tr>
+                <!-- <?php 
+                    /*while (){
+                        echo '
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        
+                        ';
+                    }**/
+                    
+                ?> -->
+                
+            </table>
+
         </form>
     </body>
 </html>
