@@ -10,22 +10,23 @@
 </head>
     <?php
         $info_execution = "Equipe non enregistrée";
-        if(!empty($_POST['nom-ecurie']) && !empty($_POST['statut-ecurie']) && !empty($_POST['email-ecurie']) && !empty($_POST['mdp-ecurie'])){
+        require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+        if(!empty($_POST['nom-equipe'])  && !empty($_POST['email-equipe']) && !empty($_POST['mdp-equipe'])) {
             try{   
-                require_once('../../SQL.php');
-                $sql = new requeteSQL();
+                // $sql = new requeteSQL();
                 // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
-                $sql->addEcurie($_POST['nom-ecurie'],$_POST['statut-ecurie'],$_POST['mdp-ecurie'],$_POST['email-ecurie'],1);
+                // $sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
                 $info_execution = 'Equipe enregistrée !';
+                header ("Refresh: 3;URL=enregistrer-joueurs.php");
             }catch(Exception $e){
                 $info_execution = "Erreur : " . $e->getMessage();
             }
-        }
+        } 
     ?>
 <body>
     <main class="main-creation-tournoi">
         <section class="creation-tournoi-container">
-            <form action="enregistrer-ecurie.php" method="POST">
+            <form action="enregistrer-equipe.php" method="POST">
 
                 <h1 class="creation-tournoi-title">Enregistrer une équipe</h1>
                 <div class="creation-tournoi">
@@ -36,7 +37,14 @@
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="jeu-equipe">Jeu</label>
-                            <input type="text" name="jeu-equipe" id="jeu-equipe">
+                            <select name="jeu_equipe"> 
+                            <?php
+                                $sql = new requeteSQL();
+                                $jeu = $sql -> getJeu();
+                                while ($donnees = $jeu -> fetch()){?>
+                                    <option value="<?php echo $donnees['Id_Jeu'];?>"><?php echo $donnees['Libelle'];?></option>
+                            <?php } ?>  
+                            </select>
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="email-equipe">Email</label>
@@ -45,24 +53,6 @@
                         <div class="creation-tournoi-input">
                             <label for="mdp-equipe">Mot de Passe</label>
                             <input type="text" name="mdp-equipe" id="mdp-equipe">
-                        </div>
-                    </div>
-
-                    <div class="creation-tournoi-right">
-                        <div class="creation-tournoi-input">
-                            <input class="update" type="submit" name="Ajouter un Joueur" value="Ajouter un Joueur">
-                        </div>
-                        <div class="creation-tournoi-input">
-                            </br>
-                            <input class= "update" type="submit" name="Ajouter un Joueur" value="Ajouter un Joueur">
-                        </div>
-                        <div class="creation-tournoi-input">
-                            </br>
-                            <input class="update" type="submit" name="Ajouter un Joueur" value="Ajouter un Joueur">
-                        </div>
-                        <div class="creation-tournoi-input">
-                            </br>
-                            <input class="update" type="submit" name="Ajouter un Joueur" value="Ajouter un Joueur">
                         </div>
                     </div>
 
