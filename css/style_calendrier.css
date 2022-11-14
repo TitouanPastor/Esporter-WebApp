@@ -1,3 +1,29 @@
 .container {
     display: flex;
+    gap : 2%;
+    justify-content: center;
+}
+
+.element {
+    margin-top :10px;
+}
+
+
+
+table {
+    border : 1px solid black;
+}
+
+.select {
+    box-shadow: var(--little-shadow);
+    display: inline-block;
+    padding: 0 16px 0 12px;
+    width: 250px;
+    line-height: 30px;
+    height: 32px;
+    border: 2px solid #dee1e2;
+    background: #dee1e2;
+    border-radius: 4px;
+    color: rgb(0, 0, 0);
+    transition: all .15s ease-in-out;
 }

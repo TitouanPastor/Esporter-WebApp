@@ -8,6 +8,20 @@
     <title>Document</title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
+    <?php 
+        require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+        $sql = new requeteSQL();
+        $req = $sql->tournoiId($_GET['id']);
+        while($row = $req->fetch()){
+            $nom = $row['Nom'];
+            $nb_pts_max = $row['Nombre_point_max'];
+            $type = $row['Type'];
+            $dateTournois = $row['Date_debut'];
+            $lieu = $row['Lieu'];
+        }
+
+
+    ?>
 
 <body>
     <main class="main-creation-tournoi">
@@ -19,7 +33,7 @@
                     <div class="creation-tournoi-left">
                         <div class="creation-tournoi-input">
                             <label for="nom-tournoi">Nom du tournoi</label>
-                            <input type="text" name="nom-tournoi" id="nom-tournoi">
+                            <input type="text" name="nom-tournoi" id="nom-tournoi" value="<?php echo $nom ?>">
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="type-tournoi">Type du tournoi</label>

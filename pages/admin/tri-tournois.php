@@ -3,13 +3,14 @@
     class TriTournois{
 
         private $req;
+        private $sql;
         private $nbTournoi;
-        private $tournois;
+
 
         public function triTournois(){
             require_once('../../SQL.php');
-            $sql = new requeteSQL();
-            $this->req = $sql->getTournoi();
+            $this->sql = new requeteSQL();
+            $this->req = $this->sql-> getTournoi();
             $this->nbTournois = $this->req->rowCount();
             $this->tournois = '';
 
@@ -19,14 +20,14 @@
         
 
         //function qui affiche un tournoi
-        public function afficherUnTournoi($nom, $date_debut, $lieu, $jeux, $type){
+        public function afficherUnTournoi($nom, $date_debut, $lieu, $jeux, $type,$id){
             return 
                     '<article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
                         <span class="arrow">〉</span>
                         <div class="nodescription-tournoi">
                             <span class="title-tournoi"> ['.$type.'] '.$nom.'</span>
                             <div class="article-btns">
-                                <a href="">Modifier</a>
+                                <a href="modification-tournoi.php?id='.$id.'">Modifier</a>
                                 <a href="">Supprimer</a>
                             </div>
                         </div>
@@ -40,13 +41,36 @@
 
         public function afficherLesTournois(){
             while ($row = $this->req->fetch()){
-                echo $this->afficherUnTournoi($row['Nom'], $row['Date_debut'], $row['Lieu'], '0', $row['Type']);
+                echo $this->afficherUnTournoi($row['Nom'], $row['Date_debut'], $row['Lieu'], '0', $row['Type'], $row['Id_Tournoi']);
             }
-            return $this->tournois;
         }
 
         public function getNombreTournois(): int{
             return $this->nbTournois;
+        }
+
+        //Fonction trie les tournois par type
+        public function trierParType(){
+            $this->req = $this->sql->tournoisByType();
+            $this->afficherLesTournois();
+        }
+
+        //Fonction trie les tournois par lieu
+        public function trierParLieu(){
+            $this->req = $this->sql->tournoisByLieu();
+            $this->afficherLesTournois();
+        }
+
+        //Fonction trie les tournois par nom
+        public function trierParNom(){
+            $this->req = $this->sql->tournoisByNom();
+            $this->afficherLesTournois();
+        }
+
+        //Fonction trie les tournois par id (filtre de base)
+        public function trierParId(){
+            $this->req = $this->sql-> getTournoi();
+            $this->afficherLesTournois();
         }
 
 
