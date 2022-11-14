@@ -12,12 +12,9 @@
 
 <body>
     <?php
-    require_once('../../header.php');
-    $header = new header();
-    echo $header->header_admin();
-    $header->header_arbitre();
+    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
     ?>
-    <form action="" method="post">
+    <form action="" method="post">  
         <div class="container">
             <div class="utilisateur"> 
             <!-- <label for="username"> Nom d'utilisateur : </label> -->
