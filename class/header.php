@@ -1,7 +1,7 @@
 <?php
 class Header
 {
-    
+
     private $pathindex = "#"; //etage 0
     private $pathresultats = "#"; //etage 1
     private $pathcalendrier = "#"; //etage 1
