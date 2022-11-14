@@ -86,12 +86,11 @@
         }
 
         //Fonction pour ajouter une ecurie
-        public function addEcurie($Nom, $Statut, $login, $mdp, $mail, $id_gestionnaireEsport){
-            $req = $this->linkpdo->prepare('INSERT INTO ecurie VALUES (NULL, :Nom, :Statut, :login, :mdp, :mail, :id_gestionnaireEsport)');
+        public function addEcurie($Nom, $Statut, $mdp, $mail, $id_gestionnaireEsport){
+            $req = $this->linkpdo->prepare('INSERT INTO ecurie VALUES (NULL, :Nom, :Statut, :mdp, :mail, :id_gestionnaireEsport)');
             $req->execute(array(
                 'Nom' => $Nom,
                 'Statut' => $Statut,
-                'login' => $login,
                 'mdp' => $mdp,
                 'mail' => $mail,
                 'id_gestionnaireEsport' => $id_gestionnaireEsport
