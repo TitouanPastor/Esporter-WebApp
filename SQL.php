@@ -50,8 +50,6 @@
         }
         
 
-        public function getTou
-
         //Fonction qui retourne le dernier tuple de tournoi
         public function getLastIDTournoi(){
             $req = $this->linkpdo->prepare('SELECT Id_Tournoi FROM tournoi ORDER BY Id_Tournoi DESC LIMIT 1');
