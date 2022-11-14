@@ -1,11 +1,17 @@
 .container {
     display: flex;
-    gap : 5%;
+    gap : 2%;
     justify-content: center;
 }
 
 .element {
     margin-top :10px;
+}
+
+
+
+table {
+    border : 1px solid black;
 }
 
 .select {
