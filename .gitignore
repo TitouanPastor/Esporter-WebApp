@@ -1,3 +1,3 @@
-/vendor/
-/.php_tmp/
-/fiveserver.config.js
+vendor/
+.php_tmp/
+fiveserver.config.js
