@@ -36,6 +36,10 @@ form {
     
 }
 
+hr {
+    margin: 10%;
+}
+
 .button {
     margin : 5px;
 }

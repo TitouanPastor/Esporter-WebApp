@@ -61,7 +61,8 @@ input {
 }
 
 input[type="text"],
-input[type="date"] {
+input[type="date"],
+input[type="password"] {
   box-shadow: var(--little-shadow);
   display: inline-block;
   padding: 0 16px 0 12px;
@@ -109,7 +110,8 @@ input[type="submit"].update {
 
 
 input[type="text"]:hover,
-input[type="date"]:hover {
+input[type="date"]:hover,
+input[type="password"]:hover {
   border: 2px solid #d2d7d8;
   background: #d2d7d8;
 }
