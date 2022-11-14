@@ -45,6 +45,13 @@
             return $req;
         }
 
+        public function tournoisByType(){
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Type");
+            $req->execute();
+            return $req;
+        }
+        
+
         //Fonction qui retourne le dernier tuple de tournoi
         public function getLastIDTournoi(){
             $req = $this->linkpdo->prepare('SELECT Id_Tournoi FROM tournoi ORDER BY Id_Tournoi DESC LIMIT 1');
@@ -87,12 +94,11 @@
         }
 
         //Fonction pour ajouter une ecurie
-        public function addEcurie($Nom, $Statut, $login, $mdp, $mail, $id_gestionnaireEsport){
-            $req = $this->linkpdo->prepare('INSERT INTO ecurie VALUES (NULL, :Nom, :Statut, :login, :mdp, :mail, :id_gestionnaireEsport)');
+        public function addEcurie($nom, $statut, $mdp, $mail, $id_gestionnaireEsport){
+            $req = $this->linkpdo->prepare('INSERT INTO ecurie VALUES (NULL, :Nom, :Statut, :mdp, :mail, :id_gestionnaireEsport)');
             $req->execute(array(
-                'Nom' => $Nom,
-                'Statut' => $Statut,
-                'login' => $login,
+                'Nom' => $nom,
+                'Statut' => $statut,
                 'mdp' => $mdp,
                 'mail' => $mail,
                 'id_gestionnaireEsport' => $id_gestionnaireEsport
