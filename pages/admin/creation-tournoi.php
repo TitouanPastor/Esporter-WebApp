@@ -70,11 +70,11 @@ if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_
                             <input type="text" name="lieu-tournoi" id="lieu-tournoi">
                         </div>
                         <div class="creation-tournoi-input">
-                            <label for="date-fin">Date du tournoi</label>
+                            <label for="date-fin">Début du tournoi</label>
                             <input type="date" name="date-fin" id="date-fin">
                         </div>
                         <div class="creation-tournoi-input">
-                            <label for="date-debut">Date du tournoi</label>
+                            <label for="date-debut">Fin du tournoi</label>
                             <input type="date" name="date-debut" id="date-debut">
                         </div>
                     </div>
