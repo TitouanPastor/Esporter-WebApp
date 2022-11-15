@@ -13,10 +13,10 @@ class Header
     private $pathinscription = "#"; //etage 2
     private $pathtournoisarbitre = "#"; //etage 2
     private $pathaddequipes = "#"; //etage 2
+    private $pathlogo = "#"; //etage 1
 
     public function __construct($etage)
     {
-        echo $etage;
         if ($etage == 0) {
             $this->pathindex = "index.php";
             $this->pathresultats = "pages/visiteur/resultats.php";
@@ -29,6 +29,7 @@ class Header
             $this->pathinscription = "pages/admin/inscription.php";
             $this->pathtournoisarbitre = "pages/admin/tournoisarbitre.php";
             $this->pathaddequipes = "pages/admin/enregistrer-equipe.php";
+            $this->pathlogo = "img/logoesporter.jpg";
         } elseif ($etage == 1) {
             $this->pathindex = "../index.php";
             $this->pathresultats = "visiteur/resultats.php";
@@ -41,6 +42,7 @@ class Header
             $this->pathinscription = "admin/inscription.php";
             $this->pathtournoisarbitre = "admin/tournoisarbitre.php";
             $this->pathaddequipes = "admin/enregistrer-equipe.php";
+            $this->pathlogo = "../img/logoesporter.jpg";
         } elseif ($etage == 2) {
             $this->pathindex = "../../index.php";
             $this->pathresultats = "../visiteur/resultats.php";
@@ -53,12 +55,13 @@ class Header
             $this->pathinscription = "../admin/inscription.php";
             $this->pathtournoisarbitre = "../admin/tournoisarbitre.php";
             $this->pathaddequipes = "../admin/enregistrer-equipe.php";
+            $this->pathlogo = "../../img/logoesporter.jpg";
         }
 
         echo '
             <header>
             <div class="topnavbar">
-                <img src="img/logoesporter.jpg" alt="" class="navbar-logo">
+                <img src="'.$this->pathlogo.'" alt="" class="navbar-logo">
                 <ul class="navbar-menu">
                     <li class="navbar-item"><a href="'.$this->pathindex.'" class="navbar-link">Accueil</a></li>
                     <li class="navbar-item"><a href="'.$this->pathresultats.'" class="navbar-link">Résultats</a></li>

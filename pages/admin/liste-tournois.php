@@ -15,47 +15,68 @@
             <h1>Liste des tournois</h1>
             <span>Filtrer par: </span>
             <div class="main-listes-filters">
-                <form action="liste-tournois.php" method="get">
-                    <ul>
-                        <button type="submit" name="filter1"><li><a href="" class="btn-filter">Type</a></li></button>
-                        <button type="submit" name="filter2"><li><a href="" class="btn-filter">Lieu</a></li></button>
-                        <button type="submit" name="filter3"><li><a href="" class="btn-filter">Nom</a></li></button>
-                        <button type="submit" name="filter4"><li><a href="" class="btn-filter">Jeu</a></li></button>
-                        <button type="submit" name="annuler"><li><a href="" class="btn-filter">Supprimer les filtres</a></li></button>
-                    </ul>
-                </form>
+                <ul>
+                    <li><button type="submit" name="filter1" class="btn-filter" onclick="changerTabListeTournoi(this, 'filter1')">Type</button></li>
+                    <li><button type="submit" name="filter2" class="btn-filter" onclick="changerTabListeTournoi(this, 'filter2')">Lieu</button></li>
+                    <li><button type="submit" name="filter3" class="btn-filter" onclick="changerTabListeTournoi(this, 'filter3')">Nom</button></li>
+                    <li><button type="submit" name="filter4" class="btn-filter" onclick="changerTabListeTournoi(this, 'filter4')">Jeu</button></li>
+                    <li><button type="submit" name="annuler" class="btn-filter" onclick="changerTabListeTournoi(this)">Réinitialiser</button></li>
+                </ul>
             </div>
-            <div class="liste">
+            <div id="filter1" class="liste">
+                <h2>test1</h2>
                 <?php
-                    require_once(realpath(dirname(__FILE__) . '/tri-tournois.php'));
-                    $triTournois = new TriTournois();
-                    if (!isset($_GET['filter1']) && !isset($_GET['filter2']) && !isset($_GET['filter3']) && !isset($_GET['filter4']) && !isset($_GET['annuler'])) {
-                        echo $triTournois->afficherLesTournois();
-                    }
+                // require_once(realpath(dirname(__FILE__) . '/tri-tournois.php'));
+                // $triTournois = new TriTournois();
+                // if (!isset($_GET['filter1']) && !isset($_GET['filter2']) && !isset($_GET['filter3']) && !isset($_GET['filter4']) && !isset($_GET['annuler'])) {
+                //     echo $triTournois->afficherLesTournois();
+                // }
 
-                    if (isset($_GET['filter1'])) {                       
-                        echo $triTournois->trierParType();
-                    }
-                    elseif (isset($_GET['filter2'])) {
-                        echo $triTournois->trierParLieu();
-                    }
-                    elseif (isset($_GET['filter3'])) {
-                        echo $triTournois->trierParNom();
-                    }
-                    elseif (isset($_GET['filter4'])) {
-                        //echo $triTournois->trierParJeu();
-                    }
-                    elseif (isset($_GET['annuler'])) {
-                        echo $triTournois->trierParId();
-                    }
-                    
-
-
+                // if (isset($_GET['filter1'])) {                       
+                //     echo $triTournois->trierParType();
+                // }
+                // elseif (isset($_GET['filter2'])) {
+                //     echo $triTournois->trierParLieu();
+                // }
+                // elseif (isset($_GET['filter3'])) {
+                //     echo $triTournois->trierParNom();
+                // }
+                // elseif (isset($_GET['filter4'])) {
+                //     //echo $triTournois->trierParJeu();
+                // }
+                // elseif (isset($_GET['annuler'])) {
+                //     echo $triTournois->trierParId();
+                // }
                 ?>
+
+            </div>
+            <div id="filter2" class="liste">
+                <h2>test2</h2>
+            </div>
+            <div id="filter3" class="liste">
+                <h2>test3</h2>
+            </div>
+            <div id="filter4" class="liste">
+                <h2>test4</h2>
             </div>
         </section>
     </main>
+
+    <script type="text/javascript" src="../../main.js"></script>
+    <script>
+        function changerTabListeTournoi(obj, tabId) {
+
+            // on enleve la classe active de tous les elements de la liste
+            var listetournoi = document.querySelectorAll('.liste');
+            console.log(listetournoi);
+            for (var i = 0; i < listetournoi.length; i++) {
+                listetournoi[i].classList.remove('liste-tab-active');
+            }
+
+            var liste = document.getElementById(tabId) ;
+            liste.classList.add('liste-tab-active');
+        }
+    </script>
 </body>
 
-<script src="../../main.js"></script>
 </html>

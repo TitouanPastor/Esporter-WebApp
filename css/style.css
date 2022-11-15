@@ -243,9 +243,9 @@ header ul {
 }
 
 .navbar-item:hover .sousmenu li a {
-  display:inline-block;
-  width:100%;
-  height:100%;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
   line-height: initial;
 }
 
@@ -352,7 +352,7 @@ header ul {
   gap: 25px;
 }
 
-.main-listes-filters li a {
+.main-listes-filters button.btn-filter {
   text-decoration: none;
   color: var(--black-grey);
   font-weight: 700;
@@ -363,14 +363,20 @@ header ul {
   transition: all .15s ease-in-out;
 }
 
-.main-listes-filters li a:hover {
+.main-listes-filters button.btn-filter:hover {
   box-shadow: var(--little-shadow);
   color: var(--white-text);
   background-color: var(--black);
 }
 
+
+
+.liste-tab-active {
+  display: block;
+}
+
 .main-listes .liste {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 10px;
 }

@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <?php
+require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+$header = new header(2);
+echo $header->header_admin();
 $info_execution = "Tournoi non ajouté";
 if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['jeux-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['notoriete-tournoi']) && !empty($_POST['points-tournoi']) && !empty($_POST['lieu-tournoi'])) {
     try {
