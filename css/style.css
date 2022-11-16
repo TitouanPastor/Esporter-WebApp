@@ -16,10 +16,12 @@
 
   --black: rgb(28, 26, 37);
   --black-grey: #2e2f3e;
-  --orange: #ff8906;
+  --purple: #ff8906;
   --white-text: #ffffff;
   --paragraph: #a7a9be;
   --bg-input: #dee1e2;
+  --purple : #6436a0;
+  --purple-blue: #410275;
 }
 
 * {
@@ -30,13 +32,13 @@
 }
 
 ::selection {
-  background: var(--orange);
+  background: var(--purple);
   color: var(--black);
   /* WebKit/Blink Browsers */
 }
 
 ::-moz-selection {
-  background: var(--orange);
+  background: var(--purple);
   color: var(--black);
   /* Gecko Browsers */
 }
@@ -179,10 +181,10 @@ input[type="submit"].add:hover {
 /* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER */
 
 .btn-connexion {
-  color: var(--black);
+  color: var(--white-text);
   font-weight: 600;
   font-size: 1.3rem;
-  background-color: var(--btn-update);
+  background-color: var(--purple);
   transition: all .2s ease-in-out;
   padding: 8px 25px;
   margin-left: 25px;
@@ -190,7 +192,7 @@ input[type="submit"].add:hover {
 }
 
 .btn-connexion:hover {
-  background-color: var(--btn-update-hover);
+  background-color: var(--purple-blue);
   box-shadow: var(--background-shadow);
 }
 
@@ -198,6 +200,7 @@ header {
   width: 100%;
   padding: 0 2rem;
   background-color: var(--white-text);
+  box-shadow: var(--little-shadow);
 }
 
 header img {
@@ -384,30 +387,29 @@ header ul {
 
 .main-listes-filters .btn-filter-active {
   color: var(--white-text);
-  background-color: var(--paragraph);
+  background-color: var(--purple);
 }
 
 .main-listes-filters .btn-filter:hover {
-  background-color: var(--paragraph);
+  color: var(--white-text);
+  background-color: var(--purple);
 }
 
 .main-listes .liste {
   overflow: hidden;
-  border-top-right-radius: var(--border-radius);
-  border-bottom-left-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
+  border: 3px solid var(--purple);
+  border-radius: var(--border-radius);
   padding: 25px;
   display: none;
   flex-direction: column;
   gap: 15px;
-  background-color: var(--paragraph);
 }
 
 .main-listes .main-liste-article {
   cursor: pointer;
   position: relative;
   color: var(--white-text);
-  background-color: var(--black);
+  background: var(--purple);
   padding: 25px 17px;
   padding-right: 75px;
   display: flex;
@@ -416,7 +418,8 @@ header ul {
   justify-content: space-between;
   border: 1px solid var(--paragraph);
   border-radius: var(--border-radius);
-  animation: tabFadeEffect .15s ease-in-out;
+  box-shadow: var(--little-shadow);
+  animation: tabFadeEffect .7s ease-in-out;
 }
 
 @keyframes tabFadeEffect {

@@ -37,7 +37,7 @@ class Header
             $this->pathconnexion = "visiteur/login.php";
             $this->pathaddtournoi = "admin/creation-tournoi.php";
             $this->pathlistetournoi = "admin/liste-tournois.php";
-            $this->pathaddecurie = "admin/enregistrer-ecurie.php.php";
+            $this->pathaddecurie = "admin/enregistrer-ecurie.php";
             $this->pathlisteecurie = "admin/listecurie.php";
             $this->pathinscription = "admin/inscription.php";
             $this->pathtournoisarbitre = "admin/tournoisarbitre.php";
@@ -50,7 +50,7 @@ class Header
             $this->pathconnexion = "../visiteur/login.php";
             $this->pathaddtournoi = "../admin/creation-tournoi.php";
             $this->pathlistetournoi = "../admin/liste-tournois.php";
-            $this->pathaddecurie = "../admin/enregistrer-ecurie.php.php";
+            $this->pathaddecurie = "../admin/enregistrer-ecurie.php";
             $this->pathlisteecurie = "../admin/listecurie.php";
             $this->pathinscription = "../admin/inscription.php";
             $this->pathtournoisarbitre = "../admin/tournoisarbitre.php";

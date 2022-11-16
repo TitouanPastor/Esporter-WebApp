@@ -10,6 +10,11 @@
 </head>
 
 <body>
+<?php
+require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+$header = new header(2);
+echo $header->header_admin();
+?>
     <main class="main-listes">
         <section class="main-listes-container">
             <h1>Liste des tournois</h1>
