@@ -20,8 +20,8 @@
   --white-text: #ffffff;
   --paragraph: #a7a9be;
   --bg-input: #dee1e2;
-  --purple : #6436a0;
-  --purple-blue: #410275;
+  --purple: #5f43b2;
+  --purple-blue: #4b358d;
 }
 
 * {
@@ -59,7 +59,13 @@ label {
 
 
 
-/* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires */
+/* Spécification style des balises formulaires */
+/* Spécification style des balises formulaires */
+/* Spécification style des balises formulaires */
+/* Spécification style des balises formulaires */
+/* Spécification style des balises formulaires */
+/* Spécification style des balises formulaires */
+/* Spécification style des balises formulaires */
 
 input {
   outline: none;
@@ -178,7 +184,18 @@ input[type="submit"].add:hover {
   background-color: var(--btn-update-hover);
 }
 
-/* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER */
+/* HEADER */
+/* HEADER */
+/* HEADER */
+/* HEADER */
+/* HEADER */
+/* HEADER */
+/* HEADER */
+/* HEADER */
+/* HEADER */
+/* HEADER */
+/* HEADER */
+/* HEADER */
 
 .btn-connexion {
   color: var(--white-text);
@@ -197,6 +214,8 @@ input[type="submit"].add:hover {
 }
 
 header {
+  position: fixed;
+  z-index: 1000;
   width: 100%;
   padding: 0 2rem;
   background-color: var(--white-text);
@@ -204,7 +223,8 @@ header {
 }
 
 header img {
-  width: 225px;
+  width: 190px;
+  margin: 8px 0 12px 0;
 }
 
 header a {
@@ -243,7 +263,8 @@ header ul {
 }
 
 .navbar-menu a.navbar-link:hover {
-  border-bottom: 1px solid var(--black);
+  color: var(--purple-blue);
+  border-bottom: 1px solid var(--purple);
 }
 
 .navbar-menu .sousmenu {
@@ -271,7 +292,14 @@ header ul {
   line-height: initial;
 }
 
-/* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi */
 
 .creation-tournoi-container {
   width: auto;
@@ -334,12 +362,27 @@ header ul {
   flex-direction: column;
 }
 
-/* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin */
+/* Pages des listes admin */
+/* Pages des listes admin */
+/* Pages des listes admin */
+/* Pages des listes admin */
+/* Pages des listes admin */
+/* Pages des listes admin */
+/* Pages des listes admin */
+/* Pages des listes admin */
+/* Pages des listes admin */
+/* Pages des listes admin */
+/* Pages des listes admin */
 
 .main-listes {
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  padding: 75px;
+  padding: 0 75px;
+  background-image: url(../img/home-background.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .main-listes h1 {
@@ -360,10 +403,11 @@ header ul {
 }
 
 .main-listes .main-listes-container {
+  background-color: var(--white-text);
   max-width: 1200px;
-  width: 100%;
-  height: 100%;
+  padding: 175px 100px 50px 100px;
   display: flex;
+  width: 100%;
   flex-direction: column;
   gap: 35px;
 }
@@ -392,7 +436,7 @@ header ul {
 
 .main-listes-filters .btn-filter:hover {
   color: var(--white-text);
-  background-color: var(--purple);
+  background-color: var(--purple-blue);
 }
 
 .main-listes .liste {
@@ -426,6 +470,7 @@ header ul {
   from {
     transform: translateX(-100%);
   }
+
   to {
     transform: translateX(0);
   }

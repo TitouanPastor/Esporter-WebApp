@@ -25,11 +25,11 @@ class Header
             $this->pathaddtournoi = "pages/admin/creation-tournoi.php";
             $this->pathlistetournoi = "pages/admin/liste-tournois.php";
             $this->pathaddecurie = "pages/admin/enregistrer-ecurie.php";
-            $this->pathlisteecurie = "pages/admin/listecurie.php";
+            $this->pathlisteecurie = "pages/admin/liste-ecuries.php";
             $this->pathinscription = "pages/admin/inscription.php";
             $this->pathtournoisarbitre = "pages/admin/tournoisarbitre.php";
             $this->pathaddequipes = "pages/admin/enregistrer-equipe.php";
-            $this->pathlogo = "img/logoesporter.jpg";
+            $this->pathlogo = "img/esporter-logo.png";
         } elseif ($etage == 1) {
             $this->pathindex = "../index.php";
             $this->pathresultats = "visiteur/resultats.php";
@@ -38,11 +38,11 @@ class Header
             $this->pathaddtournoi = "admin/creation-tournoi.php";
             $this->pathlistetournoi = "admin/liste-tournois.php";
             $this->pathaddecurie = "admin/enregistrer-ecurie.php";
-            $this->pathlisteecurie = "admin/listecurie.php";
+            $this->pathlisteecurie = "admin/liste-ecuries.php";
             $this->pathinscription = "admin/inscription.php";
             $this->pathtournoisarbitre = "admin/tournoisarbitre.php";
             $this->pathaddequipes = "admin/enregistrer-equipe.php";
-            $this->pathlogo = "../img/logoesporter.jpg";
+            $this->pathlogo = "../img/esporter-logo.png";
         } elseif ($etage == 2) {
             $this->pathindex = "../../index.php";
             $this->pathresultats = "../visiteur/resultats.php";
@@ -51,11 +51,11 @@ class Header
             $this->pathaddtournoi = "../admin/creation-tournoi.php";
             $this->pathlistetournoi = "../admin/liste-tournois.php";
             $this->pathaddecurie = "../admin/enregistrer-ecurie.php";
-            $this->pathlisteecurie = "../admin/listecurie.php";
+            $this->pathlisteecurie = "../admin/liste-ecuries.php";
             $this->pathinscription = "../admin/inscription.php";
             $this->pathtournoisarbitre = "../admin/tournoisarbitre.php";
             $this->pathaddequipes = "../admin/enregistrer-equipe.php";
-            $this->pathlogo = "../../img/logoesporter.jpg";
+            $this->pathlogo = "../../img/esporter-logo.png";
         }
 
         echo '

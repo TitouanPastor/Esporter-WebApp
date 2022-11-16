@@ -9,7 +9,7 @@ function afficherDescriptionTournoi(obj) {
     descriptiontournoi.classList.toggle('description-tournoi-active');
 }
 
-function changerTabListeTournoi(obj, tabId) {
+function changerTabListe(obj, tabId) {
 
     // on enleve la classe active de tous les elements de la liste
     var listetournoi = document.querySelectorAll('.liste');

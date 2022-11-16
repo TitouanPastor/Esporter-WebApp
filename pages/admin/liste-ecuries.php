@@ -17,7 +17,7 @@ echo $header->header_admin();
 ?>
     <main class="main-listes">
         <section class="main-listes-container">
-            <h1>Liste des tournois</h1>
+            <h1>Liste des écuries</h1>
             <span>Filtrer par: </span>
             <div class="main-listes-tabs">
                 <div class="main-listes-filters">
@@ -37,31 +37,26 @@ echo $header->header_admin();
 
                 <div id="filter1" class="liste">
                     <?php
-                    echo $triTournois->trierParType();
                     ?>
                 </div>
 
                 <div id="filter2" class="liste">
                     <?php
-                    echo $triTournois->trierParLieu();
                     ?>
                 </div>
 
                 <div id="filter3" class="liste">
                     <?php
-                    echo $triTournois->trierParNom();
                     ?>
                 </div>
 
                 <div id="filter4" class="liste">
                     <?php
-                    // echo $triTournois->trierParType();
                     ?>
                 </div>
 
                 <div style="display: flex;" id="filterdefault" class="liste">
                     <?php
-                    echo $triTournois->trierParId();
                     ?>
                 </div>
             </div>
