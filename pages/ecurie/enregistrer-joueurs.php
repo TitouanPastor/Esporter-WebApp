@@ -11,7 +11,7 @@
     <?php
         $info_execution = "Joueurs non enregistrés";
         require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-        if(!isset($_POST['Ajouter un Joueur'])) {
+        if(isset($_POST['Ajouter un Joueur'])) {
             try{   
                 // $sql = new requeteSQL();
                 // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
@@ -32,19 +32,19 @@
                 <div class="creation-tournoi">
                     <div class="creation-tournoi-left">
                         <div class="creation-tournoi-input">
-                            <input class="update" type="submit" name="Joueur1" value="Ajouter un Joueur">
+                            <input class="boutonAddJoueur" type="button" name="Joueur1" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
+                        </div>
+                         <div class="creation-tournoi-input">
+                            </br>
+                            <input class="bouton" type="button" name="Joueur2" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
                         </div>
                         <div class="creation-tournoi-input">
                             </br>
-                            <input class= "update" type="submit" name="Joueur2" value="Ajouter un Joueur">
+                            <input class="bouton" type="button" name="Joueur3" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
                         </div>
                         <div class="creation-tournoi-input">
                             </br>
-                            <input class="update" type="submit" name="Joueur3" value="Ajouter un Joueur">
-                        </div>
-                        <div class="creation-tournoi-input">
-                            </br>
-                            <input class="update" type="submit" name="Joueur4" value="Ajouter un Joueur">
+                            <input class="bouton" type="button" name="Joueur4" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
                         </div>
                     </div>
 

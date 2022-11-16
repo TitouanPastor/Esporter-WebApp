@@ -17,7 +17,7 @@
                 // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
                 // $sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
                 $info_execution = 'Joueur enregistré !';
-                header ("Refresh: 3;URL=enregistrer-joueurs.php");
+                header ("Refresh: 2;URL=enregistrer-joueurs.php");
             }catch(Exception $e){
                 $info_execution = "Erreur : " . $e->getMessage();
             }
