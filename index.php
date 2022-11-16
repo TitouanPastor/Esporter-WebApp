@@ -21,8 +21,8 @@ echo $header->header_admin();
             <h1>Vivez votre passion</h1>
             <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, blanditiis qui? Necessitatibus nihil numquam nemo dolor, perferendis exercitationem optio quis? Eveniet culpa magnam ipsam pariatur laudantium aperiam ipsum dolore laboriosam?</span>
             <div class="home-btns">
-                <a href="#" class="main-btn">Résultats</a>
-                <a href="/pages/visiteur/login.php" class="main-btn">Rejoindre</a>
+                <a href="pages/visiteur/resultats.php" class="main-btn">Résultats</a>
+                <a href="pages/visiteur/login.php" class="main-btn">Rejoindre</a>
             </div>
         </div>
 

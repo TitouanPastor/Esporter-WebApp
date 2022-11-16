@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 <?php
+require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+$header = new header(2);
+echo $header->header_admin();
 $info_execution = "Tournoi non ajouté";
 if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['jeux-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['notoriete-tournoi']) && !empty($_POST['points-tournoi']) && !empty($_POST['lieu-tournoi'])) {
     try {
@@ -67,11 +70,11 @@ if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_
                             <input type="text" name="lieu-tournoi" id="lieu-tournoi">
                         </div>
                         <div class="creation-tournoi-input">
-                            <label for="date-fin">Date du tournoi</label>
+                            <label for="date-fin">Début du tournoi</label>
                             <input type="date" name="date-fin" id="date-fin">
                         </div>
                         <div class="creation-tournoi-input">
-                            <label for="date-debut">Date du tournoi</label>
+                            <label for="date-debut">Fin du tournoi</label>
                             <input type="date" name="date-debut" id="date-debut">
                         </div>
                     </div>

@@ -57,7 +57,7 @@ label {
 
 
 
-/* Spécification style des balises formulaires */
+/* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires *//* Spécification style des balises formulaires */
 
 input {
   outline: none;
@@ -96,6 +96,7 @@ input[type="submit"].submit {
   transition: all .2s ease-in-out;
 }
 
+/* bouton ajout joueur de théo ? */
 input[type="submit"].add {
   font-size: 0.9rem;
   background-color: var(--btn-update);
@@ -157,7 +158,8 @@ select:hover {
 }
 
 input[type="text"]:focus,
-input[type="date"]:focus {
+input[type="date"]:focus,
+input[type="password"]:focus {
   border: 2px solid #696666;
   background: #d2d7d8;
 }
@@ -174,7 +176,7 @@ input[type="submit"].add:hover {
   background-color: var(--btn-update-hover);
 }
 
-/* HEADER */
+/* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER *//* HEADER */
 
 .btn-connexion {
   color: var(--black);
@@ -260,13 +262,13 @@ header ul {
 }
 
 .navbar-item:hover .sousmenu li a {
-  display:inline-block;
-  width:100%;
-  height:100%;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
   line-height: initial;
 }
 
-/* Creation/Modification d'un tournoi */
+/* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi *//* Creation/Modification d'un tournoi */
 
 .creation-tournoi-container {
   width: auto;
@@ -329,7 +331,7 @@ header ul {
   flex-direction: column;
 }
 
-/* Pages des listes admin */
+/* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin *//* Pages des listes admin */
 
 .main-listes {
   display: flex;
@@ -366,30 +368,39 @@ header ul {
 .main-listes-filters ul {
   list-style-type: none;
   display: flex;
-  gap: 25px;
 }
 
-.main-listes-filters li a {
+.main-listes-filters .btn-filter {
+  background: none;
   text-decoration: none;
-  color: var(--black-grey);
   font-weight: 700;
   font-size: 1.2rem;
   padding: 10px 25px;
-  border: 1px solid var(--paragraph);
-  border-radius: var(--border-radius);
+  border: 0px solid transparent;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
   transition: all .15s ease-in-out;
 }
 
-.main-listes-filters li a:hover {
-  box-shadow: var(--little-shadow);
+.main-listes-filters .btn-filter-active {
   color: var(--white-text);
-  background-color: var(--black);
+  background-color: var(--paragraph);
+}
+
+.main-listes-filters .btn-filter:hover {
+  background-color: var(--paragraph);
 }
 
 .main-listes .liste {
-  display: flex;
+  overflow: hidden;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  padding: 25px;
+  display: none;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
+  background-color: var(--paragraph);
 }
 
 .main-listes .main-liste-article {
@@ -405,6 +416,16 @@ header ul {
   justify-content: space-between;
   border: 1px solid var(--paragraph);
   border-radius: var(--border-radius);
+  animation: tabFadeEffect .15s ease-in-out;
+}
+
+@keyframes tabFadeEffect {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .nodescription-tournoi {
