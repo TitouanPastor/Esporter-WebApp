@@ -31,17 +31,6 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-::selection {
-  background: var(--purple);
-  color: var(--black);
-  /* WebKit/Blink Browsers */
-}
-
-::-moz-selection {
-  background: var(--purple);
-  color: var(--black);
-  /* Gecko Browsers */
-}
 
 h1,
 h2,

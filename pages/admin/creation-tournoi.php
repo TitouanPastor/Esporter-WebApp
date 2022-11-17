@@ -55,7 +55,7 @@ if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_
                             <select name="comboboxtypetournoi" id="comboboxtypetournoi">
                                 <!-- rempli avec la balise option et requetes les jeux ici -->
                             </select>
-                            <input type="text" name="jeux-tournoi" id="jeux-tournoi">
+                            <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
                             <input type="submit" value="Ajouter un jeu" class="submit add">
                         </div>
                     </div>
