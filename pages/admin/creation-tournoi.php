@@ -12,9 +12,10 @@
 require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
 $header = new header(2);
 echo $header->header_admin();
-$info_execution = "Tournoi non ajouté";
-if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['jeux-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['notoriete-tournoi']) && !empty($_POST['points-tournoi']) && !empty($_POST['lieu-tournoi'])) {
+$info_execution = "";
+if (isset($_POST['ajouter'])) {
     try {
+        $info_execution = "Tournoi non ajouté";
         require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
         $sql = new requeteSQL();
         // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
@@ -40,19 +41,19 @@ if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_
                     <div class="creation-tournoi-left">
                         <div class="creation-tournoi-input">
                             <label for="nom-tournoi">Nom du tournoi</label>
-                            <input type="text" name="nom-tournoi" id="nom-tournoi">
+                            <input type="text" name="nom-tournoi" id="nom-tournoi" placeholder="Nom" required>
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="type-tournoi">Type du tournoi</label>
-                            <select name="comboboxtypetournoi" id="comboboxtypetournoi">
+                            <select name="comboboxtypetournoi" id="comboboxtypetournoi" required>
                                 <option value="Local">Local</option>
                                 <option value="National">National</option>
                                 <option value="International">International</option>
                             </select>
                         </div>
                         <div class="creation-tournoi-input">
-                            <label for="jeux-tournoi">Jeux présents</label> 
-                            <select name="comboboxtypetournoi" id="comboboxtypetournoi">
+                            <label for="jeux-tournoi">Jeux présents</label>
+                            <select name="comboboxjeutournoi" id="comboboxjeutournoi" required>
                                 <!-- rempli avec la balise option et requetes les jeux ici -->
                             </select>
                             <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
@@ -62,24 +63,28 @@ if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_
 
                     <div class="creation-tournoi-right">
                         <div class="creation-tournoi-input">
-                            <label for="date-tournoi">Nombre de points distribués</label>
-                            <input type="text" name="points-tournoi" id="points-tournoi">
+                            <label for="points-tournoi">Nombre de points distribués</label>
+                            <select name="points-tournoi" id="points-tournoi" required>
+                                <option value="150">150 points</option>
+                                <option value="100">100 points</option>
+                                <option value="50">50 points</option>
+                            </select>
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="lieu-tournoi">Lieu du tournoi</label>
-                            <input type="text" name="lieu-tournoi" id="lieu-tournoi">
+                            <input type="text" name="lieu-tournoi" id="lieu-tournoi" placeholder="Lieu" required>
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="date-fin">Début du tournoi</label>
-                            <input type="date" name="date-fin" id="date-fin">
+                            <input type="date" name="date-fin" id="date-fin" required>
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="date-debut">Fin du tournoi</label>
-                            <input type="date" name="date-debut" id="date-debut">
+                            <input type="date" name="date-debut" id="date-debut" required>
                         </div>
                     </div>
                 </div>
-                <input class="submit" type="submit" name="ajouter" value="Ajouter">
+                <input class="submit" type="submit" name="ajouter" value="Ajouter" required>
                 <span><?php echo $info_execution ?> </span>
             </form>
         </section>

@@ -26,8 +26,8 @@ main {
 
 .main-btn {
     background-color: var(--white);
+    color: var(--purple);
     border-radius: .22em;
-    color: #111827;
     font-size: 1.7rem;
     font-weight: 600;
     line-height: 1.25rem;
@@ -51,6 +51,7 @@ main {
 .main-btn:hover {
     background-position: 0;
     background-color: var(--purple);
+    color: var(--white-text);
     box-shadow: var(--background-shadow);
 }
 
