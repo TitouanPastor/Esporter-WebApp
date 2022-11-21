@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap@3.3.2/dist/js/bootstrap.min.js"></script>
     <script src="bootstrap-multiselect.js"></script>
-    <link href="bootstrap-multiselect.css" rel="stylesheet"/>
+    <link href="bootstrap-multiselect.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/style.css">
 
 </head>
@@ -27,18 +27,23 @@ $reqJeu = $sql->getJeux();
 
 // Ajouter un tournoi
 if (isset($_POST['ajouter'])) {
-    try {
-        // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
-         $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $_POST['points-tournoi'], 1, 1);
-        // Récupération de l'ID dernier tournoi créer
-        $idTournoi = $sql->getLastIDTournoi();
-        // Ajout des jeux du tournoi
-        foreach ($_POST['jeuxtournoi'] as $jeu) {
-            $sql->addConcerner($idTournoi, $jeu);
+    if (isset($_POST['nom-tournoi']) && isset($_POST['comboboxtypetournoi']) && isset($_POST['jeuxtournoi']) && isset($_POST['points-tournoi']) && isset($_POST['lieu-tournoi']) && isset($_POST['date-debut']) && isset($_POST['date-fin'])) {
+        try {
+            // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
+            $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $_POST['points-tournoi'], 1, 1);
+            // Récupération de l'ID dernier tournoi créer
+            $idTournoi = $sql->getLastIDTournoi();
+            // Ajout des jeux du tournoi
+            foreach ($_POST['jeuxtournoi'] as $jeu) {
+                $sql->addConcerner($idTournoi, $jeu);
+            }
+            $info_execution = 'Tournoi ajouté !';
+        } catch (Exception $e) {
+            $info_execution = "Erreur : " . $e->getMessage();
         }
-        $info_execution = 'Tournoi ajouté !';
-    } catch (Exception $e) {
-        $info_execution = "Erreur : " . $e->getMessage();
+        $info_execution = "Le tournoi a bien été ajouté";
+    } else {
+        $info_execution = "Veuillez remplir tous les champs";
     }
 }
 
@@ -73,7 +78,7 @@ if (isset($_POST['ajouterJeu'])) {
                             <input type="text" name="nom-tournoi" id="nom-tournoi" placeholder="Nom">
                         </div>
                         <div class="creation-tournoi-input">
-                            <label for="type-tournoi">Type du tournoi</label>
+                            <label for="comboboxtypetournoi">Type du tournoi</label>
                             <select name="comboboxtypetournoi" id="comboboxtypetournoi">
                                 <option type="checkbox" value="Local">Local</option>
                                 <option value="National">National</option>
@@ -156,7 +161,7 @@ if (isset($_POST['ajouterJeu'])) {
             });
         });
     </script>
-    
+
 </body>
 
 
