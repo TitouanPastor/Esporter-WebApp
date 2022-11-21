@@ -323,9 +323,9 @@
             includeFilterClearBtn: true,
             preventInputChangeEvent: false,
             nonSelectedText: 'Selectionner des jeux',
-            nSelectedText: 'Selectionné',
+            nSelectedText: 'Selectionnés',
             allSelectedText: 'Tout selectionner',
-            numberDisplayed: 3,
+            numberDisplayed: 2,
             disableIfEmpty: false,
             delimiterText: ', ',
             templates: {

@@ -5,6 +5,11 @@
     padding: 0
 }
 
+
+.btn-group>.btn:first-child{
+    min-width: 250px;
+}
+
 .multiselect-container .input-group {
     margin: 5px
 }

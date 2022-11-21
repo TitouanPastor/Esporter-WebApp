@@ -173,6 +173,12 @@ input[type="submit"].add:hover, input[type=button].add:hover {
   background-color: var(--btn-update-hover);
 }
 
+/* Modification input button d'ajouter un jeu */
+#ajouterjeux {
+  font-weight: 600;
+  border: 0px;
+}
+
 /* HEADER */
 /* HEADER */
 /* HEADER */

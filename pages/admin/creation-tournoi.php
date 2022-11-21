@@ -159,6 +159,7 @@ if (isset($_POST['ajouterJeu'])) {
             });
         });
     </script>
+    
 </body>
 
 
