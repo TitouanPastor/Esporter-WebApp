@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://unpkg.com/bootstrap@3.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bootstrap.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap@3.3.2/dist/js/bootstrap.min.js"></script>
     <script src="bootstrap-multiselect.js"></script>
-    <link href="bootstrap-multiselect.css" rel="stylesheet" />
+    <link href="bootstrap-multiselect.css" rel="stylesheet"/>
     <link rel="stylesheet" href="../../css/style.css">
 
 </head>
@@ -25,13 +25,9 @@ require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
 $reqJeu = $sql->getJeux();
 
-
+// Ajouter un tournoi
 if (isset($_POST['ajouter'])) {
-
     try {
-
-
-
         // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
          $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $_POST['points-tournoi'], 1, 1);
         // Récupération de l'ID dernier tournoi créer
@@ -46,6 +42,7 @@ if (isset($_POST['ajouter'])) {
     }
 }
 
+// Ajouter un ou plusieurs jeux
 if (isset($_POST['ajouterJeu'])) {
     if (!empty($_POST['jeux-tournoi'])) {
         try {
@@ -97,7 +94,7 @@ if (isset($_POST['ajouterJeu'])) {
                                 }
                                 ?>
                             </select>
-                            <input class="add" type="button" id="ajouterjeux" value="Ajouter les jeux">
+                            <input class="add" type="button" id="ajouterjeux" value="Valider la sélection">
 
                             <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
                             <input type="submit" value="Ajouter un jeu" class="submit add" name="ajouterJeu">
@@ -144,7 +141,6 @@ if (isset($_POST['ajouterJeu'])) {
             $('#ajouterjeux').click(function() {
                 var a = $('#chkveg').val();
                 var spaninfojeu = document.getElementById("spaninfojeu");
-                spaninfojeu.innerHTML = "Jeu(s) ajouté(s) !";
                 var hiddenselect = document.getElementById("hiddenselect");
                 while (hiddenselect.firstChild) {
                     hiddenselect.removeChild(hiddenselect.firstChild);
@@ -156,6 +152,7 @@ if (isset($_POST['ajouterJeu'])) {
                     opt.selected = true;
                     hiddenselect.appendChild(opt);
                 }
+                spaninfojeu.innerHTML = a.length + " jeu(x) enregistré(s) !";
             });
         });
     </script>
