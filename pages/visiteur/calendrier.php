@@ -45,7 +45,7 @@
                 < <option value="default" selected>Sélectionner un nom de jeu</option>
                     <?php
                     $sql = new requeteSQL();
-                    $jeu = $sql->getJeu();
+                    $jeu = $sql->getJeux();
                     while ($donnees = $jeu->fetch()) { ?>
                     <option value="<?php echo $donnees['Libelle']; ?>">
                         <?php echo $donnees['Libelle']; ?>
