@@ -12,10 +12,11 @@
 
 <body>
     <?php
+        $check_valider = 0;
         require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
         if (!isset($_POST['valider'])) {
             if (isset($_POST["tournoi_nom"]) == "default") {
-
+                echo 'test_tournoi';
             }
 
             if (isset($_POST["tournoi_jeu"]) == "default") {
@@ -64,19 +65,20 @@
                 <th> Date du tournoi</th>
                 <th> Jeu du Tournoi </th>
             </tr>
-            <!-- <?php
-                /*while (){
-                echo '
-                <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                </tr>
-                
-                ';
-                }**/
-
-                ?> -->
+             <?php
+                if ($check_valider == 1) {
+                    while () {
+                        echo '
+                        <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tr>
+                        
+                        ';
+                    }
+                }
+            ?>
 
         </table>
 
