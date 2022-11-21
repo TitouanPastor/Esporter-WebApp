@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../../css/style.css">
     <link href="https://unpkg.com/bootstrap@3.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap@3.3.2/dist/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/js/bootstrap-multiselect.js"></script>
+    <script src="bootstrap-multiselect.js"></script>
     <link href="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/css/bootstrap-multiselect.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/style.css">
 
 </head>
 <?php
@@ -24,18 +24,22 @@ $info_execution_jeu = "";
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
 $reqJeu = $sql->getJeux();
-if (isset($_POST['ajouter'])) {
 
+
+if (isset($_POST['ajouter'])) {
 
     try {
 
+        foreach ($_POST['jeuxtournoi'] as $jeu) {
+            echo $jeu;
+        }
 
         // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
-        $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $_POST['points-tournoi'], 1, 1);
+        // $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $_POST['points-tournoi'], 1, 1);
         // Récupération de l'ID dernier tournoi créer
         $idTournoi = $sql->getLastIDTournoi();
         // Ajout des jeux du tournoi
-        $sql->addConcerner($idTournoi, 1);
+        // $sql->addConcerner($idTournoi, 1);
         $info_execution = 'Tournoi ajouté !';
     } catch (Exception $e) {
         $info_execution = "Erreur : " . $e->getMessage();
@@ -63,8 +67,7 @@ if (isset($_POST['ajouterJeu'])) {
 <body>
     <main class="main-creation-tournoi">
         <section class="creation-tournoi-container">
-            <form action="creation-tournoi.php" method="POST">
-
+            <form id="form" action="creation-tournoi.php" method="POST">
                 <h1 class="creation-tournoi-title">Création d'un tournoi</h1>
                 <div class="creation-tournoi">
                     <div class="creation-tournoi-left">
@@ -82,7 +85,11 @@ if (isset($_POST['ajouterJeu'])) {
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="jeux-tournoi">Jeux présents</label>
-                            <select  name="comboboxjeutournoi[]" id="chkveg" multiple="multiple">
+
+                            <!-- Select caché pour récuperer les jeux dans le POST -->
+                            <select name="jeuxtournoi[]" id="hiddenselect" hidden multiple></select>
+
+                            <select name="comboboxjeutournoi" id="chkveg" multiple="multiple">
                                 <?php
                                 while ($data = $reqJeu->fetch()) {
 
@@ -90,7 +97,8 @@ if (isset($_POST['ajouterJeu'])) {
                                 }
                                 ?>
                             </select>
-                            <input type="button" id="btnget" value="Get Selected Values" />
+                            <input class="add" type="button" id="ajouterjeux" value="Ajouter les jeux">
+
                             <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
                             <input type="submit" value="Ajouter un jeu" class="submit add" name="ajouterJeu">
                             <span><?php echo $info_execution_jeu ?> </span>
@@ -122,7 +130,7 @@ if (isset($_POST['ajouterJeu'])) {
                 </div>
                 <input class="submit" type="submit" name="ajouter" value="Ajouter">
                 <span><?php echo $info_execution ?> </span>
-                            </form>
+            </form>
         </section>
     </main>
 
@@ -133,10 +141,20 @@ if (isset($_POST['ajouterJeu'])) {
                 includeSelectAllOption: true
             });
 
-            $('#btnget').click(function() {
-             var a = $('#chkveg').val();
-             console.log(a)
-            
+            $('#ajouterjeux').click(function() {
+                var a = $('#chkveg').val();
+                var hiddenselect = document.getElementById("hiddenselect");
+                while (hiddenselect.firstChild) {
+                    hiddenselect.removeChild(hiddenselect.firstChild);
+                }
+                for (var i = 0; i < a.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = a[i];
+                    opt.innerHTML = a[i];
+                    opt.selected = true;
+                    hiddenselect.appendChild(opt);
+                    console.log(a[i]);
+                }
             });
         });
     </script>
