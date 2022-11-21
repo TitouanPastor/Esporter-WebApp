@@ -290,6 +290,7 @@ header ul {
 /* Creation/Modification d'un tournoi */
 /* Creation/Modification d'un tournoi */
 
+
 .creation-tournoi-container {
   width: auto;
   display: flex;
@@ -305,7 +306,7 @@ header ul {
   justify-content: center;
   background-color: var(--white);
   border-radius: var(--border-radius);
-  padding: 75px;
+  padding: 60px;
   gap: 50px;
 }
 
@@ -314,6 +315,7 @@ header ul {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding-top: 100px;
   background-image: url(../img/home-background.jpg);
   background-position: center;
   background-size: cover;
@@ -368,7 +370,7 @@ header ul {
   display: flex;
   justify-content: center;
   padding: 0 75px;
-  background-image: url(../img/home-background.jpg);
+  background-color: var(--black-grey);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
