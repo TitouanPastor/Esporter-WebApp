@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap@3.3.2/dist/js/bootstrap.min.js"></script>
     <script src="bootstrap-multiselect.js"></script>
-    <link href="https://unpkg.com/bootstrap-multiselect@0.9.13/dist/css/bootstrap-multiselect.css" rel="stylesheet" />
+    <link href="bootstrap-multiselect.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../css/style.css">
 
 </head>
@@ -101,7 +101,7 @@ if (isset($_POST['ajouterJeu'])) {
 
                             <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
                             <input type="submit" value="Ajouter un jeu" class="submit add" name="ajouterJeu">
-                            <span><?php echo $info_execution_jeu ?> </span>
+                            <span id="spaninfojeu"><?php echo $info_execution_jeu ?> </span>
                         </div>
                     </div>
 
@@ -143,6 +143,8 @@ if (isset($_POST['ajouterJeu'])) {
 
             $('#ajouterjeux').click(function() {
                 var a = $('#chkveg').val();
+                var spaninfojeu = document.getElementById("spaninfojeu");
+                spaninfojeu.innerHTML = "Jeu(s) ajouté(s) !";
                 var hiddenselect = document.getElementById("hiddenselect");
                 while (hiddenselect.firstChild) {
                     hiddenselect.removeChild(hiddenselect.firstChild);
@@ -153,7 +155,6 @@ if (isset($_POST['ajouterJeu'])) {
                     opt.innerHTML = a[i];
                     opt.selected = true;
                     hiddenselect.appendChild(opt);
-                    console.log(a[i]);
                 }
             });
         });
