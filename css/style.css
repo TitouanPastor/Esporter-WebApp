@@ -323,6 +323,7 @@ header ul {
   align-items: center;
   justify-content: center;
   padding-top: 100px;
+  height: 100vh;
   background-image: url(../img/home-background.jpg);
   background-position: center;
   background-size: cover;

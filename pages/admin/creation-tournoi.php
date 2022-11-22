@@ -27,16 +27,17 @@ $reqJeu = $sql->getJeux();
 
 // Ajouter un tournoi
 if (isset($_POST['ajouter'])) {
-    if (isset($_POST['nom-tournoi']) && isset($_POST['comboboxtypetournoi']) && isset($_POST['jeuxtournoi']) && isset($_POST['points-tournoi']) && isset($_POST['lieu-tournoi']) && isset($_POST['date-debut']) && isset($_POST['date-fin'])) {
+    // On check si tout les champs sont remplis
+    if (!empty($_POST['nom-tournoi']) && !empty($_POST['comboboxtypetournoi']) && !empty($_POST['jeuxtournoi']) && !empty($_POST['points-tournoi']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin'])) {
         try {
             // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
-            $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $_POST['points-tournoi'], 1, 1);
+            // $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $_POST['points-tournoi'], 1, 1);
             // Récupération de l'ID dernier tournoi créer
-            $idTournoi = $sql->getLastIDTournoi();
-            // Ajout des jeux du tournoi
-            foreach ($_POST['jeuxtournoi'] as $jeu) {
-                $sql->addConcerner($idTournoi, $jeu);
-            }
+            // $idTournoi = $sql->getLastIDTournoi();
+            // // Ajout des jeux du tournoi
+            // foreach ($_POST['jeuxtournoi'] as $jeu) {
+            //     $sql->addConcerner($idTournoi, $jeu);
+            // }
             $info_execution = 'Tournoi ajouté !';
         } catch (Exception $e) {
             $info_execution = "Erreur : " . $e->getMessage();

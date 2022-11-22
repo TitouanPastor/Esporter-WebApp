@@ -1,4 +1,5 @@
 .multiselect-container {
+    min-width: 250px;
     position: absolute;
     list-style-type: none;
     margin: 0;
@@ -26,11 +27,11 @@
 }
 
 .multiselect-container>li {
-    padding: 0
+    padding: 0;
 }
 
 .multiselect-container>li>a.multiselect-all label {
-    font-weight: 700
+    font-weight: 700;
 }
 
 .multiselect-container>li.multiselect-group label {
@@ -52,7 +53,8 @@
     margin: 0;
     height: 100%;
     cursor: pointer;
-    font-weight: 400;
+    font-weight: 500;
+    font-size: 15px;
     padding: 3px 20px 3px 40px
 }
 

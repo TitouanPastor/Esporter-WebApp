@@ -69,6 +69,22 @@ class Header
         ';
     }
 
+    public function customize_header($role="visiteur") {
+        if ($role == "arbitre") {
+            return $this->header_arbitre();
+            echo "arbitre";
+        } elseif ($role == "ecurie") {
+            return $this->header_ecurie();
+            echo "ecurie";
+        } elseif ($role == "gestionnaire") {
+            return $this->header_admin();
+            echo "admin";
+        } else {
+            return $this->header_visiteur(); 
+            echo "visiteur";
+        }
+    }
+
     public function header_visiteur()
     {
         return '

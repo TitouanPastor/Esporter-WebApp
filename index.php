@@ -10,9 +10,10 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <?php
+session_start();
 require_once(realpath(dirname(__FILE__) . '/class/header.php'));
 $header = new header(0);
-echo $header->header_admin();
+echo $header->customize_header($_SESSION['role']);
 ?>
 
 <body>
