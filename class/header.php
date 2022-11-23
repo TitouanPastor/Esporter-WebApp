@@ -61,7 +61,9 @@ class Header
         echo '
             <header>
             <div class="topnavbar">
+            <a class="header-logo-link" href="' . $this->pathindex . '">
                 <img src="' . $this->pathlogo . '" alt="" class="navbar-logo">
+            </a>
                 <ul class="navbar-menu">
                     <li class="navbar-item"><a href="' . $this->pathindex . '" class="navbar-link">Accueil</a></li>
                     <li class="navbar-item"><a href="' . $this->pathresultats . '" class="navbar-link">Résultats</a></li>

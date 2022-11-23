@@ -13,12 +13,13 @@ input[type="password"] {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding-top: 10vh;
 }
 
 form {
-    min-width: 600px;
+    min-width: 500px;
     border-radius: var(--border-radius);
-    padding: 75px 50px;
+    padding: 35px 50px;
     background-color: white;
     box-shadow: var(--background-shadow);
 }
@@ -64,7 +65,7 @@ svg {
 }
 
 hr {
-    margin: 10%;
+    margin:5% 0%;
 }
 
 .button {
