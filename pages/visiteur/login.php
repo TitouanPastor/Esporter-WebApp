@@ -15,7 +15,11 @@
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
     $header = new header(2);
     echo $header->header_visiteur();
+    if (isset($_POST['login'])){
+        
+    }
     ?>
+
     <main class="main-login">
         <form action="" method="post">
             <h1>Se connecter</h1>

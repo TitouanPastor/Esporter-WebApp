@@ -19,6 +19,7 @@ input[type="password"] {
 form {
     min-width: 600px;
     border-radius: var(--border-radius);
+    margin-top : 5%;
     padding: 75px 50px;
     background-color: white;
     box-shadow: var(--background-shadow);

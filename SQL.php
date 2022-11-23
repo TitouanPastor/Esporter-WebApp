@@ -82,6 +82,31 @@
             }
         }
 
+        //Fonctions pour calendrier.php
+        //Prend en parametre un array, si les valeurs sont null ou "default" alors les requêtes changent
+        public function getTournoiCalendrier($param){
+            if ($param[0] == null){ // pas de date
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_jeu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.nom = :nom ');
+                $testreq = $req -> execute(array("libelle" => $param[2], "nom" => $param[1]));
+                if ($testreq == false){
+                    die ('Erreur execute 1');
+                }
+            } elseif ($param[1] == 'default') { // 
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_eu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.date_debut = :date_tournoi');
+                $testreq = $req -> execute(array("libelle" => $param[2], "date_tournoi" => $param[0]));
+                if ($testreq == false){
+                    die ('Erreur execute 2');
+                }
+            } elseif ($param[2] == 'default') { // 
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_eu = jeu.id_jeu and tournoi.nom = :nom and tournoi.date_debut = :date_tournoi');
+                $testreq = $req -> execute(array("nom" => $param[1], "date_tournoi" => $param[0]));
+                if ($testreq == false){
+                    die ('Erreur execute 3');
+                }
+            return $req;
+            }
+        }       
+
         //Fonction pour ajouter un arbitre
         public function addArbitre($login, $mdp){
             $req = $this->linkpdo->prepare('INSERT INTO arbitre VALUES (NULL, :login, :mdp)');
