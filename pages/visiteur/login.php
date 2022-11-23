@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Se connecter - E-Sporter</title>
+    <link rel="icon" href="../../img/esporter-icon.png">
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/style_login.css">
 </head>
@@ -14,35 +15,27 @@
     <?php
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
     require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-    //$header = new header(2);
-    //echo $header->header_visiteur();
+    $info_login = "";
+    $header = new header(2);
+    echo $header->header_login();
 
     //verification de la validation du formulaire
     if (isset($_POST['submit'])) {
         //verification de la validité des champs
         if (!empty($_POST['username']) && !empty($_POST['password'])) {
-            //verification de la validité du mot de passe
-            if (isset($_POST['username']) && isset($_POST['password'])) {
-                //connexion à la base de données
-                $sql = new requeteSQL();
-                //verification de la validité de l'email et du mot de passe
-                if ($sql->checkLogin($_POST['username'], $_POST['password'], $_POST['role'])) {
-                    //connexion de l'utilisateur
-                    session_start();
-                    $_SESSION['username'] = $_POST['username'];
-                    $_SESSION['password'] = $_POST['password'];
-                    $_SESSION['role'] = $_POST['role'];
-                    header('Location: ../../index.php');
-                } else {
-                    echo '<div class="alert alert-danger" role="alert">
-                             username ou mot de passe incorrect !
-                            </div>';
-                }
+            //connexion à la base de données
+            $sql = new requeteSQL();
+            //verification de la validité de l'email et du mot de passe
+            if ($sql->checkLogin($_POST['username'], $_POST['password'], $_POST['role'])) {
+                //connexion de l'utilisateur
+                session_start();
+                $_SESSION['username'] = $_POST['username'];
+                $_SESSION['password'] = $_POST['password'];
+                $_SESSION['role'] = $_POST['role'];
+                header('Location: ../../index.php');
+            } else {
+                $info_login = "Email ou mot de passe incorrect";
             }
-        } else {
-            echo '<div class="alert alert-danger" role="alert">
-            Veuillez remplir tous les champs !
-            </div>';
         }
     }
 
@@ -80,6 +73,7 @@
                 <div class="button">
                     <!-- <input type="button" name="mdp_oublie" class="bouton" value="Mot de passe oublié"> -->
                     <input type="submit" name="submit" class="submit" value="Se Connecter">
+                    <span><?php echo $info_login ?></span>
                 </div>
 
             </div>

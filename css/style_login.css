@@ -69,8 +69,16 @@ hr {
 
 .button {
     margin: 5px;
+    gap: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+
+.button span {
+    font-size: 1.2rem;
+    color: red;
 }
 
 /*
