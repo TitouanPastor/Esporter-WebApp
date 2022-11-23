@@ -307,7 +307,6 @@ header ul {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 88vh;
 }
 
 .creation-tournoi-container form {
@@ -326,7 +325,7 @@ header ul {
   align-items: center;
   justify-content: center;
   padding-top: 100px;
-  height: 100vh;
+  min-height: 100vh;
   background-image: url(../img/home-background.jpg);
   background-position: center;
   background-size: cover;
