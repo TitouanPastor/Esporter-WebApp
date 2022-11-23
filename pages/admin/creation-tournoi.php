@@ -28,41 +28,93 @@ $reqJeu = $sql->getJeux();
 
 // Ajouter un tournoi
 if (isset($_POST['ajouter'])) {
-    // On check si tout les champs sont remplis
+    // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er février)
+    if(strtotime("2023-02-01") > strtotime(date("Y-m-d"))) {
+        // Vérification de si tout les champs sont remplis
+        if ( !empty($_POST['nom-tournoi']) && !empty($_POST['comboboxtypetournoi']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin'])) {
+            //Vérification de si il y a au moins un jeu séléctionner
+            if (sizeof($_POST['jeuxtournoi']) > 0) { 
+                // Vérification de si la date de début est inferieur la date de fin   
+                if (strtotime($_POST['date-debut']) <= strtotime($_POST['date-fin'])) { 
+                    // Vérification de si la date de début est supérieur à la date du jour
+                    if (strtotime($_POST['date-debut']) > strtotime(date("Y-m-d").' + 2 weeks')) {
+                        //Vérification de si un tournoi du même nom n'existe pas
+                        $tournois = $sql->getTournoi();
+                        $sameTournoi = False;
+                        while($tournoi = $tournois->fetch()) {
+                            if (strtoupper($tournoi['Nom']) == strtoupper($_POST['nom-tournoi'])) {
+                                $sameTournoi = True;
+                            }
+                        }
+                        if(!$sameTournoi){
+                            try {
+                                //Mise à jour des points du tournoi en fonction de son type
+                                if ($_POST['comboboxtypetournoi'] == "Local" ) {
+                                    $points = 50;
+                                } else if ($_POST['comboboxtypetournoi'] == "National" ) {
+                                    $points = 100;
+                                } else if ($_POST['comboboxtypetournoi'] == "International") {
+                                    $points = 150;
+                                } else {
+                                    $points = 0;
+                                }
 
-    if (sizeof($_POST['jeuxtournoi']) > 0 && !empty($_POST['nom-tournoi']) && !empty($_POST['comboboxtypetournoi']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin'])) {
-        try {
-            // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
-            $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $_POST['points-tournoi'], 1, 1);
-            // Récupération de l'ID dernier tournoi créer
-             $idTournoi = $sql->getLastIDTournoi();
-            // // Ajout des jeux du tournoi
-            foreach ($_POST['jeuxtournoi'] as $jeu) {
-                 $sql->addConcerner($idTournoi, $jeu);
+                                // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
+                                $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $points, 1, 1);
+                                // Récupération de l'ID dernier tournoi créer
+                                $idTournoi = $sql->getLastIDTournoi();
+                                // // Ajout des jeux du tournoi 
+                                foreach ($_POST['jeuxtournoi'] as $jeu) {
+                                    $sql->addConcerner($idTournoi, $jeu);
+                                }
+                                $info_execution = 'Tournoi ajouté !';
+                            } catch (Exception $e) {
+                                $info_execution = "Erreur lors de l'ajout du tournoi ! Veuillez réessayer.";
+                            }
+                                $info_execution = "Le tournoi a bien été ajouté";
+                        }else{
+                            $info_execution = "Un tournoi avec le même nom existe déjà";
+                        }
+                    } else {
+                        $info_execution = "La date de début du tournoi doit être supérieur à 2 semaines";
+                    }
+                }else{
+                    $info_execution = "La date de début doit être inférieur à la date de fin !";
+                }
+            }else{
+                $info_execution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oublier pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
             }
-            $info_execution = 'Tournoi ajouté !';
-        } catch (Exception $e) {
-            $info_execution = "Erreur : " . $e->getMessage();
+        } else {
+            $info_execution = "Veuillez remplir tous les champs";
         }
-        $info_execution = "Le tournoi a bien été ajouté";
     } else {
-        $info_execution = "Veuillez remplir tous les champs";
+        $info_execution = "La création de tournoi est désactivé !";
     }
 }
 
 // Ajouter un ou plusieurs jeux
 if (isset($_POST['ajouterJeu'])) {
+    //Vérification de si le champs n'est pas vide
     if (!empty($_POST['jeux-tournoi'])) {
-        try {
-            $sql->addJeu($_POST['jeux-tournoi']);
-            $reqJeu = $sql->getJeux();
-            $info_execution_jeu = "Jeu ajouté !";
-        } catch (Exception $e) {
-            if (strpos($e->getMessage(), "1062") !== False) {
-                $info_execution_jeu = "Le jeu existe déjà !";
-            } else {
+        //Vérification de si le jeu n'existe pas déjà
+        $jeux = $sql->getJeux();
+        $sameJeu = False;
+        while($jeu = $jeux->fetch()) {
+            if (strtoupper($jeu['Libelle']) == strtoupper($_POST['jeux-tournoi'])) {
+                $sameJeu = True;
+            }
+        }
+        if (!$sameJeu) {
+            try {
+                //Ajout du nouveau jeu
+                $sql->addJeu($_POST['jeux-tournoi']);
+                $reqJeu = $sql->getJeux();
+                $info_execution_jeu = "Jeu ajouté !";
+            } catch (Exception $e) {
                 $info_execution_jeu = "Erreur lors de l'ajout du jeu !";
             }
+        }else{
+            $info_execution_jeu = "Le jeu existe déjà";
         }
     }
 }
@@ -88,6 +140,7 @@ if (isset($_POST['ajouterJeu'])) {
 
                             <select name="comboboxjeutournoi" id="chkveg" multiple="multiple">
                                 <?php
+                                //Affichage de la liste de tout les jeux enregistrés dans la base de données
                                 while ($data = $reqJeu->fetch()) {
 
                                     echo '<option value="' . $data['Id_Jeu'] . '">' . $data['Libelle'] . '</option>';
@@ -117,11 +170,11 @@ if (isset($_POST['ajouterJeu'])) {
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="date-fin">Début du tournoi</label>
-                            <input type="date" name="date-fin" id="date-fin">
+                            <input type="date" name="date-debut" id="date-debut">
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="date-debut">Fin du tournoi</label>
-                            <input type="date" name="date-debut" id="date-debut">
+                            <input type="date" name="date-fin" id="date-fin">
                         </div>
                     </div>
                 </div>
@@ -132,6 +185,7 @@ if (isset($_POST['ajouterJeu'])) {
     </main>
 
     <script>
+        //Script pour ajouter les jeux dans le select caché
         $(function() {
 
             $('#chkveg').multiselect({
