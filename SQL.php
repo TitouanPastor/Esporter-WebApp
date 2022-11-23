@@ -68,6 +68,13 @@ class requeteSQL
         return $req;
     }
 
+    public function tournoisByDate()
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Date_debut");
+        $req->execute();
+        return $req;
+    }
+
     public function tournoiId($id)
     {
         $req = $this->linkpdo->prepare("SELECT * FROM tournoi where Id_Tournoi = :IdTournoi");
@@ -160,6 +167,16 @@ class requeteSQL
     {
         $req = $this->linkpdo->prepare('SELECT * FROM jeu');
         $req->execute();
+        return $req;
+    }
+
+    //Fonction qui retourne les jeux d'un tournois
+    public function getJeuxTournois($id)
+    {
+        $req = $this->linkpdo->prepare('SELECT jeu.* FROM jeu, concerner, tournoi where tournoi.Id_Tournoi = concerner.Id_Tournoi and jeu.Id_Jeu = concerner.Id_Jeu and concerner.Id_Tournoi = :IdTournoi');
+        $req->execute(array(
+            'IdTournoi' => $id
+        ));
         return $req;
     }
 
