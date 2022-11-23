@@ -64,14 +64,14 @@ class requeteSQL
             }
         }       
 
-        //Fonction pour ajouter un arbitre
-        public function addArbitre($login, $mdp){
-            $req = $this->linkpdo->prepare('INSERT INTO arbitre VALUES (NULL, :login, :mdp)');
-            $req->execute(array(
-                'login' => $login,
-                'mdp' => $mdp
-            ));
-        }
+    //Fonction pour ajouter un arbitre
+    public function addArbitre($login, $mdp){
+        $req = $this->linkpdo->prepare('INSERT INTO arbitre VALUES (NULL, :login, :mdp)');
+        $req->execute(array(
+            'login' => $login,
+             'mdp' => $mdp
+        ));
+    }
     //Fonction qui retourne les tournois
     public function getTournoi()
     {
@@ -129,15 +129,6 @@ class requeteSQL
         }
     }
 
-    //Fonction pour ajouter un arbitre
-    public function addArbitre($login, $mdp)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO arbitre VALUES (NULL, :login, :mdp)');
-        $req->execute(array(
-            'login' => $login,
-            'mdp' => $mdp
-        ));
-    }
 
     //Fonction qui retourne les arbitres
     public function getArbitre()
