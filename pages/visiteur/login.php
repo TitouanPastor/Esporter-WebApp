@@ -19,6 +19,12 @@
     $header = new header(2);
     echo $header->header_login();
 
+    //On se déconnecte
+    session_start();
+    $_SESSION['username'] = "";
+    $_SESSION['password'] = "";
+    $_SESSION['role'] = "";
+
     //verification de la validation du formulaire
     if (isset($_POST['submit'])) {
         //verification de la validité des champs
@@ -28,7 +34,6 @@
             //verification de la validité de l'email et du mot de passe
             if ($sql->checkLogin($_POST['username'], $_POST['password'], $_POST['role'])) {
                 //connexion de l'utilisateur
-                session_start();
                 $_SESSION['username'] = $_POST['username'];
                 $_SESSION['password'] = $_POST['password'];
                 $_SESSION['role'] = $_POST['role'];
@@ -44,6 +49,7 @@
     <main class="main-login">
         <form action="" method="post">
             <h1>Se connecter</h1>
+            <hr>
             <div class="container">
                 <div class="role">
                     <label for="role">Votre rôle</label>
@@ -67,13 +73,10 @@
                     </svg>
                     <input type="password" name="password" required placeholder="Entrer le mot de passe">
                 </div>
-
-                <hr>
-
                 <div class="button">
                     <!-- <input type="button" name="mdp_oublie" class="bouton" value="Mot de passe oublié"> -->
-                    <input type="submit" name="submit" class="submit" value="Se Connecter">
                     <span><?php echo $info_login ?></span>
+                    <input type="submit" name="submit" class="submit" value="Se Connecter">
                 </div>
 
             </div>

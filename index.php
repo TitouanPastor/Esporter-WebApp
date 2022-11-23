@@ -21,7 +21,7 @@ echo $header->customize_header($_SESSION['role']);
     <main>
         <div class="home-title">
             <h1>Vivez votre passion</h1>
-            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, blanditiis qui? Necessitatibus nihil numquam nemo dolor, perferendis exercitationem optio quis? Eveniet culpa magnam ipsam pariatur laudantium aperiam ipsum dolore laboriosam?</span>
+            <span>E-Sporter centralise tous les résultats de vos équipes préférées dans une seule et même application. Ne perdez plus de temps à chercher, informez vous rapidement sur les différents classements, les matchs et les tournois à venir !</span>
             <div class="home-btns">
                 <a href="pages/visiteur/resultats.php" class="main-btn">Résultats</a>
                 <a href="pages/visiteur/login.php" class="main-btn">Rejoindre</a>
