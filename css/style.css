@@ -62,7 +62,7 @@ input {
 
 input[type="text"],
 input[type="date"],
-input[type="password"],
+input[type="password"],input[type="button"],
 select {
   box-shadow: var(--little-shadow);
   display: inline-block;
@@ -77,6 +77,9 @@ select {
   transition: all .15s ease-in-out;
 }
 
+input[type="submit"] {
+  cursor: pointer;
+}
 
 input[type="submit"].submit {
   box-shadow: var(--background-shadow);
@@ -85,7 +88,7 @@ input[type="submit"].submit {
   border: 0px;
   padding: 8px 25px;
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 23px;
   background-color: var(--btn-submit);
   width: auto;
   line-height: initial;
@@ -94,8 +97,8 @@ input[type="submit"].submit {
 }
 
 /* bouton ajout joueur de théo ? */
-input[type="submit"].add {
-  font-size: 0.9rem;
+input[type="submit"].add, input[type="button"].add {
+  font-size: 15px;
   background-color: var(--btn-update);
 }
 
@@ -148,7 +151,7 @@ input[type="submit"].update {
 
 input[type="text"]:hover,
 input[type="date"]:hover,
-input[type="password"]:hover,
+input[type="password"]:hover, input[type="button"],
 select:hover {
   border: 2px solid #d2d7d8;
   background: #d2d7d8;
@@ -169,8 +172,14 @@ input[type="submit"].update:hover {
   background-color: var(--btn-update-hover);
 }
 
-input[type="submit"].add:hover {
+input[type="submit"].add:hover, input[type=button].add:hover {
   background-color: var(--btn-update-hover);
+}
+
+/* Modification input button d'ajouter un jeu */
+#ajouterjeux {
+  font-weight: 600;
+  border: 0px;
 }
 
 /* HEADER */
@@ -189,7 +198,7 @@ input[type="submit"].add:hover {
 .btn-connexion {
   color: var(--white-text);
   font-weight: 600;
-  font-size: 1.3rem;
+  font-size: 21px;
   background-color: var(--purple);
   transition: all .2s ease-in-out;
   padding: 8px 25px;
@@ -206,7 +215,7 @@ header {
   position: fixed;
   z-index: 1000;
   width: 100%;
-  padding: 0 2rem;
+  padding: 0 32px;
   background-color: var(--white-text);
   box-shadow: var(--little-shadow);
 }
@@ -219,11 +228,12 @@ header img {
 header a {
   color: var(--black);
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 24px;
 }
 
 header ul {
   list-style-type: none;
+  margin: 0;
 }
 
 .topnavbar {
@@ -297,6 +307,7 @@ header ul {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 88vh;
 }
 
 .creation-tournoi-container form {
@@ -306,16 +317,16 @@ header ul {
   justify-content: center;
   background-color: var(--white);
   border-radius: var(--border-radius);
-  padding: 60px;
-  gap: 50px;
+  padding: 30px 60px;
+  gap: 20px;
 }
 
 .main-creation-tournoi {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   padding-top: 100px;
+  height: 100vh;
   background-image: url(../img/home-background.jpg);
   background-position: center;
   background-size: cover;
@@ -324,7 +335,7 @@ header ul {
 
 .creation-tournoi-title {
   gap: 15px;
-  font-size: 2rem;
+  font-size: 32px;
   width: 115%;
   display: flex;
   align-items: center;
@@ -337,7 +348,7 @@ header ul {
   background-color: #000000;
   opacity: .2;
   height: 1px;
-  font-size: 2rem;
+  font-size: 32px;
 }
 
 .creation-tournoi {
