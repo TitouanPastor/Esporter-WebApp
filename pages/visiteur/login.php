@@ -16,6 +16,8 @@
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
     require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
     $info_login = "";
+
+    // Construction du header
     $header = new header(2);
     echo $header->header_login();
 
