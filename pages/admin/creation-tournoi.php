@@ -80,14 +80,6 @@ if (isset($_POST['ajouterJeu'])) {
                             <input type="text" name="nom-tournoi" id="nom-tournoi" placeholder="Nom">
                         </div>
                         <div class="creation-tournoi-input">
-                            <label for="comboboxtypetournoi">Type du tournoi</label>
-                            <select name="comboboxtypetournoi" id="comboboxtypetournoi">
-                                <option type="checkbox" value="Local">Local</option>
-                                <option value="National">National</option>
-                                <option value="International">International</option>
-                            </select>
-                        </div>
-                        <div class="creation-tournoi-input">
                             <label for="jeux-tournoi">Jeux présents</label>
 
                             <!-- Select caché pour récuperer les jeux dans le POST -->
@@ -101,7 +93,7 @@ if (isset($_POST['ajouterJeu'])) {
                                 }
                                 ?>
                             </select>
-                            <input class="add" type="button" id="ajouterjeux" value="Valider la sélection">
+                            <input class="add" type="button" id="ajouterjeux" value="Valider la sélection"  style="margin-bottom: 30px;">
 
                             <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
                             <input type="submit" value="Ajouter un jeu" class="submit add" name="ajouterJeu">
@@ -111,11 +103,11 @@ if (isset($_POST['ajouterJeu'])) {
 
                     <div class="creation-tournoi-right">
                         <div class="creation-tournoi-input">
-                            <label for="points-tournoi">Nombre de points distribués</label>
-                            <select name="points-tournoi" id="points-tournoi">
-                                <option value="150">150 points</option>
-                                <option value="100">100 points</option>
-                                <option value="50">50 points</option>
+                            <label for="comboboxtypetournoi">Type du tournoi</label>
+                            <select name="comboboxtypetournoi" id="comboboxtypetournoi">
+                                <option value="Local">Local (50 points)</option>
+                                <option value="National">National (100 points)</option>
+                                <option value="International">International (150 points)</option>
                             </select>
                         </div>
                         <div class="creation-tournoi-input">

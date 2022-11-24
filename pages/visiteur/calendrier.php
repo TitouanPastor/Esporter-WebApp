@@ -12,28 +12,27 @@
 
 <body>
     <?php
-        $check_valider = 0;
         require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-        if (!isset($_POST['valider'])) {
-            if (isset($_POST["tournoi_nom"]) == "default") {
-                echo 'test_tournoi';
-            }
-
-            if (isset($_POST["tournoi_jeu"]) == "default") {
-
-            }
-
+        $sql = new requeteSQL();
+        $check_valider = 0;
+        
+        if (isset($_POST["valider"])) {
+            $check_valider = 1;
+            $param = array();
+            $param[0] = $_POST["tournoi_date"];
+            $param[1] = $_POST["tournoi_nom"];
+            $param[2] = $_POST["tournoi_jeu"];
+            $req = $sql -> getTournoiCalendrier($param);
         }
-        ?>
+    ?>
 
     <form action="" method="post">
         <div class="container">
-            <input type="date" name="date" class="element">
+            <input type="date" name="tournoi_date" class="element">
 
             <select name="tournoi_nom" class="element" class="select">
                 <option value="default" selected>Sélectionner un nom de tournoi</option>
                 <?php
-                    $sql = new requeteSQL();
                     $tournoi = $sql->getTournoi();
                     while ($donnees = $tournoi->fetch()) { ?>
                 <option value="<?php echo $donnees['Nom']; ?>">
@@ -43,7 +42,7 @@
             </select>
 
             <select name="tournoi_jeu" class="element" class="select" value="Sélectionner un nom de jeu">
-                < <option value="default" selected>Sélectionner un nom de jeu</option>
+                 <option value="default" selected>Sélectionner un nom de jeu</option>
                     <?php
                     $sql = new requeteSQL();
                     $jeu = $sql->getJeux();
@@ -55,7 +54,7 @@
             </select>
 
 
-            <input type="submit" class="submit" class="element" value="valider">
+            <input name="valider" type="submit" class="submit" class="element" value="valider">
 
         </div>
 
@@ -67,14 +66,15 @@
             </tr>
              <?php
                 if ($check_valider == 1) {
-                    while () {
+                    while ($donnees = $req -> fetch()) {
+                        echo 'test fetch';
+                        echo $donnees[0];
                         echo '
                         <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                            <td>'.$donnees[1].'</td>
+                            <td>'.$donnees[2].'</td>
+                            <td>'.'abcbd'.'</td>
                         </tr>
-                        
                         ';
                     }
                 }

@@ -82,6 +82,9 @@ class Header
         } elseif ($role == "gestionnaire") {
             return $this->header_admin();
             echo "admin";
+        }elseif ($role == "equipe") {
+            return $this->header_equipe();
+            echo "admin";
         } else {
             return $this->header_visiteur();
             echo "visiteur";
