@@ -22,10 +22,11 @@ echo $header->header_admin();
             <div class="main-listes-tabs">
                 <div class="main-listes-filters">
                     <ul>
-                        <li><button type="submit" name="filter1" class="btn-filter" onclick="changerTabListe(this, 'filter1')">Type</button></li>
-                        <li><button type="submit" name="filter2" class="btn-filter" onclick="changerTabListe(this, 'filter2')">Lieu</button></li>
                         <li><button type="submit" name="filter3" class="btn-filter" onclick="changerTabListe(this, 'filter3')">Nom</button></li>
+                        <li><button type="submit" name="filter1" class="btn-filter" onclick="changerTabListe(this, 'filter1')">Type</button></li>
                         <li><button type="submit" name="filter4" class="btn-filter" onclick="changerTabListe(this, 'filter4')">Date</button></li>
+                        <li><button type="submit" name="filter2" class="btn-filter" onclick="changerTabListe(this, 'filter2')">Lieu</button></li>
+                    
                         <li><button type="submit" name="annuler" class="btn-filter btn-filter-active" onclick="changerTabListe(this, 'filterdefault')">par défaut</button></li>
                     </ul>
                 </div>
