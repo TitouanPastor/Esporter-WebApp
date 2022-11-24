@@ -82,7 +82,7 @@ if (isset($_POST['ajouter'])) {
                     $info_execution = "La date de début doit être inférieur à la date de fin !";
                 }
             }else{
-                $info_execution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oublier pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
+                $info_execution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oubliez pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
             }
         } else {
             $info_execution = "Veuillez remplir tous les champs";
