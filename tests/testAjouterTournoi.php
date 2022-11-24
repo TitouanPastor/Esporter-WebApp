@@ -2,13 +2,13 @@
 
 use PHPUnit\Framework\TestCase;
 
-final class UserTest extends TestCase
+final class TestAjouterTournoi extends TestCase
 {
+    public function testAjoutTournoi()
 
-
-    public function testAjouterTournoi()
     {
-        require_once(realpath(dirname(__FILE__) . '../SQL.php'));
+
+        require_once(realpath(dirname(__FILE__) . '/../SQL.php'));
         $sql = new requeteSQL();
         $type = 'Local';
         $nom = 'Tournoi de test';
@@ -29,7 +29,5 @@ final class UserTest extends TestCase
             $this->assertEquals($row['Nombre_point_max'], $pts);
 
         }
-       }
-
     }
 }
