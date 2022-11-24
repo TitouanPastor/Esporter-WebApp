@@ -51,7 +51,7 @@ class requeteSQL
     }
 
 
-    //Fonction qui retourne le dernier tuple de tournoi
+    //Fonction qui retourne le dernier tuple de jeu
     public function getLastIDJeu()
     {
         $req = $this->linkpdo->prepare('SELECT Id_Jeu FROM jeu ORDER BY Id_Jeu DESC LIMIT 1');
@@ -61,6 +61,7 @@ class requeteSQL
         }
     }
 
+    //Fonction qui retourne toute les informations contenu dans le dernier jeu inséré
     public function jeuId($id)
     {
         $req = $this->linkpdo->prepare("SELECT * FROM jeu where Id_Jeu = :Id_Jeu");
@@ -72,7 +73,7 @@ class requeteSQL
     }
 
 
-    //Fonction pour ajouter un arbitre
+    //Fonction pour ajouter un tournoi
     public function addTournoi($Type, $nom, $date_deb, $date_fin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre)
     {
         $req = $this->linkpdo->prepare('INSERT INTO tournoi VALUES (NULL, :TypeT, :Nom, :Date_debut, :Date_fin, :Lieu, :NbPtsMax, :IdGestionnaireEsport, :IdArbitre)');
@@ -88,40 +89,7 @@ class requeteSQL
         ));
     }
 
-        //Fonctions pour calendrier.php
-        //Prend en parametre un array, si les valeurs sont null ou "default" alors les requêtes changent
-        public function getTournoiCalendrier($param){
-            if ($param[0] == null){ // pas de date
-                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_jeu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.nom = :nom ');
-                $testreq = $req -> execute(array("libelle" => $param[2], "nom" => $param[1]));
-                if ($testreq == false){
-                    die ('Erreur execute 1');
-                }
-            } elseif ($param[1] == 'default') { // 
-                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_eu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.date_debut = :date_tournoi');
-                $testreq = $req -> execute(array("libelle" => $param[2], "date_tournoi" => $param[0]));
-                if ($testreq == false){
-                    die ('Erreur execute 2');
-                }
-            } elseif ($param[2] == 'default') { // 
-                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_eu = jeu.id_jeu and tournoi.nom = :nom and tournoi.date_debut = :date_tournoi');
-                $testreq = $req -> execute(array("nom" => $param[1], "date_tournoi" => $param[0]));
-                if ($testreq == false){
-                    die ('Erreur execute 3');
-                }
-            return $req;
-            }
-        }       
-
-    //Fonction pour ajouter un arbitre
-    public function addArbitre($login, $mdp){
-        $req = $this->linkpdo->prepare('INSERT INTO arbitre VALUES (NULL, :login, :mdp)');
-        $req->execute(array(
-            'login' => $login,
-             'mdp' => $mdp
-        ));
-    }
-
+    
     //Fonction qui retourne le dernier tuple de tournoi
     public function getLastIDTournoi()
     {
@@ -132,6 +100,8 @@ class requeteSQL
         }
     }
 
+
+    //Fonction qui retourne toute les informations contenu dans le dernier tournoi inséré
     public function tournoiId($id)
     {
         $req = $this->linkpdo->prepare("SELECT * FROM tournoi where Id_Tournoi = :IdTournoi");
@@ -177,7 +147,7 @@ class requeteSQL
 
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-//Sprint 2 & plus
+//Sprint 2 & plus (en travaux)
 
 
     //Fonction qui retourne les tournois
@@ -217,6 +187,42 @@ class requeteSQL
     }
 
 
+    //Fonctions pour calendrier.php
+        //Prend en parametre un array, si les valeurs sont null ou "default" alors les requêtes changent
+        public function getTournoiCalendrier($param){
+            if ($param[0] == null){ // pas de date
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_jeu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.nom = :nom ');
+                $testreq = $req -> execute(array("libelle" => $param[2], "nom" => $param[1]));
+                if ($testreq == false){
+                    die ('Erreur execute 1');
+                }
+            } elseif ($param[1] == 'default') { // 
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_eu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.date_debut = :date_tournoi');
+                $testreq = $req -> execute(array("libelle" => $param[2], "date_tournoi" => $param[0]));
+                if ($testreq == false){
+                    die ('Erreur execute 2');
+                }
+            } elseif ($param[2] == 'default') { // 
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_eu = jeu.id_jeu and tournoi.nom = :nom and tournoi.date_debut = :date_tournoi');
+                $testreq = $req -> execute(array("nom" => $param[1], "date_tournoi" => $param[0]));
+                if ($testreq == false){
+                    die ('Erreur execute 3');
+                }
+            return $req;
+            }
+        }       
+
+
+     //Fonction pour ajouter un arbitre
+     public function addArbitre($login, $mdp){
+        $req = $this->linkpdo->prepare('INSERT INTO arbitre VALUES (NULL, :login, :mdp)');
+        $req->execute(array(
+            'login' => $login,
+             'mdp' => $mdp
+        ));
+    }
+
+
     //Fonction qui retourne les arbitres
     public function getArbitre()
     {
@@ -224,6 +230,7 @@ class requeteSQL
         $req->execute();
         return $req;
     }
+
 
     // Fonction pour ajouter un gestionnaire Esporter
     public function addGestionnaire($login, $mdp)
@@ -235,6 +242,7 @@ class requeteSQL
         ));
     }
 
+
     //Fonction qui retourne les gestionnaires Esporter
     public function getGestionnaire()
     {
@@ -242,6 +250,7 @@ class requeteSQL
         $req->execute();
         return $req;
     }
+
 
     //Fonction pour ajouter une ecurie
     public function addEcurie($nom, $statut, $mdp, $mail, $id_gestionnaireEsport)
@@ -255,6 +264,7 @@ class requeteSQL
             'id_gestionnaireEsport' => $id_gestionnaireEsport
         ));
     }
+
 
     //Fonction qui retourne les ecuries
     public function getEcurie()
@@ -275,6 +285,7 @@ class requeteSQL
         return $req;
     }
 
+
     //Fonction pour ajouter une equipe
     public function addEquipe($nom, $login, $mdp, $mail, $nbPtsChamps, $id_ecurie, $id_jeu)
     {
@@ -290,6 +301,7 @@ class requeteSQL
         ));
     }
 
+
     // Fonction qui retourne les equipes
     public function getEquipe()
     {
@@ -297,6 +309,7 @@ class requeteSQL
         $req->execute();
         return $req;
     }
+
 
     //Fonction pour ajouter une poule 
     public function addPoule($libelle, $idTournoi)
@@ -308,6 +321,7 @@ class requeteSQL
         ));
     }
 
+
     // Fonction qui retourne les poules
     public function getPoule()
     {
@@ -315,6 +329,7 @@ class requeteSQL
         $req->execute();
         return $req;
     }
+
 
     //Fonction pour ajouter un joueur
     public function addJoueur($nom, $prenom, $dateNaissance, $pseudo, $mail, $idEquipe)
@@ -330,6 +345,7 @@ class requeteSQL
         ));
     }
 
+
     // Fonction qui retourne les joueurs
     public function getJoueur()
     {
@@ -337,6 +353,7 @@ class requeteSQL
         $req->execute();
         return $req;
     }
+
 
     //Fonction pour ajouter un match
     public function addGame($dateMatch, $idEquipe1, $idEquipe2, $idPoule)
@@ -350,6 +367,7 @@ class requeteSQL
         ));
     }
 
+
     // Fonction qui retourne les matchs
     public function getGame()
     {
@@ -357,7 +375,6 @@ class requeteSQL
         $req->execute();
         return $req;
     }
-
 
     public function addRegrouper($idEquipe, $idGame)
     {

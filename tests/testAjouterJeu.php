@@ -6,12 +6,14 @@ final class testAjouterJeu extends TestCase
 {
     public function testAjouterJeu()
     {
-        require_once('/../SQL.php');
+        require_once(realpath(dirname(__FILE__) . '/../SQL.php'));
         $sql = new requeteSQL();
-        $jeu = "God of War";
-        $sql->addJeu($jeu);
-        
-
-        $this->assertEquals(5, $result);
+        $libelle = "God of War";
+        $sql->addJeu($libelle);
+        $idJeu = $sql->getLastIDJeu();
+        $req = $sql->jeuId($idJeu);
+        while($row = $req->fetch()){
+            $this->assertEquals($row['Libelle'], $libelle);
+        }
     }
 }
