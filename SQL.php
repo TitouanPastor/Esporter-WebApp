@@ -5,6 +5,8 @@ class requeteSQL
 
     private $linkpdo;
 
+
+    //Fonction pour se connecter à la base de donnée PHPMyAdmin
     public function __construct()
     {
         ///Connexion au serveur MySQL avec PDO
@@ -22,6 +24,32 @@ class requeteSQL
             die('Erreur : ' . $e->getMessage());
         }
     }
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Sprint 1
+
+    //-------------Page Créer un Tournoi
+
+
+    //Fonction pour ajouter un jeu
+    public function addJeu($libelle)
+    {
+        $req = $this->linkpdo->prepare('INSERT INTO jeu VALUES (NULL, :libelle)');
+        $req->execute(array(
+            'libelle' => $libelle
+        ));
+    }
+
+
+    //Fonction qui retourne les jeux
+    public function getJeux()
+    {
+        $req = $this->linkpdo->prepare('SELECT * FROM jeu');
+        $req->execute();
+        return $req;
+    }
+
 
     //Fonction pour ajouter un arbitre
     public function addTournoi($Type, $nom, $date_deb, $date_fin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre)
@@ -72,6 +100,55 @@ class requeteSQL
              'mdp' => $mdp
         ));
     }
+
+    //Fonction qui retourne le dernier tuple de tournoi
+    public function getLastIDTournoi()
+    {
+        $req = $this->linkpdo->prepare('SELECT Id_Tournoi FROM tournoi ORDER BY Id_Tournoi DESC LIMIT 1');
+        $req->execute();
+        while ($data = $req->fetch()) {
+            return $data['Id_Tournoi'];
+        }
+    }
+
+
+    //Fonction qui permet de remplir l'association concerner
+    public function addConcerner($idTournoi, $idJeu)
+    {
+        $req = $this->linkpdo->prepare('INSERT INTO concerner VALUES (:idTournoi, :idJeu)');
+        $req->execute(array(
+            'idTournoi' => $idTournoi,
+            'idJeu' => $idJeu
+        ));
+    }
+
+
+    //-------------Page Login
+
+
+     // vérifie si le login et le mot de passe sont corrects
+     public function checkLogin($login, $mdp, $role)
+     {
+         $req = $this->linkpdo->prepare('SELECT count(*) FROM ' . $role . ' WHERE mail = :login AND Mot_de_passe = :mdp');
+         $req->execute(array(
+             'login' => $login,
+             'mdp' => $mdp
+         ));
+ 
+         $result = $req->fetch();
+         //condition si il y a un résultat
+         if ($result[0] != 0) {
+             return true;
+         } else {
+             return false;
+         }
+     }
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+//Sprint 2 & plus
+
+
     //Fonction qui retourne les tournois
     public function getTournoi()
     {
@@ -118,6 +195,7 @@ class requeteSQL
         return $req;
     }
 
+<<<<<<< HEAD
 
     //Fonction qui retourne le dernier tuple de tournoi
     public function getLastIDTournoi()
@@ -130,6 +208,8 @@ class requeteSQL
     }
 
 
+=======
+>>>>>>> 8ea703c1d082e23496592084a4b6b0af51c5a836
     //Fonction qui retourne les arbitres
     public function getArbitre()
     {
@@ -177,22 +257,6 @@ class requeteSQL
         return $req;
     }
 
-    //Fonction pour ajouter un jeu
-    public function addJeu($libelle)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO jeu VALUES (NULL, :libelle)');
-        $req->execute(array(
-            'libelle' => $libelle
-        ));
-    }
-
-    //Fonction qui retourne les jeux
-    public function getJeux()
-    {
-        $req = $this->linkpdo->prepare('SELECT * FROM jeu');
-        $req->execute();
-        return $req;
-    }
 
     //Fonction qui retourne les jeux d'un tournois
     public function getJeuxTournois($id)
@@ -297,30 +361,4 @@ class requeteSQL
         ));
     }
 
-    public function addConcerner($idTournoi, $idJeu)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO concerner VALUES (:idTournoi, :idJeu)');
-        $req->execute(array(
-            'idTournoi' => $idTournoi,
-            'idJeu' => $idJeu
-        ));
-    }
-
-    // vérifie si le login et le mot de passe sont corrects
-    public function checkLogin($login, $mdp, $role)
-    {
-        $req = $this->linkpdo->prepare('SELECT count(*) FROM ' . $role . ' WHERE mail = :login AND Mot_de_passe = :mdp');
-        $req->execute(array(
-            'login' => $login,
-            'mdp' => $mdp
-        ));
-
-        $result = $req->fetch();
-        //condition si il y a un résultat
-        if ($result[0] != 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
