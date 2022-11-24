@@ -51,6 +51,27 @@ class requeteSQL
     }
 
 
+    //Fonction qui retourne le dernier tuple de tournoi
+    public function getLastIDJeu()
+    {
+        $req = $this->linkpdo->prepare('SELECT Id_Jeu FROM jeu ORDER BY Id_Jeu DESC LIMIT 1');
+        $req->execute();
+        while ($data = $req->fetch()) {
+            return $data['Id_Jeu'];
+        }
+    }
+
+    public function jeuId($id)
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM jeu where Id_Jeu = :Id_Jeu");
+        $req->execute(array(
+            'Id_Jeu' => $id
+        ));
+
+        return $req;
+    }
+
+
     //Fonction pour ajouter un arbitre
     public function addTournoi($Type, $nom, $date_deb, $date_fin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre)
     {
@@ -109,6 +130,16 @@ class requeteSQL
         while ($data = $req->fetch()) {
             return $data['Id_Tournoi'];
         }
+    }
+
+    public function tournoiId($id)
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM tournoi where Id_Tournoi = :IdTournoi");
+        $req->execute(array(
+            'IdTournoi' => $id
+        ));
+
+        return $req;
     }
 
 
@@ -185,15 +216,6 @@ class requeteSQL
         return $req;
     }
 
-    public function tournoiId($id)
-    {
-        $req = $this->linkpdo->prepare("SELECT * FROM tournoi where Id_Tournoi = :IdTournoi");
-        $req->execute(array(
-            'IdTournoi' => $id
-        ));
-
-        return $req;
-    }
 
     //Fonction qui retourne les arbitres
     public function getArbitre()
