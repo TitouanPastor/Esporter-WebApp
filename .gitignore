@@ -1,3 +1,5 @@
 vendor/
 .php_tmp/
 fiveserver.config.js
+composer.json
+composer.lock
