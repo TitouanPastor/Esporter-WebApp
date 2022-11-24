@@ -195,21 +195,6 @@ class requeteSQL
         return $req;
     }
 
-<<<<<<< HEAD
-
-    //Fonction qui retourne le dernier tuple de tournoi
-    public function getLastIDTournoi()
-    {
-        $req = $this->linkpdo->prepare('SELECT Id_Tournoi FROM tournoi ORDER BY Id_Tournoi DESC LIMIT 1');
-        $req->execute();
-        while ($data = $req->fetch()) {
-            return $data['Id_Tournoi'];
-        }
-    }
-
-
-=======
->>>>>>> 8ea703c1d082e23496592084a4b6b0af51c5a836
     //Fonction qui retourne les arbitres
     public function getArbitre()
     {
