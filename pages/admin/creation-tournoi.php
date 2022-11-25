@@ -17,9 +17,13 @@
 
 </head>
 <?php
+// Création du header
+session_start();
 require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
 $header = new header(2);
-echo $header->header_admin();
+echo $header->customize_header($_SESSION['role']);
+
+// Initialisation des variables
 $info_execution = "";
 $info_execution_jeu = "";
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
@@ -169,16 +173,16 @@ if (isset($_POST['ajouterJeu'])) {
                             <input type="text" name="lieu-tournoi" id="lieu-tournoi" placeholder="Lieu">
                         </div>
                         <div class="creation-tournoi-input">
-                            <label for="date-fin">Début du tournoi</label>
+                            <label for="date-debut">Début du tournoi</label>
                             <input type="date" name="date-debut" id="date-debut">
                         </div>
                         <div class="creation-tournoi-input">
-                            <label for="date-debut">Fin du tournoi</label>
+                            <label for="date-fin">Fin du tournoi</label>
                             <input type="date" name="date-fin" id="date-fin">
                         </div>
                     </div>
                 </div>
-                <input class="submit" type="submit" name="ajouter" value="Ajouter">
+                <input id="submit" class="submit-gris" type="submit" name="ajouter" value="Ajouter">
                 <span><?php echo $info_execution ?> </span>
             </form>
         </section>
@@ -186,6 +190,7 @@ if (isset($_POST['ajouterJeu'])) {
 
     <script>
         //Script pour ajouter les jeux dans le select caché
+        //cela permet de récuperer les jeux dans le POST
         $(function() {
 
             $('#chkveg').multiselect({
@@ -196,6 +201,8 @@ if (isset($_POST['ajouterJeu'])) {
                 var a = $('#chkveg').val();
                 var spaninfojeu = document.getElementById("spaninfojeu");
                 var hiddenselect = document.getElementById("hiddenselect");
+                var mainsubmit = document.getElementById("submit");
+                var submitselectionjeux = document.getElementById("ajouterjeux");
                 while (hiddenselect.firstChild) {
                     hiddenselect.removeChild(hiddenselect.firstChild);
                 }
@@ -206,7 +213,15 @@ if (isset($_POST['ajouterJeu'])) {
                     opt.selected = true;
                     hiddenselect.appendChild(opt);
                 }
-                spaninfojeu.innerHTML = a.length + " jeu(x) enregistré(s) !";
+                if (a.length == 0) {
+                    mainsubmit.classList.remove("submit-active");
+                    spaninfojeu.innerHTML = "Aucun jeu sélectionné";
+                    submitselectionjeux.classList.remove("submit-valid");
+                } else {
+                    mainsubmit.classList.add("submit-active");
+                    spaninfojeu.innerHTML = a.length + " jeu(x) enregistré(s) !";
+                    submitselectionjeux.classList.add("ajouterjeu-valid");
+                }
             });
         });
     </script>

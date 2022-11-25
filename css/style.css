@@ -8,7 +8,9 @@
   --btn-boutonAddJoueur: rgb(101, 181, 235);
   --btn-boutonAddJoueur-hover: rgb(28, 170, 231);
   --btn-submit: rgb(121, 241, 137);
+  --btn-submit-grey: rgb(175, 175, 175);
   --btn-submit-hover: rgb(78, 240, 100);
+  --btn-submit-hover-grey: rgb(145, 145, 145);
   --btn-update: #45a7e9;
   --btn-update-hover: #3896d4;
   --background-shadow: 0 6.4px 14.4px 0 rgb(0 0 0 / 13%), 0 1.2px 3.6px 0 rgb(0 0 0 / 11%);
@@ -81,15 +83,35 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-input[type="submit"].submit {
+.submit-gris {
   box-shadow: var(--background-shadow);
   border-radius: var(--border-radius);
-  color: var(--black);
+  color: var(--black-grey);
+  background-color: var(--btn-submit-grey);
   border: 0px;
   padding: 8px 25px;
   font-weight: 600;
   font-size: 23px;
+  width: auto;
+  line-height: initial;
+  height: max-content;
+  transition: all .2s ease-in-out;
+}
+
+input[type="submit"].submit-active {
+  color: var(--black);
   background-color: var(--btn-submit);
+}
+
+input[type="submit"].submit {
+  box-shadow: var(--background-shadow);
+  border-radius: var(--border-radius);
+  color: var(--black);
+  background-color: var(--btn-submit);
+  border: 0px;
+  padding: 8px 25px;
+  font-weight: 600;
+  font-size: 23px;
   width: auto;
   line-height: initial;
   height: max-content;
@@ -164,7 +186,11 @@ input[type="password"]:focus {
   background: #d2d7d8;
 }
 
-input[type="submit"].submit:hover {
+input[type="submit"].submit-gris:hover {
+  background-color: var(--btn-submit-grey-hover);
+}
+
+input[type="submit"].submit:hover,input[type="submit"].submit-active:hover  {
   background-color: var(--btn-submit-hover);
 }
 
@@ -180,6 +206,22 @@ input[type="submit"].add:hover, input[type=button].add:hover {
 #ajouterjeux {
   font-weight: 600;
   border: 0px;
+  color: var(--black);
+  background-color: var(--btn-submit);
+}
+
+#ajouterjeux:hover {
+  background-color: var(--btn-submit-hover);
+}
+
+#ajouterjeux.ajouterjeu-valid {
+  background-color: var(--btn-update);
+  color: var(--black);
+}
+
+#ajouterjeux.ajouterjeu-valid:hover {
+  background-color: var(--btn-update-hover);
+  color: var(--black);
 }
 
 /* HEADER */

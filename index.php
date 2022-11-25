@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <?php
+// création du header
 session_start();
 require_once(realpath(dirname(__FILE__) . '/class/header.php'));
 $header = new header(0);
