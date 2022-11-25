@@ -25,7 +25,7 @@ echo $header->customize_header($_SESSION['role']);
             <span>E-Sporter centralise tous les résultats de vos équipes préférées dans une seule et même application. Ne perdez plus de temps à chercher, informez vous rapidement sur les différents classements, les matchs et les tournois à venir !</span>
             <div class="home-btns">
                 <a href="pages/visiteur/resultats.php" class="main-btn">Résultats</a>
-                <a href="pages/visiteur/login.php" class="main-btn">Rejoindre</a>
+                <a href="pages/visiteur/calendrier.php" class="main-btn">Calendrier</a>
             </div>
         </div>
 

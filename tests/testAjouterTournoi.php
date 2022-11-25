@@ -59,9 +59,6 @@ final class TestAjouterTournoi extends TestCase
             $this->assertEquals($row['Id_Tournoi'], $idTournoi);
             $this->assertEquals($row['Id_Jeu'], $idJeu2);
         }
-
-         
-
     }
 
 }
