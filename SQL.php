@@ -124,6 +124,18 @@ class requeteSQL
     }
 
 
+    //Fonction qui retourne toute les informations contenu dans la dernière association concrner insérée
+    public function concernerId($id)
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM concerner where Id_Tournoi = :IdTournoi");
+        $req->execute(array(
+            'IdTournoi' => $id
+        ));
+
+        return $req;
+    }
+
+
     //-------------Page Login
 
 
