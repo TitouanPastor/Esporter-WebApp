@@ -32,7 +32,7 @@ final class TestAjouterTournoi extends TestCase
     {
         require_once(realpath(dirname(__FILE__) . '/../SQL.php'));
         $sql = new requeteSQL();
-        $libelle = "God of War";
+        $libelle = 'God of War';
         $sql->addJeu($libelle);
         $idJeu = $sql->getLastIDJeu();
         $req = $sql->jeuId($idJeu);
@@ -45,13 +45,23 @@ final class TestAjouterTournoi extends TestCase
     {
         require_once(realpath(dirname(__FILE__) . '/../SQL.php'));
         $sql = new requeteSQL();
-        $libelle = "God of War";
-        $sql->addJeu($libelle);
+        $idTournoi = $sql->getLastIDTournoi();
         $idJeu = $sql->getLastIDJeu();
-        $req = $sql->jeuId($idJeu);
+        $sql->addConcerner($idTournoi,$idJeu);
+        $libelle = 'Fortnite';
+        $sql->addJeu($libelle);
+        $idJeu2 = $sql->getLastIDJeu();
+        $sql->addConcerner($idTournoi,$idJeu2);
+        $req = $sql->concernerId($idTournoi);
         while($row = $req->fetch()){
-            $this->assertEquals($row['Libelle'], $libelle);
+            $this->assertEquals($row['Id_Tournoi'], $idTournoi);
+            $this->assertEquals($row['Id_Jeu'], $idJeu);
+            $this->assertEquals($row['Id_Tournoi'], $idTournoi);
+            $this->assertEquals($row['Id_Jeu'], $idJeu2);
         }
+
+         
+
     }
 
 }
