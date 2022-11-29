@@ -5,23 +5,60 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Enregistrer écurie - E-Sporter</title>
+    <link rel="icon" href="../../img/esporter-icon.png">
     <link rel="stylesheet" href="../../css/style.css">
 </head>
-    <?php
-        $info_execution = "Ecurie non enregistrée";
-        if(!empty($_POST['nom-ecurie']) && !empty($_POST['statut-ecurie']) && !empty($_POST['email-ecurie']) && !empty($_POST['mdp-ecurie'])){
+
+
+<?php
+
+// Création du header
+session_start();
+require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+$header = new header(2);
+echo $header->customize_header($_SESSION['role']);
+
+// Initialisation des variables
+$info_execution = "";
+require_once(realpath(dirname(__FILE__) . '/../../class/SQL.php'));
+$sql = new requeteSQL();
+
+// Ajouter un tournoi
+if (isset($_POST['ajouter'])) {
+    // Vérification de si tout les champs sont remplis
+    if(!empty($_POST['nom-ecurie']) && !empty($_POST['combobox-statut']) && !empty($_POST['email-ecurie']) && !empty($_POST['mdp-ecurie'])){
+        //Vérification de si une écurie du même nom n'existe pas
+        $tournois = $sql->getTournoi();
+        $sameEcurie = False;
+        while($tournoi = $tournois->fetch()) {
+            if (strtoupper($tournoi['Nom']) == strtoupper($_POST['nom-tournoi'])) {
+                $sameEcurie = True;
+            }
+        }
+        if(!$sameEcurie){
             try{   
-                require_once('../../SQL.php');
+                require_once(realpath(dirname(__FILE__) . '/../../class/SQL.php'));
                 $sql = new requeteSQL();
+
+
                 // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
-                $sql->addEcurie($_POST['nom-ecurie'],$_POST['statut-ecurie'],$_POST['mdp-ecurie'],$_POST['email-ecurie'],1);
+                $sql->addEcurie($_POST['nom-ecurie'],$_POST['combobox-statut'],$_POST['mdp-ecurie'],$_POST['email-ecurie'],1);
                 $info_execution = 'Ecurie enregistrée !';
             }catch(Exception $e){
                 $info_execution = "Erreur : " . $e->getMessage();
             }
+            $info_execution = "L'écurie a bien été ajoutée";
+        }else{
+            $info_execution = "Une écurie avec le même nom existe déjà";
         }
-    ?>
+    } else {
+        $info_execution = "Veuillez remplir tous les champs";
+    }
+} 
+
+?>
+
 <body>
     <main class="main-creation-tournoi">
         <section class="creation-tournoi-container">
@@ -36,7 +73,10 @@
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="statut-ecurie">Statut</label>
-                            <input type="text" name="statut-ecurie" id="statut-ecurie">
+                            <select name="combobox-statut" id="combobox-statut">
+                                <option value="Professionnelle">Professionnelle</option>
+                                <option value="Associative">Associative</option>
+                            </select>
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="email-ecurie">Email</label>
