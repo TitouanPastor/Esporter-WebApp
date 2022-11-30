@@ -206,7 +206,7 @@ class requeteSQL
 
     public function ecuriesByStatut()
     {
-        $req = $this->linkpdo->prepare("SELECT * FROM ecurie order by Statut");
+        $req = $this->linkpdo->prepare("SELECT * FROM ecurie order by Statut DESC");
         $req->execute();
         return $req;
     }
