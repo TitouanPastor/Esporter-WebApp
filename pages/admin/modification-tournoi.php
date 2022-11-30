@@ -21,8 +21,6 @@ require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
 $id_Tournois = $_GET['id'];
 $reqTournoisId = $sql->tournoiId($id_Tournois);
-$reqJeuduTournois = $sql->getJeuxTournois($id_Tournois);
-$reqNonPresentTurnois = $sql->jeuNonPresentDansTournois($id_Tournois);
 $info_execution_jeu = "";
 while ($row = $reqTournoisId->fetch()) {
     $nom = $row['Nom'];
@@ -42,9 +40,19 @@ if (isset($_POST['modifier'])){
     } else {
         $ptsMAX = 0;
     }
+    //Modification tu tournoi
     $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$id_Tournois);
-}
+    //Suppression des jeux du tournoi
+    $reqSupprimerJeuxTournois = $sql->supprimerJeuxTournoi($id_Tournois);
+    //Ajout des nouveau jeux du tournoi
+    foreach ($_POST['jeuxtournoi'] as $jeu) {
+        $sql->addConcerner($id_Tournois, $jeu);
+    }
 
+
+}   
+$reqJeuduTournois = $sql->getJeuxTournois($id_Tournois);
+$reqNonPresentTurnois = $sql->jeuNonPresentDansTournois($id_Tournois);
 if (isset($_POST['ajouterJeu'])) {
     //Vérification de si le champs n'est pas vide
     if (!empty($_POST['jeux-tournoi'])) {

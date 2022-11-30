@@ -476,4 +476,11 @@ class requeteSQL
         ));
     }
 
+    public function supprimerJeuxTournoi($idT){
+        $req = $this->linkpdo->prepare('DELETE FROM concerner WHERE Id_Tournoi = :idT');
+        $req->execute(array(
+            'idT' => $idT
+        ));
+    }
+
 }
