@@ -27,22 +27,37 @@ require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
 $reqJeu = $sql->getJeux();
 
-
-        $info_execution = "Equipe non enregistrée";
-        require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-        if(!empty($_POST['nom-equipe'])  && !empty($_POST['email-equipe']) && !empty($_POST['mdp-equipe'])) {
+// Ajouter une équipe
+if (isset($_POST['ajouter'])) {
+    // Vérification de si tout les champs sont remplis
+    if(!empty($_POST['nom-equipe']) && !empty($_POST['jeu_equipe']) && !empty($_POST['email-equipe']) && !empty($_POST['mdp-equipe'])){
+        //Vérification de si une équipe du même nom n'existe pas déjà
+        $equipes = $sql->getEquipe();
+        $sameEquipe = False;
+        while($equipe = $equipes->fetch()) {
+            if (strtoupper($equipe['Nom']) == strtoupper($_POST['nom-equipe'])) {
+                $sameEquipe = True;
+            }
+        }
+        if(!$sameEquipe){
             try{   
-                // $sql = new requeteSQL();
-                // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
+                // Ajout d'une équipe (le dernier 1 correspond à l'id gestionnaire)
                 // $sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
                 $info_execution = 'Equipe enregistrée !';
                 header ("Refresh: 3;URL=enregistrer-joueurs.php");
             }catch(Exception $e){
-                $info_execution = "Erreur : " . $e->getMessage();
+                $info_execution = "Erreur lors de l'ajout de l'équipe ! Veuillez réessayer.";
             }
-        } 
+            $info_execution = "L'équipe a bien été ajoutée";
+        }else{
+            $info_execution = "Une équipe avec le même nom existe déjà !";
+        }
+    } else {
+        $info_execution = "Veuillez remplir tous les champs";
+    }
+}
+        
 ?>
-
 
 
 <body>
@@ -59,13 +74,13 @@ $reqJeu = $sql->getJeux();
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="jeu-equipe">Jeu</label>
-                            <select name="jeu_equipe"> 
+                            <select name="jeu_equipe" id="jeu-equipe"> 
                             <?php
-                                $sql = new requeteSQL();
-                                $jeu = $sql -> getJeu();
-                                while ($donnees = $jeu -> fetch()){?>
-                                    <option value="<?php echo $donnees['Id_Jeu'];?>"><?php echo $donnees['Libelle'];?></option>
-                            <?php } ?>  
+                                //Affichage de la liste de tout les jeux enregistrés dans la base de données
+                                while ($data = $reqJeu->fetch()) {
+                                    echo '<option value="' . $data['Id_Jeu'] . '">' . $data['Libelle'] . '</option>';
+                                }
+                            ?>
                             </select>
                         </div>
                         <div class="creation-tournoi-input">
