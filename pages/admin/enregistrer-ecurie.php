@@ -24,7 +24,7 @@ $info_execution = "";
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
 
-// Ajouter un tournoi
+// Ajouter une écurie
 if (isset($_POST['ajouter'])) {
     // Vérification de si tout les champs sont remplis
     if(!empty($_POST['nom-ecurie']) && !empty($_POST['combobox-statut']) && !empty($_POST['email-ecurie']) && !empty($_POST['mdp-ecurie'])){
