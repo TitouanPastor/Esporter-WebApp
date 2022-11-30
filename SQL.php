@@ -403,4 +403,20 @@ class requeteSQL
         ));
     }
 
+    public function deleteJeuTournoi($idT, $idJ){
+        $req = $this->linkpdo->prepare('DELETE FROM concerner WHERE Id_Tournoi = :idT and Id_Jeu = :idJ');
+        $req->execute(array(
+            'idT' => $idT,
+            'idJ' => $idJ
+        ));
+    }
+
+    public function jeuNonPresentDansTournois($idT){
+        $req = $this->linkpdo->prepare('SELECT * FROM jeu WHERE Id_Jeu NOT IN (SELECT Id_Jeu FROM concerner WHERE Id_Tournoi = :idT)');
+        $req->execute(array(
+            'idT' => $idT
+        ));
+        return $req;
+    }
+
 }
