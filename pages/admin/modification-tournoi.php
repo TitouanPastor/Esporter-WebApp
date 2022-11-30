@@ -15,58 +15,58 @@
     <link href="bootstrap-multiselect.css" rel="stylesheet" />
 
 </head>
-    <?php 
+<?php
 
-        require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-        $sql = new requeteSQL();
-        $id_Tournois = $_GET['id'];
-        $reqTournoisId = $sql->tournoiId($id_Tournois);
-        $reqJeuduTournois = $sql->getJeuxTournois($id_Tournois);
-        $reqNonPresentTurnois = $sql->jeuNonPresentDansTournois($id_Tournois);
-        $info_execution_jeu = "";
-        while($row = $reqTournoisId->fetch()){
-            $nom = $row['Nom'];
-            $nb_pts_max = $row['Nombre_point_max'];
-            $type = $row['Type'];
-            $dateTournoisDeb = $row['Date_debut'];
-            $dateTournoisFin = $row['Date_fin'];
-            $lieu = $row['Lieu'];
-        }
+require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+$sql = new requeteSQL();
+$id_Tournois = $_GET['id'];
+$reqTournoisId = $sql->tournoiId($id_Tournois);
+$reqJeuduTournois = $sql->getJeuxTournois($id_Tournois);
+$reqNonPresentTurnois = $sql->jeuNonPresentDansTournois($id_Tournois);
+$info_execution_jeu = "";
+while ($row = $reqTournoisId->fetch()) {
+    $nom = $row['Nom'];
+    $nb_pts_max = $row['Nombre_point_max'];
+    $type = $row['Type'];
+    $dateTournoisDeb = $row['Date_debut'];
+    $dateTournoisFin = $row['Date_fin'];
+    $lieu = $row['Lieu'];
+}
 
-        if (isset($_POST['ajouterJeu'])) {
-            //Vérification de si le champs n'est pas vide
-            if (!empty($_POST['jeux-tournoi'])) {
-                //Vérification de si le jeu n'existe pas déjà
-                $jeux = $sql->getJeux();
-                $sameJeu = False;
-                while($jeu = $jeux->fetch()) {
-                    if (strtoupper($jeu['Libelle']) == strtoupper($_POST['jeux-tournoi'])) {
-                        $sameJeu = True;
-                    }
-                }
-                if (!$sameJeu) {
-                    try {
-                        //Ajout du nouveau jeu
-                        $sql->addJeu($_POST['jeux-tournoi']);
-                        $reqJeu = $sql->getJeux();
-                        $info_execution_jeu = "Jeu ajouté !";
-                    } catch (Exception $e) {
-                        $info_execution_jeu = "Erreur lors de l'ajout du jeu !";
-                    }
-                }else{
-                    $info_execution_jeu = "Le jeu existe déjà";
-                }
+if (isset($_POST['ajouterJeu'])) {
+    //Vérification de si le champs n'est pas vide
+    if (!empty($_POST['jeux-tournoi'])) {
+        //Vérification de si le jeu n'existe pas déjà
+        $jeux = $sql->getJeux();
+        $sameJeu = False;
+        while ($jeu = $jeux->fetch()) {
+            if (strtoupper($jeu['Libelle']) == strtoupper($_POST['jeux-tournoi'])) {
+                $sameJeu = True;
             }
         }
+        if (!$sameJeu) {
+            try {
+                //Ajout du nouveau jeu
+                $sql->addJeu($_POST['jeux-tournoi']);
+                $reqJeu = $sql->getJeux();
+                $info_execution_jeu = "Jeu ajouté !";
+            } catch (Exception $e) {
+                $info_execution_jeu = "Erreur lors de l'ajout du jeu !";
+            }
+        } else {
+            $info_execution_jeu = "Le jeu existe déjà";
+        }
+    }
+}
 
 
 
-    ?>
+?>
 
 <body>
     <main class="main-creation-tournoi">
         <section class="creation-tournoi-container">
-            <form action="<?php echo "modification-tournoi.php?id=".$id_Tournois ?>" method="POST">
+            <form action="<?php echo "modification-tournoi.php?id=" . $id_Tournois ?>" method="POST">
 
                 <h1 class="creation-tournoi-title">Modifier un tournoi</h1>
                 <div class="creation-tournoi">
@@ -77,7 +77,7 @@
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="type-tournoi">Type du tournoi</label>
-                            <select name="type-tournoi" id="type-tournoi" value="<?php echo $type?>">
+                            <select name="type-tournoi" id="type-tournoi" value="<?php echo $type ?>">
                                 <option value="Local">Local (50 points)</option>
                                 <option value="National">National (100 points)</option>
                                 <option value="International">International (150 points)</option>
@@ -100,10 +100,10 @@
 
                                     echo '<option value="' . $data['Id_Jeu'] . '">' . $data['Libelle'] . '</option>';
                                 }
-                           
+
                                 ?>
                             </select>
-                            <input class="add" type="button" id="ajouterjeux" value="Valider la sélection"  style="margin-bottom: 30px;">
+                            <input class="add ajouterjeu-valid" type="button" id="ajouterjeux" value="Valider la sélection" style="margin-bottom: 30px;">
 
                             <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
                             <input type="submit" value="Ajouter un jeu" class="submit add" name="ajouterJeu">
@@ -132,6 +132,24 @@
     </main>
 
     <script>
+        // on load function
+        window.onload = function() {
+            
+            $('#chkveg').multiselect({
+                includeSelectAllOption: true
+            });
+            
+            var a = $('#chkveg').val();
+            var hiddenselect = document.getElementById("hiddenselect");
+            for (var i = 0; i < a.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = a[i];
+                opt.innerHTML = a[i];
+                opt.selected = true;
+                hiddenselect.appendChild(opt);
+            }
+        }
+
         //Script pour ajouter les jeux dans le select caché
         //cela permet de récuperer les jeux dans le POST
         $(function() {
@@ -159,11 +177,8 @@
                 if (a.length == 0) {
                     mainsubmit.classList.remove("submit-active");
                     spaninfojeu.innerHTML = "Aucun jeu sélectionné";
-                    submitselectionjeux.classList.remove("submit-valid");
                 } else {
-                    mainsubmit.classList.add("submit-active");
                     spaninfojeu.innerHTML = a.length + " jeu(x) enregistré(s) !";
-                    submitselectionjeux.classList.add("ajouterjeu-valid");
                 }
             });
         });
