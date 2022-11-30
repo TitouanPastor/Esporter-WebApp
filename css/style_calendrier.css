@@ -8,12 +8,36 @@
     margin-top :10px;
 }
 
-table {
-    display : flex;
-    justify-content: center;
-    align-items: center;
-    border : 1px solid black;
+.main-calendrier {
+    padding-top: 100px;
 }
+
+.tableau-style {
+    border-collapse: collapse;
+    min-width:400px;
+    width: auto;
+    box-shadow: 0 5px 50px rgb(0, 0, 0,0.15 );
+    cursor: pointer;
+    margin : 100px auto;
+    border : 2px solid black;
+}
+
+thead tr {
+    background-color: grey;
+    color : #fff;
+    text-align: left;
+}
+
+th, td {
+    padding : 15px 20px;
+}
+
+tbody tr, td, th {
+    border : 1px solid #ddd;
+}
+
+tbody 
+
 
 .select {
     box-shadow: var(--little-shadow);

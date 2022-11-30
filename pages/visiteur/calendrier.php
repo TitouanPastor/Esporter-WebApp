@@ -12,6 +12,13 @@
 
 <body>
     <?php
+        // création du header
+        session_start();
+        require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+        $header = new header(2);
+        echo $header->customize_header($_SESSION['role']);
+
+        //Sql
         require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
         $sql = new requeteSQL();
         $check_valider = 0;
@@ -25,66 +32,71 @@
             $req = $sql -> getTournoiCalendrier($param);
         }
     ?>
+    <main class ="main-calendrier">
+        <form action="" method="post">
+            <div class="container">
+                <input type="date" name="tournoi_date" class="element">
 
-    <form action="" method="post">
-        <div class="container">
-            <input type="date" name="tournoi_date" class="element">
-
-            <select name="tournoi_nom" class="element" class="select">
-                <option value="default" selected>Sélectionner un nom de tournoi</option>
-                <?php
-                    $tournoi = $sql->getTournoi();
-                    while ($donnees = $tournoi->fetch()) { ?>
-                <option value="<?php echo $donnees['Nom']; ?>">
-                    <?php echo $donnees['Nom']; ?>
-                </option>
-                <?php } ?>
-            </select>
-
-            <select name="tournoi_jeu" class="element" class="select" value="Sélectionner un nom de jeu">
-                 <option value="default" selected>Sélectionner un nom de jeu</option>
+                <select name="tournoi_nom" class="element" class="select">
+                    <option value="default" selected>Sélectionner un nom de tournoi</option>
                     <?php
-                    $sql = new requeteSQL();
-                    $jeu = $sql->getJeux();
-                    while ($donnees = $jeu->fetch()) { ?>
-                    <option value="<?php echo $donnees['Libelle']; ?>">
-                        <?php echo $donnees['Libelle']; ?>
+                        $tournoi = $sql->getTournoi();
+                        while ($donnees = $tournoi->fetch()) { ?>
+                    <option value="<?php echo $donnees['Nom']; ?>">
+                        <?php echo $donnees['Nom']; ?>
                     </option>
                     <?php } ?>
-            </select>
+                </select>
+
+                <select name="tournoi_jeu" class="element" class="select" value="Sélectionner un nom de jeu">
+                    <option value="default" selected>Sélectionner un nom de jeu</option>
+                        <?php
+                        $sql = new requeteSQL();
+                        $jeu = $sql->getJeux();
+                        while ($donnees = $jeu->fetch()) { ?>
+                        <option value="<?php echo $donnees['Libelle']; ?>">
+                            <?php echo $donnees['Libelle']; ?>
+                        </option>
+                        <?php } ?>
+                </select>
 
 
-            <input name="valider" type="submit" class="submit" class="element" value="valider">
+                <input name="valider" type="submit" class="submit" class="element" value="valider">
 
-        </div>
-        
-        <table class = "tableau">
-            <tr>
-                <th> Nom du Tournoi </th>
-                <th> Date du tournoi</th>
-                <th> Jeu du Tournoi </th>
-            </tr>
-             <?php
-                if ($check_valider == 1) {
-                    if ($req -> rowCount() > 0) {
-                        while ($donnees = $req -> fetch()) {
-                            echo '
-                            <tr>
-                                <td>'.$donnees[0].'</td>
-                                <td>'.$donnees[1].'</td>
-                                <td>'.$donnees[2].'</td>
-                            </tr>
-                            ';
+            </div>
+            
+            <table class = "tableau-style">
+                <thead>
+                    <tr>
+                        <th> Nom du Tournoi </th>
+                        <th> Date du tournoi</th>
+                        <th> Jeu du Tournoi </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php
+                        if ($check_valider == 1) {
+                            if ($req -> rowCount() > 0) {
+                                while ($donnees = $req -> fetch()) {
+                                    echo '
+                                    <tr>
+                                        <td>'.$donnees[0].'</td>
+                                        <td>'.$donnees[1].'</td>
+                                        <td>'.$donnees[2].'</td>
+                                    </tr>
+                                    ';
+                                }
+                            } else {
+                                echo "Il n'existe pas de tournois pour ces critères";
+                            }
                         }
-                    } else {
-                        echo "Il n'existe pas de tournois pour ces critères";
-                    }
-                }
-            ?>
+                    ?>
+                </tbody>
+            </table>
 
-        </table>
-
-    </form>
+        </form>
+    </main>
 </body>
 
 </html>
