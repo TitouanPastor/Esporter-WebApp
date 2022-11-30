@@ -19,23 +19,23 @@
 
         
 
-        //function qui affiche un tournoi
-        public function afficherUneEcurie($nom, $type){
+        //function qui affiche une écurie
+        public function afficherUneEcurie($nom, $statut,$id){
             $str = '<article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
                         <span class="arrow">〉</span>
                         <div class="nodescription-tournoi">
-                            <span class="title-tournoi"> ['.$type.'] '.$nom.'</span>
+                            <span class="title-tournoi"> ['.$statut.'] '.$nom.'</span>
                             <div class="article-btns">
-                                <a href="modification-tournoi.php?id='.$id.'">Modifier</a>
-                                <a href="">Supprimer</a>
+                                <a href="liste-ecuries.php?id='.$id.'">Détails</a>
                             </div>
                         </div>
                     </article>';
+            return $str;
         }
 
         public function afficherLesEcuries(){
             while ($row = $this->req->fetch()){
-                echo $this->afficherUneEcurie($row['Nom'], $row['Statut']);
+                echo $this->afficherUneEcurie($row['Nom'], $row['Statut'], $row['Id_Ecurie']);
             }
         }
 
@@ -43,34 +43,24 @@
             return $this->nbEcuries;
         }
 
-        //Fonction trie les tournois par type
-        public function trierParType(){
-            $this->req = $this->sql->tournoisByType();
-            $this->afficherLesTournois();
+        //Fonction trie les écuries par statut
+        public function trierParStatut(){
+            $this->req = $this->sql->ecuriesByStatut();
+            $this->afficherLesEcuries();
         }
 
-        //Fonction trie les tournois par lieu
-        public function trierParLieu(){
-            $this->req = $this->sql->tournoisByLieu();
-            $this->afficherLesTournois();
-        }
 
-        //Fonction trie les tournois par nom
+        //Fonction trie les écuries par nom
         public function trierParNom(){
-            $this->req = $this->sql->tournoisByNom();
-            $this->afficherLesTournois();
+            $this->req = $this->sql->ecuriesByNom();
+            $this->afficherLesEcuries();
         }
 
-        //Fonction trie les tournois par id (filtre de base)
-        public function trierParDate(){
-            $this->req = $this->sql-> tournoisByDate();
-            $this->afficherLesTournois();
-        }
 
-        //Fonction trie les tournois par id (filtre de base)
+        //Fonction trie les écuries par id (filtre de base)
         public function trierParId(){
-            $this->req = $this->sql-> getTournoi();
-            $this->afficherLesTournois();
+            $this->req = $this->sql-> getEcurie();
+            $this->afficherLesEcuries();
         }
 
 

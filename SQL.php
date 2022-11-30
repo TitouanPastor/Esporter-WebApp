@@ -190,7 +190,23 @@ class requeteSQL
     //Fonction qui retourne les ecuries
     public function getEcurie()
     {
-        $req = $this->linkpdo->prepare('SELECT * FROM ecurie');
+        $req = $this->linkpdo->prepare("SELECT * FROM ecurie");
+        $req->execute();
+        return $req;
+    }
+
+
+    public function ecuriesByNom()
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM ecurie order by Nom");
+        $req->execute();
+        return $req;
+    }
+
+
+    public function ecuriesByStatut()
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM ecurie order by Statut");
         $req->execute();
         return $req;
     }
