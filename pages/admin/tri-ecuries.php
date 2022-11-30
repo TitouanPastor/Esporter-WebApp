@@ -1,18 +1,18 @@
 <?php 
     
-    class TriTournois{
+    class TriEcuries{
 
         private $req;
         private $sql;
-        private $nbTournois;
+        private $nbEcuries;
 
 
-        public function triTournois(){
+        public function triEcuries(){
             require_once('../../SQL.php');
             $this->sql = new requeteSQL();
-            $this->req = $this->sql-> getTournoi();
-            $this->nbTournois = $this->req->rowCount();
-            $this->tournois = '';
+            $this->req = $this->sql-> getEcurie();
+            $this->nbEcuries = $this->req->rowCount();
+            $this->ecuries = '';
 
             
         }
@@ -20,36 +20,27 @@
         
 
         //function qui affiche un tournoi
-        public function afficherUnTournoi($nom, $date_debut, $date_fin, $lieu, $type,$id){
-            $req = $this->sql->getJeuxTournois($id);
+        public function afficherUneEcurie($nom, $type){
             $str = '<article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
                         <span class="arrow">〉</span>
                         <div class="nodescription-tournoi">
                             <span class="title-tournoi"> ['.$type.'] '.$nom.'</span>
                             <div class="article-btns">
                                 <a href="modification-tournoi.php?id='.$id.'">Modifier</a>
+                                <a href="">Supprimer</a>
                             </div>
                         </div>
-                        <div class="description-tournoi">
-                            <p>Le tournoi se déroulera à '.$lieu.' du '.$date_debut.' au '.$date_fin.'.</p>
-                            <p>Les jeu(x) présent(s) sont :</p>';
-            
-            while ($jeu = $req->fetch()) {
-                $str .= '<p>- '.$jeu['Libelle'].'</p>';
-            }
-
-            $str.='</div></article>';
-            return $str;
+                    </article>';
         }
 
-        public function afficherLesTournois(){
+        public function afficherLesEcuries(){
             while ($row = $this->req->fetch()){
-                echo $this->afficherUnTournoi($row['Nom'], $row['Date_debut'],$row['Date_fin'], $row['Lieu'], $row['Type'], $row['Id_Tournoi']);
+                echo $this->afficherUneEcurie($row['Nom'], $row['Statut']);
             }
         }
 
-        public function getNombreTournois(): int{
-            return $this->nbTournois;
+        public function getNombreEcuries(): int{
+            return $this->nbEcuries;
         }
 
         //Fonction trie les tournois par type
