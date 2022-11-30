@@ -32,6 +32,18 @@ while ($row = $reqTournoisId->fetch()) {
     $dateTournoisFin = $row['Date_fin'];
     $lieu = $row['Lieu'];
 }
+if (isset($_POST['modifier'])){
+    if ($_POST['type-tournoi'] == "Local" ) {
+        $ptsMAX = 50;
+    } else if ($_POST['type-tournoi'] == "National" ) {
+        $ptsMAX = 100;
+    } else if ($_POST['type-tournoi'] == "International") {
+        $ptsMAX = 150;
+    } else {
+        $ptsMAX = 0;
+    }
+    $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$id_Tournois);
+}
 
 if (isset($_POST['ajouterJeu'])) {
     //Vérification de si le champs n'est pas vide
@@ -77,10 +89,24 @@ if (isset($_POST['ajouterJeu'])) {
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="type-tournoi">Type du tournoi</label>
-                            <select name="type-tournoi" id="type-tournoi" value="<?php echo $type ?>">
-                                <option value="Local">Local (50 points)</option>
-                                <option value="National">National (100 points)</option>
-                                <option value="International">International (150 points)</option>
+                            <select name="type-tournoi" id="type-tournoi">
+                                <?php
+                                if ($type == "Local") {
+                                    echo '<option value="Local" selected>Local (50 points)</option>';
+                                }else{
+                                    echo '<option value="Local">Local (50 points)</option>';
+                                }
+                                if ($type == "National") {
+                                    echo '<option value="National" selected>National (100 points)</option>';
+                                }else{
+                                    echo '<option value="National">National (100 points)</option>';
+                                }
+                                if ($type == "International") {
+                                    echo '<option value="International" selected>International (150 points)</option>';
+                                }else{
+                                    echo '<option value="International">International (150 points)</option>';
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="creation-tournoi-input">
@@ -113,8 +139,8 @@ if (isset($_POST['ajouterJeu'])) {
 
                     <div class="creation-tournoi-right">
                         <div class="creation-tournoi-input">
-                            <label for="date-tournoi_deb">Date du debut du tournoi</label>
-                            <input type="date" name="date-tournoi_deb" id="date-tournoi_deb" value="<?php echo $dateTournoisDeb ?>">
+                            <label for="date-tournoi-deb">Date du debut du tournoi</label>
+                            <input type="date" name="date-tournoi-deb" id="date-tournoi-deb" value="<?php echo $dateTournoisDeb ?>">
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="date-tournoi-fin">Date de fin du tournoi</label>
