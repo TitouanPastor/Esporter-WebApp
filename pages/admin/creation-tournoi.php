@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap@3.3.2/dist/js/bootstrap.min.js"></script>
     <script src="bootstrap-multiselect.js"></script>
-    <link href="bootstrap-multiselect.css" rel="stylesheet" />
+    <link rel="stylesheet" href="bootstrap-multiselect.css"/>
     <link rel="stylesheet" href="../../css/style.css">
 
 </head>
@@ -206,13 +206,6 @@ if (isset($_POST['ajouterJeu'])) {
                 while (hiddenselect.firstChild) {
                     hiddenselect.removeChild(hiddenselect.firstChild);
                 }
-                for (var i = 0; i < a.length; i++) {
-                    var opt = document.createElement('option');
-                    opt.value = a[i];
-                    opt.innerHTML = a[i];
-                    opt.selected = true;
-                    hiddenselect.appendChild(opt);
-                }
                 if (a.length == 0) {
                     mainsubmit.classList.remove("submit-active");
                     spaninfojeu.innerHTML = "Aucun jeu sélectionné";
@@ -221,6 +214,13 @@ if (isset($_POST['ajouterJeu'])) {
                     mainsubmit.classList.add("submit-active");
                     spaninfojeu.innerHTML = a.length + " jeu(x) enregistré(s) !";
                     submitselectionjeux.classList.add("ajouterjeu-valid");
+                }
+                for (var i = 0; i < a.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = a[i];
+                    opt.innerHTML = a[i];
+                    opt.selected = true;
+                    hiddenselect.appendChild(opt);
                 }
             });
         });

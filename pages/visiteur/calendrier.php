@@ -57,8 +57,8 @@
             <input name="valider" type="submit" class="submit" class="element" value="valider">
 
         </div>
-
-        <table>
+        
+        <table class = "tableau">
             <tr>
                 <th> Nom du Tournoi </th>
                 <th> Date du tournoi</th>
@@ -66,20 +66,18 @@
             </tr>
              <?php
                 if ($check_valider == 1) {
-                    if ($req != null){
-                        echo 'REQ NON null';
-                    }
-                    $donnees = $req -> fetch();
-                    while ($donnees) {
-                        echo 'test fetch';
-                        echo $donnees[0];
-                        echo '
-                        <tr>
-                            <td>'.$donnees[1].'</td>
-                            <td>'.$donnees[2].'</td>
-                            <td>'.$donnees[].'</td>
-                        </tr>
-                        ';
+                    if ($req -> rowCount() > 0) {
+                        while ($donnees = $req -> fetch()) {
+                            echo '
+                            <tr>
+                                <td>'.$donnees[0].'</td>
+                                <td>'.$donnees[1].'</td>
+                                <td>'.$donnees[2].'</td>
+                            </tr>
+                            ';
+                        }
+                    } else {
+                        echo "Il n'existe pas de tournois pour ces critères";
                     }
                 }
             ?>
