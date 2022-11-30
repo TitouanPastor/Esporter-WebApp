@@ -212,6 +212,40 @@ class requeteSQL
     }
 
 
+    //-------------Page Enregistrer une équipe
+
+
+    //Fonction pour ajouter une equipe
+    public function addEquipe($nom, $login, $mdp, $mail, $nbPtsChamps, $id_ecurie, $id_jeu)
+    {
+        $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :login, :mdp, :mail, :nbPtsChamps, :id_ecurie, :id_jeu)');
+        $req->execute(array(
+            'nom' => $nom,
+            'login' => $login,
+            'mdp' => $mdp,
+            'mail' => $mail,
+            'nbPtsChamps' => $nbPtsChamps,
+            'id_ecurie' => $id_ecurie,
+            'id_jeu' => $id_jeu
+        ));
+    }
+
+
+    // Fonction qui retourne les equipes
+    public function getEquipe()
+    {
+        $req = $this->linkpdo->prepare('SELECT * FROM equipe');
+        $req->execute();
+        return $req;
+    }
+
+    //Fonction qui retourne tous les jeux d'une écurie
+    public function getJeuxEcuries() 
+    {
+        
+    }
+
+
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Sprint 3 & (en travaux) 
     
@@ -348,31 +382,6 @@ class requeteSQL
     }
 
 
-    //Fonction pour ajouter une equipe
-    public function addEquipe($nom, $login, $mdp, $mail, $nbPtsChamps, $id_ecurie, $id_jeu)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :login, :mdp, :mail, :nbPtsChamps, :id_ecurie, :id_jeu)');
-        $req->execute(array(
-            'nom' => $nom,
-            'login' => $login,
-            'mdp' => $mdp,
-            'mail' => $mail,
-            'nbPtsChamps' => $nbPtsChamps,
-            'id_ecurie' => $id_ecurie,
-            'id_jeu' => $id_jeu
-        ));
-    }
-
-
-    // Fonction qui retourne les equipes
-    public function getEquipe()
-    {
-        $req = $this->linkpdo->prepare('SELECT * FROM equipe');
-        $req->execute();
-        return $req;
-    }
-
-
     //Fonction pour ajouter une poule 
     public function addPoule($libelle, $idTournoi)
     {
@@ -461,6 +470,19 @@ class requeteSQL
             'idT' => $idT
         ));
         return $req;
+    }
+
+    public function modifierTournoi($nom,$datedeb,$datefin,$type,$lieu,$pointMax,$id){
+        $req = $this->linkpdo->prepare('UPDATE tournoi SET Nom = :nom, Date_debut = :datedeb, Date_fin = :datefin, Type = :type, Lieu = :lieu, Nombre_point_max = :npm  WHERE Id_Tournoi = :idT');
+        $req->execute(array(
+            'nom' => $nom,
+            'datedeb' => $datedeb,
+            'datefin' => $datefin,
+            'type' => $type,
+            'lieu' => $lieu,
+            'npm' => $pointMax,
+            'idT' => $id
+        ));
     }
 
 }

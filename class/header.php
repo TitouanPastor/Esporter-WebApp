@@ -28,7 +28,7 @@ class Header
             $this->pathlisteecurie = "pages/admin/liste-ecuries.php";
             $this->pathinscription = "pages/admin/inscription.php";
             $this->pathtournoisarbitre = "pages/admin/tournoisarbitre.php";
-            $this->pathaddequipes = "pages/admin/enregistrer-equipe.php";
+            $this->pathaddequipes = "pages/ecurie/enregistrer-equipe.php";
             $this->pathlogo = "img/esporter-logo.png";
         } elseif ($etage == 1) {
             $this->pathindex = "../index.php";
@@ -41,7 +41,7 @@ class Header
             $this->pathlisteecurie = "admin/liste-ecuries.php";
             $this->pathinscription = "admin/inscription.php";
             $this->pathtournoisarbitre = "admin/tournoisarbitre.php";
-            $this->pathaddequipes = "admin/enregistrer-equipe.php";
+            $this->pathaddequipes = "ecurie/enregistrer-equipe.php";
             $this->pathlogo = "../img/esporter-logo.png";
         } elseif ($etage == 2) {
             $this->pathindex = "../../index.php";
@@ -54,7 +54,7 @@ class Header
             $this->pathlisteecurie = "../admin/liste-ecuries.php";
             $this->pathinscription = "../admin/inscription.php";
             $this->pathtournoisarbitre = "../admin/tournoisarbitre.php";
-            $this->pathaddequipes = "../admin/enregistrer-equipe.php";
+            $this->pathaddequipes = "../ecurie/enregistrer-equipe.php";
             $this->pathlogo = "../../img/esporter-logo.png";
         }
 
