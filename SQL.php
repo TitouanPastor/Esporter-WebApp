@@ -472,4 +472,17 @@ class requeteSQL
         return $req;
     }
 
+    public function modifierTournoi($nom,$datedeb,$datefin,$type,$lieu,$pointMax,$id){
+        $req = $this->linkpdo->prepare('UPDATE tournoi SET Nom = :nom, Date_debut = :datedeb, Date_fin = :datefin, Type = :type, Lieu = :lieu, Nombre_point_max = :npm  WHERE Id_Tournoi = :idT');
+        $req->execute(array(
+            'nom' => $nom,
+            'datedeb' => $datedeb,
+            'datefin' => $datefin,
+            'type' => $type,
+            'lieu' => $lieu,
+            'npm' => $pointMax,
+            'idT' => $id
+        ));
+    }
+
 }
