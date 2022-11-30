@@ -66,14 +66,18 @@
             </tr>
              <?php
                 if ($check_valider == 1) {
-                    while ($donnees = $req -> fetch()) {
+                    if ($req != null){
+                        echo 'REQ NON null';
+                    }
+                    $donnees = $req -> fetch();
+                    while ($donnees) {
                         echo 'test fetch';
                         echo $donnees[0];
                         echo '
                         <tr>
                             <td>'.$donnees[1].'</td>
                             <td>'.$donnees[2].'</td>
-                            <td>'.'abcbd'.'</td>
+                            <td>'.$donnees[].'</td>
                         </tr>
                         ';
                     }
