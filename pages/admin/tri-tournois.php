@@ -28,7 +28,6 @@
                             <span class="title-tournoi"> ['.$type.'] '.$nom.'</span>
                             <div class="article-btns">
                                 <a href="modification-tournoi.php?id='.$id.'">Modifier</a>
-                                <a href="">Supprimer</a>
                             </div>
                         </div>
                         <div class="description-tournoi">
