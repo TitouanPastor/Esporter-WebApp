@@ -325,7 +325,7 @@
             nonSelectedText: 'Sélectionnez des jeux',
             nSelectedText: 'Selectionnés',
             allSelectedText: 'Tout sélectionner',
-            numberDisplayed: 2,
+            numberDisplayed: 100,
             disableIfEmpty: false,
             delimiterText: ', ',
             templates: {

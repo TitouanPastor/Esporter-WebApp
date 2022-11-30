@@ -1,6 +1,7 @@
 
 function afficherDescriptionTournoi(obj) {
 
+    // On récupère l'élément parent de l'élément cliqué
     var parent = null;
     if (obj.className == "arrow") {
         parent = obj.parentNode;
@@ -13,7 +14,7 @@ function afficherDescriptionTournoi(obj) {
     var arrow = parent.querySelector('.arrow');
     arrow.classList.toggle('arrow-active');
 
-    // 
+    // Description
     var descriptiontournoi = parent.querySelector('.description-tournoi');
     descriptiontournoi.classList.toggle('description-tournoi-active');
 }
