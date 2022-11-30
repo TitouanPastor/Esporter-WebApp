@@ -16,7 +16,8 @@
             $nom = $row['Nom'];
             $nb_pts_max = $row['Nombre_point_max'];
             $type = $row['Type'];
-            $dateTournois = $row['Date_debut'];
+            $dateTournoisDeb = $row['Date_debut'];
+            $dateTournoisFin = $row['Date_fin'];
             $lieu = $row['Lieu'];
         }
 
@@ -37,7 +38,7 @@
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="type-tournoi">Type du tournoi</label>
-                            <input type="text" name="type-tournoi" id="type-tournoi">
+                            <input type="text" name="type-tournoi" id="type-tournoi" value="<?php echo $type ?>">
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="jeux-tournoi">Jeux présents</label>
@@ -47,16 +48,16 @@
 
                     <div class="creation-tournoi-right">
                         <div class="creation-tournoi-input">
-                            <label for="date-tournoi">Nombre de points distribués</label>
-                            <input type="text" name="points-tournoi" id="points-tournoi">
+                            <label for="date-tournoi_deb">Nombre de points distribués</label>
+                            <input type="date" name="date-tournoi_deb" id="date-tournoi_deb" value="<?php echo $dateTournoisDeb ?>">
                         </div>
                         <div class="creation-tournoi-input">
-                            <label for="date-tournoi">Date du tournoi</label>
-                            <input type="date" name="date-tournoi" id="date-tournoi">
+                            <label for="date-tournoi-fin">Date du tournoi</label>
+                            <input type="date" name="date-tournoi-fin" id="date-tournoi-fin" value="<?php echo $dateTournoisFin ?>">
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="lieu-tournoi">Lieu du tournoi</label>
-                            <input type="text" name="lieu-tournoi" id="lieu-tournoi">
+                            <input type="text" name="lieu-tournoi" id="lieu-tournoi" value="<?php echo $lieu ?>">
                         </div>
                     </div>
                 </div>
