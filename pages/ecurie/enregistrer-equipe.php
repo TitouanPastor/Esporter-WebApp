@@ -31,26 +31,32 @@ $reqJeu = $sql->getJeux();
 if (isset($_POST['ajouter'])) {
     // Vérification de si tout les champs sont remplis
     if(!empty($_POST['nom-equipe']) && !empty($_POST['jeu_equipe']) && !empty($_POST['email-equipe']) && !empty($_POST['mdp-equipe'])){
-        //Vérification de si une équipe du même nom n'existe pas déjà
-        $equipes = $sql->getEquipe();
-        $sameEquipe = False;
-        while($equipe = $equipes->fetch()) {
-            if (strtoupper($equipe['Nom']) == strtoupper($_POST['nom-equipe'])) {
-                $sameEquipe = True;
+        //Vérification de si une équipe dans l'écurie n'a pas ce jeu
+        if ($reqJeu) {
+            
+            //Vérification de si une équipe du même nom n'existe pas déjà
+            $equipes = $sql->getEquipe();
+            $sameEquipe = False;
+            while($equipe = $equipes->fetch()) {
+                if (strtoupper($equipe['Nom']) == strtoupper($_POST['nom-equipe'])) {
+                    $sameEquipe = True;
+                }
             }
-        }
-        if(!$sameEquipe){
-            try{   
-                // Ajout d'une équipe (le dernier 1 correspond à l'id gestionnaire)
-                // $sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
-                $info_execution = 'Equipe enregistrée !';
-                header ("Refresh: 3;URL=enregistrer-joueurs.php");
-            }catch(Exception $e){
-                $info_execution = "Erreur lors de l'ajout de l'équipe ! Veuillez réessayer.";
+            if(!$sameEquipe){
+                try{   
+                    // Ajout d'une équipe (le dernier 1 correspond à l'id gestionnaire)
+                    // $sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
+                    $info_execution = 'Equipe enregistrée !';
+                    header ("Refresh: 3;URL=enregistrer-joueurs.php");
+                }catch(Exception $e){
+                    $info_execution = "Erreur lors de l'ajout de l'équipe ! Veuillez réessayer.";
+                }
+                $info_execution = "L'équipe a bien été ajoutée";
+            }else{
+                $info_execution = "Une équipe avec le même nom existe déjà !";
             }
-            $info_execution = "L'équipe a bien été ajoutée";
-        }else{
-            $info_execution = "Une équipe avec le même nom existe déjà !";
+        } else {
+            $info_execution = "Une équipe dans l'écurie avec le même jeu existe déjà !";
         }
     } else {
         $info_execution = "Veuillez remplir tous les champs";
