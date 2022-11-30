@@ -22,10 +22,10 @@
         //function qui affiche un tournoi
         public function afficherUnTournoi($nom, $date_debut, $date_fin, $lieu, $type,$id){
             $req = $this->sql->getJeuxTournois($id);
-            $str = '<article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
-                        <span class="arrow">〉</span>
+            $str = '<article class="main-liste-article">
+                        <span class="arrow" onclick="afficherDescriptionTournoi(this)">〉</span>
                         <div class="nodescription-tournoi">
-                            <span class="title-tournoi"> ['.$type.'] '.$nom.'</span>
+                            <span class="title-tournoi" onclick="afficherDescriptionTournoi(this)"> ['.$type.'] '.$nom.'</span>
                             <div class="article-btns">
                                 <a href="modification-tournoi.php?id='.$id.'">Modifier</a>
                             </div>
