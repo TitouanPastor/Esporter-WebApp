@@ -247,30 +247,57 @@ class requeteSQL
 
     //Fonctions pour calendrier.php
         //Prend en parametre un array, si les valeurs sont null ou "default" alors les requêtes changent
-        public function getTournoiCalendrier($param){
-            if ($param[0] == null){ // pas de date
-                echo $param[2].$param[1];
+        public function getTournoiCalendrier($param){ 
+            // $param[0] = tournoi.date (null)
+            // $param[1] = tournoi.nom ('default')
+            // $param[2] = tournoi.jeu ('default')
+            if ($param[0] == null and $param[1] == 'default'){ // jeu
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle FROM tournoi, concerner, jeu WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND jeu.libelle = :libelle');
+                $testreq = $req -> execute(array("libelle" => $param[2]));
+                if ($testreq == false ){
+                    die ('Erreur getTournoiCalendrier (SQL.php) execute 1');
+                }
+            }elseif ($param[0] == null and $param[2] == 'default'){ // nom
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle FROM tournoi, jeu, concerner WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND tournoi.nom = :nom');
+                $testreq = $req -> execute(array("nom" => $param[1]));
+                if ($testreq == false){
+                    die ('Erreur getTournoiCalendrier (SQL.php) execute 2');
+                }
+            } elseif ($param[1] == 'default' and $param[2] == 'default'){ //date
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle FROM tournoi, jeu, concerner WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND tournoi.date_debut = :date_tournoi');
+                $testreq = $req -> execute (array("date_tournoi" => $param[0]));
+                if ($testreq == null) {
+                    die ('Erreur getTournoiCalendrier (SQL.php) execute 3');
+                }
+            } elseif ($param[0] == null){ // nom + jeu
                 $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_jeu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.nom = :nom ');
                 $testreq = $req -> execute(array("libelle" => $param[2], "nom" => $param[1]));
                 if ($testreq == false){
-                    die ('Erreur execute 1');
+                    die ('Erreur getTournoiCalendrier (SQL.php) execute 4');
                 }
-            } elseif ($param[1] == 'default') { // 
-                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_eu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.date_debut = :date_tournoi');
+            } elseif ($param[1] == 'default') { // date + jeu
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_jeu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.date_debut = :date_tournoi');
                 $testreq = $req -> execute(array("libelle" => $param[2], "date_tournoi" => $param[0]));
                 if ($testreq == false){
-                    die ('Erreur execute 2');
+                    die ('Erreur getTournoiCalendrier (SQL.php) execute 5');
                 }
-            } elseif ($param[2] == 'default') { // 
+            } elseif ($param[2] == 'default') { // date + nom
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_jeu = jeu.id_jeu and tournoi.nom = :nom and tournoi.date_debut = :date_tournoi');
+                $testreq = $req -> execute(array("nom" => $param[1], "date_tournoi" => $param[0]));
+                if ($testreq == false){
+                    die ('Erreur getTournoiCalendrier (SQL.php) execute 6');
+                }
+            } else { // date + nom + jeu
+                $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_eu = jeu.id_jeu and tournoi.nom = :nom and tournoi.date_debut = :date_tournoi and jeu.libelle = :libelle');
+                $testreq = $req -> execute (array("date_tournoi" => $param[0],"nom" => $param[1],"libelle" => $param[2]));
                 $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_eu = jeu.id_jeu and tournoi.nom = :nom and tournoi.date_debut = :date_tournoi');
                 $testreq = $req -> execute(array("nom" => $param[1], "date_tournoi" => $param[0]));
                 if ($testreq == false){
-                    die ('Erreur execute 3');
+                    die ('Erreur getTournoiCalendrier (SQL.php) execute 7');
                 }
             }
             return $req;
         }       
-
 
      //Fonction pour ajouter un arbitre
      public function addArbitre($login, $mdp){
