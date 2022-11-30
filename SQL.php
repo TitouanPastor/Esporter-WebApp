@@ -212,6 +212,40 @@ class requeteSQL
     }
 
 
+    //-------------Page Enregistrer une équipe
+
+
+    //Fonction pour ajouter une equipe
+    public function addEquipe($nom, $login, $mdp, $mail, $nbPtsChamps, $id_ecurie, $id_jeu)
+    {
+        $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :login, :mdp, :mail, :nbPtsChamps, :id_ecurie, :id_jeu)');
+        $req->execute(array(
+            'nom' => $nom,
+            'login' => $login,
+            'mdp' => $mdp,
+            'mail' => $mail,
+            'nbPtsChamps' => $nbPtsChamps,
+            'id_ecurie' => $id_ecurie,
+            'id_jeu' => $id_jeu
+        ));
+    }
+
+
+    // Fonction qui retourne les equipes
+    public function getEquipe()
+    {
+        $req = $this->linkpdo->prepare('SELECT * FROM equipe');
+        $req->execute();
+        return $req;
+    }
+
+    //Fonction qui retourne tous les jeux d'une écurie
+    public function getJeuxEcuries() 
+    {
+        
+    }
+
+
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Sprint 3 & (en travaux) 
     
@@ -344,31 +378,6 @@ class requeteSQL
         $req->execute(array(
             'IdTournoi' => $id
         ));
-        return $req;
-    }
-
-
-    //Fonction pour ajouter une equipe
-    public function addEquipe($nom, $login, $mdp, $mail, $nbPtsChamps, $id_ecurie, $id_jeu)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :login, :mdp, :mail, :nbPtsChamps, :id_ecurie, :id_jeu)');
-        $req->execute(array(
-            'nom' => $nom,
-            'login' => $login,
-            'mdp' => $mdp,
-            'mail' => $mail,
-            'nbPtsChamps' => $nbPtsChamps,
-            'id_ecurie' => $id_ecurie,
-            'id_jeu' => $id_jeu
-        ));
-    }
-
-
-    // Fonction qui retourne les equipes
-    public function getEquipe()
-    {
-        $req = $this->linkpdo->prepare('SELECT * FROM equipe');
-        $req->execute();
         return $req;
     }
 
