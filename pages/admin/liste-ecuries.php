@@ -23,42 +23,33 @@ echo $header->header_admin();
             <div class="main-listes-tabs">
                 <div class="main-listes-filters">
                     <ul>
-                        <li><button type="submit" name="filter1" class="btn-filter" onclick="changerTabListe(this, 'filter1')">Type</button></li>
-                        <li><button type="submit" name="filter2" class="btn-filter" onclick="changerTabListe(this, 'filter2')">Lieu</button></li>
-                        <li><button type="submit" name="filter3" class="btn-filter" onclick="changerTabListe(this, 'filter3')">Nom</button></li>
-                        <li><button type="submit" name="filter4" class="btn-filter" onclick="changerTabListe(this, 'filter4')">Jeu</button></li>
-                        
+                        <li><button type="submit" name="filter1" class="btn-filter" onclick="changerTabListe(this, 'filter1')">Nom</button></li>
+                        <li><button type="submit" name="filter2" class="btn-filter" onclick="changerTabListe(this, 'filter2')">Statut</button></li>
+
                         <li><button type="submit" name="annuler" class="btn-filter btn-filter-active" onclick="changerTabListe(this, 'filterdefault')">par défaut</button></li>
                     </ul>
                 </div>
 
                 <?php
-                require_once(realpath(dirname(__FILE__) . '/tri-tournois.php'));
-                $triTournois = new TriTournois();
+                require_once(realpath(dirname(__FILE__) . '/tri-ecuries.php'));
+                $triEcuries = new TriEcuries();
                 ?>
 
                 <div id="filter1" class="liste">
                     <?php
+                    echo $triEcuries->trierParNom();
                     ?>
                 </div>
 
                 <div id="filter2" class="liste">
                     <?php
-                    ?>
-                </div>
-
-                <div id="filter3" class="liste">
-                    <?php
-                    ?>
-                </div>
-
-                <div id="filter4" class="liste">
-                    <?php
+                    echo $triEcuries->trierParStatut();
                     ?>
                 </div>
 
                 <div style="display: flex;" id="filterdefault" class="liste">
                     <?php
+                    echo $triEcuries->trierParId();
                     ?>
                 </div>
             </div>
