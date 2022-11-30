@@ -190,7 +190,23 @@ class requeteSQL
     //Fonction qui retourne les ecuries
     public function getEcurie()
     {
-        $req = $this->linkpdo->prepare('SELECT * FROM ecurie');
+        $req = $this->linkpdo->prepare("SELECT * FROM ecurie");
+        $req->execute();
+        return $req;
+    }
+
+
+    public function ecuriesByNom()
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM ecurie order by Nom");
+        $req->execute();
+        return $req;
+    }
+
+
+    public function ecuriesByStatut()
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM ecurie order by Statut DESC");
         $req->execute();
         return $req;
     }
@@ -429,6 +445,22 @@ class requeteSQL
             'idEquipe' => $idEquipe,
             'idGame' => $idGame
         ));
+    }
+
+    public function deleteJeuTournoi($idT, $idJ){
+        $req = $this->linkpdo->prepare('DELETE FROM concerner WHERE Id_Tournoi = :idT and Id_Jeu = :idJ');
+        $req->execute(array(
+            'idT' => $idT,
+            'idJ' => $idJ
+        ));
+    }
+
+    public function jeuNonPresentDansTournois($idT){
+        $req = $this->linkpdo->prepare('SELECT * FROM jeu WHERE Id_Jeu NOT IN (SELECT Id_Jeu FROM concerner WHERE Id_Tournoi = :idT)');
+        $req->execute(array(
+            'idT' => $idT
+        ));
+        return $req;
     }
 
 }

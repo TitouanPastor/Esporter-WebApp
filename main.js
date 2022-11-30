@@ -1,11 +1,21 @@
 
 function afficherDescriptionTournoi(obj) {
+
+    // On récupère l'élément parent de l'élément cliqué
+    var parent = null;
+    if (obj.className == "arrow") {
+        parent = obj.parentNode;
+    } else {
+        parent = obj.parentNode.parentNode;
+    }
+
+
     // Arrow
-    var arrow = obj.querySelector('.arrow');
+    var arrow = parent.querySelector('.arrow');
     arrow.classList.toggle('arrow-active');
 
-    // 
-    var descriptiontournoi = obj.querySelector('.description-tournoi');
+    // Description
+    var descriptiontournoi = parent.querySelector('.description-tournoi');
     descriptiontournoi.classList.toggle('description-tournoi-active');
 }
 
@@ -22,7 +32,7 @@ function changerTabListe(obj, tabId) {
         btnfilter[i].classList.remove('btn-filter-active');
     }
 
-    var liste = document.getElementById(tabId) ;
+    var liste = document.getElementById(tabId);
     liste.style.display = "flex";
 
     obj.classList.add('btn-filter-active');
