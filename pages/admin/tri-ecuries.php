@@ -22,7 +22,6 @@
         //function qui affiche une écurie
         public function afficherUneEcurie($nom, $statut,$id){
             $str = '<article class="main-liste-article" for="tournoicheckbox" onclick="afficherDescriptionTournoi(this)">
-                        <span class="arrow">〉</span>
                         <div class="nodescription-tournoi">
                             <span class="title-tournoi"> ['.$statut.'] '.$nom.'</span>
                             <div class="article-btns">

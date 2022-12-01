@@ -71,7 +71,7 @@ class requeteSQL
 
         return $req;
     }
-
+    
 
     //Fonction pour ajouter un tournoi
     public function addTournoi($Type, $nom, $date_deb, $date_fin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre)
@@ -130,6 +130,7 @@ class requeteSQL
             'idTournoi' => $idTournoi,
             'idJeu' => $idJeu
         ));
+
     }
 
 
@@ -195,6 +196,16 @@ class requeteSQL
         return $req;
     }
 
+     //Fonction qui retourne une écurie en fonction de son mail
+     public function getIdEcurieByMail($mail)
+     {
+         $req = $this->linkpdo->prepare("SELECT Id_Ecurie FROM ecurie where Mail = :mail");
+         $req->execute(array(
+            'mail' => $mail
+        ));
+         return $req;
+     }
+
 
     public function ecuriesByNom()
     {
@@ -216,12 +227,11 @@ class requeteSQL
 
 
     //Fonction pour ajouter une equipe
-    public function addEquipe($nom, $login, $mdp, $mail, $nbPtsChamps, $id_ecurie, $id_jeu)
+    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $id_ecurie, $id_jeu)
     {
-        $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :login, :mdp, :mail, :nbPtsChamps, :id_ecurie, :id_jeu)');
+        $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :mdp, :mail, :nbPtsChamps, :id_jeu, :id_ecurie)');
         $req->execute(array(
             'nom' => $nom,
-            'login' => $login,
             'mdp' => $mdp,
             'mail' => $mail,
             'nbPtsChamps' => $nbPtsChamps,
@@ -231,18 +241,22 @@ class requeteSQL
     }
 
 
-    // Fonction qui retourne les equipes
-    public function getEquipe()
+    // Fonction qui retourne les equipes d'une Ecurie
+    public function getEquipeEcurie($id)
     {
-        $req = $this->linkpdo->prepare('SELECT * FROM equipe');
-        $req->execute();
+        $req = $this->linkpdo->prepare("SELECT * FROM equipe where Id_Ecurie = :IdEcurie");
+        $req->execute(array(
+            'IdEcurie' => $id
+        ));
         return $req;
     }
 
-    //Fonction qui retourne tous les jeux d'une écurie
-    public function getJeuxEcuries() 
+    // Fonction qui retourne les equipes 
+    public function getEquipe()
     {
-        
+        $req = $this->linkpdo->prepare("SELECT * FROM equipe");
+        $req->execute();
+        return $req;
     }
 
 

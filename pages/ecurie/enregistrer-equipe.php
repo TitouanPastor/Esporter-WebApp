@@ -22,7 +22,6 @@ echo $header->customize_header($_SESSION['role']);
 
 // Initialisation des variables
 $info_execution = "";
-$info_execution_jeu = "";
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
 $reqJeu = $sql->getJeux();
@@ -32,8 +31,15 @@ if (isset($_POST['ajouter'])) {
     // Vérification de si tout les champs sont remplis
     if(!empty($_POST['nom-equipe']) && !empty($_POST['jeu_equipe']) && !empty($_POST['email-equipe']) && !empty($_POST['mdp-equipe'])){
         //Vérification de si une équipe dans l'écurie n'a pas ce jeu
-        if ($reqJeu) {
-            
+        $id = $sql->getIdEcurieByMail($_SESSION['username']);
+        $equipes = $sql->getEquipeEcurie('$id');
+        $sameJeu = False;
+        while($equipe = $equipes->fetch()) {
+            if ($equipe['Id_Jeu'] == $_POST['Id_Jeu']) {
+                $sameJeu = True;
+            }
+        }
+        if(!$sameJeu){    
             //Vérification de si une équipe du même nom n'existe pas déjà
             $equipes = $sql->getEquipe();
             $sameEquipe = False;
@@ -44,10 +50,10 @@ if (isset($_POST['ajouter'])) {
             }
             if(!$sameEquipe){
                 try{   
-                    // Ajout d'une équipe (le dernier 1 correspond à l'id gestionnaire)
-                    // $sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
+                    //Ajout d'une équipe (le dernier 1 correspond à l'id gestionnaire)
+                    //$sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
                     $info_execution = 'Equipe enregistrée !';
-                    header ("Refresh: 3;URL=enregistrer-joueurs.php");
+                    //header ("Refresh: 3;URL=enregistrer-joueurs.php");
                 }catch(Exception $e){
                     $info_execution = "Erreur lors de l'ajout de l'équipe ! Veuillez réessayer.";
                 }
