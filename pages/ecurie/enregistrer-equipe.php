@@ -13,12 +13,15 @@
 
 
 <?php
-
-// Création du header
 session_start();
 require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
 $header = new header(2);
-echo $header->customize_header($_SESSION['role']);
+
+if ($_SESSION['role'] == "ecurie") {
+    echo $header->customize_header($_SESSION['role']);
+} else {
+    echo $header->customize_header_innaccessible();
+}
 
 // Initialisation des variables
 $info_execution = "";
@@ -29,36 +32,43 @@ $reqJeu = $sql->getJeux();
 // Ajouter une équipe
 if (isset($_POST['ajouter'])) {
     // Vérification de si tout les champs sont remplis
-    if(!empty($_POST['nom-equipe']) && !empty($_POST['jeu_equipe']) && !empty($_POST['email-equipe']) && !empty($_POST['mdp-equipe'])){
+    if (!empty($_POST['nom-equipe']) && !empty($_POST['jeu_equipe']) && !empty($_POST['email-equipe']) && !empty($_POST['mdp-equipe'])) {
         //Vérification de si une équipe dans l'écurie n'a pas ce jeu
         $id = $sql->getIdEcurieByMail($_SESSION['username']);
-        $equipes = $sql->getEquipeEcurie('$id');
+        $equipes = $sql->getEquipeEcurie($id);
         $sameJeu = False;
-        while($equipe = $equipes->fetch()) {
-            if ($equipe['Id_Jeu'] == $_POST['Id_Jeu']) {
+        while ($equipe = $equipes->fetch()) {
+            if ($equipe['Id_Jeu'] == $_POST['jeu_equipe']) {
                 $sameJeu = True;
             }
         }
-        if(!$sameJeu){    
+        if (!$sameJeu) {
             //Vérification de si une équipe du même nom n'existe pas déjà
             $equipes = $sql->getEquipe();
             $sameEquipe = False;
-            while($equipe = $equipes->fetch()) {
+            $sameMail = False;
+            while ($equipe = $equipes->fetch()) {
                 if (strtoupper($equipe['Nom']) == strtoupper($_POST['nom-equipe'])) {
                     $sameEquipe = True;
                 }
-            }
-            if(!$sameEquipe){
-                try{   
-                    //Ajout d'une équipe (le dernier 1 correspond à l'id gestionnaire)
-                    //$sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
-                    $info_execution = 'Equipe enregistrée !';
-                    //header ("Refresh: 3;URL=enregistrer-joueurs.php");
-                }catch(Exception $e){
-                    $info_execution = "Erreur lors de l'ajout de l'équipe ! Veuillez réessayer.";
+                if (strtoupper($equipe['Mail']) == strtoupper($_POST['email-equipe'])) {
+                    $sameMail = True;
                 }
-                $info_execution = "L'équipe a bien été ajoutée";
-            }else{
+            }
+            if (!$sameEquipe) {
+                if (!$sameMail) {
+                    try {
+                        //Ajout d'une équipe (le 0 correspond au nombre de point au championnat initialisé à 0)
+                        //$sql->addEquipe($_POST['nom-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],0,$_POST['jeu_equipe'],$id);
+                        $info_execution = 'Equipe enregistrée !';
+                        header("Refresh: 3;URL=enregistrer-joueurs.php");
+                    } catch (Exception $e) {
+                        $info_execution = "Erreur : " . $e->getMessage();
+                    }
+                } else {
+                    $info_execution = "Une équipe avec la même adresse mail existe déjà";
+                }
+            } else {
                 $info_execution = "Une équipe avec le même nom existe déjà !";
             }
         } else {
@@ -68,7 +78,7 @@ if (isset($_POST['ajouter'])) {
         $info_execution = "Veuillez remplir tous les champs";
     }
 }
-        
+
 ?>
 
 
@@ -86,13 +96,13 @@ if (isset($_POST['ajouter'])) {
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="jeu-equipe">Jeu</label>
-                            <select name="jeu_equipe" id="jeu-equipe"> 
-                            <?php
+                            <select name="jeu_equipe" id="jeu-equipe">
+                                <?php
                                 //Affichage de la liste de tout les jeux enregistrés dans la base de données
                                 while ($data = $reqJeu->fetch()) {
                                     echo '<option value="' . $data['Id_Jeu'] . '">' . $data['Libelle'] . '</option>';
                                 }
-                            ?>
+                                ?>
                             </select>
                         </div>
                         <div class="creation-tournoi-input">
@@ -105,9 +115,27 @@ if (isset($_POST['ajouter'])) {
                         </div>
                     </div>
 
+                    <div class="creation-tournoi-right">
+                        <div class="creation-tournoi-input">
+                            <input class="bouton" type="button" name="Joueur1" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
+                        </div>
+                        <div class="creation-tournoi-input">
+                            </br>
+                            <input class="bouton" type="button" name="Joueur2" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
+                        </div>
+                        <div class="creation-tournoi-input">
+                            </br>
+                            <input class="bouton" type="button" name="Joueur3" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
+                        </div>
+                        <div class="creation-tournoi-input">
+                            </br>
+                            <input class="bouton" type="button" name="Joueur4" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
+                        </div>
+                    </div>
+
                 </div>
                 <input class="submit" type="submit" name="ajouter" value="Ajouter">
-                <span><?php echo $info_execution?> </span>
+                <span><?php echo $info_execution ?> </span>
             </form>
         </section>
     </main>

@@ -8,21 +8,32 @@
     <title>Document</title>
     <link rel="stylesheet" href="../../css/style.css">
 </head>
-    <?php
-        $info_execution = "Joueur non enregistré";
-        require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-        if(!empty($_POST['nom-joueur'])  && !empty($_POST['prenom-joueur']) && !empty($_POST['dtn_joueur']) && !empty($_POST['pseudo_joueur']) && !empty($_POST['email_joueur'])) {
-            try{   
-                // $sql = new requeteSQL();
-                // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
-                // $sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
-                $info_execution = 'Joueur enregistré !';
-                header ("Refresh: 2;URL=enregistrer-joueurs.php");
-            }catch(Exception $e){
-                $info_execution = "Erreur : " . $e->getMessage();
-            }
-        } 
-    ?>
+<?php
+session_start();
+require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+$header = new header(2);
+
+if ($_SESSION['role'] == "ecurie") {
+    echo $header->customize_header($_SESSION['role']);
+} else {
+    echo $header->customize_header_innaccessible();
+}
+
+$info_execution = "Joueur non enregistré";
+require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+if (!empty($_POST['nom-joueur'])  && !empty($_POST['prenom-joueur']) && !empty($_POST['dtn_joueur']) && !empty($_POST['pseudo_joueur']) && !empty($_POST['email_joueur'])) {
+    try {
+        // $sql = new requeteSQL();
+        // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
+        // $sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
+        $info_execution = 'Joueur enregistré !';
+        header("Refresh: 2;URL=enregistrer-joueurs.php");
+    } catch (Exception $e) {
+        $info_execution = "Erreur : " . $e->getMessage();
+    }
+}
+?>
+
 <body>
     <main class="main-creation-tournoi">
         <section class="creation-tournoi-container">
@@ -55,7 +66,7 @@
 
                 </div>
                 <input class="submit" type="submit" name="ajouter" value="Ajouter">
-                <span><?php echo $info_execution?> </span>
+                <span><?php echo $info_execution ?> </span>
             </form>
         </section>
     </main>

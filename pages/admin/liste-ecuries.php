@@ -12,9 +12,16 @@
 
 <body>
 <?php
+session_start();
 require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
-$header = new header(2);
-echo $header->header_admin();
+$header = new header(2);    
+
+if ($_SESSION['role'] == "gestionnaire") {
+    echo $header->customize_header($_SESSION['role']);
+} else {
+    echo $header->customize_header_innaccessible();
+}
+
 ?>
     <main class="main-listes">
         <section class="main-listes-container">
