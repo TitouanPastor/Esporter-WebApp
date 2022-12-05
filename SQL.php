@@ -199,11 +199,13 @@ class requeteSQL
      //Fonction qui retourne une écurie en fonction de son mail
      public function getIdEcurieByMail($mail)
      {
-         $req = $this->linkpdo->prepare("SELECT Id_Ecurie FROM ecurie where Mail = :mail");
+         $req = $this->linkpdo->prepare('SELECT Id_Ecurie FROM ecurie where Mail = :mail');
          $req->execute(array(
             'mail' => $mail
         ));
-         return $req;
+        while ($data = $req->fetch()) {
+            return $data['Id_Ecurie'];
+        }
      }
 
 
@@ -250,6 +252,7 @@ class requeteSQL
         ));
         return $req;
     }
+    
 
     // Fonction qui retourne les equipes 
     public function getEquipe()

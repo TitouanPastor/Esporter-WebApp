@@ -32,10 +32,10 @@ if (isset($_POST['ajouter'])) {
     if(!empty($_POST['nom-equipe']) && !empty($_POST['jeu_equipe']) && !empty($_POST['email-equipe']) && !empty($_POST['mdp-equipe'])){
         //Vérification de si une équipe dans l'écurie n'a pas ce jeu
         $id = $sql->getIdEcurieByMail($_SESSION['username']);
-        $equipes = $sql->getEquipeEcurie('$id');
+        $equipes = $sql->getEquipeEcurie($id);
         $sameJeu = False;
         while($equipe = $equipes->fetch()) {
-            if ($equipe['Id_Jeu'] == $_POST['Id_Jeu']) {
+            if ($equipe['Id_Jeu'] == $_POST['jeu_equipe']) {
                 $sameJeu = True;
             }
         }
@@ -43,21 +43,28 @@ if (isset($_POST['ajouter'])) {
             //Vérification de si une équipe du même nom n'existe pas déjà
             $equipes = $sql->getEquipe();
             $sameEquipe = False;
+            $sameMail = False;
             while($equipe = $equipes->fetch()) {
                 if (strtoupper($equipe['Nom']) == strtoupper($_POST['nom-equipe'])) {
                     $sameEquipe = True;
                 }
+                if (strtoupper($equipe['Mail']) == strtoupper($_POST['email-equipe'])) {
+                    $sameMail = True;
+                }
             }
             if(!$sameEquipe){
-                try{   
-                    //Ajout d'une équipe (le dernier 1 correspond à l'id gestionnaire)
-                    //$sql->addEquipe($_POST['nom-equipe'],$_POST['jeu-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],1);
-                    $info_execution = 'Equipe enregistrée !';
-                    //header ("Refresh: 3;URL=enregistrer-joueurs.php");
-                }catch(Exception $e){
-                    $info_execution = "Erreur lors de l'ajout de l'équipe ! Veuillez réessayer.";
+                if(!$sameMail) {
+                    try{   
+                        //Ajout d'une équipe (le 0 correspond au nombre de point au championnat initialisé à 0)
+                        //$sql->addEquipe($_POST['nom-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],0,$_POST['jeu_equipe'],$id);
+                        $info_execution = 'Equipe enregistrée !';
+                        header ("Refresh: 3;URL=enregistrer-joueurs.php");
+                    }catch(Exception $e){
+                        $info_execution = "Erreur : " . $e->getMessage();
+                    }
+                }else{
+                    $info_execution = "Une équipe avec la même adresse mail existe déjà";
                 }
-                $info_execution = "L'équipe a bien été ajoutée";
             }else{
                 $info_execution = "Une équipe avec le même nom existe déjà !";
             }
