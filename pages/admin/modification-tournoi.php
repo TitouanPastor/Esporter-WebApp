@@ -22,6 +22,7 @@ $sql = new requeteSQL();
 $id_Tournois = $_GET['id'];
 $reqTournoisId = $sql->tournoiId($id_Tournois);
 $info_execution_jeu = "";
+$info_execution = "" ;
 while ($row = $reqTournoisId->fetch()) {
     $nom = $row['Nom'];
     $nb_pts_max = $row['Nombre_point_max'];
@@ -31,24 +32,74 @@ while ($row = $reqTournoisId->fetch()) {
     $lieu = $row['Lieu'];
 }
 if (isset($_POST['modifier'])){
-    if ($_POST['type-tournoi'] == "Local" ) {
-        $ptsMAX = 50;
-    } else if ($_POST['type-tournoi'] == "National" ) {
-        $ptsMAX = 100;
-    } else if ($_POST['type-tournoi'] == "International") {
-        $ptsMAX = 150;
-    } else {
-        $ptsMAX = 0;
-    }
-    //Modification tu tournoi
-    $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$id_Tournois);
-    //Suppression des jeux du tournoi
-    $reqSupprimerJeuxTournois = $sql->supprimerJeuxTournoi($id_Tournois);
-    //Ajout des nouveau jeux du tournoi
-    foreach ($_POST['jeuxtournoi'] as $jeu) {
-        $sql->addConcerner($id_Tournois, $jeu);
-    }
+    // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er février)
+    if(strtotime("2023-02-01") > strtotime(date("Y-m-d"))) {
+        if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['date-tournoi-deb']) && !empty($_POST['date-tournoi-fin']) && !empty($_POST['lieu-tournoi'])) {
+            if (sizeof($_POST['jeuxtournoi']) > 0) { 
+                // Vérification de si la date de début est inferieur la date de fin   
+                if (strtotime($_POST['date-tournoi-deb']) <= strtotime($_POST['date-tournoi-fin'])) { 
+                    // Vérification de si la date de début est supérieur à la date du jour
+                    if (strtotime($_POST['date-tournoi-deb']) > strtotime(date("Y-m-d"))) {
+                        //Vérification de si un tournoi du même nom n'existe pas
+                        $sameTournoi = False;
+                        $turnoisId = $sql->tournoiId($id_Tournois);
 
+
+                        $tournois = $sql->getTournoi(); 
+                        while($tournoi = $tournois->fetch()) {
+                            if (strtoupper($tournoi['Nom']) == strtoupper($_POST['nom-tournoi'])) {
+                                $sameTournoi = True;
+                            }
+                        }
+                        
+
+                        while ($row = $turnoisId->fetch()) {
+                            if ($row['Nom'] == $_POST['nom-tournoi']) {
+                               $sameTournoi = False;
+                            } 
+                        }
+                        if(!$sameTournoi){
+                            try {
+                                if ($_POST['type-tournoi'] == "Local" ) {
+                                    $ptsMAX = 50;
+                                } else if ($_POST['type-tournoi'] == "National" ) {
+                                    $ptsMAX = 100;
+                                } else if ($_POST['type-tournoi'] == "International") {
+                                    $ptsMAX = 150;
+                                } else {
+                                    $ptsMAX = 0;
+                                }
+                                //Modification tu tournoi
+                                $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$id_Tournois);
+                                //Suppression des jeux du tournoi
+                                $reqSupprimerJeuxTournois = $sql->supprimerJeuxTournoi($id_Tournois);
+                                //Ajout des nouveau jeux du tournoi
+                                foreach ($_POST['jeuxtournoi'] as $jeu) {
+                                    $sql->addConcerner($id_Tournois, $jeu);
+                                }
+                                    $info_execution = 'Tournoi modifié !';
+                                } catch (Exception $e) {
+                                    $info_execution = "Erreur lors de la modification du tournoi ! Veuillez réessayer.";
+                                }
+                                    $info_execution = "Le tournoi a bien été modifié";
+                            }else{
+                                $info_execution = "Un tournoi avec le même nom existe déjà";
+                            }
+                        } else {
+                            $info_execution = "La date que vous avez entrez est inférieur à la date d'aujoud'hui !";
+                        }
+                    }else{
+                        $info_execution = "La date de début doit être inférieur à la date de fin !";
+                    }
+                }else{
+                    $info_execution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oublier pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
+                }
+            }else {
+            $info_execution_jeu = "Veuillez remplir tous les champs";
+        }
+    }else{
+        $info_execution_jeu = "Vous ne pouvez plus modifier de tournoi l(max : 1 février) !";
+    }
 
 }   
 $reqJeuduTournois = $sql->getJeuxTournois($id_Tournois);
@@ -161,6 +212,7 @@ if (isset($_POST['ajouterJeu'])) {
                     </div>
                 </div>
                 <input class="update" type="submit" name="modifier" value="Modifier">
+                <span><?php echo $info_execution ?> </span>
             </form>
         </section>
     </main>
@@ -208,8 +260,9 @@ if (isset($_POST['ajouterJeu'])) {
                     opt.selected = true;
                     hiddenselect.appendChild(opt);
                 }
+                console.log(a.length    )
                 if (a.length == 0) {
-                    mainsubmit.classList.remove("submit-active");
+                    
                     spaninfojeu.innerHTML = "Aucun jeu sélectionné";
                 } else {
                     spaninfojeu.innerHTML = a.length + " jeu(x) enregistré(s) !";
