@@ -112,6 +112,24 @@ if (isset($_POST['ajouter'])) {
                         </div>
                     </div>
 
+                    <div class="creation-tournoi-right">
+                        <div class="creation-tournoi-input">
+                            <input class="bouton" type="button" name="Joueur1" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
+                        </div>
+                         <div class="creation-tournoi-input">
+                            </br>
+                            <input class="bouton" type="button" name="Joueur2" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
+                        </div>
+                        <div class="creation-tournoi-input">
+                            </br>
+                            <input class="bouton" type="button" name="Joueur3" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
+                        </div>
+                        <div class="creation-tournoi-input">
+                            </br>
+                            <input class="bouton" type="button" name="Joueur4" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
+                        </div>
+                    </div>
+
                 </div>
                 <input class="submit" type="submit" name="ajouter" value="Ajouter">
                 <span><?php echo $info_execution?> </span>
