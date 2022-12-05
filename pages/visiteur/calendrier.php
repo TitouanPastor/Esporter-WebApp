@@ -64,8 +64,8 @@
                 <input name="valider" type="submit" class="submit" class="element" value="valider">
 
             </div>
-            
-            <table class = "tableau-style">
+            <div class = "tableau-style">
+            <table>
                 <thead>
                     <tr>
                         <th> Nom du Tournoi </th>
@@ -94,7 +94,7 @@
                     ?>
                 </tbody>
             </table>
-
+            </div>
         </form>
     </main>
 </body>
