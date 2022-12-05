@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap@3.3.2/dist/js/bootstrap.min.js"></script>
     <script src="bootstrap-multiselect.js"></script>
-    <link rel="stylesheet" href="bootstrap-multiselect.css"/>
+    <link rel="stylesheet" href="bootstrap-multiselect.css" />
     <link rel="stylesheet" href="../../css/style.css">
 
 </head>
@@ -21,7 +21,12 @@
 session_start();
 require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
 $header = new header(2);
-echo $header->customize_header($_SESSION['role']);
+
+if ($_SESSION['role'] == "gestionnaire") {
+    echo $header->customize_header($_SESSION['role']);
+} else {
+    echo $header->customize_header_innaccessible();
+}
 
 // Initialisation des variables
 $info_execution = "";
@@ -33,29 +38,29 @@ $reqJeu = $sql->getJeux();
 // Ajouter un tournoi
 if (isset($_POST['ajouter'])) {
     // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er février)
-    if(strtotime("2023-02-01") > strtotime(date("Y-m-d"))) {
+    if (strtotime("2023-02-01") > strtotime(date("Y-m-d"))) {
         // Vérification de si tout les champs sont remplis
-        if ( !empty($_POST['nom-tournoi']) && !empty($_POST['comboboxtypetournoi']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin'])) {
+        if (!empty($_POST['nom-tournoi']) && !empty($_POST['comboboxtypetournoi']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin'])) {
             //Vérification de si il y a au moins un jeu séléctionner
-            if (sizeof($_POST['jeuxtournoi']) > 0) { 
+            if (sizeof($_POST['jeuxtournoi']) > 0) {
                 // Vérification de si la date de début est inferieur la date de fin   
-                if (strtotime($_POST['date-debut']) <= strtotime($_POST['date-fin'])) { 
+                if (strtotime($_POST['date-debut']) <= strtotime($_POST['date-fin'])) {
                     // Vérification de si la date de début est supérieur à la date du jour
-                    if (strtotime($_POST['date-debut']) > strtotime(date("Y-m-d").' + 2 weeks')) {
+                    if (strtotime($_POST['date-debut']) > strtotime(date("Y-m-d") . ' + 2 weeks')) {
                         //Vérification de si un tournoi du même nom n'existe pas
                         $tournois = $sql->getTournoi();
                         $sameTournoi = False;
-                        while($tournoi = $tournois->fetch()) {
+                        while ($tournoi = $tournois->fetch()) {
                             if (strtoupper($tournoi['Nom']) == strtoupper($_POST['nom-tournoi'])) {
                                 $sameTournoi = True;
                             }
                         }
-                        if(!$sameTournoi){
+                        if (!$sameTournoi) {
                             try {
                                 //Mise à jour des points du tournoi en fonction de son type
-                                if ($_POST['comboboxtypetournoi'] == "Local" ) {
+                                if ($_POST['comboboxtypetournoi'] == "Local") {
                                     $points = 50;
-                                } else if ($_POST['comboboxtypetournoi'] == "National" ) {
+                                } else if ($_POST['comboboxtypetournoi'] == "National") {
                                     $points = 100;
                                 } else if ($_POST['comboboxtypetournoi'] == "International") {
                                     $points = 150;
@@ -75,17 +80,17 @@ if (isset($_POST['ajouter'])) {
                             } catch (Exception $e) {
                                 $info_execution = "Erreur lors de l'ajout du tournoi ! Veuillez réessayer.";
                             }
-                                $info_execution = "Le tournoi a bien été ajouté";
-                        }else{
+                            $info_execution = "Le tournoi a bien été ajouté";
+                        } else {
                             $info_execution = "Un tournoi avec le même nom existe déjà";
                         }
                     } else {
                         $info_execution = "La date de début du tournoi doit être supérieur à 2 semaines";
                     }
-                }else{
+                } else {
                     $info_execution = "La date de début doit être inférieur à la date de fin !";
                 }
-            }else{
+            } else {
                 $info_execution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oublier pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
             }
         } else {
@@ -103,7 +108,7 @@ if (isset($_POST['ajouterJeu'])) {
         //Vérification de si le jeu n'existe pas déjà
         $jeux = $sql->getJeux();
         $sameJeu = False;
-        while($jeu = $jeux->fetch()) {
+        while ($jeu = $jeux->fetch()) {
             if (strtoupper($jeu['Libelle']) == strtoupper($_POST['jeux-tournoi'])) {
                 $sameJeu = True;
             }
@@ -117,7 +122,7 @@ if (isset($_POST['ajouterJeu'])) {
             } catch (Exception $e) {
                 $info_execution_jeu = "Erreur lors de l'ajout du jeu !";
             }
-        }else{
+        } else {
             $info_execution_jeu = "Le jeu existe déjà";
         }
     }
@@ -151,7 +156,7 @@ if (isset($_POST['ajouterJeu'])) {
                                 }
                                 ?>
                             </select>
-                            <input class="add" type="button" id="ajouterjeux" value="Valider la sélection"  style="margin-bottom: 30px;">
+                            <input class="add" type="button" id="ajouterjeux" value="Valider la sélection" style="margin-bottom: 30px;">
 
                             <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
                             <input type="submit" value="Ajouter un jeu" class="submit add" name="ajouterJeu">
@@ -182,8 +187,11 @@ if (isset($_POST['ajouterJeu'])) {
                         </div>
                     </div>
                 </div>
-                <input id="submit" class="submit-gris" type="submit" name="ajouter" value="Ajouter">
-                <span><?php echo $info_execution ?> </span>
+                <div class="button_container" style="display: flex; flex-direction: column; align-items:center; gap: 5px;">
+                    <input id="submit" class="submit-gris" type="submit" name="ajouter" value="Ajouter">
+                    <span><?php echo $info_execution ?></span>
+                    <a class="return bouton" href="../../index.php">Retour</a>
+                </div>
             </form>
         </section>
     </main>

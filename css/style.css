@@ -5,6 +5,7 @@
   --dark-blue-logo: rgb(56, 52, 84);
   --border-radius: 0.22em;
   --btn-bouton: rgb(228, 118, 118);
+  --btn-bouton-hover: rgb(234, 85, 85);
   --btn-boutonAddJoueur: rgb(101, 181, 235);
   --btn-boutonAddJoueur-hover: rgb(28, 170, 231);
   --btn-submit: rgb(121, 241, 137);
@@ -48,7 +49,35 @@ label {
   font-weight: 500;
 }
 
+.acces-refuse {
+  padding: 25px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--white);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  gap: 12px;
+}
 
+.acces-refuse h1 {
+  font-size: 4em;
+  color: var(--purple);
+}
+
+.acces-refuse p {
+  font-size: 1.7em;
+  color: var(--black-grey);
+}
+
+.acces-refuse img {
+  width: 20vw;
+}
 
 /* Spécification style des balises formulaires */
 /* Spécification style des balises formulaires */
@@ -125,6 +154,7 @@ input[type="submit"].add, input[type="button"].add {
 }
 
 input[type="button"].bouton {
+  cursor: pointer;
   box-shadow: var(--background-shadow);
   border-radius: var(--border-radius);
   color: var(--black);
@@ -137,6 +167,23 @@ input[type="button"].bouton {
   line-height: initial;
   height: max-content;
   transition: all .2s ease-in-out;
+}
+
+.return {
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--background-shadow);
+  border-radius: var(--border-radius);
+  color: var(--black);
+  border: 0px;
+  font-weight: 600;
+  font-size: 1.4rem;
+  background-color: var(--btn-bouton);
+  width: auto;
+  line-height: initial;
+  height: max-content;
+  transition: all .2s ease-in-out;
+  padding: 5px 12px;
 }
 
 input[type="button"].boutonAddJoueur {
@@ -200,6 +247,10 @@ input[type="submit"].update:hover {
 
 input[type="submit"].add:hover, input[type=button].add:hover {
   background-color: var(--btn-update-hover);
+}
+
+.return:hover {
+  background-color: var(--btn-bouton-hover);
 }
 
 /* Modification input button d'ajouter un jeu */
@@ -352,6 +403,7 @@ header ul {
 }
 
 .creation-tournoi-container form {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;

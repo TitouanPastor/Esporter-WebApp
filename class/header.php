@@ -71,6 +71,20 @@ class Header
         ';
     }
 
+    // page que l'utilisateur n'a pas l'accès
+    public function customize_header_innaccessible()
+    {
+        echo '
+            <div class="acces-refuse">
+                <h1>Accès refusé</h1>
+                <p>Vous n\'avez pas l\'accès à cette page</p>
+                <img src="https://cdn-icons-png.flaticon.com/512/7603/7603400.png" alt="" class="navbar-logo">
+                <a href="' . $this->pathindex . '" class="btn btn-primary">Retour à l\'accueil</a>
+                <a href="' . $this->pathconnexion . '" class="btn btn-primary">Connexion</a>
+            </div>
+        ';
+    }
+
     public function customize_header($role = "visiteur")
     {
         if ($role == "arbitre") {
@@ -82,7 +96,7 @@ class Header
         } elseif ($role == "gestionnaire") {
             return $this->header_admin();
             echo "admin";
-        }elseif ($role == "equipe") {
+        } elseif ($role == "equipe") {
             return $this->header_equipe();
             echo "admin";
         } else {
