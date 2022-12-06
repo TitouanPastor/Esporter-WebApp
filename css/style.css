@@ -65,18 +65,35 @@ label {
   gap: 12px;
 }
 
-.acces-refuse h1 {
+.acces-refuse > h1 {
   font-size: 4em;
   color: var(--purple);
 }
 
-.acces-refuse p {
+.acces-refuse > p {
   font-size: 1.7em;
   color: var(--black-grey);
 }
 
-.acces-refuse img {
+.acces-refuse > img {
   width: 20vw;
+}
+
+.acces-refuse a {
+  text-decoration: none;
+  color: var(--black-grey);
+  box-shadow: var(--background-shadow);
+  border-radius: var(--border-radius);
+  border: 0px;
+  padding: 6px 12px;
+  font-weight: 600;
+  font-size: 1.25rem;
+  background-color: var(--btn-update);
+  transition: all .2s ease-in-out;
+}
+
+.acces-refuse a:hover {
+  background-color: var(--btn-update-hover);
 }
 
 /* Spécification style des balises formulaires */

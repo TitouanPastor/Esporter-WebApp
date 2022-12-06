@@ -23,7 +23,7 @@ $header = new header(2);
 if ($_SESSION['role'] == "gestionnaire") {
     echo $header->customize_header($_SESSION['role']);
 } else {
-    echo $header->customize_header_innaccessible();
+    header('Location: ../../acces-refuse.php');
 }
 
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));

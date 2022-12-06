@@ -19,7 +19,7 @@ $header = new header(2);
 if ($_SESSION['role'] == "gestionnaire") {
     echo $header->customize_header($_SESSION['role']);
 } else {
-    echo $header->customize_header_innaccessible();
+    header('Location: ../../acces-refuse.php');
 }
 ?>
     <main class="main-listes">
