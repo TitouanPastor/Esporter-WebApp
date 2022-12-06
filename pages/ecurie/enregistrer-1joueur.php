@@ -16,7 +16,7 @@ $header = new header(2);
 if ($_SESSION['role'] == "ecurie") {
     echo $header->customize_header($_SESSION['role']);
 } else {
-    echo $header->customize_header_innaccessible();
+    header('Location: ../../acces-refuse.php');
 }
 
 $info_execution = "Joueur non enregistré";
