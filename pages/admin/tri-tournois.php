@@ -28,6 +28,7 @@
                             <span class="title-tournoi" onclick="afficherDescriptionTournoi(this)"> ['.$type.'] '.$nom.'</span>
                             <div class="article-btns">
                                 <a href="modification-tournoi.php?id='.$id.'">Modifier</a>
+                                <a href="fermer-tournoi.php?id='.$id.'">Fermer les inscriptions</a>
                             </div>
                         </div>
                         <div class="description-tournoi">
