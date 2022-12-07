@@ -8,49 +8,15 @@
     margin-top :10px;
 }
 
-.main-calendrier {
-    padding-top: 100px;
-}
-
-/* .tableau-style {
-    border-collapse: collapse;
-    min-width:400px;
-    width: auto;
-    box-shadow: 0 5px 50px rgb(0, 0, 0,0.15 );
-    cursor: pointer;
-    margin : 100px auto;
-    border : 2px solid black;
-}
-
-thead tr {
-    background-color: grey;
-    color : #fff;
-    text-align: left;
-}
-
-th, td {
-    padding : 15px 20px;
-}
-
-tbody tr, td, th {
-    border : 1px solid #ddd;
-} */
-
 .tableau-style {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
 }
 table {
-    border-collapse: collapse;
     width: 100%;
-    margin-left : 200px;
-    margin-right : 200px;
-  }
+}
   
   th, td {
-    margin-left : 200px;
-    margin-right : 200px;
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
