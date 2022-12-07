@@ -69,7 +69,7 @@
                 <input type="date" name="tournoi_date" class="element" value="<?php echo $value_tournoi_date?>"min="<?php echo $date_min; ?>" max="<?php echo $date_max;?>">
 
                 <select name="tournoi_nom" class="element" class="select">
-                    <option value="default" selected>Sélectionner un nom de tournoi</option>
+                    <option value="default" selected>Sélectionner un tournoi</option>
                     <?php
                         $tournoi = $sql->getTournoi();
                         while ($donnees = $tournoi->fetch()) { ?>
