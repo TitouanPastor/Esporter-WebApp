@@ -65,17 +65,17 @@ label {
   gap: 12px;
 }
 
-.acces-refuse > h1 {
+.acces-refuse>h1 {
   font-size: 4em;
   color: var(--purple);
 }
 
-.acces-refuse > p {
+.acces-refuse>p {
   font-size: 1.7em;
   color: var(--black-grey);
 }
 
-.acces-refuse > img {
+.acces-refuse>img {
   width: 20vw;
 }
 
@@ -110,7 +110,8 @@ input {
 
 input[type="text"],
 input[type="date"],
-input[type="password"],input[type="button"],
+input[type="password"],
+input[type="button"],
 select {
   box-shadow: var(--little-shadow);
   display: inline-block;
@@ -165,7 +166,8 @@ input[type="submit"].submit {
 }
 
 /* bouton ajout joueur de théo ? */
-input[type="submit"].add, input[type="button"].add {
+input[type="submit"].add,
+input[type="button"].add {
   font-size: 15px;
   background-color: var(--btn-update);
 }
@@ -237,7 +239,8 @@ input[type="submit"].update {
 
 input[type="text"]:hover,
 input[type="date"]:hover,
-input[type="password"]:hover, input[type="button"],
+input[type="password"]:hover,
+input[type="button"],
 select:hover {
   border: 2px solid #d2d7d8;
   background: #d2d7d8;
@@ -254,7 +257,8 @@ input[type="submit"].submit-gris:hover {
   background-color: var(--btn-submit-grey-hover);
 }
 
-input[type="submit"].submit:hover,input[type="submit"].submit-active:hover  {
+input[type="submit"].submit:hover,
+input[type="submit"].submit-active:hover {
   background-color: var(--btn-submit-hover);
 }
 
@@ -262,7 +266,8 @@ input[type="submit"].update:hover {
   background-color: var(--btn-update-hover);
 }
 
-input[type="submit"].add:hover, input[type=button].add:hover {
+input[type="submit"].add:hover,
+input[type=button].add:hover {
   background-color: var(--btn-update-hover);
 }
 
@@ -640,3 +645,72 @@ header ul {
 } */
 
 /* login */
+
+/* Fermer tournoi */
+
+main.fermer-tournoi {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.fermer-tournoi form {
+  padding: 125px 50px 0 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.fermer-tournoi-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
+  min-height: 50vh;
+}
+
+.fermer-tournoi-left-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: auto;
+  height: max-content;
+}
+
+.fermer-tournoi-container .left-jeux {
+  background-color: rgb(187, 187, 187);
+  border-radius: var(--border-radius);
+  box-shadow: var(--background-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px;
+}
+
+.fermer-tournoi-right-container {
+  display: flex;
+  background-color: rgb(223, 223, 223);
+  background-image: url(https://www.shutterstock.com/image-illustration/simple-black-tournament-bracket-template-260nw-1396282760.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: var(--border-radius);
+  box-shadow: var(--background-shadow);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  padding: 50px;
+  width: 100%;
+}
