@@ -37,33 +37,121 @@ if (!empty($_POST['nom-joueur'])  && !empty($_POST['prenom-joueur']) && !empty($
 <body>
     <main class="main-creation-tournoi">
         <section class="creation-tournoi-container">
-            <form action="enregistrer-1joueur.php" method="POST">
-
-                <h1 class="creation-tournoi-title">Enregistrer un joueur</h1>
-                <div class="creation-tournoi">
-                    <div class="creation-tournoi-left">
-                        <div class="creation-tournoi-input">
-                            <label for="nom-joueur">Nom du joueur</label>
-                            <input type="text" name="nom-joueur" id="nom-joueur">
+            <form class="form-ajout-joueur" action="enregistrer-1joueur.php" method="POST">
+                <h1 class="creation-tournoi-title">Enregistrer 4 joueurs</h1>
+                <div class="container-ajout-joueurs">
+                    <div class="container-ajout-joueurs-duo">
+                        <div class="form-un-joueur">
+                            <span class="titre-un-joueur">Joueur 1</span>
+                            <div class="creation-tournoi">
+                                <div class="creation-tournoi-left">
+                                    <div class="creation-tournoi-input">
+                                        <label for="nom-joueur1">Nom du joueur</label>
+                                        <input type="text" name="nom-joueur1" id="nom-joueur1">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="prenom-joueur1">Prenom du joueur</label>
+                                        <input type="text" name="prenom-joueur1" id="prenom-joueur1">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="dtn_joueur1">Date de naissance</label>
+                                        <input type="date" name="dtn_joueur1" id="dtn_joueur1">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="pseudo_joueur1">Pseudo</label>
+                                        <input type="text" name="pseudo_joueur1" id="pseudo_joueur1">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="email_joueur1">Email</label>
+                                        <input type="text" name="email_joueur1" id="email_joueur1">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="creation-tournoi-input">
-                            <label for="prenom-joueur">Prenom du joueur</label>
-                            <input type="text" name="prenom-joueur" id="prenom-joueur">
-                        </div>
-                        <div class="creation-tournoi-input">
-                            <label for="dtn_joueur">Date de naissance</label>
-                            <input type="date" name="dtn_joueur" id="dtn_joueur">
-                        </div>
-                        <div class="creation-tournoi-input">
-                            <label for="pseudo_joueur">Pseudo</label>
-                            <input type="text" name="pseudo_joueur" id="pseudo_joueur">
-                        </div>
-                        <div class="creation-tournoi-input">
-                            <label for="email_joueur">Email</label>
-                            <input type="text" name="email_joueur" id="email_joueur">
+                        <div class="form-un-joueur">
+                            <span class="titre-un-joueur">Joueur 2</span>
+                            <div class="creation-tournoi">
+                                <div class="creation-tournoi-left">
+                                    <div class="creation-tournoi-input">
+                                        <label for="nom-joueur2">Nom du joueur</label>
+                                        <input type="text" name="nom-joueur2" id="nom-joueur2">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="prenom-joueur2">Prenom du joueur</label>
+                                        <input type="text" name="prenom-joueur2" id="prenom-joueur2">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="dtn_joueur2">Date de naissance</label>
+                                        <input type="date" name="dtn_joueur2" id="dtn_joueur2">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="pseudo_joueur2">Pseudo</label>
+                                        <input type="text" name="pseudo_joueur2" id="pseudo_joueur2">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="email_joueur2">Email</label>
+                                        <input type="text" name="email_joueur2" id="email_joueur2">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-
+                    <div class="container-ajout-joueurs-duo">
+                        <div class="form-un-joueur">
+                            <span class="titre-un-joueur">Joueur 3</span>
+                            <div class="creation-tournoi">
+                                <div class="creation-tournoi-left">
+                                    <div class="creation-tournoi-input">
+                                        <label for="nom-joueur3">Nom du joueur</label>
+                                        <input type="text" name="nom-joueur3" id="nom-joueur3">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="prenom-joueur3">Prenom du joueur</label>
+                                        <input type="text" name="prenom-joueur3" id="prenom-joueur3">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="dtn_joueur3">Date de naissance</label>
+                                        <input type="date" name="dtn_joueur3" id="dtn_joueur3">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="pseudo_joueur3">Pseudo</label>
+                                        <input type="text" name="pseudo_joueur3" id="pseudo_joueur3">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="email_joueur3">Email</label>
+                                        <input type="text" name="email_joueur3" id="email_joueur3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-un-joueur">
+                            <span class="titre-un-joueur">Joueur 4</span>
+                            <div class="creation-tournoi">
+                                <div class="creation-tournoi-left">
+                                    <div class="creation-tournoi-input">
+                                        <label for="nom-joueur4">Nom du joueur</label>
+                                        <input type="text" name="nom-joueur4" id="nom-joueur4">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="prenom-joueur4">Prenom du joueur</label>
+                                        <input type="text" name="prenom-joueur4" id="prenom-joueur4">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="dtn_joueur4">Date de naissance</label>
+                                        <input type="date" name="dtn_joueur4" id="dtn_joueur4">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="pseudo_joueur4">Pseudo</label>
+                                        <input type="text" name="pseudo_joueur4" id="pseudo_joueur4">
+                                    </div>
+                                    <div class="creation-tournoi-input">
+                                        <label for="email_joueur4">Email</label>
+                                        <input type="text" name="email_joueur4" id="email_joueur4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <input class="submit" type="submit" name="ajouter" value="Ajouter">
                 <span><?php echo $info_execution ?> </span>

@@ -714,3 +714,31 @@ main.fermer-tournoi {
   padding: 50px;
   width: 100%;
 }
+
+/* Ajout des joueurs */
+
+.container-ajout-joueurs {
+  display: flex;
+  flex-direction: column;
+  gap: 75px;
+  width: 100%;
+  height: 100%;
+}
+
+.container-ajout-joueurs-duo {
+  display: flex;
+  flex-direction: row;
+  gap: 100px;
+  width: 100%;
+  height: 100%;
+}
+
+form.form-ajout-joueur {
+  padding: 30px 100px;
+}
+
+.titre-un-joueur {
+  font-size: 1.2em;
+  padding-bottom: 25px;
+  font-weight: 700;
+}
