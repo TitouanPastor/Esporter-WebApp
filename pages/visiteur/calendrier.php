@@ -82,7 +82,6 @@
                 <select name="tournoi_jeu" class="element" class="select">
                     <option value="default" selected>Sélectionner un jeu</option>
                         <?php
-                        $sql = new requeteSQL();
                         $jeu = $sql->getJeux();
                         while ($donnees = $jeu->fetch()) { ?>
                         <option value="<?php echo $donnees['Libelle']; ?>" <?php if ($value_tournoi_jeu == $donnees['Libelle']) echo 'selected';?>>

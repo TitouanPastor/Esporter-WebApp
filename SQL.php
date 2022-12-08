@@ -348,6 +348,20 @@ class requeteSQL
             return $req;
         }       
 
+    //Fonction qui renvoie tournoi.nom, tournoi.date, nb de place disponible
+    public function getTournoiInscription($param){
+        
+    }
+    //Fonction pour récupérer le jeu d'une équipe à partir de l'username
+    public function getJeuEquipe($username){
+        $req = $this->linkpdo->prepare("SELECT jeu.libelle FROM jeu, equipe WHERE equipe.id_jeu = jeu.id_jeu AND equipe.mail = :username");
+        $req = $req->execute(array("username" => $username));
+        if ($req == false){
+            die("Erreur getJeuEquipe");
+        }
+        return $req;
+    }
+
      //Fonction pour ajouter un arbitre
      public function addArbitre($login, $mdp){
         $req = $this->linkpdo->prepare('INSERT INTO arbitre VALUES (NULL, :login, :mdp)');
