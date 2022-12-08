@@ -94,6 +94,7 @@
                 <input name="valider" type="submit" class="submit" class="element" value="valider">
             </div>
             <?php
+            
             if ($check_valider == 1) {
                 if ($req -> rowCount() == 0){
                     echo "<div style='display : flex; justify-content :center; padding-top : 50px;'> Il n'y a pas de tournoi pour ces critères </div>";
