@@ -229,7 +229,7 @@ class requeteSQL
 
 
     //Fonction pour ajouter une equipe
-    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $id_ecurie, $id_jeu)
+    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $id_jeu, $id_ecurie)
     {
         $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :mdp, :mail, :nbPtsChamps, :id_jeu, :id_ecurie)');
         $req->execute(array(

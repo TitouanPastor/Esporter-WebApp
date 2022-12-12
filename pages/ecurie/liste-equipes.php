@@ -16,7 +16,7 @@ session_start();
 require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
 $header = new header(2);    
 
-if ($_SESSION['role'] == "gestionnaire") {
+if ($_SESSION['role'] == "ecurie") {
     echo $header->customize_header($_SESSION['role']);
 } else {
     header('Location: ../../acces-refuse.php');
