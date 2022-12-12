@@ -18,7 +18,6 @@ class requeteSQL
         try {
             $this->linkpdo = new PDO("mysql:host=$server;dbname=$db", $login, $mdp);
             $this->linkpdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo 'Connexion réussie !'
         }
         ///Capture des erreurs éventuelles
         catch (Exception $e) {
