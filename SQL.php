@@ -349,15 +349,30 @@ class requeteSQL
         }       
 
     //Fonction qui renvoie tournoi.nom, tournoi.date, nb de place disponible
-    public function getTournoiInscription($param){
-        
+    public function getTournoiInscription($jeu_libelle){
+        $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut FROM tournoi, concerner, jeu WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND jeu.libelle = :libelle ORDER BY tournoi.date_debut');
+        $testreq = $req->execute(array("libelle" => $jeu_libelle));
+        if ($testreq == false){
+            die('Erreur getTournoiInscription');
+        }
+        return $req;
     }
     //Fonction pour récupérer le jeu d'une équipe à partir de l'username
     public function getJeuEquipe($username){
         $req = $this->linkpdo->prepare("SELECT jeu.libelle FROM jeu, equipe WHERE equipe.id_jeu = jeu.id_jeu AND equipe.mail = :username");
-        $req = $req->execute(array("username" => $username));
-        if ($req == false){
+        $testreq = $req -> execute(array("username" => $username));
+        if ($testreq == false){
             die("Erreur getJeuEquipe");
+        }
+        return $req;
+    }
+
+    //Fonction qui renvoie le nombre d'équipe participant à un tournoi
+    public function getNbEquipeTournoi($nom_tournoi){
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM tournoi,etre_inscrit WHERE etre_inscrit.id_tournoi = tournoi.id_tournoi AND tournoi.nom = :nom_tournoi");
+        $testreq = $req->execute(array("nom_tournoi" => $nom_tournoi));
+        if ($testreq == false){
+            die("Erreur getNbEquipeTournoi"); 
         }
         return $req;
     }
