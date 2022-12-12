@@ -27,6 +27,9 @@
         // - afficher les équipes inscrites dans un tournoi pour le jeu selectionné
         // - afficher les poules du bracket pour le jeu selectionné
 
+        //  question : est-ce qu'on drop les données dans etre_inscrit quand on créer le lien de la poule ? ou alors on give up le lien
+        // entre la poule et l'équipe et on fait un lien entre la poule et l'equipe_inscrite ?
+
         // premiere fonction :
         // fonction qui prend en parametre un tableau d'équipes et qui genere un bracket de tournoi d'un jeu particulier
         // Quand ? : quand l'admin clic sur "créer le bracket"
