@@ -372,6 +372,7 @@ class requeteSQL
     }
 
 
+
     //Fonction qui retourne les arbitres
     public function getArbitre()
     {
@@ -520,5 +521,35 @@ class requeteSQL
             'idT' => $idT
         ));
     }
+
+    public function supprimerTournoi($idT){
+        $req = $this->linkpdo->prepare('DELETE FROM tournoi WHERE Id_Tournoi = :idT');
+        $req->execute(array(
+            'idT' => $idT
+        )); 
+    }
+
+    public function getEquipeByIdEcurie($id){
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE '.$id.' = equipe.Id_Ecurie');
+        $req->execute();
+        return $req;
+    }
+
+    public function getJoueurByIdEquipe($id){
+        $req = $this->linkpdo->prepare('SELECT * FROM  joueur WHERE '.$id.' = joueur.Id_Equipe');
+        $req->execute();
+        return $req;
+    }
+
+    public function getJeuByIdEquipe($idEquipe){
+        $req = $this->linkpdo->prepare('SELECT jeu.* FROM  jeu, equipe WHERE '.$idEquipe.' = equipe.Id_Equipe and jeu.Id_Jeu = equipe.Id_Jeu');
+        $req->execute();
+        return $req;
+    }
+
+    
+
+
+    
 
 }
