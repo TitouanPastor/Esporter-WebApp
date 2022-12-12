@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecuries - E-Sporter</title>
+    <title>Tournois - E-Sporter</title>
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="icon" href="../../img/esporter-icon.png">
 </head>
@@ -21,42 +21,55 @@ if ($_SESSION['role'] == "gestionnaire") {
 } else {
     header('Location: ../../acces-refuse.php');
 }
-
 ?>
     <main class="main-listes">
         <section class="main-listes-container">
-            <h1>Liste des écuries</h1>
+            <h1>Liste des tournois</h1>
             <span>Filtrer par: </span>
             <div class="main-listes-tabs">
                 <div class="main-listes-filters">
                     <ul>
-                        <li><button type="submit" name="filter1" class="btn-filter" onclick="changerTabListe(this, 'filter1')">Nom</button></li>
-                        <li><button type="submit" name="filter2" class="btn-filter" onclick="changerTabListe(this, 'filter2')">Statut</button></li>
-
+                        <li><button type="submit" name="filter3" class="btn-filter" onclick="changerTabListe(this, 'filter3')">Nom</button></li>
+                        <li><button type="submit" name="filter1" class="btn-filter" onclick="changerTabListe(this, 'filter1')">Type</button></li>
+                        <li><button type="submit" name="filter4" class="btn-filter" onclick="changerTabListe(this, 'filter4')">Date</button></li>
+                        <li><button type="submit" name="filter2" class="btn-filter" onclick="changerTabListe(this, 'filter2')">Lieu</button></li>
+                    
                         <li><button type="submit" name="annuler" class="btn-filter btn-filter-active" onclick="changerTabListe(this, 'filterdefault')">par défaut</button></li>
                     </ul>
                 </div>
 
                 <?php
-                require_once(realpath(dirname(__FILE__) . '/tri-ecuries.php'));
-                $triEcuries = new TriEcuries();
+                require_once(realpath(dirname(__FILE__) . '/tri-tournois.php'));
+                $triTournois = new TriTournois();
                 ?>
 
                 <div id="filter1" class="liste">
                     <?php
-                    echo $triEcuries->trierParNom();
+                    echo $triTournois->trierParType();
                     ?>
                 </div>
 
                 <div id="filter2" class="liste">
                     <?php
-                    echo $triEcuries->trierParStatut();
+                    echo $triTournois->trierParLieu();
+                    ?>
+                </div>
+
+                <div id="filter3" class="liste">
+                    <?php
+                    echo $triTournois->trierParNom();
+                    ?>
+                </div>
+
+                <div id="filter4" class="liste">
+                    <?php
+                    echo $triTournois->trierParDate();
                     ?>
                 </div>
 
                 <div style="display: flex;" id="filterdefault" class="liste">
                     <?php
-                    echo $triEcuries->trierParId();
+                    echo $triTournois->trierParId();
                     ?>
                 </div>
             </div>
