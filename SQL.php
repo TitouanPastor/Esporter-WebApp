@@ -229,7 +229,7 @@ class requeteSQL
 
 
     //Fonction pour ajouter une equipe
-    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $id_ecurie, $id_jeu)
+    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $id_jeu, $id_ecurie)
     {
         $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :mdp, :mail, :nbPtsChamps, :id_jeu, :id_ecurie)');
         $req->execute(array(
@@ -260,6 +260,17 @@ class requeteSQL
         $req = $this->linkpdo->prepare("SELECT * FROM equipe");
         $req->execute();
         return $req;
+    }
+
+
+    //Fonction qui retourne le dernier tuple de equipe
+    public function getLastIDEquipe()
+    {
+        $req = $this->linkpdo->prepare('SELECT Id_Equipe FROM equipe ORDER BY Id_Equipe DESC LIMIT 1');
+        $req->execute();
+        while ($data = $req->fetch()) {
+            return $data['Id_Equipe'];
+        }
     }
 
 
@@ -385,6 +396,7 @@ class requeteSQL
              'mdp' => $mdp
         ));
     }
+
 
 
     //Fonction qui retourne les arbitres
@@ -535,5 +547,35 @@ class requeteSQL
             'idT' => $idT
         ));
     }
+
+    public function supprimerTournoi($idT){
+        $req = $this->linkpdo->prepare('DELETE FROM tournoi WHERE Id_Tournoi = :idT');
+        $req->execute(array(
+            'idT' => $idT
+        )); 
+    }
+
+    public function getEquipeByIdEcurie($id){
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE '.$id.' = equipe.Id_Ecurie');
+        $req->execute();
+        return $req;
+    }
+
+    public function getJoueurByIdEquipe($id){
+        $req = $this->linkpdo->prepare('SELECT * FROM  joueur WHERE '.$id.' = joueur.Id_Equipe');
+        $req->execute();
+        return $req;
+    }
+
+    public function getJeuByIdEquipe($idEquipe){
+        $req = $this->linkpdo->prepare('SELECT jeu.* FROM  jeu, equipe WHERE '.$idEquipe.' = equipe.Id_Equipe and jeu.Id_Jeu = equipe.Id_Jeu');
+        $req->execute();
+        return $req;
+    }
+
+    
+
+
+    
 
 }
