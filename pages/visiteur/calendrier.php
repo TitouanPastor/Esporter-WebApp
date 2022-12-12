@@ -34,8 +34,8 @@
         }
 
         //Contrôle sur la date 01/01/2023 -> 31/12/2023
-        $min = new DateTime('2023-01-01');
-        $max = new DateTime('2023-12-31');    
+        $min = new DateTime('01-01-2023');
+        $max = new DateTime('31-12-2023');    
         $date_min = $min -> format('Y-m-d');
         $date_max = $max -> format('Y-m-d');
 
@@ -66,7 +66,7 @@
         <form action="" method="post">
             <div class="container">
 
-                <input type="date" name="tournoi_date" class="element" value="<?php echo $value_tournoi_date?>"min="<?php echo $date_min; ?>" max="<?php echo $date_max;?>">
+                <input type="date" name="tournoi_date" class="element" value="<?php echo $value_tournoi_date?>"min="<?php echo $date_min;?>" max="<?php echo $date_max;?>">
 
                 <select name="tournoi_nom" class="element" class="select">
                     <option value="default" selected>Sélectionner un tournoi</option>
@@ -114,7 +114,7 @@
                         echo '
                         <tr>
                             <td>' . $donnees[0] . '</td>
-                            <td>' . $donnees[1] . '</td>
+                            <td>' . date('d-m-Y', strtotime($donnees[1])). '</td>
                             <td>' . $donnees[2] . '</td>
                         </tr>
                         ';
