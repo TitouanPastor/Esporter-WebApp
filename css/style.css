@@ -313,7 +313,7 @@ input[type=button].add:hover {
 .btn-connexion {
   color: var(--white-text);
   font-weight: 600;
-  font-size: 21px;
+  font-size: 18px;
   background-color: var(--purple);
   transition: all .2s ease-in-out;
   padding: 8px 25px;
@@ -330,20 +330,19 @@ header {
   position: fixed;
   z-index: 1000;
   width: 100%;
-  padding: 0 32px;
+  padding: 4px 32px;
   background-color: var(--white-text);
   box-shadow: var(--little-shadow);
 }
 
 header img {
-  width: 190px;
-  margin: 8px 0 12px 0;
+  width: 150px;
 }
 
 header a {
   color: var(--black);
   text-decoration: none;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 header ul {
