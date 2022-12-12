@@ -59,7 +59,7 @@ if (isset($_POST['ajouter'])) {
                 if (!$sameMail) {
                     try {
                         //Ajout d'une équipe (le 0 correspond au nombre de point au championnat initialisé à 0)
-                        //$sql->addEquipe($_POST['nom-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],0,$_POST['jeu_equipe'],$id);
+                        $sql->addEquipe($_POST['nom-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],0,$_POST['jeu_equipe'],$id);
                         $info_execution = 'Equipe enregistrée !';
                         header("Refresh: 3;URL=enregistrer-joueurs.php");
                     } catch (Exception $e) {
@@ -114,25 +114,6 @@ if (isset($_POST['ajouter'])) {
                             <input type="text" name="mdp-equipe" id="mdp-equipe">
                         </div>
                     </div>
-
-                    <div class="creation-tournoi-right">
-                        <div class="creation-tournoi-input">
-                            <input class="bouton" type="button" name="Joueur1" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
-                        </div>
-                        <div class="creation-tournoi-input">
-                            </br>
-                            <input class="bouton" type="button" name="Joueur2" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
-                        </div>
-                        <div class="creation-tournoi-input">
-                            </br>
-                            <input class="bouton" type="button" name="Joueur3" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
-                        </div>
-                        <div class="creation-tournoi-input">
-                            </br>
-                            <input class="bouton" type="button" name="Joueur4" onclick="self.location.href='enregistrer-1joueur.php'" value="Ajouter un Joueur">
-                        </div>
-                    </div>
-
                 </div>
                 <input class="submit" type="submit" name="ajouter" value="Ajouter">
                 <span><?php echo $info_execution ?> </span>
