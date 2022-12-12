@@ -64,8 +64,7 @@ if ($_SESSION['role'] == "gestionnaire") {
     </main>
 
     <script type="text/javascript" src="../../main.js"></script>
-    <script>
-    </script>
+
 </body>
 
 </html>
