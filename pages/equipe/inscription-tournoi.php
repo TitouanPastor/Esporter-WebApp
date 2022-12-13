@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Inscription Tournoi</title>
         <link rel="stylesheet" href="../../css/style.css">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="../../css/style-inscription.css">
     </head>
 
     <body>
@@ -33,53 +33,46 @@
         } else {
             $value_tournoi_jeu = "default";
         }
+        $req = $sql -> getJeuEquipe($_SESSION['username']);
+        $jeu_equipe = $req -> fetchColumn();
+        $param = $jeu_equipe;
+        $req = $sql -> getTournoiInscription($param);
 
-        $jeu_equipe = $sql -> getJeuEquipe($_SESSION["username"]);
-        $param = array();
-       $param[0] = null;
-       $param[1] = "default";
-        $param[2] = $jeu_equipe;
-        $req = $sql->getTournoiCalendrier($param);
         ?>
         <main class ="main-listes">
             <section class="main-listes-container">
                 <h1>Liste des tournois à venir</h1>
                 <form action="post">
                     <div class ="container">
-
-                        <select name="tournoi-jeu" id="">
-                            <option value="default" selected>Sélectionner le jeu de l'équipe</option>
-                            <?php
-                                $sql = new requeteSQL();
-                                $jeu = $sql->getJeux();
-                                while ($donnees = $jeu->fetch()) { ?>
-                                    <option value="<?php echo $donnees['Libelle']; ?>" <?php if ($value_tournoi_jeu == $donnees['Libelle']) echo 'selected';?>>
-                                    <?php echo $donnees['Libelle']; ?>
-                                    </option>
-                            <?php } ?>
-                        </select>
-
+                        <span>Jeu de l'équipe : <?php echo $jeu_equipe?> </span>
                         <table>
                             <thead>
                                 <tr>
                                     <th>Nom du tournoi</th>
                                     <th>Date du tournoi</th>
-                                    <th>Disponibilité</th>
-                                    <th></th>
+                                    <th>Nombre de place</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                echo $jeu_equipe;
                                     while ($donnees = $req -> fetch()){
-                                    echo "Test tournoi";
+                                    $req = $sql->getNbEquipeTournoi($donnees[0]);
+                                    $nb_equipe = $req->fetchColumn();
                                     echo
-                                        "<tr>
-                                        <td>".$donnees[0] . "</td>
-                                        <td>".$donnees[1]."</td>
-                                        <td>".$donnees[2]."</td>
-                                        <tr>";
-                                        
+                                        '<tr>
+                                        <td>' . $donnees[0] . '</td>
+                                        <td>' . date('d-m-Y', strtotime($donnees[1])) . '</td>
+                                        <td>';
+                                        echo 16 - $nb_equipe.' / 16';
+                                        echo '<td>';
+                                        if ((16 - $nb_equipe) != 0){
+                                            echo "<input type = 'button' value = \"S'inscrire\">";
+                                        } else {
+                                            echo "<input type = 'button' value = 'Complet' disabled>";
+                                        }
+                                        echo '</td>
+                                        <tr>';
                                     }
                                 ?>
                             </tbody>
