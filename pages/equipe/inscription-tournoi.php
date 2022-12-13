@@ -50,30 +50,32 @@
                                 <tr>
                                     <th>Nom du tournoi</th>
                                     <th>Date du tournoi</th>
-                                    <th>Nombre de place</th>
+                                    <th>Equipes inscrites</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                    while ($donnees = $req -> fetch()){
-                                    $req = $sql->getNbEquipeTournoi($donnees[0]);
-                                    $nb_equipe = $req->fetchColumn();
-                                    echo
-                                        '<tr>
-                                        <td>' . $donnees[0] . '</td>
-                                        <td>' . date('d-m-Y', strtotime($donnees[1])) . '</td>
-                                        <td>';
-                                        echo 16 - $nb_equipe.' / 16';
-                                        echo '<td>';
-                                        if ((16 - $nb_equipe) != 0){
-                                            echo "<input type = 'button' value = \"S'inscrire\">";
-                                        } else {
-                                            echo "<input type = 'button' value = 'Complet' disabled>";
-                                        }
-                                        echo '</td>
-                                        <tr>';
+                                    while ($donnees = $req->fetch()){
+                                    if ($sql->estInscritTournoi($_SESSION['username'],$donnees[0]) == 0) {
+                                        $reqNbEquipe = $sql->getNbEquipeTournoi($donnees[0]);
+                                        $nb_equipe = $reqNbEquipe->fetchColumn();
+                                        echo
+                                            '<tr>
+                                                <td>' . $donnees[0] . '</td>
+                                                <td>' . date('d / m / Y', strtotime($donnees[1])) . '</td>
+                                                <td>';
+                                                echo $nb_equipe.' / 16';
+                                                echo '<td>';
+                                                if ((16 - $nb_equipe) != 0){
+                                                    echo "<input type = 'submit' class ='submit' value = \"S'inscrire\">";
+                                                } else {
+                                                    echo "<input type = 'button' class = 'bouton'value = 'Complet' disabled>";
+                                                }
+                                                echo '</td>
+                                            </tr>';
                                     }
+                                }
                                 ?>
                             </tbody>
                         </table>

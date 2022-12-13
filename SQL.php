@@ -363,6 +363,8 @@ class requeteSQL
     public function getTournoiInscription($jeu_libelle){
         $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut FROM tournoi, concerner, jeu WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND jeu.libelle = :libelle ORDER BY tournoi.date_debut');
         $testreq = $req->execute(array("libelle" => $jeu_libelle));
+        $rowcount = $req->rowCount();
+        echo $rowcount;
         if ($testreq == false){
             die('Erreur getTournoiInscription');
         }
@@ -375,6 +377,16 @@ class requeteSQL
         if ($testreq == false){
             die("Erreur getJeuEquipe");
         }
+        return $req;
+    }
+
+    public function estInscritTournoi($mail,$tournoi_nom){
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM equipe, etre_inscrit, tournoi WHERE equipe.id_equipe = etre_inscrit.id_equipe AND etre_inscrit.id_tournoi = tournoi.id_tournoi AND equipe.mail = :equipe_mail AND tournoi.nom = :tournoi_nom");
+        $testreq = $req -> execute(array("equipe_mail" => $mail,"tournoi_nom" => $tournoi_nom));
+        if ($testreq == false){
+            die('Erreur estInscritTournoi');
+        }
+        $req = $req->fetchColumn();
         return $req;
     }
 
