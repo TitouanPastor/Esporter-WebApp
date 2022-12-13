@@ -15,6 +15,7 @@ class Header
     private $pathaddequipes = "#"; //etage 2
     private $pathlogo = "#"; //etage 1
     private $pathlisteequipeECU = "#"; //etage 2
+    private $pathtournoisInscrits = "#"; //etage 2
 
     public function __construct($etage)
     {
@@ -32,6 +33,7 @@ class Header
             $this->pathaddequipes = "pages/ecurie/enregistrer-equipe.php";
             $this->pathlogo = "img/esporter-logo.png";
             $this->pathlisteequipeECU = "pages/ecurie/liste-equipes.php";
+            $this->pathtournoisInscrits = "pages/equipe/liste-tournois-inscrit.php";
         } elseif ($etage == 1) {
             $this->pathindex = "../index.php";
             $this->pathresultats = "visiteur/resultats.php";
@@ -46,6 +48,7 @@ class Header
             $this->pathaddequipes = "ecurie/enregistrer-equipe.php";
             $this->pathlogo = "../img/esporter-logo.png";
             $this->pathlisteequipeECU = "../pages/ecurie/liste-equipes.php";
+            $this->pathtournoisInscrits = "equipe/liste-tournois-inscrit.php";
         } elseif ($etage == 2) {
             $this->pathindex = "../../index.php";
             $this->pathresultats = "../visiteur/resultats.php";
@@ -59,7 +62,8 @@ class Header
             $this->pathtournoisarbitre = "../admin/tournoisarbitre.php";
             $this->pathaddequipes = "../ecurie/enregistrer-equipe.php";
             $this->pathlogo = "../../img/esporter-logo.png";
-            $this->pathlisteequipeECU = "../../pages/ecurie/liste-equipes.php";
+            $this->pathlisteequipeECU = "../ecurie/liste-equipes.php";
+            $this->pathtournoisInscrits = "../equipe/liste-tournois-inscrit.php";
         }
 
         echo '
@@ -147,7 +151,11 @@ class Header
     public function header_equipe()
     {
         return '
-        <li class="navbar-item"><a href="' . $this->pathinscription . '" class="navbar-link">Inscription</a>
+        <li class="navbar-item"><a href="#" class="navbar-link">Tournois</a>
+        <ul class="sousmenu">
+            <li class="navbar-item"><a href="' . $this->pathinscription . '" class="navbar-link">S\'inscrire</a>
+            <li class="navbar-item"><a href="' . $this->pathtournoisInscrits . '" class="navbar-link">Mes tournois</a>
+        </ul>
         </li>
         <li class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></li>
     </ul>
