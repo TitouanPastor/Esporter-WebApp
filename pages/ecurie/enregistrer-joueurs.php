@@ -109,7 +109,7 @@ if (isset($_POST['ajouter'])) {
                                                                         //Ajout du joueur4 
                                                                         $sql->addJoueur($_POST['nom-joueur4'],$_POST['prenom-joueur4'],$_POST['dtn-joueur4'],$_POST['pseudo-joueur4'],$_POST['email-joueur4'],$idEquipe);
                                                                         $info_execution = 'Joueurs enregistrés !';
-                                                                        //header("Refresh: 3;URL=enregistrer-joueurs.php");
+                                                                        header("Refresh: 3;URL=enregistrer-equipe.php");
                                                                     } catch (Exception $e) {
                                                                         $info_execution = "Erreur : " . $e->getMessage();
                                                                     }
