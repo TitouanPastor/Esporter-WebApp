@@ -44,13 +44,29 @@
             $param = [];
             $param[0] = $sql -> getIdEquipe($_SESSION['username']);
             $param[1] = $_GET['id'];
-            echo $sql -> getIdJeu($jeu_equipe);
             $param[2] = $sql -> getIdJeu($jeu_equipe);
             $reqInscription = $sql->inscriptionTournoi($param);
        }
 
        ?>
     <main class="main-listes">
+        <div class="popupconfirm">
+            <div class="popupconfirm-content">
+                <div class="popupconfirm-header">
+                    <h2>Confirmation</h2>
+                </div>
+                <div class="popupconfirm-body">
+                    <p>Voulez-vous vraiment vous inscrire à ce tournoi ?</p>
+                    <span class="idTournoi" style="display: none;"></span>
+                </div>
+                <div class="popupconfirm-footer">
+                    <form action="post">
+                        <input style="background-color: var(--btn-submit); cursor:pointer;" type="button" onclick="popupYes()" class="popupconfirm-button" value="Oui">
+                        <input style="background-color: var(--btn-bouton); cursor:pointer;" type="button" onclick="popupNo()"  class="popupconfirm-button" value="Non">
+                    </form>
+                </div>
+            </div>
+        </div>
         <section class="main-listes-container">
             <h1>Liste des tournois à venir</h1>
             <form action="post">
@@ -82,7 +98,7 @@
                                         echo $nb_equipe . ' / 16';
                                         echo '<td>';
                                         if ((16 - $nb_equipe) != 0) {
-                                            echo "<a href ='inscription-tournoi.php?id=$id_tournoi'  >S'inscrire</a>";
+                                            echo "<a style='text-decoration: underline;cursor:pointer;color:blue;' value='inscription-tournoi.php?id=$id_tournoi' onclick='openPopUp(this)' >S'inscrire</a>";
                                             // echo "<input type = 'submit' class ='submit' title = \"S'inscrire\" >";
                                         } else {
                                             echo "<input type = 'button' class = 'bouton' title = 'Complet' disabled>";
@@ -100,6 +116,21 @@
         </section>
 
     </main>
+    <script>
+        function openPopUp(a) {
+            document.querySelector('.popupconfirm').style.display = 'flex';
+            document.querySelector('.idTournoi').innerHTML = a.getAttribute('value');
+        }
+
+        function popupYes() {
+            document.querySelector('.popupconfirm').style.display = 'none';
+            window.location.href = document.querySelector('.idTournoi').innerHTML;
+        }
+
+        function popupNo() {
+            document.querySelector('.popupconfirm').style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>
