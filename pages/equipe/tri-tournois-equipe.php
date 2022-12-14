@@ -13,7 +13,6 @@ class TriTournoisEquipe
         require_once('../../SQL.php');
         $this->sql = new requeteSQL();
         $this->idEquipe = $this->sql->getIdEquipe($idEquipe);
-        $this->tournois = '';
     }
 
 
@@ -29,6 +28,10 @@ class TriTournoisEquipe
                         </div>
                         <div class="description-tournoi">
                             <p>Le tournoi se déroulera à ' . $lieu . ' du ' . $date_debut . ' au ' . $date_fin . '.</p>';
+
+        while ($jeu = $req->fetch()) {
+            $str .= '<p>- ' . $jeu['Libelle'] . '</p>';
+        }
 
         $str .= '</div></article>';
         return $str;
