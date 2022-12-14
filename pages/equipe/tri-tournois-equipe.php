@@ -8,7 +8,7 @@ class TriTournoisEquipe
     private $nbTournois;
 
 
-    public function TriTournoisEquipe($idEquipe)
+    public function __construct($idEquipe)
     {
         require_once('../../SQL.php');
         $this->sql = new requeteSQL();
@@ -27,8 +27,7 @@ class TriTournoisEquipe
                             <span class="title-tournoi" onclick="afficherDescriptionTournoi(this)"> [' . $type . '] ' . $nom . '</span>
                         </div>
                         <div class="description-tournoi">
-                            <p>Le tournoi se déroulera à ' . $lieu . ' du ' . date('d/m/Y', strtotime($date_debut)).' au '.date('d/m/Y', strtotime($date_fin)) . '.</p>
-                            <p>Les jeu(x) présent(s) sont :</p>';
+                            <p>Le tournoi se déroulera à ' . $lieu . ' du ' . $date_debut . ' au ' . $date_fin . '.</p>';
 
         while ($jeu = $req->fetch()) {
             $str .= '<p>- ' . $jeu['Libelle'] . '</p>';

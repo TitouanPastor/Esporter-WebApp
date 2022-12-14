@@ -396,10 +396,8 @@ class requeteSQL
 
     //Fonction qui renvoie tournoi.nom, tournoi.date, nb de place disponible
     public function getTournoiInscription($jeu_libelle){
-        $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut FROM tournoi, concerner, jeu WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND jeu.libelle = :libelle ORDER BY tournoi.date_debut');
+        $req = $this -> linkpdo -> prepare ('SELECT tournoi.nom, tournoi.date_debut,tournoi.id_tournoi FROM tournoi, concerner, jeu WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND jeu.libelle = :libelle ORDER BY tournoi.date_debut');
         $testreq = $req->execute(array("libelle" => $jeu_libelle));
-        $rowcount = $req->rowCount();
-        echo $rowcount;
         if ($testreq == false){
             die('Erreur getTournoiInscription');
         }
@@ -416,6 +414,7 @@ class requeteSQL
         return $req;
     }
 
+    //Renvoie le nombre de
     public function estInscritTournoi($mail,$tournoi_nom){
         $req = $this->linkpdo->prepare("SELECT count(*) FROM equipe, etre_inscrit, tournoi WHERE equipe.id_equipe = etre_inscrit.id_equipe AND etre_inscrit.id_tournoi = tournoi.id_tournoi AND equipe.mail = :equipe_mail AND tournoi.nom = :tournoi_nom");
         $testreq = $req -> execute(array("equipe_mail" => $mail,"tournoi_nom" => $tournoi_nom));
@@ -426,14 +425,54 @@ class requeteSQL
         return $req;
     }
 
+    //Inscription Tournoi
+    public function inscriptionTournoi($param){
+        //$param[0] = id_equipe
+        //$param[1] = id_tournoi
+        //$param[2] = id_jeu 
+        $req = $this->linkpdo->prepare("INSERT INTO etre_inscrit VALUE (:id_equipe,:id_tournoi,:id_jeu)");
+        $testreq = $req -> execute(array(
+            "id_equipe" => $param[0],
+            "id_tournoi" => $param[1],
+            "id_jeu" => $param[2]
+        ));
+        if ($testreq == false){
+            die('Erreur inscriptionTournoi');
+        }
+        return $req;
+    }
 
     //Fonction pour récupérer le jeu d'une équipe à partir de l'username
     public function getIdEquipe($username)
     {
         $req = $this->linkpdo->prepare("SELECT id_equipe from equipe WHERE equipe.mail = :username");
-        $req = $req->execute(array("username" => $username));
-        if ($req == false) {
+        $testreq = $req->execute(array("username" => $username));
+        if ($testreq == false) {
             die("Erreur getIdEquipe");
+        }
+        return $req -> fetchColumn();
+    }
+
+    public function getIdJeu($libelle){
+        $req = $this->linkpdo->prepare("SELECT id_jeu FROM jeu where libelle = :libelle");
+        $testreq = $req->execute(
+            array(
+                "libelle" => $libelle
+            )
+        );
+        if ($testreq == false){
+            die('Erreur getIDJeu');
+        }
+        return $req -> fetchColumn();
+    }
+
+    //Fonctiion pour récupérer l'id d'une écurie à partir de son nom
+    public function getIdEcurie($mail_ecurie)
+    {
+        $req = $this->linkpdo->prepare("SELECT id_ecurie from ecurie WHERE ecurie.mail= :mail_ecurie");
+        $req = $req->execute(array("mail_ecurie" => $mail_ecurie));
+        if ($req == false) {
+            die("Erreur getIdEcurie");
         }
         return $req;
     }
@@ -626,6 +665,30 @@ class requeteSQL
         $req->execute();
         return $req;
     }
+
+    public function equipeByNom($id_ecurie){
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nom ASC');
+        $req->execute(array(
+            'id_ecurie' => $id_ecurie
+        ));
+        return $req;
+    }
+
+    public function equipeByPoint($id_ecurie){
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nb_pts_Champ DESC');
+        $req->execute(array(
+            'id_ecurie' => $id_ecurie
+        ));
+        return $req;
+    }
+
+    public function getEquipeByIdTournoi($id)
+    {
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE ' . $id . ' = equipe.Id_Tournoi');
+        $req->execute();
+        return $req;
+    }
+    
 
     public function getJoueurByIdEquipe($id)
     {

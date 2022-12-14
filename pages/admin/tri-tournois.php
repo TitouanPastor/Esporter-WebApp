@@ -7,7 +7,7 @@
         private $nbTournois;
 
 
-        public function triTournois(){
+        public function __construct(){
             require_once('../../SQL.php');
             $this->sql = new requeteSQL();
             $this->req = $this->sql-> getTournoi();
