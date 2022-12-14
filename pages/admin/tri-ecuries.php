@@ -31,17 +31,18 @@ class TriEcuries
             </div>
             <div class="description-tournoi">';
             while ($idEq = $req->fetch()) {
+                $str.='<div class=equipe_container>';
                 $id_equipe = $idEq['Id_Equipe'];
-                $str.='<p>Equipe : ' . $idEq['Nom'];
+                $str.='<p>Nom de l\'équipe : <strong>' . $idEq['Nom'] . '</strong></p>';
                 $jeu = $this->sql->getJeuByIdEquipe($id_equipe);
                 while ($je = $jeu->fetch()){
-                    $str .= ' - Jeu : ' . $je['Libelle'].'<br> Joueurs : ';
+                    $str .= '<p> Jeu de l\'équipe: <strong>' . $je['Libelle'].'</strong></p><br><p> Joueurs : ';
                 }
                 $joueur  = $this->sql->getJoueurByIdEquipe($id_equipe);
                 while ($j = $joueur->fetch()){
-                    $str .= $j['Pseudo']." / ";
+                    $str .=  '<p class="liste-joueur"> - '. $j["Pseudo"].' </p> ';
                 }
-                $str .='</p></br>   ';
+                $str .='</p></br></div>   ';
             }
                 
 

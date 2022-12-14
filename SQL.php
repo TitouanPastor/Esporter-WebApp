@@ -424,6 +424,17 @@ class requeteSQL
         }
         return $req;
     }
+
+    //Fonctiion pour récupérer l'id d'une écurie à partir de son nom
+    public function getIdEcurie($mail_ecurie)
+    {
+        $req = $this->linkpdo->prepare("SELECT id_ecurie from ecurie WHERE ecurie.mail= :mail_ecurie");
+        $req = $req->execute(array("mail_ecurie" => $mail_ecurie));
+        if ($req == false) {
+            die("Erreur getIdEcurie");
+        }
+        return $req;
+    }
     
     //Fonction qui renvoie le nombre d'équipe participant à un tournoi
     public function getNbEquipeTournoi($nom_tournoi){
@@ -613,6 +624,30 @@ class requeteSQL
         $req->execute();
         return $req;
     }
+
+    public function equipeByNom($id_ecurie){
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nom ASC');
+        $req->execute(array(
+            'id_ecurie' => $id_ecurie
+        ));
+        return $req;
+    }
+
+    public function equipeByPoint($id_ecurie){
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nb_pts_Champ DESC');
+        $req->execute(array(
+            'id_ecurie' => $id_ecurie
+        ));
+        return $req;
+    }
+
+    public function getEquipeByIdTournoi($id)
+    {
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE ' . $id . ' = equipe.Id_Tournoi');
+        $req->execute();
+        return $req;
+    }
+    
 
     public function getJoueurByIdEquipe($id)
     {

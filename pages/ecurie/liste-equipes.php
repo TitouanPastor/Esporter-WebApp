@@ -30,7 +30,7 @@ if ($_SESSION['role'] == "ecurie") {
                 <div class="main-listes-filters">
                     <ul>
                         <li><button type="submit" name="filter1" class="btn-filter" onclick="changerTabListe(this, 'filter1')">Nom</button></li>
-                        <li><button type="submit" name="filter2" class="btn-filter" onclick="changerTabListe(this, 'filter2')">Statut</button></li>
+                        <li><button type="submit" name="filter2" class="btn-filter" onclick="changerTabListe(this, 'filter2')">Point</button></li>
 
                         <li><button type="submit" name="annuler" class="btn-filter btn-filter-active" onclick="changerTabListe(this, 'filterdefault')">par défaut</button></li>
                     </ul>
@@ -38,24 +38,27 @@ if ($_SESSION['role'] == "ecurie") {
 
                 <?php
                 require_once(realpath(dirname(__FILE__) . '/tri-equipe.php'));
-                $triEcuries = new TriEquipe();
+                require_once('../../SQL.php');
+                $sql = new requeteSQL();
+                $id_ecurie = $sql->getIdEcurieByMail($_SESSION['username']);
+                $triEquipe = new TriEquipe($id_ecurie);
                 ?>
 
                 <div id="filter1" class="liste">
                     <?php
-                    echo $triEcuries->trierParNom();
+                    echo $triEquipe->trierParNom();
                     ?>
                 </div>
 
                 <div id="filter2" class="liste">
                     <?php
-                    echo $triEcuries->trierParStatut();
+                    echo $triEquipe->trierParPoint();
                     ?>
                 </div>
 
                 <div style="display: flex;" id="filterdefault" class="liste">
                     <?php
-                    echo $triEcuries->trierParId();
+                    echo $triEquipe->trierParId();
                     ?>
                 </div>
             </div>

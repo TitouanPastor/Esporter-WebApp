@@ -6,13 +6,15 @@ class TriEquipe
     private $req;
     private $sql;
     private $nbEcuries;
+    private $id_ecurie;
 
 
-    public function triEcuries()
+    public function __construct($idEcurie)
     {
         require_once('../../SQL.php');
         $this->sql = new requeteSQL();
-        $this->req = $this->sql->getEcurie();
+        $this->id_ecurie = $idEcurie;
+        $this->req = $this->sql->getEquipeEcurie($this->id_ecurie);
         $this->nbEcuries = $this->req->rowCount();
         $this->ecuries = '';
     }
@@ -20,29 +22,28 @@ class TriEquipe
 
 
     //function qui affiche une écurie
-    public function afficherUneEcurie($nom, $statut, $id)
+    public function afficherUneEcurie($nom, $point, $id_equipe)
     {
-        $req = $this->sql->getEquipeByIdEcurie($id);
-
+        
+        
         $str = '<article class="main-liste-article">    
             <span class="arrow" onclick="afficherDescriptionTournoi(this)">〉</span>
             <div class="nodescription-tournoi">
-                <span class="title-tournoi" onclick="afficherDescriptionTournoi(this)">['.$statut.'] '.$nom.'</span>
+                <span class="title-tournoi" onclick="afficherDescriptionTournoi(this)"> ['.$nom.'] - '.$point.' points</span>
             </div>
             <div class="description-tournoi">';
-            while ($idEq = $req->fetch()) {
-                $id_equipe = $idEq['Id_Equipe'];
-                $str.='<p>Equipe : ' . $idEq['Nom'];
-                $jeu = $this->sql->getJeuByIdEquipe($id_equipe);
-                while ($je = $jeu->fetch()){
-                    $str .= ' - Jeu : ' . $je['Libelle'].'<br> Joueurs : ';
-                }
-                $joueur  = $this->sql->getJoueurByIdEquipe($id_equipe);
-                while ($j = $joueur->fetch()){
-                    $str .= $j['Pseudo']." / ";
-                }
-                $str .='</p></br>   ';
+            $str.='<div class=equipe_container>';
+            $jeu = $this->sql->getJeuByIdEquipe($id_equipe);
+            while ($je = $jeu->fetch()){
+                $str .= '<p> L\'équipe joue sur le jeu : <strong>' . $je['Libelle'].'</strong></p><br><p> Les joueurs de l\'équipe : ';
             }
+            $joueur  = $this->sql->getJoueurByIdEquipe($id_equipe);
+            while ($j = $joueur->fetch()){
+                $str .=  '<p class="liste-joueur"> - '. $j["Pseudo"].' </p> ';
+            }
+            $str .='</p></br></div>   ';
+
+           
                 
 
         
@@ -55,7 +56,7 @@ class TriEquipe
     public function afficherLesEcuries()
     {
         while ($row = $this->req->fetch()) {
-            echo $this->afficherUneEcurie($row['Nom'], $row['Statut'], $row['Id_Ecurie']);
+            echo $this->afficherUneEcurie($row['Nom'], $row['Nb_pts_Champ'], $row['Id_Equipe']);
         }
     }
 
@@ -64,10 +65,17 @@ class TriEquipe
         return $this->nbEcuries;
     }
 
-    //Fonction trie les écuries par statut
-    public function trierParStatut()
+    
+
+    public function getIdEcure(): int
     {
-        $this->req = $this->sql->ecuriesByStatut();
+        return $this->id_ecurie;
+    }
+
+    //Fonction trie les écuries par statut
+    public function trierParPoint()
+    {
+        $this->req = $this->sql->equipeByPoint($this->id_ecurie);
         $this->afficherLesEcuries();
     }
 
@@ -75,7 +83,7 @@ class TriEquipe
     //Fonction trie les écuries par nom
     public function trierParNom()
     {
-        $this->req = $this->sql->ecuriesByNom();
+        $this->req = $this->sql->equipeByNom($this->id_ecurie);
         $this->afficherLesEcuries();
     }
 
@@ -83,7 +91,8 @@ class TriEquipe
     //Fonction trie les écuries par id (filtre de base)
     public function trierParId()
     {
-        $this->req = $this->sql->getEcurie();
+
+        $this->req = $this->sql->getEquipeEcurie($this->id_ecurie);
         $this->afficherLesEcuries();
     }
 }
