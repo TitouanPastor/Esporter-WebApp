@@ -20,11 +20,15 @@ th, td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
   }
   
   th {
     background-color: #333;
     color: white;
+    text-align: center;
+    vertical-align: middle;
   }
   
   tr:nth-child(even) {

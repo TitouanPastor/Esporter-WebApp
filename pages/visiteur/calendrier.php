@@ -114,7 +114,7 @@
                         echo '
                         <tr>
                             <td>' . $donnees[0] . '</td>
-                            <td>' . date('d-m-Y', strtotime($donnees[1])). '</td>
+                            <td>' . date('d / m / Y', strtotime($donnees[1])). '</td>
                             <td>' . $donnees[2] . '</td>
                         </tr>
                         ';
