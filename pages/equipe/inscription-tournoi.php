@@ -82,7 +82,7 @@
                                         echo $nb_equipe . ' / 16';
                                         echo '<td>';
                                         if ((16 - $nb_equipe) != 0) {
-                                            echo "<a href ='inscription-tournoi.php?id=$id_tournoi' >S'inscrire</a>";
+                                            echo "<a href ='inscription-tournoi.php?id=$id_tournoi'  >S'inscrire</a>";
                                             // echo "<input type = 'submit' class ='submit' title = \"S'inscrire\" >";
                                         } else {
                                             echo "<input type = 'button' class = 'bouton' title = 'Complet' disabled>";
