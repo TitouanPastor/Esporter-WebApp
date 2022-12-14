@@ -8,7 +8,7 @@ class TriEcuries
     private $nbEcuries;
 
 
-    public function triEcuries()
+    public function __construct()
     {
         require_once('../../SQL.php');
         $this->sql = new requeteSQL();
