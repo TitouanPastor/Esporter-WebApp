@@ -8,7 +8,7 @@ class TriTournoisEquipe
     private $nbTournois;
 
 
-    public function TriTournoisEquipe($idEquipe)
+    public function __construct($idEquipe)
     {
         require_once('../../SQL.php');
         $this->sql = new requeteSQL();
