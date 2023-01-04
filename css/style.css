@@ -645,7 +645,22 @@ header ul {
 
 /* login */
 
-/* Fermer tournoi */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+
+.fermer-tournoi .fermer-tournoi-left-container {
+  width: 80vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
 
 main.fermer-tournoi {
   min-width: 100vw;

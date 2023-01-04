@@ -166,7 +166,7 @@ class Header
     public function header_arbitre()
     {
         return '
-        <li class="navbar-item"><a href="' . $this->pathtournoisarbitre . '" class="navbar-link">Tournois</a>
+        <li class="navbar-item"><a href="' . $this->pathtournoisarbitre . '" class="navbar-link">Panel Arbitre</a>
         </li>
         <li class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></li>
     </ul>
