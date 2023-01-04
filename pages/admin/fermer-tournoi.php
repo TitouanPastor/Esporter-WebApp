@@ -24,14 +24,16 @@
     $idtournoi = $_GET['id'];
 
     require_once('bracket.php');
+    require_once('../../SQL.php');
     $bracket = new bracket();
+    $sql = new requeteSQL();
 
     ?>
 
     <main class="fermer-tournoi">
         <form action="fermer-tournoi.php">
             <h1>Fermer les inscriptions</h1>
-            <h2>Nom du tournoi</h2>
+            <h2><?php echo $sql->tournoiId($idtournoi)->fetch()['Nom'];?></h2>
             <section class="fermer-tournoi-container">
                 <div class="fermer-tournoi-left-container">
                     <?php
