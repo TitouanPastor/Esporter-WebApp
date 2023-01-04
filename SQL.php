@@ -703,4 +703,14 @@ class requeteSQL
         $req->execute();
         return $req;
     }
+
+    public function closeTournois($id){
+        $req = $this->linkpdo->prepare('UPDATE tournoi SET estFerme = 1 WHERE Id_Tournoi = :id');
+        $req->execute(array(
+            'id' => $id
+        ));
+    }
+
+
 }
+

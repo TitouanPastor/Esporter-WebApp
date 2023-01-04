@@ -16,7 +16,7 @@ class TriEquipe
         $this->id_ecurie = $idEcurie;
         $this->req = $this->sql->getEquipeEcurie($this->id_ecurie);
         $this->nbEcuries = $this->req->rowCount();
-        $this->ecuries = '';
+        
     }
 
 
