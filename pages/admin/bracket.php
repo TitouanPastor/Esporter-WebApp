@@ -33,6 +33,40 @@
             return $html;
         }
 
+        public function genererBracket($idTournoi){
+            $this->sql->closeTournois($idTournoi);
+            $IDsjeux = $this->sql->getIDJeuxTournoi($idTournoi);
+            for ($i = 0; $i < count($IDsjeux); $i++){
+                for ($j = 0; $j < 4; $j++){
+                    $this->sql->addPoule("Poule".($j+1), $idTournoi, $IDsjeux[$i]);
+                }
+            }
+            for ($i = 0; $i < count($IDsjeux); $i++){
+                $idsPoule = $this->sql->getIDPoule($idTournoi, $IDsjeux[$i]);
+                $idsEquipe = $this->sql->getEquipeInscrites($idTournoi, $IDsjeux[$i]);
+                $bracket = array();
+
+                for ($j = 0; $j < 4; $j++) {
+                  $bracket[] = array_splice($idsEquipe, 0, 4);
+                }
+                for ($j = 0; $j < 4; $j++) {
+                  for ($k = 0; $k < 4; $k++) {
+                    $this->sql->assignerPoule($idTournoi, $idsPoule[$j], $bracket[$j][$k]);
+                  }
+                }  
+
+                for($j = 0; $j < 4; $j++){
+                    for($k = 0; $k < 3; $k++){
+                        for($l = $k; $l < 4; $l++){
+                            $this->sql->addRencontre($bracket[$j][$k], $bracket[$j][$l], $idsPoule[$j]);
+                        }
+                    }
+                }
+            } 
+
+            
+        }
+
         // - afficher les équipes inscrites dans un tournoi pour le jeu selectionné
         // - afficher les poules du bracket pour le jeu selectionné
 

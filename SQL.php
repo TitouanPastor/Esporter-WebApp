@@ -547,15 +547,6 @@ class requeteSQL
     }
 
 
-    //Fonction pour ajouter une poule 
-    public function addPoule($libelle, $idTournoi)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO poule VALUES (NULL, :libelle, :idTournoi)');
-        $req->execute(array(
-            'libelle' => $libelle,
-            'idTournoi' => $idTournoi
-        ));
-    }
 
 
     // Fonction qui retourne les poules
@@ -591,17 +582,6 @@ class requeteSQL
     }
 
 
-    //Fonction pour ajouter un match
-    public function addGame($dateMatch, $idEquipe1, $idEquipe2, $idPoule)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO game VALUES (NULL, :dateMatch, :idEquipe1, :idEquipe2, :idPoule)');
-        $req->execute(array(
-            'dateMatch' => $dateMatch,
-            'idEquipe1' => $idEquipe1,
-            'idEquipe2' => $idEquipe2,
-            'idPoule' => $idPoule
-        ));
-    }
 
 
     // Fonction qui retourne les matchs
@@ -721,7 +701,85 @@ class requeteSQL
         ));
     }
 
+    public function addPoule($nom, $idTournoi, $idJeu){
+        $req = $this->linkpdo->prepare('INSERT INTO poule VALUES (NULL, :nom, :idTournoi, :idJeu)');
+        $req->execute(array(
+            'nom' => $nom,
+            'idTournoi' => $idTournoi,
+            'idJeu' => $idJeu
+        ));
+    }
+
+    public function assignerPoule($idTournoi,$idEquipe, $idPoule){
+        $req = $this->linkpdo->prepare('UPDATE etre_inscrit SET Id_Poule = :idPoule WHERE Id_Tournoi = :idTournoi AND Id_Equipe = :idEquipe');
+        $req->execute(array(
+            'idPoule' => $idPoule,
+            'idTournoi' => $idTournoi,
+            'idEquipe' => $idEquipe
+        ));
+    }
+
+    public function getIDPoule($idTournoi, $idJeu){
+        $req = $this->linkpdo->prepare('SELECT Id_Poule FROM poule WHERE id_Tournoi = :idTournoi AND id_jeu = :idJeu');
+        $req->execute(array(
+            'idTournoi' => $idTournoi,
+            'idJeu' => $idJeu
+        ));
+        $idsPoules = array(); //Tableau qui contiendra les id des poules
+        while($datas = $req->fetch()){
+            array_push($idsPoules, $datas['Id_Poule']);
+        }
+        return $idsPoules;
+    }
+
+    //Equipe inscrites sur un tournoi en fonction d'un jeu
+    public function getEquipeInscrites($idTournoi, $idJeu){
+        $req = $this->linkpdo->prepare('SELECT * FROM etre_inscrit WHERE id_Tournoi = :idTournoi AND id_Jeu = :idJeu order by Nb_pts_Champ DESC');
+        $req->execute(array(
+            'idTournoi' => $idTournoi,
+            'idJeu' => $idJeu
+        ));
+        $idsEquipes = array(); //Tableau qui contiendra les id des poules
+        while($datas = $req->fetch()){
+            array_push($idsEquipes, $datas['Id_Poule']);
+        }
+        return $idsEquipes;
+    }
+
+    public function getIDJeuxTournoi($idTournoi){
+        $req = $this->linkpdo->prepare('SELECT Id_Jeu FROM concerner where id_Tournoi = :id');
+        $req->execute( array(
+            'id' => $idTournoi
+        ));
+        $idsJeux = array(); //Tableau qui contiendra les id des jeux
+        $i = 0;
+        while ($date = $req->fetch()){
+            $idsJeux[$i] = $date['Id_Jeu'];
+            $i++;
+        }
+        return $idsJeux;
+    }
+ 
+  
     
+    public function getEquipeInscritesByPoule($idTournoi, $idJeu, $idPoule){
+        $req = $this->linkpdo->prepare('SELECT * FROM etre_inscrit WHERE id_Tournoi = :idTournoi AND id_Jeu = :idJeu AND id_poule = :idPoule');
+        $req->execute(array(
+            'idTournoi' => $idTournoi,
+            'idJeu' => $idJeu,
+            'idPoule' => $idPoule
+        ));
+        return $req;
+    }
+
+    public function addRencontre($idEquipe1, $idEquipe2, $idPoule){
+        $req = $this->linkpdo->prepare('INSERT INTO rencontre VALUES (NULL, :idEquipe1, :idEquipe2, :idPoule)');
+        $req->execute(array(
+            'idEquipe1' => $idEquipe1,
+            'idEquipe2' => $idEquipe2,
+            'idPoule' => $idPoule
+        ));
+    }
 
 
 }
