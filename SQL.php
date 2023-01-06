@@ -341,6 +341,15 @@ class requeteSQL
         }
     }
 
+    public function getTournoiCommence(){
+        $req = $this->linkpdo->prepare("SELECT nom, date_debut FROM tournoi where tournoi.date_debut < curdate()");
+        $testreq = $req -> execute();
+        if ($testreq == false){
+            die('Erreur getTournoiCommence');
+        }
+        return $req;
+    }
+
     //Fonctions pour calendrier.php
     //Prend en parametre un array, si les valeurs sont null ou "default" alors les requêtes changent
     public function getTournoiCalendrier($param)
@@ -430,11 +439,12 @@ class requeteSQL
         //$param[0] = id_equipe
         //$param[1] = id_tournoi
         //$param[2] = id_jeu 
-        $req = $this->linkpdo->prepare("INSERT INTO etre_inscrit VALUE (:id_equipe,:id_tournoi,:id_jeu)");
+        $req = $this->linkpdo->prepare("INSERT INTO etre_inscrit VALUE (:id_equipe,:id_tournoi,:id_jeu, :id_poule)");
         $testreq = $req -> execute(array(
             "id_equipe" => $param[0],
             "id_tournoi" => $param[1],
-            "id_jeu" => $param[2]
+            "id_jeu" => $param[2],
+            "id_poule" => NULL
         ));
         if ($testreq == false){
             die('Erreur inscriptionTournoi');
@@ -710,6 +720,8 @@ class requeteSQL
             'id' => $id
         ));
     }
+
+    
 
 
 }

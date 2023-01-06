@@ -11,7 +11,7 @@ class Header
     private $pathaddecurie = "#"; //etage 2
     private $pathlisteecurie = "#"; //etage 2
     private $pathinscription = "#"; //etage 2
-    private $pathtournoisarbitre = "#"; //etage 2
+    private $pathlistetournoiarbitre = "#"; //etage 2
     private $pathaddequipes = "#"; //etage 2
     private $pathlogo = "#"; //etage 1
     private $pathlisteequipeECU = "#"; //etage 2
@@ -29,7 +29,7 @@ class Header
             $this->pathaddecurie = "pages/admin/enregistrer-ecurie.php";
             $this->pathlisteecurie = "pages/admin/liste-ecuries.php";
             $this->pathinscription = "pages/equipe/inscription-tournoi.php";
-            $this->pathtournoisarbitre = "pages/admin/tournoisarbitre.php";
+            $this->pathlistetournoiarbitre = "pages/arbitre/liste-tournois-commence.php";
             $this->pathaddequipes = "pages/ecurie/enregistrer-equipe.php";
             $this->pathlogo = "img/esporter-logo.png";
             $this->pathlisteequipeECU = "pages/ecurie/liste-equipes.php";
@@ -44,7 +44,7 @@ class Header
             $this->pathaddecurie = "admin/enregistrer-ecurie.php";
             $this->pathlisteecurie = "admin/liste-ecuries.php";
             $this->pathinscription = "equipe/inscription-tournoi.php";
-            $this->pathtournoisarbitre = "admin/tournoisarbitre.php";
+            $this->pathlistetournoiarbitre = "arbitre/liste-tournois-commence.php";
             $this->pathaddequipes = "ecurie/enregistrer-equipe.php";
             $this->pathlogo = "../img/esporter-logo.png";
             $this->pathlisteequipeECU = "../pages/ecurie/liste-equipes.php";
@@ -59,7 +59,7 @@ class Header
             $this->pathaddecurie = "../admin/enregistrer-ecurie.php";
             $this->pathlisteecurie = "../admin/liste-ecuries.php";
             $this->pathinscription = "../equipe/inscription-tournoi.php";
-            $this->pathtournoisarbitre = "../admin/tournoisarbitre.php";
+            $this->pathlistetournoiarbitre = "../arbitre/liste-tournois-commence.php";
             $this->pathaddequipes = "../ecurie/enregistrer-equipe.php";
             $this->pathlogo = "../../img/esporter-logo.png";
             $this->pathlisteequipeECU = "../ecurie/liste-equipes.php";
@@ -166,7 +166,10 @@ class Header
     public function header_arbitre()
     {
         return '
-        <li class="navbar-item"><a href="' . $this->pathtournoisarbitre . '" class="navbar-link">Panel Arbitre</a>
+        <li class="navbar-item"><a href="#" class="navbar-link">Arbitre</a>
+        <ul class="sousmenu">
+            <li class="navbar-item"><a href="' . $this->pathlistetournoiarbitre . '" class="navbar-link">Liste Tournoi</a>
+        </ul>
         </li>
         <li class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></li>
     </ul>
