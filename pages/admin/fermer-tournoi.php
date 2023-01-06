@@ -20,28 +20,28 @@
     } else {
         header('Location: ../../acces-refuse.php');
     }
+
+    $idtournoi = $_GET['id'];
+
+    require_once('bracket.php');
+    require_once('../../SQL.php');
+    $bracket = new bracket();
+    $sql = new requeteSQL();
+
     ?>
 
     <main class="fermer-tournoi">
         <form action="fermer-tournoi.php">
             <h1>Fermer les inscriptions</h1>
-            <h2>Nom du tournoi</h2>
+            <h2><?php echo $sql->tournoiId($idtournoi)->fetch()['Nom'];?></h2>
             <section class="fermer-tournoi-container">
                 <div class="fermer-tournoi-left-container">
-                    <div class="left-jeux">
-                        <span class="libellejeu">Jeux 1</span>
-                        <input type="button" value="Selectionner">
-                    </div>
-                    <div class="left-jeux">
-                        <span class="libellejeu">Jeux 1</span>
-                        <input type="button" value="Selectionner">
-                    </div>
-                    <div class="left-jeux">
-                        <span class="libellejeu">Jeux 1</span>
-                        <input type="button" value="Selectionner">
-                    </div>
-                </div>
+                    <?php
 
+                    echo $bracket->display_games($idtournoi);
+
+                    ?>
+                </div>
 
                 <div class="fermer-tournoi-right-container">
                 </div>

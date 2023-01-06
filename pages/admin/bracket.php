@@ -2,6 +2,8 @@
     // classe php qui genere des bracket de tournois
     class bracket {
 
+        private $sql;
+
         // idées de fonctionnalités:
         
         // Niveau UI
@@ -13,13 +15,20 @@
                     //     <input type="button" value="Selectionner">
                     // </div>
 
-        public function display_games($games) {
+        public function __construct() {
+            require_once('../../SQL.php');
+            $this->sql = new requeteSQL();
+        }
+
+        public function display_games($idtournoi) {
             $html = "";
-            foreach ($games as $game) {
-                $html .= "<div class=\"left-jeux\">
-                    <span class=\"libellejeu\">$game</span>
-                    <input type=\"button\" value=\"Selectionner\">
-                </div>";
+            // On récupère les jeux du tournoi
+            $games = $this->sql->getJeuxTournois($idtournoi);
+            while ($game = $games->fetch()) {
+                $html .= '<div class="left-jeux">
+                            <span class="libellejeu">'.$game['Libelle'].'</span>
+                            <input type="button" value="Selectionner">
+                        </div>';
             }
             return $html;
         }

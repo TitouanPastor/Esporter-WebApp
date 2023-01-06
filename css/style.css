@@ -645,11 +645,20 @@ header ul {
 
 /* login */
 
-/* Fermer tournoi */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
+/* Page fermer inscriptions */
 
 main.fermer-tournoi {
-  min-width: 100vw;
-  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -660,7 +669,7 @@ main.fermer-tournoi {
 }
 
 .fermer-tournoi form {
-  padding: 125px 50px 0 50px;
+  padding: 85px 50px 15px 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -681,8 +690,10 @@ main.fermer-tournoi {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  width: auto;
-  height: max-content;
+  width: 35%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .fermer-tournoi-container .left-jeux {
@@ -755,14 +766,14 @@ form.form-ajout-joueur {
 /* Pages des listes ecurie + equipe */
 
 
-.liste-joueur{
+.liste-joueur {
   padding: 3px 12px;
-  
+
 }
 
-.equipe_container{
-  
-  border-top: 2px solid white ;
+.equipe_container {
+
+  border-top: 2px solid white;
   padding-top: 10px;
-  
+
 }
