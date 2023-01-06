@@ -42,6 +42,8 @@
                 }
             }
             for ($i = 0; $i < count($IDsjeux); $i++){
+                $idsPoule = array();
+                $idsEquipe = array();
                 $idsPoule = $this->sql->getIDPoule($idTournoi, $IDsjeux[$i]);
                 $idsEquipe = $this->sql->getEquipeInscrites($idTournoi, $IDsjeux[$i]);
                 $bracket = array();
@@ -58,7 +60,8 @@
                 for($j = 0; $j < 4; $j++){
                     for($k = 0; $k < 3; $k++){
                         for($l = $k; $l < 4; $l++){
-                            $this->sql->addRencontre($bracket[$j][$k], $bracket[$j][$l], $idsPoule[$j]);
+                            echo $bracket[$j][$k]." ".$bracket[$j][$l]." poule : ".$idsPoule[$j]."<br>";
+                            // $this->sql->addRencontre($bracket[$j][$k], $bracket[$j][$l], $idsPoule[$j]);
                         }
                     }
                 }

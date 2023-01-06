@@ -734,14 +734,14 @@ class requeteSQL
 
     //Equipe inscrites sur un tournoi en fonction d'un jeu
     public function getEquipeInscrites($idTournoi, $idJeu){
-        $req = $this->linkpdo->prepare('SELECT * FROM etre_inscrit WHERE id_Tournoi = :idTournoi AND id_Jeu = :idJeu order by Nb_pts_Champ DESC');
+        $req = $this->linkpdo->prepare('SELECT etre_inscrit.id_poule FROM etre_inscrit, equipe WHERE id_Tournoi = :idTournoi AND etre_inscrit.id_Equipe = equipe.id_Equipe AND etre_inscrit.id_Jeu = :idJeu order by Nb_pts_Champ DESC');
         $req->execute(array(
             'idTournoi' => $idTournoi,
             'idJeu' => $idJeu
         ));
         $idsEquipes = array(); //Tableau qui contiendra les id des poules
         while($datas = $req->fetch()){
-            array_push($idsEquipes, $datas['Id_Poule']);
+            array_push($idsEquipes, $datas['id_poule']);
         }
         return $idsEquipes;
     }
