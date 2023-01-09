@@ -15,7 +15,7 @@
     <?php
     session_start();
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
-    // $header = new header(2);
+    /$header = new header(2);
     require_once('bracket.php');
     $bracket = new bracket();
 
@@ -26,7 +26,7 @@
     }
 
     if ($_SESSION['role'] == "gestionnaire") {
-        // echo $header->customize_header($_SESSION['role']);
+        echo $header->customize_header($_SESSION['role']);
     } else {
         header('Location: ../../acces-refuse.php');
     }
