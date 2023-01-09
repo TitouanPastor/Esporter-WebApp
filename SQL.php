@@ -342,7 +342,7 @@ class requeteSQL
     }
 
     public function getTournoiCommence(){
-        $req = $this->linkpdo->prepare("SELECT nom, date_debut FROM tournoi where tournoi.date_debut < curdate()");
+        $req = $this->linkpdo->prepare("SELECT nom, date_debut, id_tournoi FROM tournoi where tournoi.date_debut < curdate()");
         $testreq = $req -> execute();
         if ($testreq == false){
             die('Erreur getTournoiCommence');
@@ -537,14 +537,18 @@ class requeteSQL
     }
 
     //Fonction qui retourne les jeux d'un tournois
-    public function getJeuxTournois($id)
+    public function getJeuxTournois($id, $choix = "default")
     {
-        $req = $this->linkpdo->prepare('SELECT jeu.* FROM jeu, concerner, tournoi where tournoi.Id_Tournoi = concerner.Id_Tournoi and jeu.Id_Jeu = concerner.Id_Jeu and concerner.Id_Tournoi = :IdTournoi');
-        $req->execute(array(
-            'IdTournoi' => $id
-        ));
+        if ($choix == "libelle"){
+            $req = $this -> linkpdo -> prepare('SELECT jeu.libelle FROM jeu, concerner, tournoi WHERE tournoi.Id_tournoi = concerner.id_tournoi AND jeu.id_jeu = concerner.id_jeu AND concerner.Id_Tournoi = :IdTournoi ');
+        } else {
+            $req = $this -> linkpdo -> prepare('SELECT jeu.* FROM jeu, concerner, tournoi where tournoi.Id_Tournoi = concerner.Id_Tournoi and jeu.Id_Jeu = concerner.Id_Jeu and concerner.Id_Tournoi = :IdTournoi');
+        }
+
+        $req->execute(array("IdTournoi" => $id));
         return $req;
     }
+
 
 
 
