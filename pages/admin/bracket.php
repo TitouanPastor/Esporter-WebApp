@@ -34,34 +34,66 @@
         }
 
         public function genererBracket($idTournoi){
+            // echo "On ferme le tournoi : ".$idTournoi."</br></br>";
             $this->sql->closeTournois($idTournoi);
+
             $IDsjeux = $this->sql->getIDJeuxTournoi($idTournoi);
+            // echo "Tableau idsPoule</br>";
+            // foreach ($IDsjeux as $id) {
+            //     echo "Id : ".$id."</br>";
+            // }
+
+            // echo "Boucle d'ajout de poules suivant le nombre de jeux du tournoi : ".count($IDsjeux)."</br></br>";
             for ($i = 0; $i < count($IDsjeux); $i++){
                 for ($j = 0; $j < 4; $j++){
-                    $this->sql->addPoule("Poule".($j+1), $idTournoi, $IDsjeux[$i]);
+                    // echo "addPoule( 'Poule".($j+1)."', ".$idTournoi.", ".$IDsjeux[$i].")</br>";
+                    $this->sql->addPoule(chr($j+65), $idTournoi, $IDsjeux[$i]);
                 }
             }
             for ($i = 0; $i < count($IDsjeux); $i++){
                 $idsPoule = array();
                 $idsEquipe = array();
                 $idsPoule = $this->sql->getIDPoule($idTournoi, $IDsjeux[$i]);
+                // echo "Tableau idsPoule</br>";
+                // foreach ($idsPoule as $id) {
+                //     echo "Id : ".$id."</br>";
+                // }
                 $idsEquipe = $this->sql->getEquipeInscrites($idTournoi, $IDsjeux[$i]);
+                // echo "Tableau idsEquipe</br>";
+                // foreach ($idsEquipe as $id) {
+                //     echo "Id : ".$id."</br>";
+                // }
                 $bracket = array();
 
                 for ($j = 0; $j < 4; $j++) {
                   $bracket[] = array_splice($idsEquipe, 0, 4);
+                  if ($j % 2 == 1) {
+                    $bracket[$j] = array_reverse($bracket[$j]);
+                  }
                 }
+
+                // echo "Tableau idsEquipe transformé</br>";
+                // foreach ($bracket as $ids) {
+                //     foreach($ids as $id) {
+                //         echo "Id : ".$id."</br>";
+                //     }
+                // }
+
+                // echo "</br> Boucle d'assignation des équipes aux poules </br>";
                 for ($j = 0; $j < 4; $j++) {
                   for ($k = 0; $k < 4; $k++) {
+                    // echo "Assignation poule : equipe : ".$bracket[$j][$k]." Poule : ".$idsPoule[$j]."</br>";
                     $this->sql->assignerPoule($idTournoi, $idsPoule[$j], $bracket[$j][$k]);
                   }
                 }  
-
+                // echo "Assignation rencontre </br>";
                 for($j = 0; $j < 4; $j++){
                     for($k = 0; $k < 3; $k++){
                         for($l = $k; $l < 4; $l++){
-                            echo $bracket[$j][$k]." ".$bracket[$j][$l]." poule : ".$idsPoule[$j]."<br>";
-                            // $this->sql->addRencontre($bracket[$j][$k], $bracket[$j][$l], $idsPoule[$j]);
+                            if ($bracket[$j][$k] != $bracket[$j][$l]) {
+                                // echo "Equipe 1 : ".$bracket[$j][$k]." Equipe 2 : ".$bracket[$j][$l]." poule : ".$idsPoule[$j]."<br>";
+                                $this->sql->addRencontre($bracket[$j][$k], $bracket[$j][$l], $idsPoule[$j]);
+                            }
                         }
                     }
                 }

@@ -521,11 +521,11 @@ header ul {
 .main-listes .main-listes-container {
   background-color: var(--white-text);
   max-width: 1200px;
-  padding: 175px 100px 50px 100px;
+  padding: 90px 100px 50px 100px;
   display: flex;
   width: 100%;
   flex-direction: column;
-  gap: 35px;
+  gap: 20px;
 }
 
 .main-listes-filters ul {

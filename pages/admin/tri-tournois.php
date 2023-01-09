@@ -12,7 +12,6 @@
             $this->sql = new requeteSQL();
             $this->req = $this->sql-> getTournoi();
             $this->nbTournois = $this->req->rowCount();
-            $this->tournois = '';
 
             
         }
@@ -27,8 +26,11 @@
                         <div class="nodescription-tournoi">
                             <span class="title-tournoi" onclick="afficherDescriptionTournoi(this)"> ['.$type.'] '.$nom.'</span>
                             <div class="article-btns">
-                                <a href="modification-tournoi.php?id='.$id.'">Modifier</a>
-                                <a href="fermer-tournoi.php?id='.$id.'">Fermer les inscriptions</a>
+                                <a href="modification-tournoi.php?id='.$id.'">Modifier</a>';
+                                if ($this->sql->tournoiIscloseable($id)) {
+                                    $str .= '<a style="text-decoration: underline;cursor:pointer;" value="liste-tournois.php?close_id='.$id.'" onclick="openPopUp(this)">Fermer les inscriptions</a>';
+                                };
+                            $str .= '
                             </div>
                         </div>
                         <div class="description-tournoi">
