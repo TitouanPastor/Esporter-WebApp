@@ -15,7 +15,7 @@
     <?php
     session_start();
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
-    /$header = new header(2);
+    $header = new header(2);
     require_once('bracket.php');
     $bracket = new bracket();
 
