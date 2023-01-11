@@ -16,6 +16,7 @@ class Header
     private $pathlogo = "#"; //etage 1
     private $pathlisteequipeECU = "#"; //etage 2
     private $pathtournoisInscrits = "#"; //etage 2
+    private $pathClassementCm = "#"; //etage 2
 
     public function __construct($etage)
     {
@@ -34,6 +35,7 @@ class Header
             $this->pathlogo = "img/esporter-logo.png";
             $this->pathlisteequipeECU = "pages/ecurie/liste-equipes.php";
             $this->pathtournoisInscrits = "pages/equipe/liste-tournois-inscrit.php";
+            $this->pathClassementCm = "pages/visiteur/classementCM.php";
         } elseif ($etage == 1) {
             $this->pathindex = "../index.php";
             $this->pathresultats = "visiteur/resultats.php";
@@ -49,6 +51,7 @@ class Header
             $this->pathlogo = "../img/esporter-logo.png";
             $this->pathlisteequipeECU = "../pages/ecurie/liste-equipes.php";
             $this->pathtournoisInscrits = "equipe/liste-tournois-inscrit.php";
+            $this->pathClassementCm = "visiteur/classementCM.php";
         } elseif ($etage == 2) {
             $this->pathindex = "../../index.php";
             $this->pathresultats = "../visiteur/resultats.php";
@@ -64,6 +67,7 @@ class Header
             $this->pathlogo = "../../img/esporter-logo.png";
             $this->pathlisteequipeECU = "../ecurie/liste-equipes.php";
             $this->pathtournoisInscrits = "../equipe/liste-tournois-inscrit.php";
+            $this->pathClassementCm = "../visiteur/classementCM.php";
         }
 
         echo '
@@ -74,7 +78,11 @@ class Header
             </a>
                 <ul class="navbar-menu">
                     <li class="navbar-item"><a href="' . $this->pathindex . '" class="navbar-link">Accueil</a></li>
-                    <li class="navbar-item"><a href="' . $this->pathresultats . '" class="navbar-link">Résultats</a></li>
+                    <li class="navbar-item"><a href="#" class="navbar-link">Leaderboards</a>
+                    <ul class="sousmenu">
+                        <li class="navbar-item"><a href="' . $this->pathresultats . '" class="navbar-link">Classement</a></li>
+                        <li class="navbar-item"><a href="' . $this->pathClassementCm . '" class="navbar-link">Résultats</a></li>
+                    </ul>
                     <li class="navbar-item"><a href="' . $this->pathcalendrier . '" class="navbar-link">Calendrier</a></li>
         ';
     }
