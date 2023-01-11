@@ -28,11 +28,6 @@
             $id_jeu = $GET_['id_jeu'];
             
         ?>
-        
-        
-
-
-        
 
         
     </body>

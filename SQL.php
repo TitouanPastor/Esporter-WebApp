@@ -764,7 +764,7 @@ class requeteSQL
         return $idsJeux;
     }
  
-  
+
     
     public function getEquipeInscritesByPoule($idTournoi, $idJeu, $idPoule){
         $req = $this->linkpdo->prepare('SELECT * FROM etre_inscrit WHERE id_Tournoi = :idTournoi AND id_Jeu = :idJeu AND id_poule = :idPoule');
