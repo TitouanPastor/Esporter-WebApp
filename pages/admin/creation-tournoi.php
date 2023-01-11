@@ -67,7 +67,7 @@ if (isset($_POST['ajouter'])) {
                                 } else {
                                     $points = 0;
                                 }
-
+                               
                                 // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
                                 $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $points, 1, 1);
                                 // Récupération de l'ID dernier tournoi créer
