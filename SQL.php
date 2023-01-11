@@ -269,7 +269,7 @@ class requeteSQL
     public function getTournoi($idequipe = 0)
     {
         if ($idequipe == 0) {
-            $req = $this->linkpdo->prepare("SELECT * FROM tournoi");
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by estFerme desc, id_tournoi");
             $req->execute();
             return $req;
         } else {
