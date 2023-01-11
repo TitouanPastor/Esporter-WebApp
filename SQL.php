@@ -882,4 +882,48 @@ class requeteSQL
         }
         return false;
     }
+
+    public function getTournoiNomByIdTournoi($id_tournoi){
+        $req = $this->linkpdo->prepare("SELECT nom FROM tournoi WHERE id_tournoi = :id_tournoi");
+        $testreq = $req->execute(
+            array(
+                "id_tournoi" => $id_tournoi
+            )
+        );
+       if ($testreq == false){
+            die("Erreur getTournoiNomByIdTournoi");
+       }
+        return $req;
+
+    }
+    
+
+    //renvoie les id et libelle des poule correspondant au tournoi voulu (id_tournoi)
+    public function getPouleByIdTournoi($id_tournoi){
+        $req = $this->linkpdo->prepare("SELECT id_poule, libelle FROM poule WHERE id_tournoi = :id_tournoi");
+        $testreq = $req -> execute(
+            array(
+                "id_tournoi" => $id_tournoi
+            )
+        );
+        if ($testreq == false) {
+            die('Erreur getPouleByIdTournoi');
+        }
+        return $req;
+    }
+
+    public function getEquipeByIdPoule($id_poule){
+        $req = $this->linkpdo->prepare("SELECT id_equipe, nom FROM equipe, etre_inscrit WHERE equipe.id_equipe = etre_inscrit.id_equipe AND etre_inscrit.id_poule = :id_poule ");
+        $testreq = $req->execute(
+            array(
+                "id_poule" => $id_poule
+            )
+        );
+        if ($testreq == false){
+            die('Erreur getEquipeByIdPoule');
+        }
+        return $req;
+    }
+
 }
+

@@ -3,7 +3,11 @@
     flex-direction: column;
     text-align: center;
     background-color: aliceblue;
-    padding : 60px 0px 0px 0px;
+    padding : 70px 0px 0px 0px;
+}
+
+.main-listes .h1 {
+    
 }
 
 .container-poule{

@@ -28,27 +28,32 @@
             $id_tournoi = $_GET["id_tournoi"];
             $id_jeu = $_GET["id_jeu"];
 
-            
+            //Nom tournoi par id_tournoi
+            $reqNomTournoi = "";
+            $reqNomTournoi = $sql -> getTournoiNomByIdTournoi($id_tournoi) -> fetch()[0];
+
+            //Poule par id_tournoi
+            $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
+
+            //Equipe par id_poule
+
         ?>
 
         <main class="main-listes">
             
-            <h1> Poule du tournoi <?php echo '';?></h1>
+            <h1> Poule du tournoi <?php echo $reqNomTournoi ?></h1>
             
             <div class="container-poule">
                 <div class="poule-gauche">
-                    <div class="poule">
+                    <?php 
+                        while ($reqPoule -> fetch()){
+                        echo '
+                            <div class="poule">
 
-                    </div>
-                    <div class="poule">
-
-                    </div>
-                    <div class="poule">
-
-                    </div>
-                    <div class="poule">
-
-                    </div>
+                            </div>
+                        ';
+                        }
+                    ?>
                 </div>
             
                 <div class="poule-droite">
