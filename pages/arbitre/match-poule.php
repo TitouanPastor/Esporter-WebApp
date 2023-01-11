@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Liste tournois - E-Sporter</title>
         <link rel="stylesheet" href="../../css/style.css">
+        <link rel="stylesheet" href="../../css/match-poule.css">
         <link rel="icon" href="../../img/esporter-icon.png">
     </header>
     <body>
@@ -24,10 +25,39 @@
             $sql = new requeteSQL();
 
             //Id
-            $id_tournoi = $GET_['id_tournoi'];
-            $id_jeu = $GET_['id_jeu'];
+            $id_tournoi = $_GET["id_tournoi"];
+            $id_jeu = $_GET["id_jeu"];
+
             
         ?>
+
+        <main class="main-listes">
+            
+            <h1> Poule du tournoi <?php echo '';?></h1>
+            
+            <div class="container-poule">
+                <div class="poule-gauche">
+                    <div class="poule">
+
+                    </div>
+                    <div class="poule">
+
+                    </div>
+                    <div class="poule">
+
+                    </div>
+                    <div class="poule">
+
+                    </div>
+                </div>
+            
+                <div class="poule-droite">
+                    <div class="poule-match">
+
+                    </div>
+                </div>
+            </div>  
+        </main>
 
         
     </body>
