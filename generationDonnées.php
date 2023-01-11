@@ -17,10 +17,12 @@ $liste_statut = ["Associative", "Professionnelle"];
 for ($ecurie = 1; $ecurie <10; $ecurie++) {
     $nomEcurie = $obj->company;
     $nomEcurie = explode(" ", $nomEcurie);
-    array_pop($nomEcurie);
+    if (count($nomEcurie) > 1) {
+        array_pop($nomEcurie);
+    }
     $nomEcurie = implode(" ", $nomEcurie);
-    $sql->addEcurie($nomEcurie . $ecurie, $liste_statut[array_rand($liste_statut)], $mdp, "Ecurie" . $ecurie . "@esporter.com", 1);
-    $idEcurie = $sql->getIdEcurieByMail($nomEcurie . $ecurie . "@esporter.com");
+    $sql->addEcurie($nomEcurie, $liste_statut[array_rand($liste_statut)], $mdp, str_replace(" ", "", $nomEcurie) . "@esporter.com", 1);
+    $idEcurie = $sql->getIdEcurieByMail(str_replace(" ", "", $nomEcurie) . "@esporter.com"  );
     $liste_jeu_ecurie = array();
     $nbEquipe = rand(2,8);
     echo "[Création Ecurie] : " . $nomEcurie . $ecurie . "avec " . $nbEquipe . " équipes <br>"; 
@@ -41,10 +43,15 @@ for ($ecurie = 1; $ecurie <10; $ecurie++) {
         
         $idJeu = $sql->getIdJeuByLibelle($jeu);
         $nomEquipe = explode(" ", $nomEquipe);
-        array_pop($nomEquipe);
+        if (count($nomEquipe) > 1) {
+            array_pop($nomEquipe);
+            if ($nomEquipe[count($nomEquipe) - 1] == "et") {
+                array_pop($nomEquipe);
+            }
+        }
         $nomEquipe = implode(" ", $nomEquipe);
-        $sql->addEquipe($nomEquipe, $mdp, $nomEquipe . "@esporter.com", 0, $idJeu, $idEcurie);
-        $idEquipe = $sql->getIdEquipeByMail($nomEquipe . $equipe . "@esporter.com");
+        $sql->addEquipe($nomEquipe, $mdp, str_replace(" ", "", $nomEquipe). str_replace(" ", "", $jeu) . "@esporter.com", 0, $idJeu, $idEcurie);
+        $idEquipe = $sql->getIdEquipeByMail(str_replace(" ", "", $nomEquipe). str_replace(" ", "", $jeu) . "@esporter.com");
         echo  "[Création Equipe] : " . $nomEquipe . $equipe . "Jeu : " . $jeu . "<br>";
         $nbEquipeCreer += 1;
         for ($joueur = 0; $joueur < 4; $joueur++) {
