@@ -29,9 +29,18 @@ th, td {
   th {
     background-color: #333;
     color: white;
+    text-align: center;
+  }
+
+  td {
+    text-align : center;
   }
   
-  tr:nth-child(even) {
+  tr.white{
+    background-color: white;
+  }
+
+  tr.grey {
     background-color: #f2f2f2;
   }
 
