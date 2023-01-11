@@ -76,7 +76,7 @@ class requeteSQL
     //Fonction pour ajouter un tournoi
     public function addTournoi($Type, $nom, $date_deb, $date_fin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre)
     {
-        $req = $this->linkpdo->prepare('INSERT INTO tournoi VALUES (NULL, :TypeT, :Nom, :Date_debut, :Date_fin, :Lieu, :NbPtsMax, :IdGestionnaireEsport, :IdArbitre)');
+        $req = $this->linkpdo->prepare('INSERT INTO tournoi VALUES (NULL, :TypeT, :Nom, :Date_debut, :Date_fin, :Lieu, :NbPtsMax, :IdGestionnaireEsport, :IdArbitre,0)');
         $req->execute(array(
             'TypeT' => $Type,
             'Nom' => $nom,
@@ -269,7 +269,7 @@ class requeteSQL
     public function getTournoi($idequipe = 0)
     {
         if ($idequipe == 0) {
-            $req = $this->linkpdo->prepare("SELECT * FROM tournoi");
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by estFerme desc, id_tournoi");
             $req->execute();
             return $req;
         } else {
@@ -408,7 +408,7 @@ class requeteSQL
     //Prend en parametre l'id du jeu
     public function getClassementCM($idJeu)
     {
-        $req = $this->linkpdo->prepare('SELECT equipe.nom, equipe.nb_pts_champ FROM equipe, jeu WHERE equipe.id_jeu = jeu.id_jeu AND jeu.Id_Jeu = :idJeu ORDER BY equipe.nb_pts_champ');
+        $req = $this->linkpdo->prepare('SELECT equipe.nom, equipe.nb_pts_champ FROM equipe, jeu WHERE equipe.id_jeu = jeu.id_jeu AND jeu.Id_Jeu = :idJeu ORDER BY equipe.nb_pts_champ DESC');
         $testreq = $req->execute(array("idJeu" => $idJeu));
         if ($testreq == false) {
             die('Erreur getClassementCMr (SQL.php) execute 2');
