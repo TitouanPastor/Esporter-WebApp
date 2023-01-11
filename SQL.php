@@ -481,8 +481,21 @@ class requeteSQL
         return $req->fetchColumn();
     }
 
-    public function getIdJeu($libelle)
-    {
+    public function getIdEquipeByMail($mail){
+        $req = $this->linkpdo->prepare("SELECT id_equipe from equipe WHERE equipe.mail = :mail");
+        $testreq = $req->execute(array("mail" => $mail));
+        if ($testreq == false) {
+            die("Erreur getIdEquipe");
+        }
+        while ($row = $req->fetch()) {
+            return $row['id_equipe'];
+        }
+
+    }
+
+    
+
+    public function getIdJeu($libelle){
         $req = $this->linkpdo->prepare("SELECT id_jeu FROM jeu where libelle = :libelle");
         $testreq = $req->execute(
             array(
@@ -493,6 +506,21 @@ class requeteSQL
             die('Erreur getIDJeu');
         }
         return $req->fetchColumn();
+    }
+
+    public function getIdJeuByLibelle($libelle){
+        $req = $this->linkpdo->prepare("SELECT id_jeu FROM jeu where libelle = :libelle");
+        $testreq = $req->execute(
+            array(
+                "libelle" => $libelle
+            )
+        );
+        if ($testreq == false){
+            die('Erreur getIDJeu');
+        }
+        while ($row = $req->fetch()) {
+            return $row['id_jeu'];
+        }
     }
 
     //Fonctiion pour récupérer l'id d'une écurie à partir de son nom
