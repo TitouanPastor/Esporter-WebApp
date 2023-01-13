@@ -71,12 +71,12 @@
                     </g>
                 </svg>
             </div>
-
             <h1></h1>
+
             <form action="" method="post">
                 <div class="container">
 
-                    <select name="equipe_jeu" class="equipe_jeu">
+                    <select name="equipe_jeu" class="element">
                         <option value="default" selected>Sélectionner un jeu</option>
                         <?php
                         $jeu = $sql->getJeux();
@@ -87,7 +87,7 @@
                         <?php } ?>
                     </select>
 
-                    <input name="valider" type="submit" class="submit" class="element" value="valider">
+                    <input name="valider" type="submit" class="submit submit-classementCM" class="element" value="valider">
                 </div>
                 <?php
 
@@ -102,7 +102,7 @@
                         <tr>
                             <th> Place </th>
                             <th> Nom de l'Équipe </th>
-                            <th> Nombre de Point</th>
+                            <th> Nombre de Points</th>
                         </tr>
                     </thead>
     
@@ -112,8 +112,10 @@
                             $i++;
                             echo '
                         <tr>'; 
+                            
+                            //Place
                             if ($i == 1) {
-                                echo '<td><svg width="30px" height="30px" viewBox="-3.5 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                echo '<td><svg width="50px" height="50px" viewBox="-3.5 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.73795 18.8436L12.9511 20.6987L6.42625 32L4.55349 27.8233L9.73795 18.8436Z" fill="#CE4444"/>
                                 <path d="M9.73795 18.8436L6.52483 16.9885L0 28.2898L4.55349 27.8233L9.73795 18.8436Z" fill="#983535"/>
                                 <path d="M14.322 18.8436L11.1088 20.6987L17.6337 32L19.5064 27.8233L14.322 18.8436Z" fill="#983535"/>
@@ -135,7 +137,7 @@
                                 </defs>
                                 </svg></td>';
                             } elseif ($i == 2) {
-                                echo '<td><svg width="30px" height="30px" viewBox="-3.5 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                echo '<td><svg width="40px" height="40px" viewBox="-3.5 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.73779 18.8436L12.9509 20.6987L6.42609 32.0001L4.55333 27.8234L9.73779 18.8436Z" fill="#418ED6"/>
                                 <path d="M9.73779 18.8436L6.52467 16.9885L-0.000155079 28.2899L4.55333 27.8234L9.73779 18.8436Z" fill="#2B63A6"/>
                                 <path d="M14.3218 18.8436L11.1087 20.6987L17.6335 32.0001L19.5062 27.8234L14.3218 18.8436Z" fill="#2B63A6"/>
@@ -187,10 +189,30 @@
                             } else {
                                 echo '<td>' . $i . '</td>';
                             }
-                            echo '<td>' . $donnees[0] . '</td>
-                            <td>' . $donnees[1] . '</td>
-                        </tr>
-                        ';
+                            
+                            //Nom équipe
+                            if ($i == 1) {
+                                echo '<td style="font-size: 30px; font-weight: bold; color: #c09525;">' . $donnees[0] . '</td>';
+                            } elseif ($i == 2) {
+                                echo '<td style="font-size: 25px; font-weight: bold; color: #898d8f;">' . $donnees[0] . '</td>';
+                            } elseif ($i == 3) {
+                                echo '<td style="font-size: 21px; font-weight: bold; color: #a36d1d;">' . $donnees[0] . '</td>';
+                            } else {
+                                echo '<td>' . $donnees[0] . '</td>';
+                            }
+                            
+                            //Nombre de points
+                            if ($i == 1) {
+                                echo '<td style="font-size: 30px; font-weight: bold; color: #c09525;">' . $donnees[1] . '</td>';
+                            } elseif ($i == 2) {
+                                echo '<td style="font-size: 25px; font-weight: bold; color: #898d8f;">' . $donnees[1] . '</td>';
+                            } elseif ($i == 3) {
+                                echo '<td style="font-size: 21px; font-weight: bold; color: #a36d1d;">' . $donnees[1] . '</td>';
+                            } else {
+                                echo '<td>' . $donnees[1] . '</td>';
+                            }
+
+                        echo '</tr>';
                         }
                         echo "
                         </tbody>
