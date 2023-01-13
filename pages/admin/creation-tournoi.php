@@ -59,11 +59,11 @@ if (isset($_POST['ajouter'])) {
                             try {
                                 //Mise à jour des points du tournoi en fonction de son type
                                 if ($_POST['comboboxtypetournoi'] == "Local") {
-                                    $points = 50;
+                                    $points = 1;
                                 } else if ($_POST['comboboxtypetournoi'] == "National") {
-                                    $points = 100;
+                                    $points = 2;
                                 } else if ($_POST['comboboxtypetournoi'] == "International") {
-                                    $points = 150;
+                                    $points = 3;
                                 } else {
                                     $points = 0;
                                 }
@@ -168,9 +168,9 @@ if (isset($_POST['ajouterJeu'])) {
                         <div class="creation-tournoi-input">
                             <label for="comboboxtypetournoi">Type du tournoi</label>
                             <select name="comboboxtypetournoi" id="comboboxtypetournoi">
-                                <option value="Local">Local (50 points)</option>
-                                <option value="National">National (100 points)</option>
-                                <option value="International">International (150 points)</option>
+                                <option value="Local">Local (100 points max)</option>
+                                <option value="National">National (200 points max)</option>
+                                <option value="International">International (300 points max)</option>
                             </select>
                         </div>
                         <div class="creation-tournoi-input">
