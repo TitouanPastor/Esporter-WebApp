@@ -24,7 +24,7 @@ if ($_SESSION['role'] == "ecurie") {
 ?>
     <main class="main-listes">
         <section class="main-listes-container">
-            <h1>Liste des écuries</h1>
+            <h1>Liste des Écuries</h1>
             <span>Filtrer par: </span>
             <div class="main-listes-tabs">
                 <div class="main-listes-filters">

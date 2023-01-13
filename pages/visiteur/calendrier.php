@@ -63,7 +63,7 @@
     ?>
     <main class ="main-listes">
         <section class="main-listes-container">
-        <h1>Calendrier des tournois</h1>
+        <h1>Calendrier des Tournois</h1>
         <form action="" method="post">
             <div class="container">
 

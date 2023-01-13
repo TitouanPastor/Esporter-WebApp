@@ -29,7 +29,7 @@
 
         <main class="main-listes">
             <section class="main-listes-container">
-                <h1>Liste des tournois commencés</h1>
+                <h1>Liste des Tournois Commencés</h1>
                 <form action="" method="post">
                     <div class="container">
                         <table>

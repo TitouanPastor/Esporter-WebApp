@@ -134,7 +134,7 @@ if (isset($_POST['ajouterJeu'])) {
     <main class="main-creation-tournoi">
         <section class="creation-tournoi-container">
             <form id="form" action="creation-tournoi.php" method="POST">
-                <h1 class="creation-tournoi-title">Création d'un tournoi</h1>
+                <h1 class="creation-tournoi-title">Création d'un Tournoi</h1>
                 <div class="creation-tournoi">
                     <div class="creation-tournoi-left">
                         <div class="creation-tournoi-input">

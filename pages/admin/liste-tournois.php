@@ -51,7 +51,7 @@
             </div>
         </div>
         <section class="main-listes-container">
-            <h1>Liste des tournois</h1>
+            <h1>Liste des Tournois</h1>
             <span>Filtrer par: </span>
             <div class="main-listes-tabs">
                 <div class="main-listes-filters">

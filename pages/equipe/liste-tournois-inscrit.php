@@ -24,7 +24,7 @@ if ($_SESSION['role'] == "equipe") {
 ?>
     <main class="main-listes">
         <section class="main-listes-container">
-            <h1>Mes tournois</h1>
+            <h1>Mes Tournois</h1>
             <span>Filtrer par: </span>
             <div class="main-listes-tabs">
                 <div class="main-listes-filters">

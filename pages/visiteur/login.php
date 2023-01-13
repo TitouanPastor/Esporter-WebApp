@@ -51,7 +51,7 @@
 
     <main class="main-login">
         <form action="" method="post">
-            <h1>Se connecter</h1>
+            <h1>Se Connecter</h1>
             <hr>
             <div class="container">
                 <div class="role">
