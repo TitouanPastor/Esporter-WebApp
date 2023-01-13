@@ -87,7 +87,7 @@ if (isset($_POST['ajouter'])) {
         <section class="creation-tournoi-container">
             <form action="enregistrer-equipe.php" method="POST">
 
-                <h1 class="creation-tournoi-title">Enregistrer une équipe</h1>
+                <h1 class="creation-tournoi-title">Enregistrer une Équipe</h1>
                 <div class="creation-tournoi">
                     <div class="creation-tournoi-left">
                         <div class="creation-tournoi-input">

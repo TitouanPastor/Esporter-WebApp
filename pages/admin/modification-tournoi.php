@@ -154,7 +154,7 @@ if (isset($_POST['ajouterJeu'])) {
         <section class="creation-tournoi-container">
             <form action="<?php echo "modification-tournoi.php?id=" . $id_Tournois ?>" method="POST">
 
-                <h1 class="creation-tournoi-title">Modifier un tournoi</h1>
+                <h1 class="creation-tournoi-title">Modifier un Tournoi</h1>
                 <div class="creation-tournoi">
                     <div class="creation-tournoi-left">
                         <div class="creation-tournoi-input">

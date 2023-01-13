@@ -41,7 +41,7 @@
 
         <main class="main-listes">
             
-            <h1> Poule du tournoi <?php echo $reqNomTournoi ?></h1>
+            <h1> Poule du Tournoi <?php echo $reqNomTournoi ?></h1>
             
             <div class="container-poule">
                 <div class="poule-gauche">

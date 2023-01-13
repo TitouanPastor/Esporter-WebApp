@@ -169,7 +169,7 @@ if (isset($_POST['ajouter'])) {
     <main class="main-creation-tournoi">
         <section class="creation-tournoi-container">
             <form class="form-ajout-joueur" action="enregistrer-joueurs.php" method="POST">
-                <h1 class="creation-tournoi-title">Enregistrer 4 joueurs</h1>
+                <h1 class="creation-tournoi-title">Enregistrer 4 Joueurs</h1>
                 <div class="container-ajout-joueurs">
                     <div class="container-ajout-joueurs-duo">
                         <div class="form-un-joueur">

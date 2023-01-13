@@ -63,73 +63,80 @@
     ?>
     <main class ="main-listes">
         <section class="main-listes-container">
-        <h1>Calendrier des tournois</h1>
-        <form action="" method="post">
-            <div class="container">
+            <div class="title">
+                <h1 class="firsttitle">Calendrier des Tournois</h1>
+                <svg width="60px" height="60px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M106.666667 810.666667V298.666667h810.666666v512c0 46.933333-38.4 85.333333-85.333333 85.333333H192c-46.933333 0-85.333333-38.4-85.333333-85.333333z" fill="#CFD8DC" /><path d="M917.333333 213.333333v128H106.666667v-128c0-46.933333 38.4-85.333333 85.333333-85.333333h640c46.933333 0 85.333333 38.4 85.333333 85.333333z" fill="#F44336" /><path d="M704 213.333333m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" fill="#B71C1C" /><path d="M320 213.333333m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" fill="#B71C1C" /><path d="M704 64c-23.466667 0-42.666667 19.2-42.666667 42.666667v106.666666c0 23.466667 19.2 42.666667 42.666667 42.666667s42.666667-19.2 42.666667-42.666667V106.666667c0-23.466667-19.2-42.666667-42.666667-42.666667zM320 64c-23.466667 0-42.666667 19.2-42.666667 42.666667v106.666666c0 23.466667 19.2 42.666667 42.666667 42.666667s42.666667-19.2 42.666667-42.666667V106.666667c0-23.466667-19.2-42.666667-42.666667-42.666667z" fill="#B0BEC5" /><path d="M277.333333 426.666667h85.333334v85.333333h-85.333334zM405.333333 426.666667h85.333334v85.333333h-85.333334zM533.333333 426.666667h85.333334v85.333333h-85.333334zM661.333333 426.666667h85.333334v85.333333h-85.333334zM277.333333 554.666667h85.333334v85.333333h-85.333334zM405.333333 554.666667h85.333334v85.333333h-85.333334zM533.333333 554.666667h85.333334v85.333333h-85.333334zM661.333333 554.666667h85.333334v85.333333h-85.333334zM277.333333 682.666667h85.333334v85.333333h-85.333334zM405.333333 682.666667h85.333334v85.333333h-85.333334zM533.333333 682.666667h85.333334v85.333333h-85.333334zM661.333333 682.666667h85.333334v85.333333h-85.333334z" fill="#90A4AE" />
+                </svg>
+            </div>
+            <h1></h1>
 
-                <input type="date" name="tournoi_date" class="element" value="<?php echo $value_tournoi_date?>"min="<?php echo $date_min;?>" max="<?php echo $date_max;?>">
+            <form action="" method="post">
+                <div class="container">
 
-                <select name="tournoi_nom" class="element" class="select">
-                    <option value="default" selected>Sélectionner un tournoi</option>
-                    <?php
-                        $tournoi = $sql->getTournoi();
-                        while ($donnees = $tournoi->fetch()) { ?>
-                    <option value="<?php echo $donnees['Nom']; ?>" <?php if ($value_tournoi_nom == $donnees['Nom']) echo 'selected'?>>
-                        <?php echo $donnees['Nom']; ?>
-                    </option>
-                    <?php } ?>
-                </select>
+                    <input type="date" name="tournoi_date" class="element" value="<?php echo $value_tournoi_date?>"min="<?php echo $date_min;?>" max="<?php echo $date_max;?>">
 
-                <select name="tournoi_jeu" class="element" class="select">
-                    <option value="default" selected>Sélectionner un jeu</option>
+                    <select name="tournoi_nom" class="element" class="select">
+                        <option value="default" selected>Sélectionner un tournoi</option>
                         <?php
-                        $jeu = $sql->getJeux();
-                        while ($donnees = $jeu->fetch()) { ?>
-                        <option value="<?php echo $donnees['Libelle']; ?>" <?php if ($value_tournoi_jeu == $donnees['Libelle']) echo 'selected';?>>
-                            <?php echo $donnees['Libelle']; ?>
+                            $tournoi = $sql->getTournoi();
+                            while ($donnees = $tournoi->fetch()) { ?>
+                        <option value="<?php echo $donnees['Nom']; ?>" <?php if ($value_tournoi_nom == $donnees['Nom']) echo 'selected'?>>
+                            <?php echo $donnees['Nom']; ?>
                         </option>
                         <?php } ?>
-                </select>
+                    </select>
 
-                <input name="valider" type="submit" class="submit" class="element" value="valider">
-            </div>
-            <?php
-            
-            if ($check_valider == 1) {
-                if ($req -> rowCount() == 0){
-                    echo "<div style='display : flex; justify-content :center; padding-top : 50px;'> Il n'y a pas de tournoi pour ces critères </div>";
-                } else {
-                    echo "
-                <div class = 'tableau-style'>
-                <table>
-                    <thead>
-                        <tr>
-                            <th> Nom du Tournoi </th>
-                            <th> Date du tournoi</th>
-                            <th> Jeu du Tournoi </th>
-                        </tr>
-                    </thead>
-    
-                    <tbody>";
-                    while ($donnees = $req->fetch()) {
-                        echo '
-                        <tr>
-                            <td>' . $donnees[0] . '</td>
-                            <td>' . date('d / m / Y', strtotime($donnees[1])). '</td>
-                            <td>' . $donnees[2] . '</td>
-                        </tr>
-                        ';
-                    }
-                    echo "
-                        </tbody>
-                        </table>
-                        </div>
-                    </form>
-                ";
-                } 
-            }
-            ?>
-        </form>
+                    <select name="tournoi_jeu" class="element" class="select">
+                        <option value="default" selected>Sélectionner un jeu</option>
+                            <?php
+                            $jeu = $sql->getJeux();
+                            while ($donnees = $jeu->fetch()) { ?>
+                            <option value="<?php echo $donnees['Libelle']; ?>" <?php if ($value_tournoi_jeu == $donnees['Libelle']) echo 'selected';?>>
+                                <?php echo $donnees['Libelle']; ?>
+                            </option>
+                            <?php } ?>
+                    </select>
+
+                    <input name="valider" type="submit" class="submit" class="element" value="valider">
+                </div>
+                <?php
+                
+                if ($check_valider == 1) {
+                    if ($req -> rowCount() == 0){
+                        echo "<div style='display : flex; justify-content :center; padding-top : 50px;'> Il n'y a pas de tournoi pour ces critères </div>";
+                    } else {
+                        echo "
+                    <div class = 'tableau-style'>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> Nom du Tournoi </th>
+                                <th> Date du tournoi</th>
+                                <th> Jeu du Tournoi </th>
+                            </tr>
+                        </thead>
+        
+                        <tbody>";
+                        while ($donnees = $req->fetch()) {
+                            echo '
+                            <tr>
+                                <td>' . $donnees[0] . '</td>
+                                <td>' . date('d / m / Y', strtotime($donnees[1])). '</td>
+                                <td>' . $donnees[2] . '</td>
+                            </tr>
+                            ';
+                        }
+                        echo "
+                            </tbody>
+                            </table>
+                            </div>
+                        </form>
+                    ";
+                    } 
+                }
+                ?>
+            </form>
         </section>
     </main>
 </body>
