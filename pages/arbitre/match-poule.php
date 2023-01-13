@@ -34,34 +34,67 @@
 
             //Poule par id_tournoi
             $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
-
-            //Equipe par id_poule
-
+            $pouleAffichage = $reqPoule -> fetch();
         ?>
 
         <main class="main-listes">
-            
-            <h1> Poule du tournoi <?php echo $reqNomTournoi ?></h1>
-            
-            <div class="container-poule">
-                <div class="poule-gauche">
-                    <?php 
-                        while ($reqPoule -> fetch()){
-                        echo '
-                            <div class="poule">
+            <section class="main-listes-container">
+                <h1> Poule du tournoi <?php echo $reqNomTournoi ?></h1>
 
+                    <form action="" method="post">
+                        <div class="container-poule">
+
+                            
+
+                            <div class="poule-gauche">
+                                <?php
+                                    while ($poule = $reqPoule -> fetch()){
+                                        $reqEquipePouleTrie = $sql -> getEquipePouleTrie($poule[0]);
+                                        echo '
+                                            <button type ="submit" class="poule">
+                                        ';
+                                        $clair = 0;
+                                        while ($equipe = $reqEquipePouleTrie -> fetch()){
+                                            $equipe_nom = $equipe[0];
+                                            $equipe_nb_match_gagne = $equipe[1];
+                                            if ($clair % 2 == 0) {
+                                                echo '
+                                                    <div class="equipe">
+                                                        <span>' . $equipe_nom . '</span>
+                                                        <div>' . $equipe_nb_match_gagne . ' </div>
+                                                    </div>
+                                                ';
+                                            } else {
+                                                 echo '
+                                                    <div class="equipe clair">
+                                                        <span>' . $equipe_nom . '</span>
+                                                        <div>' . $equipe_nb_match_gagne . ' </div>
+                                                    </div>
+                                                ';
+                                            }
+                                        $clair += 1;
+                                        }
+                                        echo '
+                                            </button>
+                                        ';
+                                    }
+                                ?>
                             </div>
-                        ';
-                        }
-                    ?>
-                </div>
-            
-                <div class="poule-droite">
-                    <div class="poule-match">
-
-                    </div>
-                </div>
-            </div>  
+                        
+                            <div class="poule-droite">
+                                <h1>Poule A</h1>
+                                <div class="tout-match">
+                                    
+                                    <div class="match">
+                                        <span class="equipe-match">Vitality - Solary</span>
+                                        <input type="button" name="button-score" value="Entrer le score">
+                                    </div>
+                                </div>
+                                <span class="gagnant"><h2>Vitality</h2></span>
+                            </div>
+                        </div>
+                </form>
+            </section>
         </main>
 
         

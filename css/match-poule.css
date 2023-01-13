@@ -1,21 +1,7 @@
-.main-listes {
-    display : flex;
-    flex-direction: column;
-    text-align: center;
-    background-color: aliceblue;
-    padding : 70px 0px 0px 0px;
-}
-
-.main-listes .h1 {
-    
-}
-
 .container-poule{
-    display: flex;
-    display: space-between;
-    background-color: aliceblue;
-    height: 100vh;
-    width: 100%;
+    display : flex;
+    justify-content: space-between;
+    height: 80vh;
 }
 
 .poule-gauche {
@@ -23,22 +9,65 @@
     flex-direction: column;
     height: 100%;
     width: 30%;
-}
-
-.poule-droite {
-    height: 100%;
-    width: 70%;
+    /* border : solid 1px; */
+    margin-right: 5px;
 }
 
 .poule {
     background-color: var(--purple);
     height: 100%;
-    margin: 10px;
+    margin-bottom: 5px;
+    border : solid 1px;
+    cursor: pointer;
 }
 
-.poule-match {
+.equipe {
+    display : flex;
+    padding : 5px;
+    justify-content: space-between;
+    color : var(--white-text);
+}
+
+.clair {
+    background-color: #7e68be;
+}
+
+.poule-droite {
     height: 100%;
-    width: auto;
-    margin: 10px;
-    background-color: var(--purple);
+    width: 70%;
+    border : solid 1px;
+    margin-left : 5px;
+    background-color: #7e68be;
+}
+
+.poule-droite h1 {
+    align-items: center;
+    padding: 5px;
+}
+
+.match{
+    display: flex;
+    flex-direction:column ;    
+    align-items: center;
+    height: auto;
+    margin: 20px;
+}
+
+.tout-match{
+    display : flex;
+    /* flex-basis: 50%; */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.match .equipe-match {
+    color : var(--white-text);
+    margin-bottom: 5px;
+}
+
+.poule-droite .gagnant{
+    display : block;
+    width: fit-content;
+    margin: 20px auto;
+    background-color: var(--white);
 }
