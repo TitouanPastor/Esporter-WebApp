@@ -128,7 +128,7 @@ class bracket
             $points = [100,60,30,10];
             $i = 0;
             while ($row = $pouleFinale->fetch()){
-                $this->sql->updateClassementEquipe($row["Id_Equipe"], $row["Nb_pts_Champ"] * 5 + $points[$i] * $multiplicateur);
+                $this->sql->updateClassementEquipe($row["Id_Equipe"], $row["nb_Match_Gagne"] * 5 + $points[$i] * $multiplicateur);
                 $i++;
             }
     }
