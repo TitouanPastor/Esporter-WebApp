@@ -32,6 +32,32 @@
     }
     ?>
     <main class="main-listes">
+        <!-- div de notification pour informer que le tournoi à été généré -->
+        <div class="notification">
+            <div class="notification-content">
+                <div>
+                    <div class="notification-header">
+                        <h4>Confirmation</h4>
+                    </div>
+                    <div class="notification-body">
+                        <p>Le tournoi a bien été généré</p>
+                    </div>
+                </div>
+                <div class="notification-footer">
+                    <!-- image svg check verte -->
+                    <svg height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                        <g>
+                            <g id="check">
+                                <g>
+                                    <polygon style="fill:#5f43b2;" points="11.941,28.877 0,16.935 5.695,11.24 11.941,17.486 26.305,3.123 32,8.818 			" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- div de confirmation pour fermer un tournoi -->
         <div class="popupconfirm">
             <div class="popupconfirm-content">
                 <div class="popupconfirm-header">
@@ -115,6 +141,22 @@
 
         function popupNo() {
             document.querySelector('.popupconfirm').style.display = 'none';
+        }
+
+        // Fonction qui notifie l'utilisateur que le tournoi a bien été fermé et qui s'affiche sous la forme d'une notification
+        function notify() {
+            var notification = document.querySelector('.notification');
+            notification.classList.add('notification-active');
+            setTimeout(function() {
+                notification.classList.remove('notification-active');
+            }, 5000);
+        }
+        // Fonction qui cherche lorsque la page est chargée si il y a un paramètre ?close_id dans l'url
+        window.onload = function() {
+            var url = window.location.href;
+            if (url.indexOf('?close_id') != -1) {
+                notify();
+            }
         }
     </script>
     <script type="text/javascript" src="../../main.js"></script>
