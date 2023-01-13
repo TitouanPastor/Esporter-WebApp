@@ -84,9 +84,33 @@
                             <div class="poule-droite">
                                 <h1>Poule A</h1>
                                 <div class="tout-match">
-                                    
                                     <div class="match">
                                         <span class="equipe-match">Vitality - Solary</span>
+                                        <input type="button" name="button-score" value="Entrer le score">
+                                    </div>
+
+                                    <div class="match">
+                                        <span class="equipe-match"> France - Espagne</span>
+                                        <input type="button" name="button-score" value="Entrer le score">
+                                    </div>
+
+                                    <div class="match">
+                                        <span class="equipe-match">Vitality - France</span>
+                                        <input type="button" name="button-score" value="Entrer le score">
+                                    </div>
+
+                                    <div class="match">
+                                        <span class="equipe-match">Solary - Espagne</span>
+                                        <input type="button" name="button-score" value="Entrer le score">
+                                    </div>
+
+                                    <div class="match">
+                                        <span class="equipe-match">Vitality - Espagne</span>
+                                        <input type="button" name="button-score" value="Entrer le score">
+                                    </div>
+
+                                    <div class="match">
+                                        <span class="equipe-match">Solary - France</span>
                                         <input type="button" name="button-score" value="Entrer le score">
                                     </div>
                                 </div>

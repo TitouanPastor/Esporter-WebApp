@@ -457,7 +457,7 @@ class requeteSQL
         //$param[0] = id_equipe
         //$param[1] = id_tournoi
         //$param[2] = id_jeu 
-        $req = $this->linkpdo->prepare("INSERT INTO etre_inscrit VALUE (:id_equipe,:id_tournoi,:id_jeu, :id_poule)");
+        $req = $this->linkpdo->prepare("INSERT INTO etre_inscrit VALUE (:id_equipe,:id_tournoi,:id_jeu, :id_poule, 0)");
         $testreq = $req->execute(array(
             "id_equipe" => $param[0],
             "id_tournoi" => $param[1],
@@ -608,6 +608,60 @@ class requeteSQL
         $req = $this->linkpdo->prepare('SELECT * FROM poule');
         $req->execute();
         return $req;
+    }
+
+    //Fonction qui retourne le premier d'une poule a partir d'un tournoi et d'un jeu donnée 
+    public function getPremierPoule($idTournoi, $idJeu)
+    {
+        $req = $this->linkpdo->prepare('SELECT etre_inscrit.id_Equipe FROM etre_inscrit, poule WHERE poule.id_Tournoi = :idTournoi and poule.Id_Jeu = :idJeu and poule.id_Poule = etre_inscrit.id_poule order by nb_Match_Gagne desc limit 1');
+        $req->execute(array(
+            'idTournoi' => $idTournoi,
+            'idJeu' => $idJeu
+        ));
+        while ($row = $req->fetch()) {
+            return $row['id_Equipe'];
+        }
+    }
+
+    //Retourne le nombre de point total de la poule 
+    public function getNbPointPoule($idPoule)
+    {
+        $req = $this->linkpdo->prepare('SELECT sum(nb_Match_Gagne) as nbMatchJouer FROM etre_inscrit, poule WHERE etre_inscrit.poule = :idPoule');
+        $req->execute(array(
+            'idPoule' => $idPoule
+          
+        ));
+        while ($row = $req->fetch()) {
+            return $row['nbMatchJouer'];
+        }
+    }
+
+    public function getPouleFinale($idPoule){
+        $req = $this->linkpdo->prepare('SELECT * FROM etre_inscrit WHERE id_Poule = :idPoule');
+        $req->execute(array(
+            'idPoule' => $idPoule
+            
+        ));
+        return $req;
+    }
+
+    public function updateClassementEquipe($idEquipe, $nbPoint){
+        $req = $this->linkpdo->prepare('UPDATE equipe SET Nb_pts_Champ = Nb_pts_Champ + :nbPoint  WHERE id_Equipe = :idEquipe');
+        $req->execute(array(
+            'idEquipe' => $idEquipe,
+            'idPoint' => $nbPoint
+        ));
+    }
+
+    public function getMultiplicateur($idTournoi){
+        $req = $this->linkpdo->prepare('SELECT Nombre_point_max FROM tournoi WHERE id_Tournoi = :idTournoi');
+        $req->execute(array(
+            'idTournoi' => $idTournoi
+        ));
+
+        while ($row = $req->fetch()) {
+            return $row['Nombre_point_max'];
+        }
     }
 
 

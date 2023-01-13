@@ -13,44 +13,70 @@
 
 <body>
     <?php
-       //Header
-       session_start();
-       require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
-       $header = new header(2);
+    //Header
+    session_start();
+    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+    $header = new header(2);
 
-       if ($_SESSION['role'] == "equipe") {
-           echo $header->customize_header($_SESSION['role']);
-       } else {
-           header('Location: ../../acces-refuse.php');
-       }
+    if ($_SESSION['role'] == "equipe") {
+        echo $header->customize_header($_SESSION['role']);
+    } else {
+        header('Location: ../../acces-refuse.php');
+    }
 
-       //Sql
-       require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-       $sql = new requeteSQL();
-       $check_valider = 0;
+    //Sql
+    require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+    $sql = new requeteSQL();
+    $check_valider = 0;
 
-       //Sauvegarde de la valeur de la liste
-       if (isset($_POST["tournoi-jeu"])) {
-           $value_tournoi_jeu = $_POST["tournoi-jeu"];
-       } else {
-           $value_tournoi_jeu = "default";
-       }
-       $req = $sql->getJeuEquipe($_SESSION['username']);
-       $jeu_equipe = $req->fetchColumn();
-       $param = $jeu_equipe;
-       $req = $sql->getTournoiInscription($param);
+    //Sauvegarde de la valeur de la liste
+    if (isset($_POST["tournoi-jeu"])) {
+        $value_tournoi_jeu = $_POST["tournoi-jeu"];
+    } else {
+        $value_tournoi_jeu = "default";
+    }
+    $req = $sql->getJeuEquipe($_SESSION['username']);
+    $jeu_equipe = $req->fetchColumn();
+    $param = $jeu_equipe;
+    $req = $sql->getTournoiInscription($param);
 
-       //Requête d'inscription au tournoi cliqué
-       if (isset($_GET['id'])) {
-            $param = [];
-            $param[0] = $sql -> getIdEquipe($_SESSION['username']);
-            $param[1] = $_GET['id'];
-            $param[2] = $sql -> getIdJeu($jeu_equipe);
-            $reqInscription = $sql->inscriptionTournoi($param);
-       }
+    //Requête d'inscription au tournoi cliqué
+    if (isset($_GET['id'])) {
+        $param = [];
+        $param[0] = $sql->getIdEquipe($_SESSION['username']);
+        $param[1] = $_GET['id'];
+        $param[2] = $sql->getIdJeu($jeu_equipe);
+        $reqInscription = $sql->inscriptionTournoi($param);
+    }
 
-       ?>
+    ?>
     <main class="main-listes">
+        <!-- div de notification pour informer que le tournoi à été généré -->
+        <div class="notification">
+            <div class="notification-content">
+                <div>
+                    <div class="notification-header">
+                        <h4>Confirmation</h4>
+                    </div>
+                    <div class="notification-body">
+                        <p>Inscription validée.</p>
+                    </div>
+                </div>
+                <div class="notification-footer">
+                    <!-- image svg check verte -->
+                    <svg height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                        <g>
+                            <g id="check">
+                                <g>
+                                    <polygon style="fill:#5f43b2;" points="11.941,28.877 0,16.935 5.695,11.24 11.941,17.486 26.305,3.123 32,8.818 			" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- div de confirmation pour fermer un tournoi -->
         <div class="popupconfirm">
             <div class="popupconfirm-content">
                 <div class="popupconfirm-header">
@@ -63,13 +89,13 @@
                 <div class="popupconfirm-footer">
                     <form action="post">
                         <input style="background-color: var(--btn-submit); cursor:pointer;" type="button" onclick="popupYes()" class="popupconfirm-button" value="Oui">
-                        <input style="background-color: var(--btn-bouton); cursor:pointer;" type="button" onclick="popupNo()"  class="popupconfirm-button" value="Non">
+                        <input style="background-color: var(--btn-bouton); cursor:pointer;" type="button" onclick="popupNo()" class="popupconfirm-button" value="Non">
                     </form>
                 </div>
             </div>
         </div>
         <section class="main-listes-container">
-            <h1>Liste des tournois à venir</h1>
+            <h1>Liste des Tournois à Venir</h1>
             <form action="post">
                 <div class="container">
                     <span>Jeu de l'équipe :
@@ -86,29 +112,29 @@
                         </thead>
                         <tbody>
                             <?php
-                                while ($donnees = $req->fetch()) {
-                                    if ($sql->estInscritTournoi($_SESSION['username'], $donnees[0]) == 0) {
-                                        $reqNbEquipe = $sql->getNbEquipeTournoi($donnees[0]);
-                                        $nb_equipe = $reqNbEquipe->fetchColumn();
-                                        $id_tournoi = $donnees[2];
-                                        echo
-                                            '<tr>
+                            while ($donnees = $req->fetch()) {
+                                if ($sql->estInscritTournoi($_SESSION['username'], $donnees[0]) == 0) {
+                                    $reqNbEquipe = $sql->getNbEquipeTournoi($donnees[0]);
+                                    $nb_equipe = $reqNbEquipe->fetchColumn();
+                                    $id_tournoi = $donnees[2];
+                                    echo
+                                    '<tr>
                                                 <td>' . $donnees[0] . '</td>
                                                 <td>' . date('d / m / Y', strtotime($donnees[1])) . '</td>
                                                 <td>';
-                                        echo $nb_equipe . ' / 16';
-                                        echo '<td>';
-                                        if ((16 - $nb_equipe) != 0) {
-                                            echo "<a style='text-decoration: underline;cursor:pointer;color:blue;' value='inscription-tournoi.php?id=$id_tournoi' onclick='openPopUp(this)' >S'inscrire</a>";
-                                            // echo "<input type = 'submit' class ='submit' title = \"S'inscrire\" >";
-                                        } else {
-                                            echo "<input type = 'button' class = 'bouton' title = 'Complet' disabled>";
-                                        }
-                                        echo '</td>
-                                            </tr>';
+                                    echo $nb_equipe . ' / 16';
+                                    echo '<td>';
+                                    if ((16 - $nb_equipe) != 0) {
+                                        echo "<a style='text-decoration: underline;cursor:pointer;color:blue;' value='inscription-tournoi.php?id=$id_tournoi' onclick='openPopUp(this)' >S'inscrire</a>";
+                                        // echo "<input type = 'submit' class ='submit' title = \"S'inscrire\" >";
+                                    } else {
+                                        echo "<input type = 'button' class = 'bouton' title = 'Complet' disabled>";
                                     }
+                                    echo '</td>
+                                            </tr>';
                                 }
-                                ?>
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -130,6 +156,22 @@
 
         function popupNo() {
             document.querySelector('.popupconfirm').style.display = 'none';
+        }
+
+        // Fonction qui notifie l'utilisateur que le tournoi a bien été fermé et qui s'affiche sous la forme d'une notification
+        function notify() {
+            var notification = document.querySelector('.notification');
+            notification.classList.add('notification-active');
+            setTimeout(function() {
+                notification.classList.remove('notification-active');
+            }, 5000);
+        }
+        // Fonction qui cherche lorsque la page est chargée si il y a un paramètre ?close_id dans l'url
+        window.onload = function() {
+            var url = window.location.href;
+            if (url.indexOf('?id') != -1) {
+                notify();
+            }
         }
     </script>
 </body>
