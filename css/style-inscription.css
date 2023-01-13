@@ -55,8 +55,22 @@ th, td {
     padding: 25px;
     border-radius: var(--border-radius);
     display: flex;
+    gap: 15px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  .popupconfirm input {
+    width: 100%;
+    font-weight: 600;
+    padding-left: 16px;
+    border: 0;
+  }
+
+  .popupconfirm-footer form {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
   }
 
