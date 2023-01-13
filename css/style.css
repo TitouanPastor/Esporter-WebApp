@@ -569,7 +569,7 @@ header ul {
   position: relative;
   color: var(--white-text);
   background: var(--purple);
-  padding-right: 75px;
+  padding-right: 45px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -592,6 +592,7 @@ header ul {
 .title-tournoi {
   font-size: 1.1em;
   padding: 25px 17px;
+  width: 60%;
   cursor: pointer;
 }
 
@@ -616,7 +617,12 @@ header ul {
 
 .main-listes .article-btns a {
   color: var(--white-text);
-  padding: 0 15px;
+}
+
+.main-listes .article-btns {
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
 }
 
 .tournoicheckbox {
@@ -786,8 +792,8 @@ form.form-ajout-joueur {
   transform: translateY(+175%);
   justify-content: center;
   align-items: center;
-  bottom: 1%;
-  right: 1%;
+  bottom: 2%;
+  right: 2%;
   width: auto;
   height: 60px;
   background-color: rgba(255, 255, 255, 1);
@@ -805,6 +811,6 @@ form.form-ajout-joueur {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 12px;
   padding: 0 15px;
 }
