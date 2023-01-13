@@ -71,11 +71,11 @@ if (isset($_POST['modifier'])){
                             if(!$sameTournoi){
                                 try {
                                     if ($_POST['type-tournoi'] == "Local" ) {
-                                        $ptsMAX = 50;
+                                        $ptsMAX = 1;
                                     } else if ($_POST['type-tournoi'] == "National" ) {
-                                        $ptsMAX = 100;
+                                        $ptsMAX = 2;
                                     } else if ($_POST['type-tournoi'] == "International") {
-                                        $ptsMAX = 150;
+                                        $ptsMAX = 3;
                                     } else {
                                         $ptsMAX = 0;
                                     }
@@ -166,19 +166,19 @@ if (isset($_POST['ajouterJeu'])) {
                             <select name="type-tournoi" id="type-tournoi">
                                 <?php
                                 if ($type == "Local") {
-                                    echo '<option value="Local" selected>Local (50 points)</option>';
+                                    echo '<option value="Local" selected>Local (100 points max)</option>';
                                 }else{
-                                    echo '<option value="Local">Local (50 points)</option>';
+                                    echo '<option value="Local">Local (100 points max)</option>';
                                 }
                                 if ($type == "National") {
-                                    echo '<option value="National" selected>National (100 points)</option>';
+                                    echo '<option value="National" selected>National (200 points max)</option>';
                                 }else{
-                                    echo '<option value="National">National (100 points)</option>';
+                                    echo '<option value="National">National (200 points max)</option>';
                                 }
                                 if ($type == "International") {
-                                    echo '<option value="International" selected>International (150 points)</option>';
+                                    echo '<option value="International" selected>International (300 points max)</option>';
                                 }else{
-                                    echo '<option value="International">International (150 points)</option>';
+                                    echo '<option value="International">International (300 points max)</option>';
                                 }
                                 ?>
                             </select>
