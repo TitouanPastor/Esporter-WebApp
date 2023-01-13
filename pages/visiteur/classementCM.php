@@ -87,7 +87,7 @@
                         <?php } ?>
                     </select>
 
-                    <input name="valider" type="submit" class="submit submit-classementCM" class="element" value="valider">
+                    <input name="valider" type="submit" class="submit" class="element" value="valider">
                 </div>
                 <?php
 
