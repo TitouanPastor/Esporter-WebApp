@@ -623,6 +623,47 @@ class requeteSQL
         }
     }
 
+    //Retourne le nombre de point total de la poule 
+    public function getNbPointPoule($idPoule)
+    {
+        $req = $this->linkpdo->prepare('SELECT sum(nb_Match_Gagne) as nbMatchJouer FROM etre_inscrit, poule WHERE etre_inscrit.poule = :idPoule');
+        $req->execute(array(
+            'idPoule' => $idPoule
+          
+        ));
+        while ($row = $req->fetch()) {
+            return $row['nbMatchJouer'];
+        }
+    }
+
+    public function getPouleFinale($idPoule){
+        $req = $this->linkpdo->prepare('SELECT * FROM etre_inscrit WHERE id_Poule = :idPoule');
+        $req->execute(array(
+            'idPoule' => $idPoule
+            
+        ));
+        return $req;
+    }
+
+    public function updateClassementEquipe($idEquipe, $nbPoint){
+        $req = $this->linkpdo->prepare('UPDATE equipe SET Nb_pts_Champ = Nb_pts_Champ + :nbPoint  WHERE id_Equipe = :idEquipe');
+        $req->execute(array(
+            'idEquipe' => $idEquipe,
+            'idPoint' => $nbPoint
+        ));
+    }
+
+    public function getMultiplicateur($idTournoi){
+        $req = $this->linkpdo->prepare('SELECT Nombre_point_max FROM tournoi WHERE id_Tournoi = :idTournoi');
+        $req->execute(array(
+            'idTournoi' => $idTournoi
+        ));
+
+        while ($row = $req->fetch()) {
+            return $row['Nombre_point_max'];
+        }
+    }
+
 
     //Fonction pour ajouter un joueur
     public function addJoueur($nom, $prenom, $dateNaissance, $pseudo, $mail, $idEquipe)
