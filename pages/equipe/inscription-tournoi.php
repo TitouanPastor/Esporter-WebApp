@@ -95,7 +95,7 @@
             </div>
         </div>
         <section class="main-listes-container">
-            <h1>Liste des tournois à venir</h1>
+            <h1>Liste des Tournois à Venir</h1>
             <form action="post">
                 <div class="container">
                     <span>Jeu de l'équipe :
