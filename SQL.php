@@ -966,6 +966,42 @@ class requeteSQL
         return $req;
     }
 
+    public function getNomPoule($id_poule){
+        $req = $this->linkpdo->prepare("SELECT libelle FROM poule WHERE id_poule = :id_poule");
+        $testreq = $req->execute(
+            array(
+                "id_poule" => $id_poule
+            )
+        );
+        if ($testreq == false){
+            die("Error getNomPoule");
+        }
+        return $req;
+    }
+
+    public function getRencontre($id_poule){
+        $req = $this->linkpdo->prepare("SELECT * FROM rencontre WHERE id_poule = :id_poule");
+        $testreq = $req->execute(
+            array(
+                "id_poule" => $id_poule
+            )
+        );
+        return $req;
+    }
+
+    public function getNomEquipeById($id_equipe){
+        $req = $this->linkpdo->prepare("SELECT nom FROM equipe WHERE id_equipe = :id_equipe");
+        $testreq = $req->execute(
+            array(
+                "id_equipe" => $id_equipe
+            )
+        );
+        if ($testreq == false){
+            die("Erreur getNomEquipeById");
+        }
+        return $req;
+    }
+
     public function getEquipeByIdPoule($id_poule){
         $req = $this->linkpdo->prepare("SELECT id_equipe, nom FROM equipe, etre_inscrit WHERE equipe.id_equipe = etre_inscrit.id_equipe AND etre_inscrit.id_poule = :id_poule ");
         $testreq = $req->execute(
