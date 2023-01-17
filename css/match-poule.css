@@ -1,128 +1,126 @@
 .container-poule{
-    display : flex;
-    justify-content: space-between;
-    height: 80vh;
+display : flex;
+justify-content: space-between;
+height: 80vh;
 }
 
 .poule-gauche {
-    display: flex; 
-    flex-direction: column;
-    height: 100%;
-    width: 30%;
-    margin-right: 5px;
+display: flex; 
+flex-direction: column;
+height: 100%;
+width: 30%;
+margin-right: 5px;
 }
 
 .poule {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--white);
-    height: auto;
-    margin: 5px;
-    border : solid 1px;
-    cursor: pointer;
+display: flex;
+flex-direction: column;
+background-color: var(--white);
+height: auto;
+margin: 5px;
+border : solid 1px;
+cursor: pointer;
 }
 
 .pouleLibelle{
-    background-color: #d2d7d8;
+background-color: #d2d7d8;
 }
 
 .equipe {
-    display : flex;
-    padding : 5px;
-    height: 25%;
-    justify-content: space-between;
-    color : var(--white-text);
+display : flex;
+padding : 5px;
+height: 25%;
+justify-content: space-between;
+color : var(--white-text);
 }
 
 .violet-clair {
-    background-color: #7e68be;
+background-color: #7e68be;
 }
 
 .violet-fonce {
-    background-color : var(--purple);
+background-color : var(--purple);
 }
 
 .poule-droite {
-    height: 100%;
-    width: 70%;
-    border : solid 1px;
-    /* margin-left : 5px; */
-    margin : 5px;
-    background-color: #7e68be;
+display: flex;
+flex-direction: column;
+height: 100%;
+width: 70%;
+border : solid 1px;
+/* margin-left : 5px; */
+margin : 5px;
+background-color: #7e68be;
 }
 
 .poule-droite h1 {
-    align-items: center;
-    padding: 5px;
+align-items: center;
+padding: 5px;
 }
 
 .match{
-    display: flex;
-    flex-direction:column ;    
-    align-items: center;
-    height: auto;
-    margin: 20px;
+display: flex;
+flex-direction:column ;    
+align-items: center;
+height: auto;
+width: 40%;
+margin: 20px;
 }
 
 .tout-match{
-    display : flex;
-    /* flex-basis: 50%; */
-    flex-wrap: wrap;
-    justify-content: center;
+display : flex;
+height: 100%;
+flex-wrap: wrap;
+justify-content: center;
 }
 
 .match .equipe-match {
+color : var(--white-text);
+margin-bottom: 5px;
+}
+
+.radioEquipe{
+display: flex;
+flex-direction: column;
+justify-content: center;
+color : var(--white-text);
+}
+
+.radioEquipe1{
+text-align: center;
+}
+
+.radioEquipe2{
+text-align: center;
+}
+
+button[type="submit"].submit-valider {
+box-shadow: var(--background-shadow);
+border-radius: var(--border-radius);
+color: var(--black);
+background-color: var(--btn-submit);
+border: 0px;
+margin: 5px;
+font-weight: 600;
+font-size: small;
+width: 40%;
+height: 15%;
+line-height: initial;
+transition: all .2s ease-in-out;
+cursor: pointer;
+}
+
+h3 {
     color : var(--white-text);
-    margin-bottom: 5px;
+    margin : 5%;
 }
 
-.poule-droite .gagnant{
-    display : block;
-    width: fit-content;
-    margin: 20px auto;
-    background-color: var(--white);
+svg {
+    margin: 5%;
 }
 
-.popup {
-    display : none;
-    position : fixed;
-    background-color: rgba(252, 252, 252, 0.6);
-    justify-content : center;
-    align-items: center;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .popup-content {
-    display : flex;
-    flex-direction: column;
-    border : solid 1px;
-  }
-  
-  .popup-header {
+.gagnantRencontre{
     display: flex;
     justify-content: center;
-    background-color: rgb(217, 217, 217);
-    padding : 5px;
-  }
-  
-  .popup-body {
-    display :flex;
-    flex-direction: column ;
-    align-items: center;
-    background-color: #ffffff;
-    padding : 5px;
-  }
-  
-  .popup-body hr {
-    width: 50%;
-    height: 1px;
-    margin : 10px;
-  }
-  
-  .popup-body form {
-    display : flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    width: 100%;
+}

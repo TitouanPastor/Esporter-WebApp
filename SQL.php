@@ -1053,6 +1053,51 @@ class requeteSQL
         }
         return $req;   
     }
+    
+    public function addMatchGagne($id_rencontre,$id_equipe){
+        $reqIdPoule = $this->linkpdo->prepare("SELECT id_poule FROM rencontre WHERE gagnant = :id_equipe");
+        $testReqIdPoule = $reqIdPoule->execute(
+            array(
+                "id_equipe" => $id_equipe
+            )
+        );
+
+        $idPoule = $reqIdPoule -> fetch()[0];
+
+        $req = $this->linkpdo->prepare("UPDATE etre_inscrit SET nb_match_gagne = nb_match_gagne + 1 WHERE id_equipe = :id_equipe AND id_poule = :id_poule");
+        $testreq = $req -> execute(
+            array(
+                "id_equipe" => $id_equipe,
+                "id_poule" => $idPoule
+            )
+        );
+    }
+
+    public function setGagnantRencontre($id_rencontre, $id_equipe){
+        $req = $this->linkpdo->prepare("UPDATE rencontre SET gagnant = :id_equipe WHERE id_rencontre = :id_rencontre ");
+        $testreq = $req->execute(
+            array(
+                "id_equipe" => $id_equipe,
+                "id_rencontre" => $id_rencontre
+            )
+        );
+        if ($testreq == false) {
+            die("erreur setGagnantRencontre");
+            exit(2);
+        }
+        $this->addMatchGagne($id_rencontre, $id_equipe);
+        return $req;
+    }
+
+    public function getGagnantRencontre($id_rencontre){
+        $req = $this->linkpdo->prepare("SELECT nom FROM rencontre, equipe WHERE rencontre.id_equipe = equipe.id_equipe AND rencontre.id_rencontre = :id_rencontre");
+        $testreq = $req->execute(
+            array(
+                "id_rencontre" => $id_rencontre
+            )
+        );
+        return $req;
+    }
 
 }
 
