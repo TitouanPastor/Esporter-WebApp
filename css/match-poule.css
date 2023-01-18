@@ -1,126 +1,141 @@
-.container-poule{
-display : flex;
-justify-content: space-between;
-height: 80vh;
+.container-poule {
+    display: flex;
+    justify-content: space-between;
 }
 
 .poule-gauche {
-display: flex; 
-flex-direction: column;
-height: 100%;
-width: 30%;
-margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 30%;
+    margin-right: 5px;
 }
 
 .poule {
-display: flex;
-flex-direction: column;
-background-color: var(--white);
-height: auto;
-margin: 5px;
-border : solid 1px;
-cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+    box-shadow: var(--background-shadow);
+    height: auto;
+    margin: 5px;
+    border: 0;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
 }
 
-.pouleLibelle{
-background-color: #d2d7d8;
+.poule:hover {
+    transform: scale(1.025);
+}
+
+.pouleLibelle {
+    background-color: #d2d7d8;
+    width: 100%;
 }
 
 .equipe {
-display : flex;
-padding : 5px;
-height: 25%;
-justify-content: space-between;
-color : var(--white-text);
+    width: 100%;
+    display: flex;
+    padding: 5px;
+    height: 25%;
+    justify-content: space-between;
+    color: var(--white-text);
 }
 
 .violet-clair {
-background-color: #7e68be;
+    background-color: #7e68be;
 }
 
 .violet-fonce {
-background-color : var(--purple);
+    background-color: var(--purple);
 }
 
 .poule-droite {
-display: flex;
-flex-direction: column;
-height: 100%;
-width: 70%;
-border : solid 1px;
-/* margin-left : 5px; */
-margin : 5px;
-background-color: #7e68be;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 70%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--background-shadow);
+    margin: 5px;
+    padding: 15px;
+    background-color: #7e68be;
 }
 
 .poule-droite h1 {
-align-items: center;
-padding: 5px;
+    color: var(--white-text);
+    align-items: center;
+    padding: 5px;
 }
 
-.match{
-display: flex;
-flex-direction:column ;    
-align-items: center;
-height: auto;
-width: 40%;
-margin: 20px;
+.match {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: var(--border-radius);
+    padding: 5px 0;
+    height: auto;
+    width: 40%;
+    margin: 20px;
 }
 
-.tout-match{
-display : flex;
-height: 100%;
-flex-wrap: wrap;
-justify-content: center;
+.tout-match {
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .match .equipe-match {
-color : var(--white-text);
-margin-bottom: 5px;
+    color: var(--white-text);
+    margin-bottom: 5px;
 }
 
-.radioEquipe{
-display: flex;
-flex-direction: column;
-justify-content: center;
-color : var(--white-text);
+.radioEquipe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--white-text);
 }
 
-.radioEquipe1{
-text-align: center;
+.radioEquipe1 {
+    text-align: center;
 }
 
-.radioEquipe2{
-text-align: center;
+.radioEquipe2 {
+    text-align: center;
 }
 
 button[type="submit"].submit-valider {
-box-shadow: var(--background-shadow);
-border-radius: var(--border-radius);
-color: var(--black);
-background-color: var(--btn-submit);
-border: 0px;
-margin: 5px;
-font-weight: 600;
-font-size: small;
-width: 40%;
-height: 15%;
-line-height: initial;
-transition: all .2s ease-in-out;
-cursor: pointer;
+    box-shadow: var(--background-shadow);
+    border-radius: var(--border-radius);
+    color: var(--black);
+    background-color: var(--btn-submit);
+    border: 0px;
+    font-weight: 600;
+    width: fit-content;
+    height: fit-content;
+    padding: 15px 17px;
+    transition: all .2s ease-in-out;
+    cursor: pointer;
 }
 
 h3 {
-    color : var(--white-text);
-    margin : 5%;
-}
-
-svg {
+    color: var(--white-text);
     margin: 5%;
 }
 
-.gagnantRencontre{
+svg {
+    width: 30px;
+    height: 30px;
+}
+
+.gagnantRencontre {
     display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row-reverse;
+    align-items: center;
     justify-content: center;
     width: 100%;
 }
