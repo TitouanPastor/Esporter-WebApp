@@ -626,10 +626,9 @@ class requeteSQL
     //Retourne le nombre de point total de la poule 
     public function getNbPointPoule($idPoule)
     {
-        $req = $this->linkpdo->prepare('SELECT sum(nb_Match_Gagne) as nbMatchJouer FROM etre_inscrit, poule WHERE etre_inscrit.poule = :idPoule');
+        $req = $this->linkpdo->prepare('SELECT sum(nb_Match_Gagne) as nbMatchJouer FROM etre_inscrit, poule WHERE etre_inscrit.id_poule = :idPoule');
         $req->execute(array(
             'idPoule' => $idPoule
-          
         ));
         while ($row = $req->fetch()) {
             return $row['nbMatchJouer'];
@@ -1016,7 +1015,7 @@ class requeteSQL
     }
 
     public function getEquipePouleTrie($id_poule){
-        $req = $this -> linkpdo -> prepare("SELECT equipe.nom, etre_inscrit.nb_match_gagne FROM equipe, etre_inscrit WHERE equipe.id_equipe = etre_inscrit.id_equipe ANd etre_inscrit.id_poule = :id_poule ORDER BY nb_match_gagne");
+        $req = $this -> linkpdo -> prepare("SELECT equipe.nom, etre_inscrit.nb_match_gagne FROM equipe, etre_inscrit WHERE equipe.id_equipe = etre_inscrit.id_equipe ANd etre_inscrit.id_poule = :id_poule ORDER BY nb_match_gagne desc");
         $testreq = $req -> execute(
             array(
                 "id_poule" => $id_poule
@@ -1090,7 +1089,7 @@ class requeteSQL
     }
 
     public function getGagnantRencontre($id_rencontre){
-        $req = $this->linkpdo->prepare("SELECT nom FROM rencontre, equipe WHERE rencontre.id_equipe = equipe.id_equipe AND rencontre.id_rencontre = :id_rencontre");
+        $req = $this -> linkpdo -> prepare("SELECT nom FROM rencontre, equipe WHERE equipe.id_equipe = rencontre.gagnant AND rencontre.id_rencontre = :id_rencontre");
         $testreq = $req->execute(
             array(
                 "id_rencontre" => $id_rencontre

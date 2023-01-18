@@ -24,6 +24,9 @@
             require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
             $sql = new requeteSQL();
 
+            require_once(realpath(dirname(__FILE__) . '/../admin/bracket.php'));
+            $bracket = new bracket();
+
             //Id
             $id_tournoi = $_GET["id_tournoi"];
             $id_jeu = $_GET["id_jeu"];
@@ -36,48 +39,46 @@
             $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
 
             //Valider les resultats
-            if(isset($_POST["valider1"])){
-                if (!isset($_POST["match1"])){
-                    printf("Erreur");
-                } else {
+            if (isset($_POST["valider"])){
+                if (isset($_POST["match1"])){
                     $req = $sql->setGagnantRencontre($_POST["idMatch1"], $_POST["match1"]);
                 }
-            }
-            if(isset($_POST["valider2"])){
-                if (!isset($_POST["match2"])){
-                    printf("Erreur");
-                } else {
+
+                if (isset($_POST["match2"])){
                     $req = $sql->setGagnantRencontre($_POST["idMatch2"], $_POST["match2"]);
                 }
-            }
-            if(isset($_POST["valider3"])){
-                if (!isset($_POST["match3"])){
-                    printf("Erreur");
-                } else {
+
+                if (isset($_POST["match3"])){
                     $req = $sql->setGagnantRencontre($_POST["idMatch3"], $_POST["match3"]);
                 }
-            }
-            if(isset($_POST["valider4"])){
-                if (!isset($_POST["match4"])){
-                    printf("Erreur");
-                } else {
+
+                if (isset($_POST["match4"])){
                     $req = $sql->setGagnantRencontre($_POST["idMatch4"], $_POST["match4"]);
                 }
-            }
-            if(isset($_POST["valider5"])){
-                if (!isset($_POST["match5"])){
-                    printf("Erreur");
-                } else {
+
+                if (isset($_POST["match5"])){
                     $req = $sql->setGagnantRencontre($_POST["idMatch5"], $_POST["match5"]);
                 }
-            }
-            if(isset($_POST["valider6"])){
-                if (!isset($_POST["match6"])){
-                    printf("Erreur");
-                } else {
+
+                if (isset($_POST["match6"])){
                     $req = $sql->setGagnantRencontre($_POST["idMatch6"], $_POST["match6"]);
                 }
+
+                $checkPouleTermine = 0;
+                while ($donnees = $reqPoule -> fetch()){
+                    echo $donnees[0];
+                    if ($bracket -> pouleTerminer($donnees[0]) == false){
+                        $checkPouleTermine = -1;
+                        break;
+                    }
+                }
+
+                if ($checkPouleTermine == 0){
+                    $bracket->genererPouleFinale();
+                }
             }
+
+            $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
 
         ?>
 
@@ -139,7 +140,6 @@
                                             $num_match = 1;
                                 
                                             while ($rencontre = $reqRecontre -> fetch()){
-                                                //Faire un if sur l'affichage soit du score soit du bouton rentrer le socre en fonction de si un resultat est rentré ou non
                                                 $nomEquipe1 = $sql -> getNomEquipeById($rencontre[1]) -> fetch()[0];
                                                 $nomEquipe2 = $sql->getNomEquipeById($rencontre[2])->fetch()[0];
                                                 
@@ -148,8 +148,8 @@
                                                     <div class="match">
                                                         <h2 class="equipe-match">Match '.$num_match.'</h2>
                                                         <div class="radioEquipe">
+                                                            <input type="hidden" name="idMatch'.$num_match.'" value="'.$rencontre[0].'">
                                                             <div class="radioEquipe1">
-                                                                <input type="hidden" name="idMatch'.$num_match.'" value="'.$rencontre[0].'">
                                                                 <input type="radio" class="radio" id="choixEquipe'.$num_match.'" name="match'.$num_match.'" value="'.$rencontre[1].'" >
                                                                 <label for="choixEquipe"'.$num_match.'">'.$nomEquipe1.'</label>
                                                             </div>
@@ -158,47 +158,51 @@
                                                                 <label for="choixEquipe"'.$num_match.'">'.$nomEquipe2.'</label>
                                                             </div>
                                                         </div>
-                                                        <button type="submit" class="submit submit-valider" name="valider'.$num_match.'">Valider</button>
+                                                        
                                                     </div>
                                                     ';
                                                 } else {
-                                                    $reqGagnant = $sql->getGagnantRencontre($rencontre[0]);
+                                                    $gagnant = $sql->getGagnantRencontre($rencontre[0]) -> fetch()[0];
+                                                    if ($nomEquipe1 = $gagnant){
+                                                        $perdant = $nomEquipe2;
+                                                    } else {
+                                                        $perdant = $nomEquipe1;
+                                                    }
                                                     echo '
                                                         <div class="match">
                                                             <h2 class="equipe-match">Match '.$num_match.'</h2>
-                                                            <div class="gagnantRencontre">
-                                                                <h3>'.$reqGagnant -> fetch()[0].'</h3>
-                                                                <svg width="20px" height="20px" viewBox="0 -6 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        
-                                                                <title>crown</title>
-                                                                <desc>Created with Sketch.</desc>
-                                                                <defs>
-                                                                    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-                                                                        <stop stop-color="#FFC923" offset="0%">
-                                                            
-                                                            </stop>
-                                                                        <stop stop-color="#FFAD41" offset="100%">
-                                                            
-                                                            </stop>
-                                                                    </linearGradient>
-                                                                </defs>
-                                                                <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                    <g id="ui-gambling-website-lined-icnos-casinoshunter" transform="translate(-1513.000000, -2041.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
-                                                                        <g id="4" transform="translate(50.000000, 1871.000000)">
-                                                                            <path d="M1480.91651,170.219311 C1481.3389,170.433615 1481.67193,170.790192 1481.85257,171.227002 L1485.64818,180.405177 L1493.44429,170.905749 C1494.13844,170.059929 1495.39769,169.928221 1496.25688,170.61157 C1496.72686,170.98536 1497,171.548271 1497,172.143061 L1497,189.04671 C1497,190.677767 1495.65685,192 1494,192 L1466,192 C1464.34315,192 1463,190.677767 1463,189.04671 L1463,172.142612 C1463,171.055241 1463.89543,170.173752 1465,170.173752 C1465.60413,170.173752 1466.17588,170.442575 1466.55559,170.905145 L1474.35377,180.405143 L1478.1477,171.227264 C1478.54422,170.268054 1479.62151,169.783179 1480.60701,170.093228 L1480.75404,170.145737 L1480.91651,170.219311 Z" id="crown">
-                                                            
-                                                            </path>
+                                                            <div class="container-equipe">
+                                                                <div class="gagnantRencontre">
+
+                                                                    <h3>'.$gagnant.'</h3>
+                                                                    <svg width="20px" height="20px" viewBox="0 -6 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>crown</title>
+                                                                        <desc>Created with Sketch.</desc>
+                                                                        <defs>
+                                                                            <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+                                                                                <stop stop-color="#FFC923" offset="0%"></stop>
+                                                                                <stop stop-color="#FFAD41" offset="100%"></stop>
+                                                                            </linearGradient>
+                                                                        </defs>
+                                                                        <g id="icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                                            <g id="ui-gambling-website-lined-icnos-casinoshunter" transform="translate(-1513.000000, -2041.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+                                                                                <g id="4" transform="translate(50.000000, 1871.000000)">
+                                                                                    <path d="M1480.91651,170.219311 C1481.3389,170.433615 1481.67193,170.790192 1481.85257,171.227002 L1485.64818,180.405177 L1493.44429,170.905749 C1494.13844,170.059929 1495.39769,169.928221 1496.25688,170.61157 C1496.72686,170.98536 1497,171.548271 1497,172.143061 L1497,189.04671 C1497,190.677767 1495.65685,192 1494,192 L1466,192 C1464.34315,192 1463,190.677767 1463,189.04671 L1463,172.142612 C1463,171.055241 1463.89543,170.173752 1465,170.173752 C1465.60413,170.173752 1466.17588,170.442575 1466.55559,170.905145 L1474.35377,180.405143 L1478.1477,171.227264 C1478.54422,170.268054 1479.62151,169.783179 1480.60701,170.093228 L1480.75404,170.145737 L1480.91651,170.219311 Z" id="crown"></path>
+                                                                                </g>
+                                                                            </g>
                                                                         </g>
-                                                                    </g>
-                                                                </g>
-                                                            </svg>
-                                                                
+                                                                    </svg>
+
+                                                                </div>
+                                                                <div class="perdantRencontre">
+                                                                    <span>'.$perdant.'</span>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                 ';
                                                 }
                                                 $num_match += 1;
                                             }
+                                            echo '<button type="submit" class="submit submit-valider" name="valider">Valider</button>';
                                     echo' </div>
                                         </div>
                                     ';
@@ -208,22 +212,5 @@
                 
             </section>
         </main>
-        
-        <!-- <script>
-            document.querySelector("form").addEventListener(".submit-valider", function(event) {
-                var isChecked = false;
-                var radioButtons = document.getElementsByName("match1");
-                for (var i = 0; i < radioButtons.length; i++) {
-                    if (radioButtons[i].checked) {
-                        isChecked = true;
-                        break;
-                    }
-                }
-                if (!isChecked) {
-                    alert("Vous devez sélectionner une équipe pour valider");
-                    event.preventDefault();
-                }
-            });
-        </script> -->
     </body>
 </html>
