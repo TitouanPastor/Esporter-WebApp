@@ -51,6 +51,7 @@ if (isset($_POST['ajouter'])) {
                     // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
                     $sql->addEcurie($_POST['nom-ecurie'],$_POST['combobox-statut'],$_POST['mdp-ecurie'],$_POST['email-ecurie'],1);
                     $info_execution = 'Ecurie enregistrée !';
+                    header('Location: liste-ecuries.php?createEcurie=success');
                 }catch(Exception $e){
                     $info_execution = "Erreur lors de l'ajout de l'écurie ! Veuillez réessayer.";
                 }
