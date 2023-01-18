@@ -1099,5 +1099,23 @@ class requeteSQL
         return $req;
     }
 
+    public function getFinalistePoule($idTournoi, $idJeu, $idPoule){
+        $req = $this->linkpdo->prepare("SELECT id_Equipe FROM etre_inscrit, poule WHERE etre_inscrit.id_Tournoi = :idTournoi and etre_inscrit.id_Jeu = :idJeu and etre_inscrit.id_Poule = :idPoule ORDER BY nb_Match_Gagne DESC LIMIT 1");
+        $testreq = $req->execute(
+            array(
+                "idTournoi" => $idTournoi,
+                "idJeu" => $idJeu,
+                "idPoule" => $idPoule
+            )
+        );
+        return $req;
+    }
+
+    public function getLastIDPoule(){
+        $req = $this->linkpdo->prepare("SELECT MAX(id_poule) FROM poule");
+        $req->execute();
+        return $req['id_poule'];
+    }
+
 }
 
