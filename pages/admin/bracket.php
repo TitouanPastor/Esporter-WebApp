@@ -110,22 +110,23 @@ class bracket
     public function genererPouleFinale($idTournoi, $idJeu, $tabPoule)
     {
         $finaliste  = array();
-        $this->sql->addPoule( "F", $idTournoi, $idJeu);
+        $this->sql->addPoule( "Finale", $idTournoi, $idJeu);
         $lastIdPoule = $this->sql->getLastIDPoule();
         print_r($tabPoule);
         foreach ($tabPoule as $idPoule){
             array_push($finaliste,  $this->sql->getPremierPoule($idTournoi, $idJeu, $idPoule));
         }
-        print_r($finaliste);
+      
         //Ajouter les rencontres
-        $adversaire = array_slice($finaliste,0,-1);
-        array_reverse($adversaire);
+        $adversaire = $finaliste;
+        $adversaire = array_reverse($adversaire);
         for ($i = 0; $i < 3 ; $i++ ){
+            array_pop($adversaire);
             for ($j = 0; $j < count($adversaire) ; $j++){
                 $this->sql->addRencontre($finaliste[$i], $adversaire[$j], $lastIdPoule);
             }
             
-            array_pop($adversaire);
+            
         }
         
         
