@@ -124,8 +124,6 @@ class bracket
         }
     }
 
-<<<<<<< HEAD
-=======
     public function updateClassementGeneral($idPoule, $idTournoi)
     {
         $pouleFinale = $this->sql->getPouleFinale($idPoule);
@@ -136,7 +134,6 @@ class bracket
             $this->sql->updateClassementEquipe($row["Id_Equipe"], $row["nb_Match_Gagne"] * 5 + $points[$i] * $multiplicateur);
             $i++;
         }
->>>>>>> 88b47227791e2c9fe41902b8789bdd1f44519f3f
     }
 
 
