@@ -129,7 +129,7 @@ class bracket
             for ($k = 0; $k < 3; $k++) {
                 for ($l = $k; $l < 4; $l++) {
                     if ($bracket[$j][$k] != $bracket[$j][$l]) {    
-                        $this->sql->addRencontre($bracket[$j][$k], $bracket[$j][$l], $this->sql->getLastIDPoule() );
+                        $this->sql->addRencontre($bracket[$j][$k], $bracket[$j][$l], $this->sql->getLastIDPoule());
                     }
                 }
             }
