@@ -110,29 +110,22 @@ class bracket
     public function genererPouleFinale($idTournoi, $idJeu, $tabPoule)
     {
         $finaliste  = array();
-        $this->sql->addPoule( "Finale", $idTournoi, $idJeu);
-
+        $this->sql->addPoule( "F", $idTournoi, $idJeu);
+        $lastIdPoule = $this->sql->getLastIDPoule();
+        print_r($tabPoule);
         foreach ($tabPoule as $idPoule){
             array_push($finaliste,  $this->sql->getPremierPoule($idTournoi, $idJeu, $idPoule));
         }
-
-        $bracket = array();
-
-        for ($j = 0; $j < 4; $j++) {
-            $bracket[] = array_splice($idsEquipe, 0, 4);
-            if ($j % 2 == 1) {
-                $bracket[$j] = array_reverse($bracket[$j]);
+        print_r($finaliste);
+        //Ajouter les rencontres
+        $adversaire = array_slice($finaliste,0,-1);
+        array_reverse($adversaire);
+        for ($i = 0; $i < 3 ; $i++ ){
+            for ($j = 0; $j < count($adversaire) ; $j++){
+                $this->sql->addRencontre($finaliste[$i], $adversaire[$j], $lastIdPoule);
             }
-        }
-
-        for ($j = 0; $j < 4; $j++) {
-            for ($k = 0; $k < 3; $k++) {
-                for ($l = $k; $l < 4; $l++) {
-                    if ($bracket[$j][$k] != $bracket[$j][$l]) {    
-                        $this->sql->addRencontre($bracket[$j][$k], $bracket[$j][$l], $this->sql->getLastIDPoule());
-                    }
-                }
-            }
+            
+            array_pop($adversaire);
         }
         
         
@@ -141,6 +134,7 @@ class bracket
     public function pouleTerminer($idPoule)
     {
         $nbMatchTerm = $this->sql->getNbPointPoule($idPoule);
+        echo $nbMatchTerm;
         if ($nbMatchTerm != 6) {
             return False;
         } else {

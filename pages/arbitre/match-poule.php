@@ -36,7 +36,7 @@
             $reqNomTournoi = $sql -> getTournoiNomByIdTournoi($id_tournoi) -> fetch()[0];
 
             //Poule par id_tournoi
-            $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
+            $reqPoule = $sql->getPouleIdTournoi($id_tournoi);
 
             //Valider les resultats
             if (isset($_POST["valider"])){
@@ -65,17 +65,20 @@
                 }
 
                 $checkPouleTermine = 0;
-                while ($donnees = $reqPoule -> fetch()){
-                    echo $donnees[0];
-                    if ($bracket -> pouleTerminer($donnees[0]) == false){
+                $index = 0;
+                
+                foreach ($reqPoule as $donnees) {
+                   
+                    if ($bracket -> pouleTerminer($donnees) == false){
                         $checkPouleTermine = -1;
-                        break;
+                       
                     }
+                    $index++;
                 }
-
+                echo $checkPouleTermine;                                                                                                                                        ;
                 if ($checkPouleTermine == 0){
-                echo 'CheckPouleTermine';
-                    $bracket->genererPouleFinale($id_tournoi,$id_jeu,$reqPoule);
+                
+                    $bracket->genererPouleFinale($id_tournoi,$sql->getIdJeu($id_jeu),$reqPoule);
                 }
             }
 
