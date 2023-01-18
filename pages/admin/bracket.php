@@ -114,25 +114,29 @@ class bracket
         }
     }
 
-    public function pouleTerminer($idPoule){
+    public function pouleTerminer($idPoule)
+    {
         $nbMatchTerm = $this->sql->getNbPointPoule($idPoule);
-        if ($nbMatchTerm != 6){
+        if ($nbMatchTerm != 6) {
             return False;
-        }else{
+        } else {
             return True;
-        } 
+        }
     }
 
-
-    public function updateClassementGeneral($idPoule, $idTournoi){
-            $pouleFinale = $this->sql->getPouleFinale($idPoule);
-            $multiplicateur = $this->sql->getMultiplicateur($idTournoi);
-            $points = [100,60,30,10];
-            $i = 0;
-            while ($row = $pouleFinale->fetch()){
-                $this->sql->updateClassementEquipe($row["Id_Equipe"], $row["nb_Match_Gagne"] * 5 + $points[$i] * $multiplicateur);
-                $i++;
-            }
+<<<<<<< HEAD
+=======
+    public function updateClassementGeneral($idPoule, $idTournoi)
+    {
+        $pouleFinale = $this->sql->getPouleFinale($idPoule);
+        $multiplicateur = $this->sql->getMultiplicateur($idTournoi);
+        $points = [100, 60, 30, 10];
+        $i = 0;
+        while ($row = $pouleFinale->fetch()) {
+            $this->sql->updateClassementEquipe($row["Id_Equipe"], $row["nb_Match_Gagne"] * 5 + $points[$i] * $multiplicateur);
+            $i++;
+        }
+>>>>>>> 88b47227791e2c9fe41902b8789bdd1f44519f3f
     }
 
 
