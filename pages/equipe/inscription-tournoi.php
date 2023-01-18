@@ -166,7 +166,7 @@
                 notification.classList.remove('notification-active');
             }, 5000);
         }
-        // Fonction qui cherche lorsque la page est chargée si il y a un paramètre ?close_id dans l'url
+        // Fonction qui cherche lorsque la page est chargée si il y a un paramètre ?id dans l'url
         window.onload = function() {
             var url = window.location.href;
             if (url.indexOf('?id') != -1) {

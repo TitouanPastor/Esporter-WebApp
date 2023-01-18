@@ -88,6 +88,7 @@ if (isset($_POST['modifier'])){
                                         $sql->addConcerner($id_Tournois, $jeu);
                                     }
                                         $info_execution = 'Tournoi modifié !';
+                                        header('Location: liste-tournois.php?modifyTournoi=success');
                                     } catch (Exception $e) {
                                         $info_execution = "Erreur lors de la modification du tournoi ! Veuillez réessayer.";
                                     }

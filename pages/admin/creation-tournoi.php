@@ -77,6 +77,7 @@ if (isset($_POST['ajouter'])) {
                                     $sql->addConcerner($idTournoi, $jeu);
                                 }
                                 $info_execution = 'Tournoi ajouté !';
+                                header('Location: liste-tournois.php?createTournoi=success');
                             } catch (Exception $e) {
                                 $info_execution = "Erreur lors de l'ajout du tournoi ! Veuillez réessayer.";
                             }

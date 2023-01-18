@@ -101,38 +101,38 @@ if (isset($_POST['ajouter'])) {
                                                                         // Récupération de l'ID dernier tournoi créer
                                                                         $idEquipe = $sql->getLastIDEquipe();
                                                                         //Ajout du joueur1 
-                                                                        $sql->addJoueur($_POST['nom-joueur1'],$_POST['prenom-joueur1'],$_POST['dtn-joueur1'],$_POST['pseudo-joueur1'],$_POST['email-joueur1'],$idEquipe);
+                                                                        $sql->addJoueur($_POST['nom-joueur1'], $_POST['prenom-joueur1'], $_POST['dtn-joueur1'], $_POST['pseudo-joueur1'], $_POST['email-joueur1'], $idEquipe);
                                                                         //Ajout du joueur2 
-                                                                        $sql->addJoueur($_POST['nom-joueur2'],$_POST['prenom-joueur2'],$_POST['dtn-joueur2'],$_POST['pseudo-joueur2'],$_POST['email-joueur2'],$idEquipe);
+                                                                        $sql->addJoueur($_POST['nom-joueur2'], $_POST['prenom-joueur2'], $_POST['dtn-joueur2'], $_POST['pseudo-joueur2'], $_POST['email-joueur2'], $idEquipe);
                                                                         //Ajout du joueur3 
-                                                                        $sql->addJoueur($_POST['nom-joueur3'],$_POST['prenom-joueur3'],$_POST['dtn-joueur3'],$_POST['pseudo-joueur3'],$_POST['email-joueur3'],$idEquipe);
+                                                                        $sql->addJoueur($_POST['nom-joueur3'], $_POST['prenom-joueur3'], $_POST['dtn-joueur3'], $_POST['pseudo-joueur3'], $_POST['email-joueur3'], $idEquipe);
                                                                         //Ajout du joueur4 
-                                                                        $sql->addJoueur($_POST['nom-joueur4'],$_POST['prenom-joueur4'],$_POST['dtn-joueur4'],$_POST['pseudo-joueur4'],$_POST['email-joueur4'],$idEquipe);
+                                                                        $sql->addJoueur($_POST['nom-joueur4'], $_POST['prenom-joueur4'], $_POST['dtn-joueur4'], $_POST['pseudo-joueur4'], $_POST['email-joueur4'], $idEquipe);
                                                                         $info_execution = 'Joueurs enregistrés !';
-                                                                        header("Refresh: 3;URL=enregistrer-equipe.php");
+                                                                        header('Location: liste-equipes.php?createEquipe=success');
                                                                     } catch (Exception $e) {
                                                                         $info_execution = "Erreur : " . $e->getMessage();
                                                                     }
                                                                 } else {
-                                                                    $info_execution = "Un Joueur avec le même pseudo que le Joueur4 existe déjà"; 
+                                                                    $info_execution = "Un Joueur avec le même pseudo que le Joueur4 existe déjà";
                                                                 }
                                                             } else {
                                                                 $info_execution = "Un Joueur avec la même adresse mail que le Joueur4 existe déjà ";
-                                                            }    
+                                                            }
                                                         } else {
-                                                            $info_execution = "Un Joueur avec le même pseudo que le Joueur3 existe déjà"; 
+                                                            $info_execution = "Un Joueur avec le même pseudo que le Joueur3 existe déjà";
                                                         }
                                                     } else {
                                                         $info_execution = "Un Joueur avec la même adresse mail que le Joueur3 existe déjà ";
                                                     }
                                                 } else {
-                                                    $info_execution = "Un Joueur avec le même pseudo que le Joueur2 existe déjà"; 
+                                                    $info_execution = "Un Joueur avec le même pseudo que le Joueur2 existe déjà";
                                                 }
                                             } else {
                                                 $info_execution = "Un Joueur avec la même adresse mail que le Joueur2 existe déjà ";
-                                            }    
+                                            }
                                         } else {
-                                            $info_execution = "Un Joueur avec le même pseudo que le Joueur1 existe déjà"; 
+                                            $info_execution = "Un Joueur avec le même pseudo que le Joueur1 existe déjà";
                                         }
                                     } else {
                                         $info_execution = "Un Joueur avec la même adresse mail que le Joueur1 existe déjà ";
@@ -151,13 +151,13 @@ if (isset($_POST['ajouter'])) {
                     }
                 } else {
                     $info_execution = "Veuillez remplir tous les champs du Joueur4";
-                }    
+                }
             } else {
                 $info_execution = "Veuillez remplir tous les champs du Joueur3";
             }
         } else {
             $info_execution = "Veuillez remplir tous les champs du Joueur2";
-        }    
+        }
     } else {
         $info_execution = "Veuillez remplir tous les champs du Joueur1";
     }
