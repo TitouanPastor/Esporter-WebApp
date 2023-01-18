@@ -123,6 +123,7 @@ class bracket
         } 
     }
 
+
     public function updateClassementGeneral($idPoule, $idTournoi){
             $pouleFinale = $this->sql->getPouleFinale($idPoule);
             $multiplicateur = $this->sql->getMultiplicateur($idTournoi);
