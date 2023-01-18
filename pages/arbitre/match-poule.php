@@ -74,7 +74,7 @@
                 }
 
                 if ($checkPouleTermine == 0){
-                    $bracket->genererPouleFinale();
+                    $bracket->genererPouleFinale($id_tournoi,$id_jeu,$reqPoule);
                 }
             }
 
@@ -141,7 +141,7 @@
                                 
                                             while ($rencontre = $reqRecontre -> fetch()){
                                                 $nomEquipe1 = $sql -> getNomEquipeById($rencontre[1]) -> fetch()[0];
-                                                $nomEquipe2 = $sql->getNomEquipeById($rencontre[2])->fetch()[0];
+                                                $nomEquipe2 = $sql -> getNomEquipeById($rencontre[2])->fetch()[0];
                                                 
                                                 if ($rencontre[4] == null){
                                                     echo '
@@ -162,12 +162,13 @@
                                                     </div>
                                                     ';
                                                 } else {
-                                                    $gagnant = $sql->getGagnantRencontre($rencontre[0]) -> fetch()[0];
-                                                    if ($nomEquipe1 = $gagnant){
+                                                    $gagnant = $sql -> getGagnantRencontre($rencontre[0]) -> fetch()[0];
+                                                    if ($nomEquipe1 == $gagnant){
                                                         $perdant = $nomEquipe2;
                                                     } else {
                                                         $perdant = $nomEquipe1;
                                                     }
+                                                    
                                                     echo '
                                                         <div class="match">
                                                             <h2 class="equipe-match">Match '.$num_match.'</h2>
