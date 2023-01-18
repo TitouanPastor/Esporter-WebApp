@@ -74,6 +74,7 @@
                 }
 
                 if ($checkPouleTermine == 0){
+                echo 'CheckPouleTermine';
                     $bracket->genererPouleFinale($id_tournoi,$id_jeu,$reqPoule);
                 }
             }
