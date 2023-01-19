@@ -611,12 +611,13 @@ class requeteSQL
     }
 
     //Fonction qui retourne le premier d'une poule a partir d'un tournoi et d'un jeu donnée 
-    public function getPremierPoule($idTournoi, $idJeu)
+    public function getPremierPoule($idTournoi, $idJeu, $idPoule)
     {
-        $req = $this->linkpdo->prepare('SELECT etre_inscrit.id_Equipe FROM etre_inscrit, poule WHERE poule.id_Tournoi = :idTournoi and poule.Id_Jeu = :idJeu and poule.id_Poule = etre_inscrit.id_poule order by nb_Match_Gagne desc limit 1');
+        $req = $this->linkpdo->prepare('SELECT etre_inscrit.id_Equipe FROM etre_inscrit, poule WHERE poule.id_Tournoi = :idTournoi and poule.Id_Jeu = :idJeu and poule.id_Poule = etre_inscrit.id_poule and etre_inscrit.id_poule = :idPoule order by nb_Match_Gagne desc limit 1');
         $req->execute(array(
             'idTournoi' => $idTournoi,
-            'idJeu' => $idJeu
+            'idJeu' => $idJeu,
+            'idPoule' => $idPoule
         ));
         while ($row = $req->fetch()) {
             return $row['id_Equipe'];
@@ -626,7 +627,7 @@ class requeteSQL
     //Retourne le nombre de point total de la poule 
     public function getNbPointPoule($idPoule)
     {
-        $req = $this->linkpdo->prepare('SELECT sum(nb_Match_Gagne) as nbMatchJouer FROM etre_inscrit, poule WHERE etre_inscrit.id_poule = :idPoule');
+        $req = $this->linkpdo->prepare('SELECT sum(nb_Match_Gagne) as nbMatchJouer FROM etre_inscrit WHERE etre_inscrit.id_poule = :idPoule');
         $req->execute(array(
             'idPoule' => $idPoule
         ));
@@ -965,6 +966,23 @@ class requeteSQL
         return $req;
     }
 
+    public function getPouleIdTournoi($id_tournoi){
+        $req = $this->linkpdo->prepare("SELECT Id_Poule FROM poule WHERE id_tournoi = :id_tournoi");
+        $testreq = $req -> execute(
+            array(
+                "id_tournoi" => $id_tournoi
+            )
+        );
+        if ($testreq == false) {
+            die('Erreur getPouleByIdTournoi');
+        }
+        $idsPoule = array() ;
+        while($datas = $req->fetch()){
+            array_push($idsPoule, $datas['Id_Poule']);
+        }
+        return $idsPoule;
+       }
+
     public function getNomPoule($id_poule){
         $req = $this->linkpdo->prepare("SELECT libelle FROM poule WHERE id_poule = :id_poule");
         $testreq = $req->execute(
@@ -1111,9 +1129,11 @@ class requeteSQL
     }
 
     public function getLastIDPoule(){
-        $req = $this->linkpdo->prepare("SELECT MAX(id_poule) FROM poule");
+        $req = $this->linkpdo->prepare("SELECT MAX(Id_Poule) FROM poule");
         $req->execute();
-        return $req['id_poule'];
+        while ($datas = $req->fetch()){
+            return $datas['MAX(Id_Poule)'];
+        }
     }
 
 }
