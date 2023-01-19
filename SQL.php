@@ -887,7 +887,7 @@ class requeteSQL
 
     public function addRencontre($idEquipe1, $idEquipe2, $idPoule)
     {
-        $req = $this->linkpdo->prepare('INSERT INTO rencontre VALUES (NULL, :idEquipe1, :idEquipe2, :idPoule)');
+        $req = $this->linkpdo->prepare('INSERT INTO rencontre VALUES (NULL, :idEquipe1, :idEquipe2, :idPoule, NULL)');
         $req->execute(array(
             'idEquipe1' => $idEquipe1,
             'idEquipe2' => $idEquipe2,
