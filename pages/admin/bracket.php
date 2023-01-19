@@ -117,6 +117,8 @@ class bracket
             array_push($finaliste,  $this->sql->getPremierPoule($idTournoi, $idJeu, $idPoule));
         }
       
+        print_r ($finaliste);
+        
         //Ajouter les rencontres
         $adversaire = $finaliste;
         $adversaire = array_reverse($adversaire);
@@ -124,36 +126,47 @@ class bracket
             array_pop($adversaire);
             for ($j = 0; $j < count($adversaire) ; $j++){
                 $this->sql->addRencontre($finaliste[$i], $adversaire[$j], $lastIdPoule);
-            }
-            
-            
+            }   
         }
+
+        return $lastIdPoule;
         
         
     }
 
-    public function pouleTerminer($idPoule)
+    public function pouleTerminer($tabPoule)
     {
-        $nbMatchTerm = $this->sql->getNbPointPoule($idPoule);
-        echo $nbMatchTerm;
-        if ($nbMatchTerm != 6) {
-            return False;
-        } else {
-            return True;
+        foreach($tabPoule as $idPoule){
+            $nbMatchTerm = $this->sql->getNbPointPoule($idPoule);
+            echo $nbMatchTerm;
+            if ($nbMatchTerm < 6) {
+                return False;
+            }
         }
+        
+        return true;
     }
 
     public function updateClassementGeneral($idPoule, $idTournoi)
     {
-        $pouleFinale = $this->sql->getPouleFinale($idPoule);
+        $pouleFinale = $this->sql->getPerdantFinale($idPoule);
+        print_r($pouleFinale);
+        $resultatFinaux = $this->sql->getResultatFinaux($idPoule);
         $multiplicateur = $this->sql->getMultiplicateur($idTournoi);
         $points = [100, 60, 30, 10];
         $i = 0;
-        while ($row = $pouleFinale->fetch()) {
-            $this->sql->updateClassementEquipe($row["Id_Equipe"], $row["nb_Match_Gagne"] * 5 + $points[$i] * $multiplicateur);
+        while ($row = $resultatFinaux->fetch()) {
+            $this->sql->updateClassementEquipe($row["id_equipe"], $row["count(gagnant)"] * 5 + $points[$i] * $multiplicateur);
+            $i++;
+        }
+        
+        foreach($pouleFinale as $idEquipe){
+            $this->sql->updateClassementEquipe($idEquipe, $points[$i] * $multiplicateur);
             $i++;
         }
     }
+
+   
 
 
 
