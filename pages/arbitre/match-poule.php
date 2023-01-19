@@ -1,185 +1,187 @@
 <!DOCTYPE html>
 <html>
-    <header>
+<header>
     <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Liste tournois - E-Sporter</title>
-        <link rel="stylesheet" href="../../css/style.css">
-        <link rel="stylesheet" href="../../css/match-poule.css">
-        <link rel="icon" href="../../img/esporter-icon.png">
-    </header>
-    <body>
-        <?php
-            session_start();
-            require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
-            $header = new header(2);
-            if ($_SESSION['role'] == "arbitre") {
-                echo $header->customize_header($_SESSION['role']);
-            } else {
-                header('Location: ../../acces-refuse.php');
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Liste tournois - E-Sporter</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/match-poule.css">
+    <link rel="icon" href="../../img/esporter-icon.png">
+</header>
+
+<body>
+    <?php
+    session_start();
+    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+    $header = new header(2);
+    if ($_SESSION['role'] == "arbitre") {
+        echo $header->customize_header($_SESSION['role']);
+    } else {
+        header('Location: ../../acces-refuse.php');
+    }
+
+    //Sql
+    require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+    $sql = new requeteSQL();
+
+    require_once(realpath(dirname(__FILE__) . '/../admin/bracket.php'));
+    $bracket = new bracket();
+
+    //Id
+    $id_tournoi = $_GET["id_tournoi"];
+    $id_jeu = $_GET["id_jeu"];
+
+    //Nom tournoi par id_tournoi
+    $reqNomTournoi = "";
+    $reqNomTournoi = $sql->getTournoiNomByIdTournoi($id_tournoi)->fetch()[0];
+
+    //Poule par id_tournoi
+    $reqPoule = $sql->getPouleIdTournoi($id_tournoi);
+
+    //Valider les resultats
+    if (isset($_POST["valider"])) {
+        if (isset($_POST["match1"])) {
+            $req = $sql->setGagnantRencontre($_POST["idMatch1"], $_POST["match1"]);
+        }
+
+        if (isset($_POST["match2"])) {
+            $req = $sql->setGagnantRencontre($_POST["idMatch2"], $_POST["match2"]);
+        }
+
+        if (isset($_POST["match3"])) {
+            $req = $sql->setGagnantRencontre($_POST["idMatch3"], $_POST["match3"]);
+        }
+
+        if (isset($_POST["match4"])) {
+            $req = $sql->setGagnantRencontre($_POST["idMatch4"], $_POST["match4"]);
+        }
+
+        if (isset($_POST["match5"])) {
+            $req = $sql->setGagnantRencontre($_POST["idMatch5"], $_POST["match5"]);
+        }
+
+        if (isset($_POST["match6"])) {
+            $req = $sql->setGagnantRencontre($_POST["idMatch6"], $_POST["match6"]);
+        }
+
+        $checkPouleTermine = 0;
+        $index = 0;
+
+        foreach ($reqPoule as $donnees) {
+
+            if ($bracket->pouleTerminer($donnees) == false) {
+                $checkPouleTermine = -1;
+
             }
+            $index++;
+        }
+        echo $checkPouleTermine;
+        ;
+        if ($checkPouleTermine == 0) {
 
-            //Sql
-            require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-            $sql = new requeteSQL();
+            $bracket->genererPouleFinale($id_tournoi, $sql->getIdJeu($id_jeu), $reqPoule);
+        }
+    }
 
-            require_once(realpath(dirname(__FILE__) . '/../admin/bracket.php'));
-            $bracket = new bracket();
+    $reqPoule = $sql->getPouleByIdTournoi($id_tournoi); 
 
-            //Id
-            $id_tournoi = $_GET["id_tournoi"];
-            $id_jeu = $_GET["id_jeu"];
+    ?>
 
-            //Nom tournoi par id_tournoi
-            $reqNomTournoi = "";
-            $reqNomTournoi = $sql -> getTournoiNomByIdTournoi($id_tournoi) -> fetch()[0];
+    <main class="main-listes">
+        <section class="main-listes-container">
+            <h1> Poule du tournoi <?php echo $reqNomTournoi ?></h1>
 
-            //Poule par id_tournoi
-            $reqPoule = $sql->getPouleIdTournoi($id_tournoi);
+            <form action="" method="post">
+                <div class="container-poule">
 
-            //Valider les resultats
-            if (isset($_POST["valider"])){
-                if (isset($_POST["match1"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch1"], $_POST["match1"]);
-                }
-
-                if (isset($_POST["match2"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch2"], $_POST["match2"]);
-                }
-
-                if (isset($_POST["match3"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch3"], $_POST["match3"]);
-                }
-
-                if (isset($_POST["match4"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch4"], $_POST["match4"]);
-                }
-
-                if (isset($_POST["match5"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch5"], $_POST["match5"]);
-                }
-
-                if (isset($_POST["match6"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch6"], $_POST["match6"]);
-                }
-
-                $checkPouleTermine = 0;
-                $index = 0;
-                
-                foreach ($reqPoule as $donnees) {
-                   
-                    if ($bracket -> pouleTerminer($donnees) == false){
-                        $checkPouleTermine = -1;
-                       
-                    }
-                    $index++;
-                }
-                echo $checkPouleTermine;                                                                                                                                        ;
-                if ($checkPouleTermine == 0){
-                
-                    $bracket->genererPouleFinale($id_tournoi,$sql->getIdJeu($id_jeu),$reqPoule);
-                }
-            }
-
-            $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
-
-        ?>
-
-        <main class="main-listes">
-            <section class="main-listes-container">
-                <h1> Poule du tournoi <?php echo $reqNomTournoi ?></h1>
-
-                    <form action="" method="post">
-                        <div class="container-poule">
-
-                            <div class="poule-gauche">
-                                <?php
-                                    while ($poule = $reqPoule -> fetch()){
-                                        $reqEquipePouleTrie = $sql -> getEquipePouleTrie($poule[0]);
-                                        $clair = 0;
-                                        echo '
-                                            <button type ="submit" class="poule" name="submitPoule" value ='.$poule[0].'>
+                    <div class="poule-gauche">
+                        <?php
+                        while ($poule = $reqPoule->fetch()) {
+                            $reqEquipePouleTrie = $sql->getEquipePouleTrie($poule[0]);
+                            $clair = 0;
+                            echo '
+                                            <button type ="submit" class="poule" name="submitPoule" value =' . $poule[0] . '>
                                                 <div class="pouleLibelle">
-                                                    <span>'.$poule[1].'</span>
+                                                    <span>' . $poule[1] . '</span>
                                                 </div>
                                             ';
-                                        while ($equipe = $reqEquipePouleTrie -> fetch()){
-                                            $equipe_nom = $equipe[0];
-                                            $equipe_nb_match_gagne = $equipe[1];
-                                            if ($clair % 2 == 0) {
-                                                echo '
+                            while ($equipe = $reqEquipePouleTrie->fetch()) {
+                                $equipe_nom = $equipe[0];
+                                $equipe_nb_match_gagne = $equipe[1];
+                                if ($clair % 2 == 0) {
+                                    echo '
                                                     <div class="equipe violet-fonce">
                                                         <span>' . $equipe_nom . '</span>
                                                         <div>' . $equipe_nb_match_gagne . ' </div>
                                                     </div>
                                                 ';
-                                            } else {
-                                                 echo '
+                                } else {
+                                    echo '
                                                     <div class="equipe violet-clair">
                                                         <span>' . $equipe_nom . '</span>
                                                         <div>' . $equipe_nb_match_gagne . ' </div>
                                                     </div>
                                                 ';
-                                            }
-                                        $clair += 1;
-                                        }
-                                        echo '
+                                }
+                                $clair += 1;
+                            }
+                            echo '
                                             </button>
                                         ';
-                                    }
-                                ?>
-                            </div>
-                            
-                            <?php
-                                $idPouleAffiche;
-                                if (isset($_POST["submitPoule"])) {
-                                    $idPouleAffiche = $_POST["submitPoule"];
-                                    $nomPouleAffiche = $sql->getNomPoule($idPouleAffiche)->fetch()[0];
-                                    $reqRecontre = $sql -> getRencontre($idPouleAffiche);
-                                    echo '
+                        }
+                        ?>
+                    </div>
+
+                    <?php
+                    $idPouleAffiche;
+                    if (isset($_POST["submitPoule"])) {
+                        $idPouleAffiche = $_POST["submitPoule"];
+                        $nomPouleAffiche = $sql->getNomPoule($idPouleAffiche)->fetch()[0];
+                        $reqRecontre = $sql->getRencontre($idPouleAffiche);
+                        echo '
                                         <div class="poule-droite">
                                             <h1>Poule ' . $nomPouleAffiche . '</h1>
                                             <div class="tout-match">';
-                                            $num_match = 1;
-                                
-                                            while ($rencontre = $reqRecontre -> fetch()){
-                                                $nomEquipe1 = $sql -> getNomEquipeById($rencontre[1]) -> fetch()[0];
-                                                $nomEquipe2 = $sql -> getNomEquipeById($rencontre[2])->fetch()[0];
-                                                
-                                                if ($rencontre[4] == null){
-                                                    echo '
+                        $num_match = 1;
+
+                        while ($rencontre = $reqRecontre->fetch()) {
+                            $nomEquipe1 = $sql->getNomEquipeById($rencontre[1])->fetch()[0];
+                            $nomEquipe2 = $sql->getNomEquipeById($rencontre[2])->fetch()[0];
+
+                            if ($rencontre[4] == null) {
+                                echo '
                                                     <div class="match">
-                                                        <h2 class="equipe-match">Match '.$num_match.'</h2>
+                                                        <h2 class="equipe-match">Match ' . $num_match . '</h2>
                                                         <div class="radioEquipe">
-                                                            <input type="hidden" name="idMatch'.$num_match.'" value="'.$rencontre[0].'">
+                                                            <input type="hidden" name="idMatch' . $num_match . '" value="' . $rencontre[0] . '">
                                                             <div class="radioEquipe1">
-                                                                <input type="radio" class="radio" id="choixEquipe'.$num_match.'" name="match'.$num_match.'" value="'.$rencontre[1].'" >
-                                                                <label for="choixEquipe"'.$num_match.'">'.$nomEquipe1.'</label>
+                                                                <input type="radio" class="radio" id="choixEquipe' . $num_match . '" name="match' . $num_match . '" value="' . $rencontre[1] . '" >
+                                                                <label for="choixEquipe"' . $num_match . '">' . $nomEquipe1 . '</label>
                                                             </div>
                                                             <div class="radioEquipe2">
-                                                                <input type="radio" class="radio" id="choixEquipe'.$num_match.'" name="match'.$num_match.'" value="'.$rencontre[2].'" >
-                                                                <label for="choixEquipe"'.$num_match.'">'.$nomEquipe2.'</label>
+                                                                <input type="radio" class="radio" id="choixEquipe' . $num_match . '" name="match' . $num_match . '" value="' . $rencontre[2] . '" >
+                                                                <label for="choixEquipe"' . $num_match . '">' . $nomEquipe2 . '</label>
                                                             </div>
                                                         </div>
                                                         
                                                     </div>
                                                     ';
-                                                } else {
-                                                    $gagnant = $sql -> getGagnantRencontre($rencontre[0]) -> fetch()[0];
-                                                    if ($nomEquipe1 == $gagnant){
-                                                        $perdant = $nomEquipe2;
-                                                    } else {
-                                                        $perdant = $nomEquipe1;
-                                                    }
-                                                    
-                                                    echo '
+                            } else {
+                                $gagnant = $sql->getGagnantRencontre($rencontre[0])->fetch()[0];
+                                if ($nomEquipe1 == $gagnant) {
+                                    $perdant = $nomEquipe2;
+                                } else {
+                                    $perdant = $nomEquipe1;
+                                }
+
+                                echo '
                                                         <div class="match">
-                                                            <h2 class="equipe-match">Match '.$num_match.'</h2>
+                                                            <h2 class="equipe-match">Match ' . $num_match . '</h2>
                                                             <div class="container-equipe">
                                                                 <div class="gagnantRencontre">
 
-                                                                    <h3>'.$gagnant.'</h3>
+                                                                    <h3>' . $gagnant . '</h3>
                                                                     <svg width="20px" height="20px" viewBox="0 -6 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>crown</title>
                                                                         <desc>Created with Sketch.</desc>
                                                                         <defs>
@@ -199,23 +201,24 @@
 
                                                                 </div>
                                                                 <div class="perdantRencontre">
-                                                                    <span>'.$perdant.'</span>
+                                                                    <span>' . $perdant . '</span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                 ';
-                                                }
-                                                $num_match += 1;
-                                            }
-                                            echo '<button type="submit" class="submit submit-valider" name="valider">Valider</button>';
-                                    echo' </div>
+                            }
+                            $num_match += 1;
+                        }
+                        echo '<button type="submit" class="submit submit-valider" name="valider">Valider</button>';
+                        echo ' </div>
                                         </div>
                                     ';
-                                }
-                            ?>
+                    }
+                    ?>
             </form>
-                
-            </section>
-        </main>
-    </body>
+
+        </section>
+    </main>
+</body>
+
 </html>
