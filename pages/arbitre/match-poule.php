@@ -11,6 +11,7 @@
     </header>
     <body>
         <?php
+            $afficherBoutonFermerResultat  = False;
             session_start();
             require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
             $header = new header(2);
@@ -32,58 +33,103 @@
             $id_jeu = $_GET["id_jeu"];
 
             //Nom tournoi par id_tournoi
-            $reqNomTournoi = "";
             $reqNomTournoi = $sql -> getTournoiNomByIdTournoi($id_tournoi) -> fetch()[0];
+            $PoulesTermines = false;
+            $pouleFinaleCreer = false;
+            $idPouleFinale = 0;
+            
+             
 
             //Poule par id_tournoi
             $reqPoule = $sql->getPouleIdTournoi($id_tournoi);
 
             //Valider les resultats
             if (isset($_POST["valider"])){
-                if (isset($_POST["match1"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch1"], $_POST["match1"]);
-                }
+                if (!$bracket->pouleTerminer(array_slice($reqPoule, 0, 4)))
+                        if (isset($_POST["match1"])){
+                            $req = $sql->setGagnantRencontre($_POST["idMatch1"], $_POST["match1"]);
+                        }
 
-                if (isset($_POST["match2"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch2"], $_POST["match2"]);
-                }
+                        if (isset($_POST["match2"])){
+                            $req = $sql->setGagnantRencontre($_POST["idMatch2"], $_POST["match2"]);
+                        }
 
-                if (isset($_POST["match3"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch3"], $_POST["match3"]);
-                }
+                        if (isset($_POST["match3"])){
+                            $req = $sql->setGagnantRencontre($_POST["idMatch3"], $_POST["match3"]);
+                        }
 
-                if (isset($_POST["match4"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch4"], $_POST["match4"]);
-                }
+                        if (isset($_POST["match4"])){
+                            $req = $sql->setGagnantRencontre($_POST["idMatch4"], $_POST["match4"]);
+                        }
 
-                if (isset($_POST["match5"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch5"], $_POST["match5"]);
-                }
+                        if (isset($_POST["match5"])){
+                            $req = $sql->setGagnantRencontre($_POST["idMatch5"], $_POST["match5"]);
+                        }
 
-                if (isset($_POST["match6"])){
-                    $req = $sql->setGagnantRencontre($_POST["idMatch6"], $_POST["match6"]);
-                }
+                        if (isset($_POST["match6"])){
+                            $req = $sql->setGagnantRencontre($_POST["idMatch6"], $_POST["match6"]);
+                        }
 
-                $checkPouleTermine = 0;
-                $index = 0;
-                
-                foreach ($reqPoule as $donnees) {
-                   
-                    if ($bracket -> pouleTerminer($donnees) == false){
-                        $checkPouleTermine = -1;
-                       
+                    //Verifier que tout les matchs sont terminer
+                    $PoulesTermines = true;
+                    
+                    
+                    if ($bracket->pouleTerminer(array_slice($reqPoule, 0, 4))){
+                        echo "Toute les poules sont terminées";
+                        $idPouleFinale = $bracket->genererPouleFinale($id_tournoi,$sql->getIdJeu($id_jeu),array_slice($reqPoule, 0, 4));
+                        
+                    }else{
+                        echo "Toute les poules ne sont pas terminées";
                     }
-                    $index++;
-                }
-                echo $checkPouleTermine;                                                                                                                                        ;
-                if ($checkPouleTermine == 0){
+                        
+       
+                }else if ($pouleFinaleCreer){// Si poule terminer
+
+                //                                                                                                                                  ;
+                    print_r ($reqPoule);
+                    
+                    
+                    
+                  
+                 }
+
+                 if (isset($_POST["valider_finale"])){
+                    if (isset($_POST["match1"])){
+                        $req = $sql->setGagnantRencontreFinale($_POST["idMatch1"], $_POST["match1"]);
+                    }
+
+                    if (isset($_POST["match2"])){
+                        $req = $sql->setGagnantRencontreFinale($_POST["idMatch2"], $_POST["match2"]);
+                    }
+
+                    if (isset($_POST["match3"])){
+                        $req = $sql->setGagnantRencontreFinale($_POST["idMatch3"], $_POST["match3"]);
+                    }
+
+                    if (isset($_POST["match4"])){
+                        $req = $sql->setGagnantRencontreFinale($_POST["idMatch4"], $_POST["match4"]);
+                    }
+
+                    if (isset($_POST["match5"])){
+                        $req = $sql->setGagnantRencontreFinale($_POST["idMatch5"], $_POST["match5"]);
+                    }
+
+                    if (isset($_POST["match6"])){
+                        $req = $sql->setGagnantRencontreFinale($_POST["idMatch6"], $_POST["match6"]);
+                    }
+                    $idPouleFinale = $sql->getIDPouleFinale($id_tournoi,$sql->getIdJeu($id_jeu));
+                    if ($sql->pouleFinaleTerminer($idPouleFinale)){
+                        echo "La poule finale est terminée";
+                       
+                        
+                        $bracket->updateClassementGeneral($idPouleFinale, $id_tournoi);
+                    }else{
+                        echo "La poule finale n'est pas terminée";
+                    }
+                 }
+                 $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
                 
-                    $bracket->genererPouleFinale($id_tournoi,$sql->getIdJeu($id_jeu),$reqPoule);
-                }
-            }
-
-            $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
-
+           
         ?>
 
         <main class="main-listes">
@@ -95,7 +141,9 @@
 
                             <div class="poule-gauche">
                                 <?php
+                                $num_poule = 0;
                                     while ($poule = $reqPoule -> fetch()){
+                                        $num_poule++;
                                         $reqEquipePouleTrie = $sql -> getEquipePouleTrie($poule[0]);
                                         $clair = 0;
                                         echo '
@@ -142,6 +190,7 @@
                                             <h1>Poule ' . $nomPouleAffiche . '</h1>
                                             <div class="tout-match">';
                                             $num_match = 1;
+                                            
                                 
                                             while ($rencontre = $reqRecontre -> fetch()){
                                                 $nomEquipe1 = $sql -> getNomEquipeById($rencontre[1]) -> fetch()[0];
@@ -206,8 +255,14 @@
                                                 ';
                                                 }
                                                 $num_match += 1;
+                                                
                                             }
-                                            echo '<button type="submit" class="submit submit-valider" name="valider">Valider</button>';
+                                            
+                                            if ($nomPouleAffiche == "Finale"){
+                                                echo '<button type="submit" class="submit submit-valider" name="valider_finale">Valider v2</button>';
+                                            }else{
+                                                echo '<button type="submit" class="submit submit-valider" name="valider">Valider</button>';        
+                                            }
                                     echo' </div>
                                         </div>
                                     ';

@@ -642,14 +642,18 @@ class requeteSQL
             'idPoule' => $idPoule
             
         ));
-        return $req;
+        $equipePouleFinale = array();
+        while ($row = $req->fetch()) {
+            array_push($equipePouleFinale, $row['id_Equipe']);
+        }
+        return $equipePouleFinale;
     }
 
     public function updateClassementEquipe($idEquipe, $nbPoint){
         $req = $this->linkpdo->prepare('UPDATE equipe SET Nb_pts_Champ = Nb_pts_Champ + :nbPoint  WHERE id_Equipe = :idEquipe');
         $req->execute(array(
             'idEquipe' => $idEquipe,
-            'idPoint' => $nbPoint
+            'nbPoint' => $nbPoint
         ));
     }
 
@@ -1106,6 +1110,16 @@ class requeteSQL
         return $req;
     }
 
+    public function setGagnantRencontreFinale($id_rencontre, $id_equipe){
+        $req = $this->linkpdo->prepare("UPDATE rencontre SET gagnant = :id_equipe WHERE id_rencontre = :id_rencontre ");
+        $testreq = $req->execute(
+            array(
+                "id_equipe" => $id_equipe,
+                "id_rencontre" => $id_rencontre
+            )
+        );
+    }
+
     public function getGagnantRencontre($id_rencontre){
         $req = $this -> linkpdo -> prepare("SELECT nom FROM rencontre, equipe WHERE equipe.id_equipe = rencontre.gagnant AND rencontre.id_rencontre = :id_rencontre");
         $testreq = $req->execute(
@@ -1134,6 +1148,58 @@ class requeteSQL
         while ($datas = $req->fetch()){
             return $datas['MAX(Id_Poule)'];
         }
+    }
+
+    public function getResultatFinaux($idPoule){
+        $req = $this->linkpdo->prepare("SELECT id_equipe, count(gagnant) FROM rencontre WHERE id_Poule = :idPoule group by gagnant order by 2 desc");
+        $testreq = $req->execute(
+            array(
+                "idPoule" => $idPoule
+            )
+        );
+        return $req;
+    }
+
+    public function pouleFinaleTerminer($idPoule ){
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM rencontre WHERE id_Poule = :idPoule and gagnant is null");
+        $testreq = $req->execute(
+            array(
+                "idPoule" => $idPoule
+            )
+        );
+        $datas = $req->fetch();
+        if ($datas['count(*)'] == 0){
+            return true;
+        }
+        return false;
+    }
+
+    public function getIDPouleFinale($idTournoi, $idJeu){
+        $req = $this->linkpdo->prepare('SELECT Id_Poule from poule where Id_Tournoi = :idTournoi and id_jeu = :idJeu and libelle = "Finale"');
+        $testreq = $req->execute(
+            array(
+                "idTournoi" => $idTournoi,
+                "idJeu" => $idJeu
+            )
+        );
+        
+        while ($datas = $req->fetch()){
+            print_r($datas['Id_Poule']);
+            return $datas['Id_Poule'];
+        }
+    }
+
+    public function getPerdantFinale($idPoule){
+        $req = $this->linkpdo->prepare('select distinct id_Equipe from rencontre where Id_Poule = :idPoule and id_Equipe not in ( SELECT id_Equipe FROM rencontre WHERE id_Poule = :idPoule group by gagnant) union select DISTINCT Id_Equipe_1 from rencontre where Id_Poule = :idPoule and Id_Equipe_1 not in ( SELECT id_equipe FROM rencontre WHERE id_Poule = :idPoule group by gagnant);');
+        $req->execute(array(
+            'idPoule' => $idPoule
+            
+        ));
+        $equipePouleFinale = array();
+        while ($row = $req->fetch()) {
+            array_push($equipePouleFinale, $row['id_Equipe']);
+        }
+        return $equipePouleFinale;
     }
 
 }
