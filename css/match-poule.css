@@ -127,8 +127,10 @@ h3 {
 }
 
 svg {
-    width: 30px;
-    height: 30px;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
 }
 
 .gagnantRencontre {

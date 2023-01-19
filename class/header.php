@@ -176,7 +176,7 @@ class Header
         return '
         <li class="navbar-item"><a href="#" class="navbar-link">Arbitre</a>
         <ul class="sousmenu">
-            <li class="navbar-item"><a href="' . $this->pathlistetournoiarbitre . '" class="navbar-link">Liste Tournoi</a>
+            <li class="navbar-item"><a href="' . $this->pathlistetournoiarbitre . '" class="navbar-link">Rentrer résultats</a>
         </ul>
         </li>
         <li class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></li>
