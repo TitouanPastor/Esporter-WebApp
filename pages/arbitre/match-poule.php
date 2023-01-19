@@ -118,13 +118,13 @@
                         $req = $sql->setGagnantRencontreFinale($_POST["idMatch6"], $_POST["match6"]);
                     }
                     $idPouleFinale = $sql->getIDPouleFinale($id_tournoi,$sql->getIdJeu($id_jeu));
+                    
                     if ($sql->pouleFinaleTerminer($idPouleFinale)){
-                        echo "La poule finale est terminée";
-                       
+                        
                         
                         $bracket->updateClassementGeneral($idPouleFinale, $id_tournoi);
                     }else{
-                        echo "La poule finale n'est pas terminée";
+                        
                     }
                  }
                  $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
