@@ -22,7 +22,7 @@ class Header
     {
         if ($etage == 0) {
             $this->pathindex = "index.php";
-            $this->pathresultats = "pages/visiteur/resultats.php";
+            $this->pathresultats = "pages/visiteur/liste-tournois-commence.php";
             $this->pathcalendrier = "pages/visiteur/calendrier.php";
             $this->pathconnexion = "pages/visiteur/login.php";
             $this->pathaddtournoi = "pages/admin/creation-tournoi.php";
@@ -38,7 +38,7 @@ class Header
             $this->pathClassementCm = "pages/visiteur/classementCM.php";
         } elseif ($etage == 1) {
             $this->pathindex = "../index.php";
-            $this->pathresultats = "visiteur/resultats.php";
+            $this->pathresultats = "visiteur/liste-tournois-commence.php";
             $this->pathcalendrier = "visiteur/calendrier.php";
             $this->pathconnexion = "visiteur/login.php";
             $this->pathaddtournoi = "admin/creation-tournoi.php";
@@ -54,7 +54,7 @@ class Header
             $this->pathClassementCm = "visiteur/classementCM.php";
         } elseif ($etage == 2) {
             $this->pathindex = "../../index.php";
-            $this->pathresultats = "../visiteur/resultats.php";
+            $this->pathresultats = "../visiteur/liste-tournois-commence.php";
             $this->pathcalendrier = "../visiteur/calendrier.php";
             $this->pathconnexion = "../visiteur/login.php";
             $this->pathaddtournoi = "../admin/creation-tournoi.php";

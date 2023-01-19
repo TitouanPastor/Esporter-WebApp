@@ -832,3 +832,15 @@ form.form-ajout-joueur {
   gap: 12px;
   padding: 0 15px;
 }
+
+/*
+  match-poule-resultat
+  match-poule-resultat
+  match-poule-resultat
+  match-poule-resultat
+*/
+
+.rencontre-equipe {
+  display: flex;
+  flex-direction: column;
+}
