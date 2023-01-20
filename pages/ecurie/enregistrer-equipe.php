@@ -111,7 +111,7 @@ if (isset($_POST['ajouter'])) {
                         </div>
                         <div class="creation-tournoi-input">
                             <label for="mdp-equipe">Mot de Passe</label>
-                            <input type="text" name="mdp-equipe" id="mdp-equipe">
+                            <input type="password" name="mdp-equipe" id="mdp-equipe">
                         </div>
                     </div>
                 </div>
