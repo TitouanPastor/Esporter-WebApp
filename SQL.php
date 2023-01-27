@@ -78,15 +78,15 @@ class requeteSQL
 
 
     //Fonction pour ajouter un tournoi
-    public function addTournoi($Type, $nom, $date_deb, $date_fin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre)
+    public function addTournoi($Type, $nom, $dateDeb, $dateFin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre)
     {
         $req = $this->linkpdo->prepare('INSERT INTO tournoi VALUES (NULL, :TypeT, :Nom, :Date_debut, :Date_fin, :Lieu, :NbPtsMax, :IdGestionnaireEsport, :IdArbitre,0)');
         $req->execute(
             array(
                 'TypeT' => $Type,
                 'Nom' => $nom,
-                'Date_debut' => $date_deb,
-                'Date_fin' => $date_fin,
+                'Date_debut' => $dateDeb,
+                'Date_fin' => $dateFin,
                 'Lieu' => $lieu,
                 'NbPtsMax' => $nbPtsMax,
                 'IdGestionnaireEsport' => $IdGestionnaireEsport,
@@ -178,7 +178,7 @@ class requeteSQL
 
 
     //Fonction pour ajouter une ecurie
-    public function addEcurie($nom, $statut, $mdp, $mail, $id_gestionnaireEsport)
+    public function addEcurie($nom, $statut, $mdp, $mail, $idGestionnaireEsport)
     {
         $req = $this->linkpdo->prepare('INSERT INTO ecurie VALUES (NULL, :Nom, :Statut, :mdp, :mail, :id_gestionnaireEsport)');
         $req->execute(
@@ -187,7 +187,7 @@ class requeteSQL
                 'Statut' => $statut,
                 'mdp' => $mdp,
                 'mail' => $mail,
-                'id_gestionnaireEsport' => $id_gestionnaireEsport
+                'id_gestionnaireEsport' => $idGestionnaireEsport
             )
         );
     }
@@ -236,7 +236,7 @@ class requeteSQL
 
 
     //Fonction pour ajouter une equipe
-    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $id_jeu, $id_ecurie)
+    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $idJeu, $idEcurie)
     {
         $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :mdp, :mail, :nbPtsChamps, :id_jeu, :id_ecurie)');
         $req->execute(
@@ -245,8 +245,8 @@ class requeteSQL
                 'mdp' => $mdp,
                 'mail' => $mail,
                 'nbPtsChamps' => $nbPtsChamps,
-                'id_ecurie' => $id_ecurie,
-                'id_jeu' => $id_jeu
+                'id_ecurie' => $idEcurie,
+                'id_jeu' => $idJeu
             )
         );
     }
@@ -288,9 +288,9 @@ class requeteSQL
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
     //Sprint 3 & (en travaux) 
 
-    public function getTournoi($idequipe = 0)
+    public function getTournoi($idEquipe = 0)
     {
-        if ($idequipe == 0) {
+        if ($idEquipe == 0) {
             $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by estFerme desc, id_tournoi");
             $req->execute();
             return $req;
@@ -298,16 +298,16 @@ class requeteSQL
             $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe");
             $req->execute(
                 array(
-                    'IdEquipe' => $idequipe
+                    'IdEquipe' => $idEquipe
                 )
             );
             return $req;
         }
     }
 
-    public function tournoisByType($idequipe = 0)
+    public function tournoisByType($idEquipe = 0)
     {
-        if ($idequipe == 0) {
+        if ($idEquipe == 0) {
             $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Type");
             $req->execute();
             return $req;
@@ -315,16 +315,16 @@ class requeteSQL
             $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by Type");
             $req->execute(
                 array(
-                    'IdEquipe' => $idequipe
+                    'IdEquipe' => $idEquipe
                 )
             );
             return $req;
         }
     }
 
-    public function tournoisByLieu($idequipe = 0)
+    public function tournoisByLieu($idEquipe = 0)
     {
-        if ($idequipe == 0) {
+        if ($idEquipe == 0) {
             $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by lieu");
             $req->execute();
             return $req;
@@ -332,16 +332,16 @@ class requeteSQL
             $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by lieu");
             $req->execute(
                 array(
-                    'IdEquipe' => $idequipe
+                    'IdEquipe' => $idEquipe
                 )
             );
             return $req;
         }
     }
 
-    public function tournoisByNom($idequipe = 0)
+    public function tournoisByNom($idEquipe = 0)
     {
-        if ($idequipe == 0) {
+        if ($idEquipe == 0) {
             $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Nom");
             $req->execute();
             return $req;
@@ -349,16 +349,16 @@ class requeteSQL
             $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by Nom");
             $req->execute(
                 array(
-                    'IdEquipe' => $idequipe
+                    'IdEquipe' => $idEquipe
                 )
             );
             return $req;
         }
     }
 
-    public function tournoisByDate($idequipe = 0)
+    public function tournoisByDate($idEquipe = 0)
     {
-        if ($idequipe == 0) {
+        if ($idEquipe == 0) {
             $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Date_Debut");
             $req->execute();
             return $req;
@@ -366,7 +366,7 @@ class requeteSQL
             $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by Date_Debut");
             $req->execute(
                 array(
-                    'IdEquipe' => $idequipe
+                    'IdEquipe' => $idEquipe
                 )
             );
             return $req;
@@ -376,8 +376,8 @@ class requeteSQL
     public function getTournoiCommence()
     {
         $req = $this->linkpdo->prepare("SELECT nom, date_debut, id_tournoi FROM tournoi where tournoi.date_debut < curdate()");
-        $testreq = $req->execute();
-        if ($testreq == false) {
+        $testReq = $req->execute();
+        if ($testReq == false) {
             die('Erreur getTournoiCommence');
         }
         return $req;
@@ -392,44 +392,44 @@ class requeteSQL
         // $param[2] = tournoi.jeu ('default')
         if ($param[0] == null and $param[1] == 'default') { // jeu
             $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle FROM tournoi, concerner, jeu WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND jeu.libelle = :libelle ORDER BY tournoi.date_debut');
-            $testreq = $req->execute(array("libelle" => $param[2]));
-            if ($testreq == false) {
+            $testReq = $req->execute(array("libelle" => $param[2]));
+            if ($testReq == false) {
                 die('Erreur getTournoiCalendrier (SQL.php) execute 1');
             }
         } elseif ($param[0] == null and $param[2] == 'default') { // nom
             $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle FROM tournoi, jeu, concerner WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND tournoi.nom = :nom ORDER BY tournoi.date_debut');
-            $testreq = $req->execute(array("nom" => $param[1]));
-            if ($testreq == false) {
+            $testReq = $req->execute(array("nom" => $param[1]));
+            if ($testReq == false) {
                 die('Erreur getTournoiCalendrier (SQL.php) execute 2');
             }
         } elseif ($param[1] == 'default' and $param[2] == 'default') { //date
             $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle FROM tournoi, jeu, concerner WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND tournoi.date_debut > :date_tournoi ORDER BY tournoi.date_debut');
-            $testreq = $req->execute(array("date_tournoi" => $param[0]));
-            if ($testreq == null) {
+            $testReq = $req->execute(array("date_tournoi" => $param[0]));
+            if ($testReq == null) {
                 die('Erreur getTournoiCalendrier (SQL.php) execute 3');
             }
         } elseif ($param[0] == null) { // nom + jeu
             $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_jeu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.nom = :nom ORDER BY tournoi.date_debut');
-            $testreq = $req->execute(array("libelle" => $param[2], "nom" => $param[1]));
-            if ($testreq == false) {
+            $testReq = $req->execute(array("libelle" => $param[2], "nom" => $param[1]));
+            if ($testReq == false) {
                 die('Erreur getTournoiCalendrier (SQL.php) execute 4');
             }
         } elseif ($param[1] == 'default') { // date + jeu
             $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_jeu = jeu.id_jeu and jeu.libelle = :libelle and tournoi.date_debut > :date_tournoi ORDER BY tournoi.date_debut');
-            $testreq = $req->execute(array("libelle" => $param[2], "date_tournoi" => $param[0]));
-            if ($testreq == false) {
+            $testReq = $req->execute(array("libelle" => $param[2], "date_tournoi" => $param[0]));
+            if ($testReq == false) {
                 die('Erreur getTournoiCalendrier (SQL.php) execute 5');
             }
         } elseif ($param[2] == 'default') { // date + nom
             $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_jeu = jeu.id_jeu and tournoi.nom = :nom and tournoi.date_debut > :date_tournoi ORDER BY tournoi.date_debut');
-            $testreq = $req->execute(array("nom" => $param[1], "date_tournoi" => $param[0]));
-            if ($testreq == false) {
+            $testReq = $req->execute(array("nom" => $param[1], "date_tournoi" => $param[0]));
+            if ($testReq == false) {
                 die('Erreur getTournoiCalendrier (SQL.php) execute 6');
             }
         } else { // date + nom + jeu
             $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut, jeu.libelle from tournoi, jeu, concerner where tournoi.id_tournoi = concerner.id_tournoi and concerner.id_jeu = jeu.id_jeu and tournoi.nom = :nom and tournoi.date_debut > :date_tournoi and jeu.libelle = :libelle ORDER BY tournoi.date_debut');
-            $testreq = $req->execute(array("date_tournoi" => $param[0], "nom" => $param[1], "libelle" => $param[2]));
-            if ($testreq == false) {
+            $testReq = $req->execute(array("date_tournoi" => $param[0], "nom" => $param[1], "libelle" => $param[2]));
+            if ($testReq == false) {
                 die('Erreur getTournoiCalendrier (SQL.php) execute 7');
             }
         }
@@ -442,8 +442,8 @@ class requeteSQL
     public function getClassementCM($idJeu)
     {
         $req = $this->linkpdo->prepare('SELECT equipe.nom, equipe.nb_pts_champ FROM equipe, jeu WHERE equipe.id_jeu = jeu.id_jeu AND jeu.Id_Jeu = :idJeu ORDER BY equipe.nb_pts_champ DESC');
-        $testreq = $req->execute(array("idJeu" => $idJeu));
-        if ($testreq == false) {
+        $testReq = $req->execute(array("idJeu" => $idJeu));
+        if ($testReq == false) {
             die('Erreur getClassementCMr (SQL.php) execute 2');
         }
 
@@ -452,11 +452,11 @@ class requeteSQL
 
 
     //Fonction qui renvoie tournoi.nom, tournoi.date, nb de place disponible
-    public function getTournoiInscription($jeu_libelle)
+    public function getTournoiInscription($jeuLibelle)
     {
         $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut,tournoi.id_tournoi FROM tournoi, concerner, jeu WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND jeu.libelle = :libelle ORDER BY tournoi.date_debut');
-        $testreq = $req->execute(array("libelle" => $jeu_libelle));
-        if ($testreq == false) {
+        $testReq = $req->execute(array("libelle" => $jeuLibelle));
+        if ($testReq == false) {
             die('Erreur getTournoiInscription');
         }
         return $req;
@@ -465,19 +465,19 @@ class requeteSQL
     public function getJeuEquipe($username)
     {
         $req = $this->linkpdo->prepare("SELECT jeu.libelle FROM jeu, equipe WHERE equipe.id_jeu = jeu.id_jeu AND equipe.mail = :username");
-        $testreq = $req->execute(array("username" => $username));
-        if ($testreq == false) {
+        $testReq = $req->execute(array("username" => $username));
+        if ($testReq == false) {
             die("Erreur getJeuEquipe");
         }
         return $req;
     }
 
     //Renvoie le nombre de
-    public function estInscritTournoi($mail, $tournoi_nom)
+    public function estInscritTournoi($mail, $tournoiNom)
     {
         $req = $this->linkpdo->prepare("SELECT count(*) FROM equipe, etre_inscrit, tournoi WHERE equipe.id_equipe = etre_inscrit.id_equipe AND etre_inscrit.id_tournoi = tournoi.id_tournoi AND equipe.mail = :equipe_mail AND tournoi.nom = :tournoi_nom");
-        $testreq = $req->execute(array("equipe_mail" => $mail, "tournoi_nom" => $tournoi_nom));
-        if ($testreq == false) {
+        $testReq = $req->execute(array("equipe_mail" => $mail, "tournoi_nom" => $tournoiNom));
+        if ($testReq == false) {
             die('Erreur estInscritTournoi');
         }
         $req = $req->fetchColumn();
@@ -491,7 +491,7 @@ class requeteSQL
         //$param[1] = id_tournoi
         //$param[2] = id_jeu 
         $req = $this->linkpdo->prepare("INSERT INTO etre_inscrit VALUE (:id_equipe,:id_tournoi,:id_jeu, :id_poule, 0)");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_equipe" => $param[0],
                 "id_tournoi" => $param[1],
@@ -499,7 +499,7 @@ class requeteSQL
                 "id_poule" => NULL
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die('Erreur inscriptionTournoi');
         }
         return $req;
@@ -509,8 +509,8 @@ class requeteSQL
     public function getIdEquipe($username)
     {
         $req = $this->linkpdo->prepare("SELECT id_equipe from equipe WHERE equipe.mail = :username");
-        $testreq = $req->execute(array("username" => $username));
-        if ($testreq == false) {
+        $testReq = $req->execute(array("username" => $username));
+        if ($testReq == false) {
             die("Erreur getIdEquipe");
         }
         return $req->fetchColumn();
@@ -519,8 +519,8 @@ class requeteSQL
     public function getIdEquipeByMail($mail)
     {
         $req = $this->linkpdo->prepare("SELECT id_equipe from equipe WHERE equipe.mail = :mail");
-        $testreq = $req->execute(array("mail" => $mail));
-        if ($testreq == false) {
+        $testReq = $req->execute(array("mail" => $mail));
+        if ($testReq == false) {
             die("Erreur getIdEquipe");
         }
         while ($row = $req->fetch()) {
@@ -534,12 +534,12 @@ class requeteSQL
     public function getIdJeu($libelle)
     {
         $req = $this->linkpdo->prepare("SELECT id_jeu FROM jeu where libelle = :libelle");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "libelle" => $libelle
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die('Erreur getIDJeu');
         }
         return $req->fetchColumn();
@@ -548,12 +548,12 @@ class requeteSQL
     public function getIdJeuByLibelle($libelle)
     {
         $req = $this->linkpdo->prepare("SELECT id_jeu FROM jeu where libelle = :libelle");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "libelle" => $libelle
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die('Erreur getIDJeu');
         }
         while ($row = $req->fetch()) {
@@ -562,10 +562,10 @@ class requeteSQL
     }
 
     //Fonctiion pour récupérer l'id d'une écurie à partir de son nom
-    public function getIdEcurie($mail_ecurie)
+    public function getIdEcurie($mailEcurie)
     {
         $req = $this->linkpdo->prepare("SELECT id_ecurie from ecurie WHERE ecurie.mail= :mail_ecurie");
-        $req = $req->execute(array("mail_ecurie" => $mail_ecurie));
+        $req = $req->execute(array("mail_ecurie" => $mailEcurie));
         if ($req == false) {
             die("Erreur getIdEcurie");
         }
@@ -576,8 +576,8 @@ class requeteSQL
     public function getNbEquipeTournoi($nom_tournoi)
     {
         $req = $this->linkpdo->prepare("SELECT count(*) FROM tournoi,etre_inscrit WHERE etre_inscrit.id_tournoi = tournoi.id_tournoi AND tournoi.nom = :nom_tournoi");
-        $testreq = $req->execute(array("nom_tournoi" => $nom_tournoi));
-        if ($testreq == false) {
+        $testReq = $req->execute(array("nom_tournoi" => $nom_tournoi));
+        if ($testReq == false) {
             die("Erreur getNbEquipeTournoi");
         }
         return $req;
@@ -836,23 +836,23 @@ class requeteSQL
         return $req;
     }
 
-    public function equipeByNom($id_ecurie)
+    public function equipeByNom($idEcurie)
     {
         $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nom ASC');
         $req->execute(
             array(
-                'id_ecurie' => $id_ecurie
+                'id_ecurie' => $idEcurie
             )
         );
         return $req;
     }
 
-    public function equipeByPoint($id_ecurie)
+    public function equipeByPoint($idEcurie)
     {
         $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nb_pts_Champ DESC');
         $req->execute(
             array(
-                'id_ecurie' => $id_ecurie
+                'id_ecurie' => $idEcurie
             )
         );
         return $req;
@@ -1042,12 +1042,12 @@ class requeteSQL
     public function getTournoiNomByIdTournoi($id_tournoi)
     {
         $req = $this->linkpdo->prepare("SELECT nom FROM tournoi WHERE id_tournoi = :id_tournoi");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_tournoi" => $id_tournoi
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die("Erreur getTournoiNomByIdTournoi");
         }
         return $req;
@@ -1059,12 +1059,12 @@ class requeteSQL
     public function getPouleByIdTournoi($id_tournoi)
     {
         $req = $this->linkpdo->prepare("SELECT id_poule, libelle FROM poule WHERE id_tournoi = :id_tournoi");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_tournoi" => $id_tournoi
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die('Erreur getPouleByIdTournoi');
         }
         return $req;
@@ -1073,12 +1073,12 @@ class requeteSQL
     public function getPouleIdTournoi($id_tournoi)
     {
         $req = $this->linkpdo->prepare("SELECT Id_Poule FROM poule WHERE id_tournoi = :id_tournoi");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_tournoi" => $id_tournoi
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die('Erreur getPouleByIdTournoi');
         }
         $idsPoule = array();
@@ -1091,12 +1091,12 @@ class requeteSQL
     public function getNomPoule($id_poule)
     {
         $req = $this->linkpdo->prepare("SELECT libelle FROM poule WHERE id_poule = :id_poule");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_poule" => $id_poule
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die("Error getNomPoule");
         }
         return $req;
@@ -1105,7 +1105,7 @@ class requeteSQL
     public function getRencontre($id_poule)
     {
         $req = $this->linkpdo->prepare("SELECT * FROM rencontre WHERE id_poule = :id_poule");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_poule" => $id_poule
             )
@@ -1116,12 +1116,12 @@ class requeteSQL
     public function getNomEquipeById($id_equipe)
     {
         $req = $this->linkpdo->prepare("SELECT nom FROM equipe WHERE id_equipe = :id_equipe");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_equipe" => $id_equipe
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die("Erreur getNomEquipeById");
         }
         return $req;
@@ -1130,12 +1130,12 @@ class requeteSQL
     public function getEquipeByIdPoule($id_poule)
     {
         $req = $this->linkpdo->prepare("SELECT id_equipe, nom FROM equipe, etre_inscrit WHERE equipe.id_equipe = etre_inscrit.id_equipe AND etre_inscrit.id_poule = :id_poule ");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_poule" => $id_poule
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die('Erreur getEquipeByIdPoule');
         }
         return $req;
@@ -1144,12 +1144,12 @@ class requeteSQL
     public function getEquipePouleTrie1($id_poule)
     {
         $req = $this->linkpdo->prepare("SELECT equipe.nom, etre_inscrit.nb_match_gagne FROM equipe, etre_inscrit WHERE equipe.id_equipe = etre_inscrit.id_equipe ANd etre_inscrit.id_poule = :id_poule ORDER BY nb_match_gagne desc");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_poule" => $id_poule
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die("Error getEquipePouleTrie");
         }
         return $req;
@@ -1158,12 +1158,12 @@ class requeteSQL
     public function getRencontrePoule($id_poule)
     {
         $req = $this->linkpdo->prepare("SELECT rencontre.id_equipe, id_equipe1 FROM rencontre, equipe WHERE id_poule = :id_poule");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_poule" => $id_poule
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die('Error getRencontrePoule');
         }
         return $req;
@@ -1172,12 +1172,12 @@ class requeteSQL
     public function getEquipeRencontre($id_rencontre)
     {
         $req = $this->linkpdo->prepare("SELECT nom FROM equipe, rencontre WHERE rencontre.id_rencontre = :id_rencontre");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_rencontre" => $id_rencontre
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die('Error getEquipeRencontre');
         }
         return $req;
@@ -1195,7 +1195,7 @@ class requeteSQL
         $idPoule = $reqIdPoule->fetch()[0];
 
         $req = $this->linkpdo->prepare("UPDATE etre_inscrit SET nb_match_gagne = nb_match_gagne + 1 WHERE id_equipe = :id_equipe AND id_poule = :id_poule");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_equipe" => $id_equipe,
                 "id_poule" => $idPoule
@@ -1206,13 +1206,13 @@ class requeteSQL
     public function setGagnantRencontre($id_rencontre, $id_equipe)
     {
         $req = $this->linkpdo->prepare("UPDATE rencontre SET gagnant = :id_equipe WHERE id_rencontre = :id_rencontre ");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_equipe" => $id_equipe,
                 "id_rencontre" => $id_rencontre
             )
         );
-        if ($testreq == false) {
+        if ($testReq == false) {
             die("erreur setGagnantRencontre");
             exit(2);
         }
@@ -1223,7 +1223,7 @@ class requeteSQL
     public function setGagnantRencontreFinale($id_rencontre, $id_equipe)
     {
         $req = $this->linkpdo->prepare("UPDATE rencontre SET gagnant = :id_equipe WHERE id_rencontre = :id_rencontre ");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_equipe" => $id_equipe,
                 "id_rencontre" => $id_rencontre
@@ -1234,7 +1234,7 @@ class requeteSQL
     public function getGagnantRencontre($id_rencontre)
     {
         $req = $this->linkpdo->prepare("SELECT nom FROM rencontre, equipe WHERE equipe.id_equipe = rencontre.gagnant AND rencontre.id_rencontre = :id_rencontre");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "id_rencontre" => $id_rencontre
             )
@@ -1245,7 +1245,7 @@ class requeteSQL
     public function getFinalistePoule($idTournoi, $idJeu, $idPoule)
     {
         $req = $this->linkpdo->prepare("SELECT id_Equipe FROM etre_inscrit, poule WHERE etre_inscrit.id_Tournoi = :idTournoi and etre_inscrit.id_Jeu = :idJeu and etre_inscrit.id_Poule = :idPoule ORDER BY nb_Match_Gagne DESC LIMIT 1");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "idTournoi" => $idTournoi,
                 "idJeu" => $idJeu,
@@ -1267,7 +1267,7 @@ class requeteSQL
     public function getResultatFinaux($idPoule)
     {
         $req = $this->linkpdo->prepare("SELECT equipe.id_equipe, count(gagnant), nom FROM rencontre, equipe WHERE rencontre.id_equipe = equipe.id_equipe AND id_Poule = :idPoule group by gagnant order by 2 desc");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "idPoule" => $idPoule
             )
@@ -1278,7 +1278,7 @@ class requeteSQL
     public function pouleFinaleTerminer($idPoule)
     {
         $req = $this->linkpdo->prepare("SELECT count(*) FROM rencontre WHERE id_Poule = :idPoule and gagnant is null");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "idPoule" => $idPoule
             )
@@ -1293,7 +1293,7 @@ class requeteSQL
     public function getIDPouleFinale($idTournoi, $idJeu)
     {
         $req = $this->linkpdo->prepare('SELECT Id_Poule from poule where Id_Tournoi = :idTournoi and id_jeu = :idJeu and libelle = "Finale"');
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "idTournoi" => $idTournoi,
                 "idJeu" => $idJeu
@@ -1317,7 +1317,7 @@ class requeteSQL
     public function isTournoiTermine($idTournoi)
     {
         $req = $this->linkpdo->prepare("SELECT estFerme FROM tournoi WHERE id_Tournoi = :idTournoi");
-        $testreq = $req->execute(
+        $testReq = $req->execute(
             array(
                 "idTournoi" => $idTournoi
             )
@@ -1362,7 +1362,7 @@ class requeteSQL
             matchs_gagnes
         DESC");
 
-        $testreq = $req -> execute(
+        $testReq = $req -> execute(
             array(
                 "id_poule" => $idPoule
             )
