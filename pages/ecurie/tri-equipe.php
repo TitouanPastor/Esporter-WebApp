@@ -6,15 +6,15 @@ class TriEquipe
     private $req;
     private $sql;
     private $nbEcuries;
-    private $id_ecurie;
+    private $idEcurie;
 
 
     public function __construct($idEcurie)
     {
         require_once('../../SQL.php');
         $this->sql = new requeteSQL();
-        $this->id_ecurie = $idEcurie;
-        $this->req = $this->sql->getEquipeEcurie($this->id_ecurie);
+        $this->idEcurie = $idEcurie;
+        $this->req = $this->sql->getEquipeEcurie($this->idEcurie);
         $this->nbEcuries = $this->req->rowCount();
         
     }
@@ -22,7 +22,7 @@ class TriEquipe
 
 
     //function qui affiche une écurie
-    public function afficherUneEcurie($nom, $point, $id_equipe)
+    public function afficherUneEcurie($nom, $point, $idEquipe)
     {
         
         
@@ -33,11 +33,11 @@ class TriEquipe
             </div>
             <div class="description-tournoi">';
             $str.='<div class=equipe_container>';
-            $jeu = $this->sql->getJeuByIdEquipe($id_equipe);
+            $jeu = $this->sql->getJeuByIdEquipe($idEquipe);
             while ($je = $jeu->fetch()){
                 $str .= '<p> L\'équipe joue sur le jeu : <strong>' . $je['Libelle'].'</strong></p><br><p> Les joueurs de l\'équipe : ';
             }
-            $joueur  = $this->sql->getJoueurByIdEquipe($id_equipe);
+            $joueur  = $this->sql->getJoueurByIdEquipe($idEquipe);
             while ($j = $joueur->fetch()){
                 $str .=  '<p class="liste-joueur"> - '. $j["Pseudo"].' </p> ';
             }
@@ -69,13 +69,13 @@ class TriEquipe
 
     public function getIdEcure(): int
     {
-        return $this->id_ecurie;
+        return $this->idEcurie;
     }
 
     //Fonction trie les écuries par statut
     public function trierParPoint()
     {
-        $this->req = $this->sql->equipeByPoint($this->id_ecurie);
+        $this->req = $this->sql->equipeByPoint($this->idEcurie);
         $this->afficherLesEcuries();
     }
 
@@ -83,7 +83,7 @@ class TriEquipe
     //Fonction trie les écuries par nom
     public function trierParNom()
     {
-        $this->req = $this->sql->equipeByNom($this->id_ecurie);
+        $this->req = $this->sql->equipeByNom($this->idEcurie);
         $this->afficherLesEcuries();
     }
 
@@ -92,7 +92,7 @@ class TriEquipe
     public function trierParId()
     {
 
-        $this->req = $this->sql->getEquipeEcurie($this->id_ecurie);
+        $this->req = $this->sql->getEquipeEcurie($this->idEcurie);
         $this->afficherLesEcuries();
     }
 }

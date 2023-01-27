@@ -65,8 +65,8 @@
                 require_once(realpath(dirname(__FILE__) . '/tri-equipe.php'));
                 require_once('../../SQL.php');
                 $sql = new requeteSQL();
-                $id_ecurie = $sql->getIdEcurieByMail($_SESSION['username']);
-                $triEquipe = new TriEquipe($id_ecurie);
+                $idEcurie = $sql->getIdEcurieByMail($_SESSION['username']);
+                $triEquipe = new TriEquipe($idEcurie);
                 ?>
 
                 <div id="filter1" class="liste">
