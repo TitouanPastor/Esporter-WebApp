@@ -29,19 +29,19 @@
             $bracket = new bracket();
 
             //Id
-            $id_tournoi = $_GET["id_tournoi"];
-            $id_jeu = $_GET["id_jeu"];
+           $idTournoi = $_GET["id_tournoi"];
+            $idJeu = $_GET["id_jeu"];
 
             //Nom tournoi par id_tournoi
-            $reqNomTournoi = $sql -> getTournoiNomByIdTournoi($id_tournoi) -> fetch()[0];
-            $PoulesTermines = false;
+            $reqNomTournoi = $sql -> getTournoiNomByIdTournoi($idTournoi) -> fetch()[0];
+            $poulesTermines = false;
             $pouleFinaleCreer = false;
             $idPouleFinale = 0;
             
              
 
             //Poule par id_tournoi
-            $reqPoule = $sql->getPouleIdTournoi($id_tournoi);
+            $reqPoule = $sql->getPouleIdTournoi($idTournoi);
 
             //Valider les resultats
             if (isset($_POST["valider"])){
@@ -71,12 +71,12 @@
                         }
 
                     //Verifier que tout les matchs sont terminer
-                    $PoulesTermines = true;
+                    $poulesTermines = true;
                     
                     
                     if ($bracket->pouleTerminer(array_slice($reqPoule, 0, 4))){
                         echo "Toute les poules sont terminées";
-                        $idPouleFinale = $bracket->genererPouleFinale($id_tournoi,$sql->getIdJeu($id_jeu),array_slice($reqPoule, 0, 4));
+                        $idPouleFinale = $bracket->genererPouleFinale($idTournoi,$sql->getIdJeu($idJeu),array_slice($reqPoule, 0, 4));
                         
                     }else{
                         echo "Toute les poules ne sont pas terminées";
@@ -118,18 +118,18 @@
                     if (isset($_POST["match6"])){
                         $req = $sql->setGagnantRencontreFinale($_POST["idMatch6"], $_POST["match6"]);
                     }
-                    $idPouleFinale = $sql->getIDPouleFinale($id_tournoi,$sql->getIdJeu($id_jeu));
+                    $idPouleFinale = $sql->getIDPouleFinale($idTournoi,$sql->getIdJeu($idJeu));
                     
                     if ($sql->pouleFinaleTerminer($idPouleFinale)){
-                    $sql->terminerTournoi($id_tournoi);
+                    $sql->terminerTournoi($idTournoi);
                         
-                        $bracket->updateClassementGeneral($idPouleFinale, $id_tournoi);
+                        $bracket->updateClassementGeneral($idPouleFinale,$idTournoi);
                     }else{
                         
                     }
                  }
 
-                 $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
+                 $reqPoule = $sql->getPouleByIdTournoi($idTournoi);
                 
            
         ?>
@@ -143,9 +143,9 @@
 
                             <div class="poule-gauche">
                                 <?php
-                                $num_poule = 0;
+                                $numPoule = 0;
                                     while ($poule = $reqPoule -> fetch()){
-                                        $num_poule++;
+                                        $numPoule++;
                                         $reqEquipePouleTrie = $sql -> getEquipePouleTrie($poule[0]);
                                         $clair = 0;
                                         echo '
@@ -155,20 +155,20 @@
                                                 </div>
                                             ';
                                         while ($equipe = $reqEquipePouleTrie -> fetch()){
-                                            $equipe_nom = $equipe[0];
-                                            $equipe_nb_match_gagne = $equipe[1];
+                                            $equipeNom = $equipe[0];
+                                            $equipeNbMatchGagne = $equipe[1];
                                             if ($clair % 2 == 0) {
                                                 echo '
                                                     <div class="equipe violet-fonce">
-                                                        <span>' . $equipe_nom . '</span>
-                                                        <div>' . $equipe_nb_match_gagne . ' </div>
+                                                        <span>' . $equipeNom . '</span>
+                                                        <div>' . $equipeNbMatchGagne . ' </div>
                                                     </div>
                                                 ';
                                             } else {
                                                  echo '
                                                     <div class="equipe violet-clair">
-                                                        <span>' . $equipe_nom . '</span>
-                                                        <div>' . $equipe_nb_match_gagne . ' </div>
+                                                        <span>' . $equipeNom . '</span>
+                                                        <div>' . $equipeNbMatchGagne . ' </div>
                                                     </div>
                                                 ';
                                             }
@@ -191,7 +191,7 @@
                                         <div class="poule-droite">
                                             <h1>Poule ' . $nomPouleAffiche . '</h1>
                                             <div class="tout-match">';
-                                            $num_match = 1;
+                                            $numMatch = 1;
                                             
                                 
                                             while ($rencontre = $reqRecontre -> fetch()){
@@ -201,16 +201,16 @@
                                                 if ($rencontre[4] == null){
                                                     echo '
                                                     <div class="match">
-                                                        <h2 class="equipe-match">Match '.$num_match.'</h2>
+                                                        <h2 class="equipe-match">Match '.$numMatch.'</h2>
                                                         <div class="radioEquipe">
-                                                            <input type="hidden" name="idMatch'.$num_match.'" value="'.$rencontre[0].'">
+                                                            <input type="hidden" name="idMatch'.$numMatch.'" value="'.$rencontre[0].'">
                                                             <div class="radioEquipe1">
-                                                                <input type="radio" class="radio" id="choixEquipe'.$num_match.'" name="match'.$num_match.'" value="'.$rencontre[1].'" >
-                                                                <label for="choixEquipe"'.$num_match.'">'.$nomEquipe1.'</label>
+                                                                <input type="radio" class="radio" id="choixEquipe'.$numMatch.'" name="match'.$numMatch.'" value="'.$rencontre[1].'" >
+                                                                <label for="choixEquipe"'.$numMatch.'">'.$nomEquipe1.'</label>
                                                             </div>
                                                             <div class="radioEquipe2">
-                                                                <input type="radio" class="radio" id="choixEquipe'.$num_match.'" name="match'.$num_match.'" value="'.$rencontre[2].'" >
-                                                                <label for="choixEquipe"'.$num_match.'">'.$nomEquipe2.'</label>
+                                                                <input type="radio" class="radio" id="choixEquipe'.$numMatch.'" name="match'.$numMatch.'" value="'.$rencontre[2].'" >
+                                                                <label for="choixEquipe"'.$numMatch.'">'.$nomEquipe2.'</label>
                                                             </div>
                                                         </div>
                                                         
@@ -226,7 +226,7 @@
                                                     
                                                     echo '
                                                         <div class="match">
-                                                            <h2 class="equipe-match">Match '.$num_match.'</h2>
+                                                            <h2 class="equipe-match">Match '.$numMatch.'</h2>
                                                             <div class="container-equipe">
                                                                 <div class="gagnantRencontre">
 
@@ -256,11 +256,11 @@
                                                         </div>
                                                 ';
                                                 }
-                                                $num_match += 1;
+                                                $numMatch += 1;
                                                 
                                             }
                                             
-                                            if (!$sql->isTournoiTermine($id_tournoi)){
+                                            if (!$sql->isTournoiTermine($idTournoi)){
                                                 if ($nomPouleAffiche == "Finale"){
                                                     echo '<button type="submit" class="submit submit-valider" name="valider_finale">Valider les résultats</button>';
                                                 }else{
@@ -273,8 +273,7 @@
                                     ';
                                 }
                             ?>
-            </form>
-                
+                    </form>
             </section>
         </main>
     </body>

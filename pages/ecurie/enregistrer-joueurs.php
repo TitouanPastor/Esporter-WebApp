@@ -24,7 +24,7 @@ if ($_SESSION['role'] == "ecurie") {
 }
 
 // Initialisation des variables
-$info_execution = "";
+$infoExecution = "";
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
 
@@ -108,58 +108,58 @@ if (isset($_POST['ajouter'])) {
                                                                         $sql->addJoueur($_POST['nom-joueur3'], $_POST['prenom-joueur3'], $_POST['dtn-joueur3'], $_POST['pseudo-joueur3'], $_POST['email-joueur3'], $idEquipe);
                                                                         //Ajout du joueur4 
                                                                         $sql->addJoueur($_POST['nom-joueur4'], $_POST['prenom-joueur4'], $_POST['dtn-joueur4'], $_POST['pseudo-joueur4'], $_POST['email-joueur4'], $idEquipe);
-                                                                        $info_execution = 'Joueurs enregistrés !';
+                                                                        $infoExecution = 'Joueurs enregistrés !';
                                                                         header('Location: liste-equipes.php?createEquipe=success');
                                                                     } catch (Exception $e) {
-                                                                        $info_execution = "Erreur : " . $e->getMessage();
+                                                                        $infoExecution = "Erreur : " . $e->getMessage();
                                                                     }
                                                                 } else {
-                                                                    $info_execution = "Un Joueur avec le même pseudo que le Joueur4 existe déjà";
+                                                                    $infoExecution = "Un Joueur avec le même pseudo que le Joueur4 existe déjà";
                                                                 }
                                                             } else {
-                                                                $info_execution = "Un Joueur avec la même adresse mail que le Joueur4 existe déjà ";
+                                                                $infoExecution = "Un Joueur avec la même adresse mail que le Joueur4 existe déjà ";
                                                             }
                                                         } else {
-                                                            $info_execution = "Un Joueur avec le même pseudo que le Joueur3 existe déjà";
+                                                            $infoExecution = "Un Joueur avec le même pseudo que le Joueur3 existe déjà";
                                                         }
                                                     } else {
-                                                        $info_execution = "Un Joueur avec la même adresse mail que le Joueur3 existe déjà ";
+                                                        $infoExecution = "Un Joueur avec la même adresse mail que le Joueur3 existe déjà ";
                                                     }
                                                 } else {
-                                                    $info_execution = "Un Joueur avec le même pseudo que le Joueur2 existe déjà";
+                                                    $infoExecution = "Un Joueur avec le même pseudo que le Joueur2 existe déjà";
                                                 }
                                             } else {
-                                                $info_execution = "Un Joueur avec la même adresse mail que le Joueur2 existe déjà ";
+                                                $infoExecution = "Un Joueur avec la même adresse mail que le Joueur2 existe déjà ";
                                             }
                                         } else {
-                                            $info_execution = "Un Joueur avec le même pseudo que le Joueur1 existe déjà";
+                                            $infoExecution = "Un Joueur avec le même pseudo que le Joueur1 existe déjà";
                                         }
                                     } else {
-                                        $info_execution = "Un Joueur avec la même adresse mail que le Joueur1 existe déjà ";
+                                        $infoExecution = "Un Joueur avec la même adresse mail que le Joueur1 existe déjà ";
                                     }
                                 } else {
-                                    $info_execution = "Le Joueur4 doit avoir plus de 12 ans pour s'inscrire à une équipe d'e-sport";
+                                    $infoExecution = "Le Joueur4 doit avoir plus de 12 ans pour s'inscrire à une équipe d'e-sport";
                                 }
                             } else {
-                                $info_execution = "Le Joueur3 doit avoir plus de 12 ans pour s'inscrire à une équipe d'e-sport";
+                                $infoExecution = "Le Joueur3 doit avoir plus de 12 ans pour s'inscrire à une équipe d'e-sport";
                             }
                         } else {
-                            $info_execution = "Le Joueur2 doit avoir plus de 12 ans pour s'inscrire à une équipe d'e-sport";
+                            $infoExecution = "Le Joueur2 doit avoir plus de 12 ans pour s'inscrire à une équipe d'e-sport";
                         }
                     } else {
-                        $info_execution = "Le Joueur1 doit avoir plus de 12 ans pour s'inscrire à une équipe d'e-sport";
+                        $infoExecution = "Le Joueur1 doit avoir plus de 12 ans pour s'inscrire à une équipe d'e-sport";
                     }
                 } else {
-                    $info_execution = "Veuillez remplir tous les champs du Joueur4";
+                    $infoExecution = "Veuillez remplir tous les champs du Joueur4";
                 }
             } else {
-                $info_execution = "Veuillez remplir tous les champs du Joueur3";
+                $infoExecution = "Veuillez remplir tous les champs du Joueur3";
             }
         } else {
-            $info_execution = "Veuillez remplir tous les champs du Joueur2";
+            $infoExecution = "Veuillez remplir tous les champs du Joueur2";
         }
     } else {
-        $info_execution = "Veuillez remplir tous les champs du Joueur1";
+        $infoExecution = "Veuillez remplir tous les champs du Joueur1";
     }
 }
 
@@ -285,7 +285,7 @@ if (isset($_POST['ajouter'])) {
                     </div>
                 </div>
                 <input class="submit" type="submit" name="ajouter" value="Ajouter">
-                <span><?php echo $info_execution ?> </span>
+                <span><?php echo $infoExecution ?> </span>
             </form>
         </section>
     </main>

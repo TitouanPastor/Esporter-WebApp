@@ -14,7 +14,7 @@ class TriEcuries
         $this->sql = new requeteSQL();
         $this->req = $this->sql->getEcurie();
         $this->nbEcuries = $this->req->rowCount();
-        $this->ecuries = '';
+        
     }
 
 
@@ -32,13 +32,13 @@ class TriEcuries
             <div class="description-tournoi">';
             while ($idEq = $req->fetch()) {
                 $str.='<div class=equipe_container>';
-                $id_equipe = $idEq['Id_Equipe'];
+                $idEquipe = $idEq['Id_Equipe'];
                 $str.='<p>Nom de l\'équipe : <strong>' . $idEq['Nom'] . '</strong></p>';
-                $jeu = $this->sql->getJeuByIdEquipe($id_equipe);
+                $jeu = $this->sql->getJeuByIdEquipe($idEquipe);
                 while ($je = $jeu->fetch()){
                     $str .= '<p> Jeu de l\'équipe: <strong>' . $je['Libelle'].'</strong></p><br><p> Joueurs : ';
                 }
-                $joueur  = $this->sql->getJoueurByIdEquipe($id_equipe);
+                $joueur  = $this->sql->getJoueurByIdEquipe($idEquipe);
                 while ($j = $joueur->fetch()){
                     $str .=  '<p class="liste-joueur"> - '. $j["Pseudo"].' </p> ';
                 }

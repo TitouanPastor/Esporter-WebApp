@@ -24,7 +24,7 @@ if ($_SESSION['role'] == "ecurie") {
 }
 
 // Initialisation des variables
-$info_execution = "";
+$infoExecution = "";
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
 $reqJeu = $sql->getJeux();
@@ -60,22 +60,22 @@ if (isset($_POST['ajouter'])) {
                     try {
                         //Ajout d'une équipe (le 0 correspond au nombre de point au championnat initialisé à 0)
                         $sql->addEquipe($_POST['nom-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],0,$_POST['jeu_equipe'],$id);
-                        $info_execution = 'Equipe enregistrée !';
+                        $infoExecution = 'Equipe enregistrée !';
                         header("Refresh: 3;URL=enregistrer-joueurs.php");
                     } catch (Exception $e) {
-                        $info_execution = "Erreur : " . $e->getMessage();
+                        $infoExecution = "Erreur : " . $e->getMessage();
                     }
                 } else {
-                    $info_execution = "Une équipe avec la même adresse mail existe déjà";
+                    $infoExecution = "Une équipe avec la même adresse mail existe déjà";
                 }
             } else {
-                $info_execution = "Une équipe avec le même nom existe déjà !";
+                $infoExecution = "Une équipe avec le même nom existe déjà !";
             }
         } else {
-            $info_execution = "Une équipe dans l'écurie avec le même jeu existe déjà !";
+            $infoExecution = "Une équipe dans l'écurie avec le même jeu existe déjà !";
         }
     } else {
-        $info_execution = "Veuillez remplir tous les champs";
+        $infoExecution = "Veuillez remplir tous les champs";
     }
 }
 
@@ -116,7 +116,7 @@ if (isset($_POST['ajouter'])) {
                     </div>
                 </div>
                 <input class="submit" type="submit" name="ajouter" value="Ajouter">
-                <span><?php echo $info_execution ?> </span>
+                <span><?php echo $infoExecution ?> </span>
             </form>
         </section>
     </main>
