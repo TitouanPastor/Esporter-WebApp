@@ -27,17 +27,16 @@
     //Sql
     require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
     $sql = new requeteSQL();
-    $check_valider = 0;
 
     //Sauvegarde de la valeur de la liste
     if (isset($_POST["tournoi-jeu"])) {
-        $value_tournoi_jeu = $_POST["tournoi-jeu"];
+        $valueTournoiJeu = $_POST["tournoi-jeu"];
     } else {
-        $value_tournoi_jeu = "default";
+        $valueTournoiJeu = "default";
     }
     $req = $sql->getJeuEquipe($_SESSION['username']);
-    $jeu_equipe = $req->fetchColumn();
-    $param = $jeu_equipe;
+    $jeuEquipe = $req->fetchColumn();
+    $param = $jeuEquipe;
     $req = $sql->getTournoiInscription($param);
 
     //Requête d'inscription au tournoi cliqué
@@ -45,7 +44,7 @@
         $param = [];
         $param[0] = $sql->getIdEquipe($_SESSION['username']);
         $param[1] = $_GET['id'];
-        $param[2] = $sql->getIdJeu($jeu_equipe);
+        $param[2] = $sql->getIdJeu($jeuEquipe);
         $reqInscription = $sql->inscriptionTournoi($param);
     }
 
@@ -99,7 +98,7 @@
             <form action="post">
                 <div class="container">
                     <span>Jeu de l'équipe :
-                        <?php echo $jeu_equipe ?>
+                        <?php echo $jeuEquipe ?>
                     </span>
                     <table>
                         <thead>
@@ -115,18 +114,18 @@
                             while ($donnees = $req->fetch()) {
                                 if ($sql->estInscritTournoi($_SESSION['username'], $donnees[0]) == 0) {
                                     $reqNbEquipe = $sql->getNbEquipeTournoi($donnees[0]);
-                                    $nb_equipe = $reqNbEquipe->fetchColumn();
-                                    $id_tournoi = $donnees[2];
+                                    $nbEquipe = $reqNbEquipe->fetchColumn();
+                                    $idTournoi = $donnees[2];
                                     echo
                                     '<tr>
                                                 <td>' . $donnees[0] . '</td>
                                                 <td>' . date('d / m / Y', strtotime($donnees[1])) . '</td>
                                                 <td>';
-                                    echo $nb_equipe . ' / 16';
+                                    echo $nbEquipe . ' / 16';
                                     echo '<td>';
-                                    if ((16 - $nb_equipe) != 0) {
-                                        echo "<a style='text-decoration: underline;cursor:pointer;color:blue;' value='inscription-tournoi.php?id=$id_tournoi' onclick='openPopUp(this)' >S'inscrire</a>";
-                                        // echo "<input type = 'submit' class ='submit' title = \"S'inscrire\" >";
+                                    if ((16 - $nbEquipe) != 0) {
+                                        echo "<a style='text-decoration: underline;cursor:pointer;color:blue;' value='inscription-tournoi.php?id=$idTournoi' onclick='openPopUp(this)' >S'inscrire</a>";
+                                        
                                     } else {
                                         echo "<input type = 'button' class = 'bouton' title = 'Complet' disabled>";
                                     }
