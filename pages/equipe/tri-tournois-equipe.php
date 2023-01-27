@@ -18,7 +18,7 @@ class TriTournoisEquipe
 
 
     //function qui affiche un tournoi
-    public function afficherUnTournoi($nom, $date_debut, $date_fin, $lieu, $type, $id)
+    public function afficherUnTournoi($nom, $dateDebut, $dateFin, $lieu, $type, $id)
     {
         $req = $this->sql->getJeuxTournois($id);
         $str = '<article class="main-liste-article">
@@ -27,7 +27,7 @@ class TriTournoisEquipe
                             <span class="title-tournoi" onclick="afficherDescriptionTournoi(this)"> [' . $type . '] ' . $nom . '</span>
                         </div>
                         <div class="description-tournoi">
-                            <p>Le tournoi se déroulera à ' . $lieu . ' du ' . $date_debut . ' au ' . $date_fin . '.</p>';
+                            <p>Le tournoi se déroulera à ' . $lieu . ' du ' . $dateDebut . ' au ' . $dateFin . '.</p>';
 
         while ($jeu = $req->fetch()) {
             $str .= '<p>- ' . $jeu['Libelle'] . '</p>';
