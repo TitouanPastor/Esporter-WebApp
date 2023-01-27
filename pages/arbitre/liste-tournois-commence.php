@@ -51,21 +51,21 @@
                                             $bg = "grey";
                                         }
                                         $pair += 1;
-                                        $id_tournoi = strval($donnees[2]);
-                                        $reqJeux = $sql -> getJeuxTournois($id_tournoi, "libelle");
-                                        $liste_jeu = array();
+                                        $idTournoi = strval($donnees[2]);
+                                        $reqJeux = $sql -> getJeuxTournois($idTournoi, "libelle");
+                                        $listeJeu = array();
                                         while ($nomJeu = $reqJeux -> fetch()){ 
-                                            array_push($liste_jeu, $nomJeu['libelle']);
+                                            array_push($listeJeu, $nomJeu['libelle']);
                                         }
-                                        $nb_jeu = count($liste_jeu);
+                                        $nbJeu = count($listeJeu);
                                         echo "
                                             <tr class=".$bg.">
                                                 <td>$donnees[0]</td>
                                                 <td>".date('d / m / Y', strtotime($donnees[1]))."</td>
-                                                <td>$liste_jeu[0]</td>
+                                                <td>$listeJeu[0]</td>
                                                 <td>
                                                     <label>".'
-                                                    <a href="match-poule.php?id_tournoi='.$id_tournoi.'&id_jeu='.$liste_jeu[0].'">
+                                                    <a href="match-poule.php?id_tournoi='.$idTournoi.'&id_jeu='.$listeJeu[0].'">
                                                         <svg width="30px" height="30px" viewBox="0 -2 20 20" xmlns="http://www.w3.org/2000/svg">
                                                         <g id="basketball-field-2" transform="translate(-2 -4)">
                                                         <path id="secondary" fill="#2ca9bc" d="M21,15H19a3,3,0,0,1,0-6h2V5H3V9H5a3,3,0,0,1,0,6H3v4H21Z"/>
@@ -79,17 +79,17 @@
                                             </tr>
                                         ";
                                         //Si le tournoi a plusieurs jeux
-                                        if ($nb_jeu > 1){
-                                            for ($i = 1; $i < $nb_jeu-1; $i++){
-                                            $id_tournoi = strval($donnees[2]);
+                                        if ($nbJeu > 1){
+                                            for ($i = 1; $i < $nbJeu-1; $i++){
+                                            $idTournoi = strval($donnees[2]);
                                             echo "
                                                 <tr class=".$bg.">
                                                     <td></td>
                                                     <td></td>
-                                                    <td>$liste_jeu[$i]</td>
+                                                    <td>$listeJeu[$i]</td>
                                                     <td>
                                                         <label>".'
-                                                            <a href="match-poule.php?id_tournoi='.$id_tournoi.'&id_jeu='.$id_tournoi.'">
+                                                            <a href="match-poule.php?id_tournoi='.$idTournoi.'&id_jeu='.$idTournoi.'">
                                                             <svg width="30px" height="30px" viewBox="0 -2 20 20" xmlns="http://www.w3.org/2000/svg">
                                                             <g id="basketball-field-2" transform="translate(-2 -4)">
                                                             <path id="secondary" fill="#2ca9bc" d="M21,15H19a3,3,0,0,1,0-6h2V5H3V9H5a3,3,0,0,1,0,6H3v4H21Z"/>
