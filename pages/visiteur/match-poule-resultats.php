@@ -15,7 +15,7 @@
             session_start();
             require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
             $header = new header(2);
-            echo $header->customize_header($_SESSION['role']);
+            echo $header->customizeHeader($_SESSION['role']);
 
             //Sql
             require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
@@ -25,19 +25,19 @@
             $bracket = new bracket();
 
             //Id
-            $id_tournoi = $_GET["id_tournoi"];
-            $id_jeu = $_GET["id_jeu"];
+            $idTournoi = $_GET["id_tournoi"];
+            $idJeu = $_GET["id_jeu"];
 
             //Nom tournoi par id_tournoi
-            $reqNomTournoi = $sql -> getTournoiNomByIdTournoi($id_tournoi) -> fetch()[0];
+            $reqNomTournoi = $sql -> getTournoiNomByIdTournoi($idTournoi) -> fetch()[0];
             $PoulesTermines = false;
             $pouleFinaleCreer = false;
             $idPouleFinale = 0;
 
             //Poule par id_tournoi
-            $reqPoule = $sql->getPouleIdTournoi($id_tournoi);
+            $reqPoule = $sql->getPouleIdTournoi($idTournoi);
 
-            $reqPoule = $sql->getPouleByIdTournoi($id_tournoi);
+            $reqPoule = $sql->getPouleByIdTournoi($idTournoi);
         ?>
 
         <main class="main-listes">
@@ -61,20 +61,20 @@
                                                 </div>
                                             ';
                                         while ($equipe = $reqEquipePouleTrie -> fetch()){
-                                            $equipe_nom = $equipe[0];
-                                            $equipe_nb_match_gagne = $equipe[1];
+                                            $equipeNom = $equipe[0];
+                                            $equipeNbMatchGagne = $equipe[1];
                                             if ($clair % 2 == 0) {
                                                 echo '
                                                     <div class="equipe violet-fonce">
-                                                        <span>' . $equipe_nom . '</span>
-                                                        <div>' . $equipe_nb_match_gagne . ' </div>
+                                                        <span>' . $equipeNom . '</span>
+                                                        <div>' . $equipeNbMatchGagne . ' </div>
                                                     </div>
                                                 ';
                                             } else {
                                                  echo '
                                                     <div class="equipe violet-clair">
-                                                        <span>' . $equipe_nom . '</span>
-                                                        <div>' . $equipe_nb_match_gagne . ' </div>
+                                                        <span>' . $equipeNom . '</span>
+                                                        <div>' . $equipeNbMatchGagne . ' </div>
                                                     </div>
                                                 ';
                                             }
@@ -97,7 +97,7 @@
                                         <div class="poule-droite">
                                             <h1>Poule ' . $nomPouleAffiche . '</h1>
                                             <div class="tout-match">';
-                                            $num_match = 1;
+                                            $numMatch = 1;
                                             
                                 
                                             while ($rencontre = $reqRecontre -> fetch()){
@@ -107,7 +107,7 @@
                                                 if ($rencontre[4] == null){
                                                     echo '
                                                     <div class="match">
-                                                        <h2 class="equipe-match">Match '.$num_match.'</h2>
+                                                        <h2 class="equipe-match">Match '.$numMatch.'</h2>
                                                         <div class="rencontre-equipe">
                                                             <div class="Equipe1">
                                                                 <span">'.$nomEquipe1.'</span>
@@ -129,7 +129,7 @@
                                                     
                                                     echo '
                                                         <div class="match">
-                                                            <h2 class="equipe-match">Match '.$num_match.'</h2>
+                                                            <h2 class="equipe-match">Match '.$numMatch.'</h2>
                                                             <div class="container-equipe">
                                                                 <div class="gagnantRencontre">
 
@@ -159,7 +159,7 @@
                                                         </div>
                                                 ';
                                                 }
-                                                $num_match += 1;
+                                                $numMatch += 1;
                                                 
                                             }
                                         

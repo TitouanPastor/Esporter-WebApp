@@ -21,20 +21,20 @@ require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
 $header = new header(2);    
 
 if ($_SESSION['role'] == "gestionnaire") {
-    echo $header->customize_header($_SESSION['role']);
+    echo $header->customizeHeader($_SESSION['role']);
 } else {
     header('Location: ../../acces-refuse.php');
 }
 
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
-$id_Tournois = $_GET['id'];
-$reqTournoisId = $sql->tournoiId($id_Tournois);
-$info_execution_jeu = "";
-$info_execution = "" ;
+$idTournois = $_GET['id'];
+$reqTournoisId = $sql->tournoiId($idTournois);
+$infoExecutionJeu = "";
+$infoExecution = "" ;
 while ($row = $reqTournoisId->fetch()) {
     $nom = $row['Nom'];
-    $nb_pts_max = $row['Nombre_point_max'];
+    $nbPtsMax = $row['Nombre_point_max'];
     $type = $row['Type'];
     $dateTournoisDeb = $row['Date_debut'];
     $dateTournoisFin = $row['Date_fin'];
@@ -52,7 +52,7 @@ if (isset($_POST['modifier'])){
                         if (strtotime($_POST['date-tournoi-deb']) > strtotime(date("Y-m-d"))) {
                             //Vérification de si un tournoi du même nom n'existe pas
                             $sameTournoi = False;
-                            $turnoisId = $sql->tournoiId($id_Tournois);
+                            $tournoisId = $sql->tournoiId($idTournois);
 
 
                             $tournois = $sql->getTournoi(); 
@@ -63,7 +63,7 @@ if (isset($_POST['modifier'])){
                             }
                             
 
-                            while ($row = $turnoisId->fetch()) {
+                            while ($row = $tournoisId->fetch()) {
                                 if ($row['Nom'] == $_POST['nom-tournoi']) {
                                 $sameTournoi = False;
                                 } 
@@ -80,46 +80,46 @@ if (isset($_POST['modifier'])){
                                         $ptsMAX = 0;
                                     }
                                     //Modification tu tournoi
-                                    $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$id_Tournois);
+                                    $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$idTournois);
                                     //Suppression des jeux du tournoi
-                                    $reqSupprimerJeuxTournois = $sql->supprimerJeuxTournoi($id_Tournois);
+                                    $reqSupprimerJeuxTournois = $sql->supprimerJeuxTournoi($idTournois);
                                     //Ajout des nouveau jeux du tournoi
                                     foreach ($_POST['jeuxtournoi'] as $jeu) {
-                                        $sql->addConcerner($id_Tournois, $jeu);
+                                        $sql->addConcerner($idTournois, $jeu);
                                     }
-                                        $info_execution = 'Tournoi modifié !';
+                                        $infoExecution = 'Tournoi modifié !';
                                         header('Location: liste-tournois.php?modifyTournoi=success');
                                     } catch (Exception $e) {
-                                        $info_execution = "Erreur lors de la modification du tournoi ! Veuillez réessayer.";
+                                        $infoExecution = "Erreur lors de la modification du tournoi ! Veuillez réessayer.";
                                     }
-                                        $info_execution = "Le tournoi a bien été modifié";
+                                        $infoExecution = "Le tournoi a bien été modifié";
                                 }else{
-                                    $info_execution = "Un tournoi avec le même nom existe déjà";
+                                    $infoExecution = "Un tournoi avec le même nom existe déjà";
                                 }
                             } else {
-                                $info_execution = "La date que vous avez entrez est inférieur à la date d'aujoud'hui !";
+                                $infoExecution = "La date que vous avez entrez est inférieur à la date d'aujoud'hui !";
                             }
                         } else {
-                            $info_execution = "La date de début doit être supérieur à la date du jour !";
+                            $infoExecution = "La date de début doit être supérieur à la date du jour !";
                         }
                         
                     }else{
-                        $info_execution = "La date de début doit être inférieur à la date de fin !";
+                        $infoExecution = "La date de début doit être inférieur à la date de fin !";
                     }
                     
                 }else{
-                    $info_execution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oublier pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
+                    $infoExecution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oublier pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
                 }
             }else {
-            $info_execution_jeu = "Veuillez remplir tous les champs";
+            $infoExecutionJeu = "Veuillez remplir tous les champs";
         }
     }else{
-        $info_execution_jeu = "Vous ne pouvez plus modifier de tournoi l(max : 1 février) !";
+        $infoExecutionJeu = "Vous ne pouvez plus modifier de tournoi l(max : 1 février) !";
     }
 
 }   
-$reqJeuduTournois = $sql->getJeuxTournois($id_Tournois);
-$reqNonPresentTurnois = $sql->jeuNonPresentDansTournois($id_Tournois);
+$reqJeuduTournois = $sql->getJeuxTournois($idTournois);
+$reqNonPresentTurnois = $sql->jeuNonPresentDansTournois($idTournois);
 if (isset($_POST['ajouterJeu'])) {
     //Vérification de si le champs n'est pas vide
     if (!empty($_POST['jeux-tournoi'])) {
@@ -136,12 +136,12 @@ if (isset($_POST['ajouterJeu'])) {
                 //Ajout du nouveau jeu
                 $sql->addJeu($_POST['jeux-tournoi']);
                 $reqJeu = $sql->getJeux();
-                $info_execution_jeu = "Jeu ajouté !";
+                $infoExecutionJeu = "Jeu ajouté !";
             } catch (Exception $e) {
-                $info_execution_jeu = "Erreur lors de l'ajout du jeu !";
+                $infoExecutionJeu = "Erreur lors de l'ajout du jeu !";
             }
         } else {
-            $info_execution_jeu = "Le jeu existe déjà";
+            $infoExecutionJeu = "Le jeu existe déjà";
         }
     }
 }
@@ -153,7 +153,7 @@ if (isset($_POST['ajouterJeu'])) {
 <body>
     <main class="main-creation-tournoi">
         <section class="creation-tournoi-container">
-            <form action="<?php echo "modification-tournoi.php?id=" . $id_Tournois ?>" method="POST">
+            <form action="<?php echo "modification-tournoi.php?id=" . $idTournois ?>" method="POST">
 
                 <h1 class="creation-tournoi-title">Modifier un Tournoi</h1>
                 <div class="creation-tournoi">
@@ -208,7 +208,7 @@ if (isset($_POST['ajouterJeu'])) {
 
                             <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
                             <input type="submit" value="Ajouter un jeu" class="submit add" name="ajouterJeu">
-                            <span id="spaninfojeu"><?php echo $info_execution_jeu ?> </span>
+                            <span id="spaninfojeu"><?php echo $infoExecutionJeu ?> </span>
                         </div>
                     </div>
 
@@ -228,7 +228,7 @@ if (isset($_POST['ajouterJeu'])) {
                     </div>
                 </div>
                 <input class="update" type="submit" name="modifier" value="Modifier">
-                <span><?php echo $info_execution ?> </span>
+                <span><?php echo $infoExecution ?> </span>
             </form>
         </section>
     </main>

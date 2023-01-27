@@ -23,14 +23,14 @@ require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
 $header = new header(2);
 
 if ($_SESSION['role'] == "gestionnaire") {
-    echo $header->customize_header($_SESSION['role']);
+    echo $header->customizeHeader($_SESSION['role']);
 } else {
     header('Location: ../../acces-refuse.php');
 }
 
 // Initialisation des variables
-$info_execution = "";
-$info_execution_jeu = "";
+$infoExecution = "";
+$infoExecutionJeu = "";
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
 $reqJeu = $sql->getJeux();
@@ -76,29 +76,29 @@ if (isset($_POST['ajouter'])) {
                                 foreach ($_POST['jeuxtournoi'] as $jeu) {
                                     $sql->addConcerner($idTournoi, $jeu);
                                 }
-                                $info_execution = 'Tournoi ajouté !';
+                                $infoExecution = 'Tournoi ajouté !';
                                 header('Location: liste-tournois.php?createTournoi=success');
                             } catch (Exception $e) {
-                                $info_execution = "Erreur lors de l'ajout du tournoi ! Veuillez réessayer.";
+                                $infoExecution = "Erreur lors de l'ajout du tournoi ! Veuillez réessayer.";
                             }
-                            $info_execution = "Le tournoi a bien été ajouté";
+                            $infoExecution = "Le tournoi a bien été ajouté";
                         } else {
-                            $info_execution = "Un tournoi avec le même nom existe déjà";
+                            $infoExecution = "Un tournoi avec le même nom existe déjà";
                         }
                     } else {
-                        $info_execution = "La date de début du tournoi doit être supérieur à 2 semaines";
+                        $infoExecution = "La date de début du tournoi doit être supérieur à 2 semaines";
                     }
                 } else {
-                    $info_execution = "La date de début doit être inférieur à la date de fin !";
+                    $infoExecution = "La date de début doit être inférieur à la date de fin !";
                 }
             } else {
-                $info_execution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oublier pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
+                $infoExecution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oublier pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
             }
         } else {
-            $info_execution = "Veuillez remplir tous les champs";
+            $infoExecution = "Veuillez remplir tous les champs";
         }
     } else {
-        $info_execution = "La création de tournoi est désactivé !";
+        $infoExecution = "La création de tournoi est désactivé !";
     }
 }
 
@@ -119,12 +119,12 @@ if (isset($_POST['ajouterJeu'])) {
                 //Ajout du nouveau jeu
                 $sql->addJeu($_POST['jeux-tournoi']);
                 $reqJeu = $sql->getJeux();
-                $info_execution_jeu = "Jeu ajouté !";
+                $infoExecutionJeu = "Jeu ajouté !";
             } catch (Exception $e) {
-                $info_execution_jeu = "Erreur lors de l'ajout du jeu !";
+                $infoExecutionJeu = "Erreur lors de l'ajout du jeu !";
             }
         } else {
-            $info_execution_jeu = "Le jeu existe déjà";
+            $infoExecutionJeu = "Le jeu existe déjà";
         }
     }
 }
@@ -161,7 +161,7 @@ if (isset($_POST['ajouterJeu'])) {
 
                             <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
                             <input type="submit" value="Ajouter un jeu" class="submit add" name="ajouterJeu">
-                            <span id="spaninfojeu"><?php echo $info_execution_jeu ?> </span>
+                            <span id="spaninfojeu"><?php echo $infoExecutionJeu ?> </span>
                         </div>
                     </div>
 
@@ -190,7 +190,7 @@ if (isset($_POST['ajouterJeu'])) {
                 </div>
                 <div class="button_container" style="display: flex; flex-direction: column; align-items:center; gap: 5px;">
                     <input id="submit" class="submit-gris" type="submit" name="ajouter" value="Ajouter">
-                    <span><?php echo $info_execution ?></span>
+                    <span><?php echo $infoExecution ?></span>
                     <a class="return bouton" href="../../index.php">Retour</a>
                 </div>
             </form>

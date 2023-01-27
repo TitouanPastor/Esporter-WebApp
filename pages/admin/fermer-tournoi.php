@@ -16,12 +16,12 @@
     $header = new header(2);
 
     if ($_SESSION['role'] == "gestionnaire") {
-        echo $header->customize_header($_SESSION['role']);
+        echo $header->customizeHeader($_SESSION['role']);
     } else {
         header('Location: ../../acces-refuse.php');
     }
 
-    $idtournoi = $_GET['id'];
+    $idTournoi = $_GET['id'];
 
     require_once('bracket.php');
     require_once('../../SQL.php');
@@ -33,12 +33,12 @@
     <main class="fermer-tournoi">
         <form action="fermer-tournoi.php">
             <h1>Fermer les inscriptions</h1>
-            <h2><?php echo $sql->tournoiId($idtournoi)->fetch()['Nom'];?></h2>
+            <h2><?php echo $sql->tournoiId($idTournoi)->fetch()['Nom'];?></h2>
             <section class="fermer-tournoi-container">
                 <div class="fermer-tournoi-left-container">
                     <?php
 
-                    echo $bracket->display_games($idtournoi);
+                    echo $bracket->display_games($idTournoi);
 
                     ?>
                 </div>

@@ -38,19 +38,11 @@ class bracket
 
     public function genererBracket($idTournoi)
     {
-        // echo "On ferme le tournoi : ".$idTournoi."</br></br>";
         if ($this->sql->tournoiIsClosed($idTournoi) == false) {
             $this->sql->closeTournois($idTournoi);
             $IDsjeux = $this->sql->getIDJeuxTournoi($idTournoi);
-            // echo "Tableau idsPoule</br>";
-            // foreach ($IDsjeux as $id) {
-            //     echo "Id : ".$id."</br>";
-            // }
-
-            // echo "Boucle d'ajout de poules suivant le nombre de jeux du tournoi : ".count($IDsjeux)."</br></br>";
             for ($i = 0; $i < count($IDsjeux); $i++) {
                 for ($j = 0; $j < 4; $j++) {
-                    // echo "addPoule( 'Poule".($j+1)."', ".$idTournoi.", ".$IDsjeux[$i].")</br>";
                     $this->sql->addPoule(chr($j + 65), $idTournoi, $IDsjeux[$i]);
                 }
             }
@@ -58,15 +50,7 @@ class bracket
                 $idsPoule = array();
                 $idsEquipe = array();
                 $idsPoule = $this->sql->getIDPoule($idTournoi, $IDsjeux[$i]);
-                // echo "Tableau idsPoule</br>";
-                // foreach ($idsPoule as $id) {
-                //     echo "Id : ".$id."</br>";
-                // }
                 $idsEquipe = $this->sql->getEquipeInscrites($idTournoi, $IDsjeux[$i]);
-                // echo "Tableau idsEquipe</br>";
-                // foreach ($idsEquipe as $id) {
-                //     echo "Id : ".$id."</br>";
-                // }
                 $bracket = array();
 
                 for ($j = 0; $j < 4; $j++) {
@@ -75,27 +59,15 @@ class bracket
                         $bracket[$j] = array_reverse($bracket[$j]);
                     }
                 }
-
-                // echo "Tableau idsEquipe transformé</br>";
-                // foreach ($bracket as $ids) {
-                //     foreach($ids as $id) {
-                //         echo "Id : ".$id."</br>";
-                //     }
-                // }
-
-                // echo "</br> Boucle d'assignation des équipes aux poules </br>";
                 for ($j = 0; $j < 4; $j++) {
                     for ($k = 0; $k < 4; $k++) {
-                        // echo "Assignation poule : equipe : ".$bracket[$j][$k]." Poule : ".$idsPoule[$j]."</br>";
                         $this->sql->assignerPoule($idTournoi, $idsPoule[$j], $bracket[$j][$k]);
                     }
                 }
-                // echo "Assignation rencontre </br>";
                 for ($j = 0; $j < 4; $j++) {
                     for ($k = 0; $k < 3; $k++) {
                         for ($l = $k; $l < 4; $l++) {
                             if ($bracket[$j][$k] != $bracket[$j][$l]) {
-                                // echo "Equipe 1 : ".$bracket[$j][$k]." Equipe 2 : ".$bracket[$j][$l]." poule : ".$idsPoule[$j]."<br>";
                                 $this->sql->addRencontre($bracket[$j][$k], $bracket[$j][$l], $idsPoule[$j]);
                             }
                         }
@@ -112,12 +84,9 @@ class bracket
         $finaliste  = array();
         $this->sql->addPoule( "Finale", $idTournoi, $idJeu);
         $lastIdPoule = $this->sql->getLastIDPoule();
-        print_r($tabPoule);
         foreach ($tabPoule as $idPoule){
             array_push($finaliste,  $this->sql->getPremierPoule($idTournoi, $idJeu, $idPoule));
         }
-      
-        print_r ($finaliste);
         
         //Ajouter les rencontres
         $adversaire = $finaliste;
@@ -143,14 +112,12 @@ class bracket
                 return False;
             }
         }
-        
         return true;
     }
 
     public function updateClassementGeneral($idPoule, $idTournoi)
     {
         $pouleFinale = $this->sql->getPerdantFinale($idPoule);
-        print_r($pouleFinale);
         $resultatFinaux = $this->sql->getResultatFinaux($idPoule);
         $multiplicateur = $this->sql->getMultiplicateur($idTournoi);
         $points = [100, 60, 30, 10];
@@ -165,17 +132,6 @@ class bracket
             $i++;
         }
     }
-
-   
-
-
-
-
-
-
-
-
-
 
     // - afficher les équipes inscrites dans un tournoi pour le jeu selectionné
     // - afficher les poules du bracket pour le jeu selectionné

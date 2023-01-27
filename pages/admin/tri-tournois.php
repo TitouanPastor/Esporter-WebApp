@@ -19,7 +19,7 @@
         
 
         //function qui affiche un tournoi
-        public function afficherUnTournoi($nom, $date_debut, $date_fin, $lieu, $type,$id){
+        public function afficherUnTournoi($nom, $dateDebut, $dateFin, $lieu, $type,$id){
             $req = $this->sql->getJeuxTournois($id);
             $str = '<article class="main-liste-article">
                         <span class="arrow" onclick="afficherDescriptionTournoi(this)">〉</span>
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="description-tournoi">
-                            <p>Le tournoi se déroulera à '.$lieu.' du '.date('d/m/Y', strtotime($date_debut)).' au '.date('d/m/Y', strtotime($date_fin)).'.</p>
+                            <p>Le tournoi se déroulera à '.$lieu.' du '.date('d/m/Y', strtotime($dateDebut)).' au '.date('d/m/Y', strtotime($dateFin)).'.</p>
                             <p>Les jeu(x) présent(s) sont :</p>';
             
             while ($jeu = $req->fetch()) {
