@@ -15,11 +15,11 @@
     <?php
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
     require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-    $info_login = "";
+    $infoLogin = "";
 
     // Construction du header
     $header = new header(2);
-    echo $header->header_login();
+    echo $header->headerLogin();
 
     //On se déconnecte
     session_start();
@@ -41,7 +41,7 @@
                 $_SESSION['role'] = $_POST['role'];
                 header('Location: ../../index.php');
             } else {
-                $info_login = "Email ou mot de passe incorrect";
+                $infoLogin = "Email ou mot de passe incorrect";
             }
         }
     }
@@ -78,7 +78,7 @@
                 </div>
                 <div class="button">
                     <!-- <input type="button" name="mdp_oublie" class="bouton" value="Mot de passe oublié"> -->
-                    <span><?php echo $info_login ?></span>
+                    <span><?php echo $infoLogin ?></span>
                     <input type="submit" name="submit" class="submit" value="Se Connecter">
                 </div>
 

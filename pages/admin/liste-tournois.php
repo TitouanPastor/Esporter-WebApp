@@ -21,12 +21,12 @@
 
     // Fermeture d'un tournoi et génération du bracket
     if (isset($_GET['close_id'])) {
-        $close_id = $_GET['close_id'];
-        $bracket->genererBracket($close_id);
+        $closeId = $_GET['close_id'];
+        $bracket->genererBracket($closeId);
     }
 
     if ($_SESSION['role'] == "gestionnaire") {
-        echo $header->customize_header($_SESSION['role']);
+        echo $header->customizeHeader($_SESSION['role']);
     } else {
         header('Location: ../../acces-refuse.php');
     }

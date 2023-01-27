@@ -19,13 +19,13 @@ require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
 $header = new header(2);    
 
 if ($_SESSION['role'] == "gestionnaire") {
-    echo $header->customize_header($_SESSION['role']);
+    echo $header->customizeHeader($_SESSION['role']);
 } else {
     header('Location: ../../acces-refuse.php');
 }
 
 // Initialisation des variables
-$info_execution = "";
+$infoExecution = "";
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 $sql = new requeteSQL();
 
@@ -50,20 +50,20 @@ if (isset($_POST['ajouter'])) {
                 try{   
                     // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
                     $sql->addEcurie($_POST['nom-ecurie'],$_POST['combobox-statut'],$_POST['mdp-ecurie'],$_POST['email-ecurie'],1);
-                    $info_execution = 'Ecurie enregistrée !';
+                    $infoExecution = 'Ecurie enregistrée !';
                     header('Location: liste-ecuries.php?createEcurie=success');
                 }catch(Exception $e){
-                    $info_execution = "Erreur lors de l'ajout de l'écurie ! Veuillez réessayer.";
+                    $infoExecution = "Erreur lors de l'ajout de l'écurie ! Veuillez réessayer.";
                 }
-                $info_execution = "L'écurie a bien été ajoutée";
+                $infoExecution = "L'écurie a bien été ajoutée";
             }else{
-                $info_execution = "Une écurie avec la même adresse mail existe déjà";
+                $infoExecution = "Une écurie avec la même adresse mail existe déjà";
             }
         }else{
-            $info_execution = "Une écurie avec le même nom existe déjà";
+            $infoExecution = "Une écurie avec le même nom existe déjà";
         }
     } else {
-        $info_execution = "Veuillez remplir tous les champs";
+        $infoExecution = "Veuillez remplir tous les champs";
     }
 } 
 
@@ -100,7 +100,7 @@ if (isset($_POST['ajouter'])) {
 
                 </div>
                 <input class="submit" type="submit" name="ajouter" value="Ajouter">
-                <span><?php echo $info_execution?> </span>
+                <span><?php echo $infoExecution?> </span>
             </form>
         </section>
     </main>

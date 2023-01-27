@@ -19,7 +19,7 @@
     $header = new header(2);
 
     if ($_SESSION['role'] == "equipe") {
-        echo $header->customize_header($_SESSION['role']);
+        echo $header->customizeHeader($_SESSION['role']);
     } else {
         header('Location: ../../acces-refuse.php');
     }

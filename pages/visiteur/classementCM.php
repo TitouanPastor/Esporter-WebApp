@@ -17,26 +17,26 @@
     session_start();
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
     $header = new header(2);
-    echo $header->customize_header($_SESSION['role']);
+    echo $header->customizeHeader($_SESSION['role']);
 
     //Sql
     require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
     $sql = new requeteSQL();
-    $check_valider = 0;
+    $checkValider = 0;
 
     //Exécution de la requête en fonction des paramètres fournis (liste rempli ou non)
     if (isset($_POST["valider"])) {
         if ($_POST['equipe_jeu'] != "default") {
-            $check_valider = 1;
+            $checkValider = 1;
             $req = $sql->getClassementCM($_POST["equipe_jeu"]);
         }
     }
 
     //Valeur et affichage d'une liste -> conserver la valeur après validation
     if (isset($_POST["equipe_jeu"])) {
-        $value_equipe_jeu = $_POST["equipe_jeu"];
+        $valueEquipeJeu = $_POST["equipe_jeu"];
     } else {
-        $value_equipe_jeu = "default";
+        $valueEquipeJeu = "default";
     }
 
 
@@ -81,7 +81,7 @@
                         <?php
                         $jeu = $sql->getJeux();
                         while ($donnees = $jeu->fetch()) { ?>
-                            <option value="<?php echo $donnees['Id_Jeu']; ?>" <?php if ($value_equipe_jeu == $donnees['Id_Jeu']) echo 'selected'; ?>>
+                            <option value="<?php echo $donnees['Id_Jeu']; ?>" <?php if ($valueEquipeJeu == $donnees['Id_Jeu']) echo 'selected'; ?>>
                                 <?php echo $donnees['Libelle']; ?>
                             </option>
                         <?php } ?>
@@ -91,7 +91,7 @@
                 </div>
                 <?php
 
-                if ($check_valider == 1) {
+                if ($checkValider == 1) {
                     if ($req->rowCount() == 0) {
                         echo "<div style='display : flex; justify-content :center; padding-top : 50px;'> Il n'y a pas de tournoi pour ces critères </div>";
                     } else {

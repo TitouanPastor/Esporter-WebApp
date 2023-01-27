@@ -87,7 +87,7 @@ class Header
         ';
     }
 
-    public function customize_header($role = "visiteur")
+    public function customizeHeader($role = "visiteur")
     {
         if ($role == "arbitre") {
             return $this->header_arbitre();
@@ -107,7 +107,7 @@ class Header
         }
     }
 
-    public function header_login()
+    public function headerLogin()
     {
         return '
         </ul>

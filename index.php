@@ -17,9 +17,9 @@ require_once(realpath(dirname(__FILE__) . '/class/header.php'));
 $header = new header(0);
 
 if (isset($_SESSION['role'])) {
-    echo $header->customize_header($_SESSION['role']);
+    echo $header->customizeHeader($_SESSION['role']);
 } else {
-    echo $header->customize_header();
+    echo $header->customizeHeader();
 }
 ?>
 

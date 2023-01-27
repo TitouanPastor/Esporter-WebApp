@@ -17,16 +17,16 @@
         session_start();
         require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
         $header = new header(2);
-        echo $header->customize_header($_SESSION['role']);
+        echo $header->customizeHeader($_SESSION['role']);
 
         //Sql
         require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
         $sql = new requeteSQL();
-        $check_valider = 0;
+        $checkValider = 0;
         
         //Exécution de la requête en fonction des paramètres fournis (liste rempli ou non)
         if (isset($_POST["valider"])) {
-            $check_valider = 1;
+            $checkValider = 1;
             $param = array();
             $param[0] = $_POST["tournoi_date"];
             $param[1] = $_POST["tournoi_nom"];
@@ -37,26 +37,26 @@
         //Contrôle sur la date 01/01/2023 -> 31/12/2023
         $min = new DateTime('01-01-2023');
         $max = new DateTime('31-12-2023');    
-        $date_min = $min -> format('Y-m-d');
-        $date_max = $max -> format('Y-m-d');
+        $dateMin = $min -> format('Y-m-d');
+        $dateMax = $max -> format('Y-m-d');
 
         //Valeur et affichage d'une liste -> conserver la valeur après validation
         if (isset($_POST["tournoi_date"])){
-            $value_tournoi_date = $_POST["tournoi_date"];
+            $valueTournoiDate = $_POST["tournoi_date"];
         } else {
-            $value_tournoi_date = "2023-01-01";
+            $valueTournoiDate = "2023-01-01";
         }
 
         if (isset($_POST["tournoi_nom"])){ 
-            $value_tournoi_nom = $_POST["tournoi_nom"];
+            $valueTournoiNom = $_POST["tournoi_nom"];
         } else {
-            $value_tournoi_nom = "default";
+            $valueTournoiNom = "default";
         }
 
         if (isset($_POST["tournoi_jeu"])){
-            $value_tournoi_jeu = $_POST["tournoi_jeu"];
+            $valueTournoiJeu = $_POST["tournoi_jeu"];
         } else {
-            $value_tournoi_jeu = "default";
+            $valueTournoiJeu = "default";
         }
 
 
@@ -74,14 +74,14 @@
             <form action="" method="post">
                 <div class="container">
 
-                    <input type="date" name="tournoi_date" class="element" value="<?php echo $value_tournoi_date?>"min="<?php echo $date_min;?>" max="<?php echo $date_max;?>">
+                    <input type="date" name="tournoi_date" class="element" value="<?php echo $valueTournoiDate?>"min="<?php echo $dateMin;?>" max="<?php echo $dateMax;?>">
 
                     <select name="tournoi_nom" class="element" class="select">
                         <option value="default" selected>Sélectionner un tournoi</option>
                         <?php
                             $tournoi = $sql->getTournoi();
                             while ($donnees = $tournoi->fetch()) { ?>
-                        <option value="<?php echo $donnees['Nom']; ?>" <?php if ($value_tournoi_nom == $donnees['Nom']) echo 'selected'?>>
+                        <option value="<?php echo $donnees['Nom']; ?>" <?php if ($valueTournoiNom == $donnees['Nom']) echo 'selected'?>>
                             <?php echo $donnees['Nom']; ?>
                         </option>
                         <?php } ?>
@@ -92,7 +92,7 @@
                             <?php
                             $jeu = $sql->getJeux();
                             while ($donnees = $jeu->fetch()) { ?>
-                            <option value="<?php echo $donnees['Libelle']; ?>" <?php if ($value_tournoi_jeu == $donnees['Libelle']) echo 'selected';?>>
+                            <option value="<?php echo $donnees['Libelle']; ?>" <?php if ($valueTournoiJeu == $donnees['Libelle']) echo 'selected';?>>
                                 <?php echo $donnees['Libelle']; ?>
                             </option>
                             <?php } ?>
@@ -102,7 +102,7 @@
                 </div>
                 <?php
                 
-                if ($check_valider == 1) {
+                if ($checkValider == 1) {
                     if ($req -> rowCount() == 0){
                         echo "<div style='display : flex; justify-content :center; padding-top : 50px;'> Il n'y a pas de tournoi pour ces critères </div>";
                     } else {

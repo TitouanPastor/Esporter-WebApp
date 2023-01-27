@@ -15,21 +15,21 @@ function afficherDescriptionTournoi(obj) {
     arrow.classList.toggle('arrow-active');
 
     // Description
-    var descriptiontournoi = parent.querySelector('.description-tournoi');
-    descriptiontournoi.classList.toggle('description-tournoi-active');
+    var descriptionTournoi = parent.querySelector('.description-tournoi');
+    descriptionTournoi.classList.toggle('description-tournoi-active');
 }
 
 function changerTabListe(obj, tabId) {
 
     // on enleve la classe active de tous les elements de la liste
-    var listetournoi = document.querySelectorAll('.liste');
-    for (var i = 0; i < listetournoi.length; i++) {
-        listetournoi[i].style.display = "none";
+    var listeTournoi = document.querySelectorAll('.liste');
+    for (var i = 0; i < listeTournoi.length; i++) {
+        listeTournoi[i].style.display = "none";
     }
     // on enleve la classe btn-filter-active de tous les elements de la liste
-    var btnfilter = document.querySelectorAll('.btn-filter-active');
-    for (var i = 0; i < btnfilter.length; i++) {
-        btnfilter[i].classList.remove('btn-filter-active');
+    var btnFilter = document.querySelectorAll('.btn-filter-active');
+    for (var i = 0; i < btnFilter.length; i++) {
+        btnFilter[i].classList.remove('btn-filter-active');
     }
 
     var liste = document.getElementById(tabId);
