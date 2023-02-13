@@ -1,9 +1,9 @@
 [Libellé du commit (1-3 mots) A SUPPRIMER]
---Nom du développeur---------------------------------------------------
+>>> Nom du développeur
 ########72 characters##################################################
---Problème / tâche-----------------------------------------------------
+>>> Problème / tâche
 # Problem, Task, Reason for Commit
---Solution-------------------------------------------------------------
+>>> Solution
 # Solution or List of Changes
---Note (Facultatif)----------------------------------------------------
+>>> Note (Facultatif)
 # Special instructions, testing steps, rake, etc
