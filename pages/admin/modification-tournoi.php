@@ -41,8 +41,8 @@ while ($row = $reqTournoisId->fetch()) {
     $lieu = $row['Lieu'];
 }
 if (isset($_POST['modifier'])){
-    // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er février)
-    if(strtotime("2023-02-01") > strtotime(date("Y-m-d"))) {
+    // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er Avril)
+    if(strtotime("2023-04-01") > strtotime(date("Y-m-d"))) {
         if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['date-tournoi-deb']) && !empty($_POST['date-tournoi-fin']) && !empty($_POST['lieu-tournoi'])) {
             if (sizeof($_POST['jeuxtournoi']) > 0) { 
                 // Vérification de si la date de début est inferieur la date de fin   
