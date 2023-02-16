@@ -78,11 +78,8 @@ class Header
             </a>
                 <ul class="navbar-menu">
                     <li class="navbar-item"><a href="' . $this->pathindex . '" class="navbar-link">Accueil</a></li>
-                    <li class="navbar-item"><a href="#" class="navbar-link">Leaderboards</a>
-                    <ul class="sousmenu">
-                        <li class="navbar-item"><a href="' . $this->pathClassementCm . '" class="navbar-link">Classement</a></li>
-                        <li class="navbar-item"><a href="' . $this->pathresultats . '" class="navbar-link">Résultats</a></li>
-                    </ul>
+                    <li class="navbar-item"><a href="' . $this->pathClassementCm . '" class="navbar-link">Classement</a></li>
+                    <li class="navbar-item"><a href="' . $this->pathresultats . '" class="navbar-link">Résultats</a></li>
                     <li class="navbar-item"><a href="' . $this->pathcalendrier . '" class="navbar-link">Calendrier</a></li>
         ';
     }
