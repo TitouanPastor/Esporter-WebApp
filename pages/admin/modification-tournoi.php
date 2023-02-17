@@ -44,13 +44,21 @@
         $lieu = $row['Lieu'];
     }
     if (isset($_POST['modifier'])){
-        // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er Avril)
+
+        // Vérification de si nous avons le droit de modifier un tounoi (si c'est avant le 1er Avril)
         if(strtotime("2023-04-01") > strtotime(date("Y-m-d"))) {
+
+            // Vérification de si les champs sont remplis
             if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['date-tournoi-deb']) && !empty($_POST['date-tournoi-fin']) && !empty($_POST['lieu-tournoi'])) {
+
                 if (sizeof($_POST['jeuxtournoi']) > 0) { 
+
                     // Vérification de si la date de début est inferieur la date de fin   
                     if (strtotime($_POST['date-tournoi-deb']) <= strtotime($_POST['date-tournoi-fin'])) { 
+
+                        // Vérification de si la date de début est supérieur à la date du jour + 2 semaines
                         if (strtotime($_POST['date-tournoi-deb']) > strtotime(date("Y-m-d") . ' + 2 weeks')) {
+                            
                             // Vérification de si la date de début est supérieur à la date du jour
                             if (strtotime($_POST['date-tournoi-deb']) > strtotime(date("Y-m-d"))) {
                                 //Vérification de si un tournoi du même nom n'existe pas
@@ -87,10 +95,13 @@
                                                 $ptsMAX = 0;
                                                 break;
                                         }
+                                        
                                         //Modification tu tournoi
                                         $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$idTournois);
+                                        
                                         //Suppression des jeux du tournoi
                                         $reqSupprimerJeuxTournois = $sql->supprimerJeuxTournoi($idTournois);
+                                        
                                         //Ajout des nouveau jeux du tournoi
                                         foreach ($_POST['jeuxtournoi'] as $jeu) {
                                             $sql->addConcerner($idTournois, $jeu);
@@ -173,7 +184,7 @@
                         <div class="creation-tournoi-input">
                             <label for="type-tournoi">Type du tournoi</label>
                             <select name="type-tournoi" id="type-tournoi">
-                                <?php
+                                <?php                               
                                 if ($type == "Local") {
                                     echo '<option value="Local" selected>Local (100 points max)</option>';
                                 }else{
