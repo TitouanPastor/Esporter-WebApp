@@ -73,14 +73,19 @@
                                 }
                                 if(!$sameTournoi){
                                     try {
-                                        if ($_POST['type-tournoi'] == "Local" ) {
-                                            $ptsMAX = 1;
-                                        } else if ($_POST['type-tournoi'] == "National" ) {
-                                            $ptsMAX = 2;
-                                        } else if ($_POST['type-tournoi'] == "International") {
-                                            $ptsMAX = 3;
-                                        } else {
-                                            $ptsMAX = 0;
+                                        switch($_POST['type-tournoi']){
+                                            case "Local":
+                                                $ptsMAX = 1;
+                                                break;
+                                            case "National":
+                                                $ptsMAX = 2;
+                                                break;
+                                            case "International":
+                                                $ptsMAX = 3;
+                                                break;
+                                            default:
+                                                $ptsMAX = 0;
+                                                break;
                                         }
                                         //Modification tu tournoi
                                         $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$idTournois);
