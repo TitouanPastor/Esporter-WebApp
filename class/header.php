@@ -181,11 +181,7 @@ class Header
     public function header_arbitre()
     {
         return '
-        <li class="navbar-item"><a href="#" class="navbar-link">Arbitre</a>
-        <ul class="sousmenu">
-            <li class="navbar-item"><a href="' . $this->pathlistetournoiarbitre . '" class="navbar-link">Rentrer résultats</a>
-        </ul>
-        </li>
+        <li class="navbar-item"><a href="' . $this->pathlistetournoiarbitre . '" class="navbar-link">Rentrer résultats</a></li>
         <li class="navbar-item connected-name-container">
             <span class="navbar-link">' . ucfirst($_SESSION['role']) . ' : ' . strtok($_SESSION['username'], '@') . ' </span>
             <div class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></div>
