@@ -49,7 +49,7 @@
             </div>
         </div>
         <section class="main-listes-container">
-            <h1>Liste des Écuries</h1>
+            <h1>Liste des Équipes</h1>
             <span>Filtrer par: </span>
             <div class="main-listes-tabs">
                 <div class="main-listes-filters">
