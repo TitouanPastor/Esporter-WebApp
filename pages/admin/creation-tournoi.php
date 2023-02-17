@@ -40,19 +40,26 @@ $reqJeu = $sql->getJeux();
 
 // Ajouter un tournoi
 if (isset($_POST['ajouter'])) {
+
     // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er février)
     if (strtotime("2023-02-01") > strtotime(date("Y-m-d"))) {
+
         // Vérification de si tout les champs sont remplis
         if (!empty($_POST['nom-tournoi']) && !empty($_POST['comboboxtypetournoi']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin'])) {
+
             //Vérification de si il y a au moins un jeu séléctionner
             if (sizeof($_POST['jeuxtournoi']) > 0) {
+
                 // Vérification de si la date de début est inferieur la date de fin   
                 if (strtotime($_POST['date-debut']) <= strtotime($_POST['date-fin'])) {
+
                     // Vérification de si la date de début est supérieur à la date du jour
                     if (strtotime($_POST['date-debut']) > strtotime(date("Y-m-d") . ' + 2 weeks')) {
+
                         //Vérification de si un tournoi du même nom n'existe pas
                         $tournois = $sql->getTournoi();
                         $sameTournoi = False;
+                        
                         while ($tournoi = $tournois->fetch()) {
                             if (strtoupper($tournoi['Nom']) == strtoupper($_POST['nom-tournoi'])) {
                                 $sameTournoi = True;
