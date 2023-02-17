@@ -11,17 +11,21 @@
     </header>
     <body>
         <?php
-            $afficherBoutonFermerResultat  = False;
+        
+            ## Importation des fichiers ##
             session_start();
             require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+            require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+            require_once(realpath(dirname(__FILE__) . '/../admin/bracket.php'));
+
+
+            $afficherBoutonFermerResultat  = False;
+           
             $header = new header(2);
             echo $header->customizeHeader($_SESSION['role']);
-
-            //Sql
-            require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+            
             $sql = new requeteSQL();
 
-            require_once(realpath(dirname(__FILE__) . '/../admin/bracket.php'));
             $bracket = new bracket();
 
             //Id

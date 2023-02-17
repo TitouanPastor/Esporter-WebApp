@@ -16,135 +16,138 @@
 
 </head>
 <?php
-session_start();
-require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
-$header = new header(2);    
+    ## Importation des fichiers ##
+    session_start();
+    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+    require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 
-if ($_SESSION['role'] == "gestionnaire") {
-    echo $header->customizeHeader($_SESSION['role']);
-} else {
-    header('Location: ../../acces-refuse.php');
-}
+    $header = new header(2);    
 
-require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-$sql = new requeteSQL();
-$idTournois = $_GET['id'];
-$reqTournoisId = $sql->tournoiId($idTournois);
-$infoExecutionJeu = "";
-$infoExecution = "" ;
-while ($row = $reqTournoisId->fetch()) {
-    $nom = $row['Nom'];
-    $nbPtsMax = $row['Nombre_point_max'];
-    $type = $row['Type'];
-    $dateTournoisDeb = $row['Date_debut'];
-    $dateTournoisFin = $row['Date_fin'];
-    $lieu = $row['Lieu'];
-}
-if (isset($_POST['modifier'])){
-    // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er Avril)
-    if(strtotime("2023-04-01") > strtotime(date("Y-m-d"))) {
-        if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['date-tournoi-deb']) && !empty($_POST['date-tournoi-fin']) && !empty($_POST['lieu-tournoi'])) {
-            if (sizeof($_POST['jeuxtournoi']) > 0) { 
-                // Vérification de si la date de début est inferieur la date de fin   
-                if (strtotime($_POST['date-tournoi-deb']) <= strtotime($_POST['date-tournoi-fin'])) { 
-                    if (strtotime($_POST['date-tournoi-deb']) > strtotime(date("Y-m-d") . ' + 2 weeks')) {
-                        // Vérification de si la date de début est supérieur à la date du jour
-                        if (strtotime($_POST['date-tournoi-deb']) > strtotime(date("Y-m-d"))) {
-                            //Vérification de si un tournoi du même nom n'existe pas
-                            $sameTournoi = False;
-                            $tournoisId = $sql->tournoiId($idTournois);
+    if ($_SESSION['role'] == "gestionnaire") {
+        echo $header->customizeHeader($_SESSION['role']);
+    } else {
+        header('Location: ../../acces-refuse.php');
+    }
 
 
-                            $tournois = $sql->getTournoi(); 
-                            while($tournoi = $tournois->fetch()) {
-                                if (strtoupper($tournoi['Nom']) == strtoupper($_POST['nom-tournoi'])) {
-                                    $sameTournoi = True;
-                                }
-                            }
-                            
-
-                            while ($row = $tournoisId->fetch()) {
-                                if ($row['Nom'] == $_POST['nom-tournoi']) {
+    $sql = new requeteSQL();
+    $idTournois = $_GET['id'];
+    $reqTournoisId = $sql->tournoiId($idTournois);
+    $infoExecutionJeu = "";
+    $infoExecution = "" ;
+    while ($row = $reqTournoisId->fetch()) {
+        $nom = $row['Nom'];
+        $nbPtsMax = $row['Nombre_point_max'];
+        $type = $row['Type'];
+        $dateTournoisDeb = $row['Date_debut'];
+        $dateTournoisFin = $row['Date_fin'];
+        $lieu = $row['Lieu'];
+    }
+    if (isset($_POST['modifier'])){
+        // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er Avril)
+        if(strtotime("2023-04-01") > strtotime(date("Y-m-d"))) {
+            if (!empty($_POST['nom-tournoi']) && !empty($_POST['type-tournoi']) && !empty($_POST['date-tournoi-deb']) && !empty($_POST['date-tournoi-fin']) && !empty($_POST['lieu-tournoi'])) {
+                if (sizeof($_POST['jeuxtournoi']) > 0) { 
+                    // Vérification de si la date de début est inferieur la date de fin   
+                    if (strtotime($_POST['date-tournoi-deb']) <= strtotime($_POST['date-tournoi-fin'])) { 
+                        if (strtotime($_POST['date-tournoi-deb']) > strtotime(date("Y-m-d") . ' + 2 weeks')) {
+                            // Vérification de si la date de début est supérieur à la date du jour
+                            if (strtotime($_POST['date-tournoi-deb']) > strtotime(date("Y-m-d"))) {
+                                //Vérification de si un tournoi du même nom n'existe pas
                                 $sameTournoi = False;
-                                } 
-                            }
-                            if(!$sameTournoi){
-                                try {
-                                    if ($_POST['type-tournoi'] == "Local" ) {
-                                        $ptsMAX = 1;
-                                    } else if ($_POST['type-tournoi'] == "National" ) {
-                                        $ptsMAX = 2;
-                                    } else if ($_POST['type-tournoi'] == "International") {
-                                        $ptsMAX = 3;
-                                    } else {
-                                        $ptsMAX = 0;
+                                $tournoisId = $sql->tournoiId($idTournois);
+
+
+                                $tournois = $sql->getTournoi(); 
+                                while($tournoi = $tournois->fetch()) {
+                                    if (strtoupper($tournoi['Nom']) == strtoupper($_POST['nom-tournoi'])) {
+                                        $sameTournoi = True;
                                     }
-                                    //Modification tu tournoi
-                                    $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$idTournois);
-                                    //Suppression des jeux du tournoi
-                                    $reqSupprimerJeuxTournois = $sql->supprimerJeuxTournoi($idTournois);
-                                    //Ajout des nouveau jeux du tournoi
-                                    foreach ($_POST['jeuxtournoi'] as $jeu) {
-                                        $sql->addConcerner($idTournois, $jeu);
+                                }
+                                
+
+                                while ($row = $tournoisId->fetch()) {
+                                    if ($row['Nom'] == $_POST['nom-tournoi']) {
+                                    $sameTournoi = False;
+                                    } 
+                                }
+                                if(!$sameTournoi){
+                                    try {
+                                        if ($_POST['type-tournoi'] == "Local" ) {
+                                            $ptsMAX = 1;
+                                        } else if ($_POST['type-tournoi'] == "National" ) {
+                                            $ptsMAX = 2;
+                                        } else if ($_POST['type-tournoi'] == "International") {
+                                            $ptsMAX = 3;
+                                        } else {
+                                            $ptsMAX = 0;
+                                        }
+                                        //Modification tu tournoi
+                                        $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$idTournois);
+                                        //Suppression des jeux du tournoi
+                                        $reqSupprimerJeuxTournois = $sql->supprimerJeuxTournoi($idTournois);
+                                        //Ajout des nouveau jeux du tournoi
+                                        foreach ($_POST['jeuxtournoi'] as $jeu) {
+                                            $sql->addConcerner($idTournois, $jeu);
+                                        }
+                                            $infoExecution = 'Tournoi modifié !';
+                                            header('Location: liste-tournois.php?modifyTournoi=success');
+                                        } catch (Exception $e) {
+                                            $infoExecution = "Erreur lors de la modification du tournoi ! Veuillez réessayer.";
+                                        }
+                                            $infoExecution = "Le tournoi a bien été modifié";
+                                    }else{
+                                        $infoExecution = "Un tournoi avec le même nom existe déjà";
                                     }
-                                        $infoExecution = 'Tournoi modifié !';
-                                        header('Location: liste-tournois.php?modifyTournoi=success');
-                                    } catch (Exception $e) {
-                                        $infoExecution = "Erreur lors de la modification du tournoi ! Veuillez réessayer.";
-                                    }
-                                        $infoExecution = "Le tournoi a bien été modifié";
-                                }else{
-                                    $infoExecution = "Un tournoi avec le même nom existe déjà";
+                                } else {
+                                    $infoExecution = "La date que vous avez entrez est inférieur à la date d'aujoud'hui !";
                                 }
                             } else {
-                                $infoExecution = "La date que vous avez entrez est inférieur à la date d'aujoud'hui !";
+                                $infoExecution = "La date de début doit être supérieur à la date du jour !";
                             }
-                        } else {
-                            $infoExecution = "La date de début doit être supérieur à la date du jour !";
+                            
+                        }else{
+                            $infoExecution = "La date de début doit être inférieur à la date de fin !";
                         }
                         
                     }else{
-                        $infoExecution = "La date de début doit être inférieur à la date de fin !";
+                        $infoExecution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oublier pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
                     }
-                    
-                }else{
-                    $infoExecution = "<center> Veuillez sélectionner au moins un jeu ! <br> N'oublier pas de cliquer sur le bouton 'Valider la selection' après avoir sélectionné un jeu. <center>";
-                }
-            }else {
-            $infoExecutionJeu = "Veuillez remplir tous les champs";
+                }else {
+                $infoExecutionJeu = "Veuillez remplir tous les champs";
+            }
+        }else{
+            $infoExecutionJeu = "Vous ne pouvez plus modifier de tournoi l(max : 1 février) !";
         }
-    }else{
-        $infoExecutionJeu = "Vous ne pouvez plus modifier de tournoi l(max : 1 février) !";
-    }
 
-}   
-$reqJeuduTournois = $sql->getJeuxTournois($idTournois);
-$reqNonPresentTurnois = $sql->jeuNonPresentDansTournois($idTournois);
-if (isset($_POST['ajouterJeu'])) {
-    //Vérification de si le champs n'est pas vide
-    if (!empty($_POST['jeux-tournoi'])) {
-        //Vérification de si le jeu n'existe pas déjà
-        $jeux = $sql->getJeux();
-        $sameJeu = False;
-        while ($jeu = $jeux->fetch()) {
-            if (strtoupper($jeu['Libelle']) == strtoupper($_POST['jeux-tournoi'])) {
-                $sameJeu = True;
+    }   
+    $reqJeuduTournois = $sql->getJeuxTournois($idTournois);
+    $reqNonPresentTurnois = $sql->jeuNonPresentDansTournois($idTournois);
+    if (isset($_POST['ajouterJeu'])) {
+        //Vérification de si le champs n'est pas vide
+        if (!empty($_POST['jeux-tournoi'])) {
+            //Vérification de si le jeu n'existe pas déjà
+            $jeux = $sql->getJeux();
+            $sameJeu = False;
+            while ($jeu = $jeux->fetch()) {
+                if (strtoupper($jeu['Libelle']) == strtoupper($_POST['jeux-tournoi'])) {
+                    $sameJeu = True;
+                }
             }
-        }
-        if (!$sameJeu) {
-            try {
-                //Ajout du nouveau jeu
-                $sql->addJeu($_POST['jeux-tournoi']);
-                $reqJeu = $sql->getJeux();
-                $infoExecutionJeu = "Jeu ajouté !";
-            } catch (Exception $e) {
-                $infoExecutionJeu = "Erreur lors de l'ajout du jeu !";
+            if (!$sameJeu) {
+                try {
+                    //Ajout du nouveau jeu
+                    $sql->addJeu($_POST['jeux-tournoi']);
+                    $reqJeu = $sql->getJeux();
+                    $infoExecutionJeu = "Jeu ajouté !";
+                } catch (Exception $e) {
+                    $infoExecutionJeu = "Erreur lors de l'ajout du jeu !";
+                }
+            } else {
+                $infoExecutionJeu = "Le jeu existe déjà";
             }
-        } else {
-            $infoExecutionJeu = "Le jeu existe déjà";
         }
     }
-}
 
 
 

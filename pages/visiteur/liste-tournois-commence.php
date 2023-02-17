@@ -11,13 +11,18 @@
     </head>
     <body>
         <?php
+
+            ## Importation des fichiers ##
             session_start();
             require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+            require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+           
+            
             $header = new header(2);
             echo $header->customizeHeader($_SESSION['role']);
 
+
             //Sql
-            require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
             $sql = new requeteSQL();
             $req = $sql->getTournoiCommence();
 

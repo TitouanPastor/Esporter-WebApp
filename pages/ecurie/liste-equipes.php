@@ -12,8 +12,14 @@
 
 <body>
     <?php
+
+    ## Importation des fichiers ##
     session_start();
-    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));                
+    require_once(realpath(dirname(__FILE__) . '/tri-equipe.php'));
+    require_once('../../SQL.php');
+    
+    
     $header = new header(2);
 
     if ($_SESSION['role'] == "ecurie") {
@@ -62,8 +68,7 @@
                 </div>
 
                 <?php
-                require_once(realpath(dirname(__FILE__) . '/tri-equipe.php'));
-                require_once('../../SQL.php');
+
                 $sql = new requeteSQL();
                 $idEcurie = $sql->getIdEcurieByMail($_SESSION['username']);
                 $triEquipe = new TriEquipe($idEcurie);
