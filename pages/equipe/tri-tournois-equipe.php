@@ -27,7 +27,7 @@ class TriTournoisEquipe
                             <span class="title-tournoi" onclick="afficherDescriptionTournoi(this)"> [' . $type . '] ' . $nom . '</span>
                         </div>
                         <div class="description-tournoi">
-                            <p>Le tournoi se déroulera à ' . $lieu . ' du ' . $dateDebut . ' au ' . $dateFin . '.</p>';
+                        <p>Le tournoi se déroulera à '.$lieu.' du '.date('d/m/Y', strtotime($dateDebut)).' au '.date('d/m/Y', strtotime($dateFin)).'.</p>';
 
         while ($jeu = $req->fetch()) {
             $str .= '<p>- ' . $jeu['Libelle'] . '</p>';
