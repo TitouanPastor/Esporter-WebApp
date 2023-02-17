@@ -11,8 +11,14 @@
 
 <body>
     <?php
+
+    ## Importation des fichiers ##
     session_start();
-    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));   
+    require_once('bracket.php');
+    require_once('../../SQL.php');
+    
+    
     $header = new header(2);
 
     if ($_SESSION['role'] == "gestionnaire") {
@@ -23,8 +29,7 @@
 
     $idTournoi = $_GET['id'];
 
-    require_once('bracket.php');
-    require_once('../../SQL.php');
+
     $bracket = new bracket();
     $sql = new requeteSQL();
 

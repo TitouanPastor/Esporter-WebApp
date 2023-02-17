@@ -5,17 +5,6 @@ class bracket
 
     private $sql;
 
-    // idées de fonctionnalités:
-
-    // Niveau UI
-
-    // - afficher les jeux dans lesquels on peut créer un bracket pour chaque tournoi
-
-    // <div class="left-jeux">
-    //     <span class="libellejeu">Jeux 1</span>
-    //     <input type="button" value="Selectionner">
-    // </div>
-
     public function __construct()
     {
         require_once('../../SQL.php');

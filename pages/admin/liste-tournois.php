@@ -13,10 +13,16 @@
 
 <body>
     <?php
+
+    ## Importation des fichiers ##
     session_start();
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
-    $header = new header(2);
     require_once('bracket.php');
+    require_once(realpath(dirname(__FILE__) . '/tri-tournois.php'));
+    
+    
+    $header = new header(2);
+    
     $bracket = new bracket();
 
     // Fermeture d'un tournoi et génération du bracket
@@ -92,7 +98,7 @@
                 </div>
 
                 <?php
-                require_once(realpath(dirname(__FILE__) . '/tri-tournois.php'));
+                
                 $triTournois = new TriTournois();
                 ?>
 

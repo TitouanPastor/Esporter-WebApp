@@ -17,9 +17,12 @@
 
 </head>
 <?php
-// Création du header
+
+## Importation des fichiers ##
 session_start();
 require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+
 $header = new header(2);
 
 if ($_SESSION['role'] == "gestionnaire") {
@@ -31,7 +34,7 @@ if ($_SESSION['role'] == "gestionnaire") {
 // Initialisation des variables
 $infoExecution = "";
 $infoExecutionJeu = "";
-require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+
 $sql = new requeteSQL();
 $reqJeu = $sql->getJeux();
 

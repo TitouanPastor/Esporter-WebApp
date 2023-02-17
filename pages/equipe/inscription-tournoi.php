@@ -13,9 +13,12 @@
 
 <body>
     <?php
-    //Header
+    
+    ## Importation des fichiers ##
     session_start();
-    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+    require_once(realpath(dirname(__FILE__) . '/../../class/header.php')); 
+    require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+
     $header = new header(2);
 
     if ($_SESSION['role'] == "equipe") {
@@ -25,7 +28,7 @@
     }
 
     //Sql
-    require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
+   
     $sql = new requeteSQL();
 
     //Sauvegarde de la valeur de la liste

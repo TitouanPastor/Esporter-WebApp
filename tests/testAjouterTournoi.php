@@ -1,12 +1,12 @@
 <?php
-
+        require_once(realpath(dirname(__FILE__) . '/../SQL.php'));
 use PHPUnit\Framework\TestCase;
 
 final class TestAjouterTournoi extends TestCase
 {
     public function testAjoutTournoi()
     {
-        require_once(realpath(dirname(__FILE__) . '/../SQL.php'));
+
         $sql = new requeteSQL();
         $type = 'Local';
         $nom = 'Tournoi de test';
@@ -30,7 +30,7 @@ final class TestAjouterTournoi extends TestCase
 
     public function testAjouterJeu()
     {
-        require_once(realpath(dirname(__FILE__) . '/../SQL.php'));
+
         $sql = new requeteSQL();
         $libelle = 'jeu de test1';
         $sql->addJeu($libelle);

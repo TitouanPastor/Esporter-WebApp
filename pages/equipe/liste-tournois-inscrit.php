@@ -12,15 +12,18 @@
 
 <body>
 <?php
-session_start();
-require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
-$header = new header(2);    
 
-if ($_SESSION['role'] == "equipe") {
-    echo $header->customizeHeader($_SESSION['role']);
-} else {
-    header('Location: ../../acces-refuse.php');
-}
+    ## Importation des fichiers ##
+    session_start();
+    require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+    require_once(realpath(dirname(__FILE__) . '/tri-tournois-equipe.php'));
+    $header = new header(2);    
+
+    if ($_SESSION['role'] == "equipe") {
+        echo $header->customizeHeader($_SESSION['role']);
+    } else {
+        header('Location: ../../acces-refuse.php');
+    }
 ?>
     <main class="main-listes">
         <section class="main-listes-container">
@@ -39,7 +42,7 @@ if ($_SESSION['role'] == "equipe") {
                 </div>
 
                 <?php
-                require_once(realpath(dirname(__FILE__) . '/tri-tournois-equipe.php'));
+                
                 $triTournoisEquipe = new TriTournoisEquipe($_SESSION['username']);
                 ?>
 
