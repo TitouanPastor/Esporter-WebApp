@@ -13,7 +13,7 @@
     <div class="acces-refuse">
         <h1>Accès refusé</h1>
         <p>Vous n'avez pas l'accès à cette page</p>
-        <img src="https://cdn-icons-png.flaticon.com/512/7603/7603400.png" alt="" class="navbar-logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/7603/7603400.png" alt="Image d\'un panda en pleine réflexion" class="navbar-logo">
         <a href="index.php">Retour à l'accueil</a>
         <a href="pages/visiteur/login.php">Connexion</a>
     </div>
