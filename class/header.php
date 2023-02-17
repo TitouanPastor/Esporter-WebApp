@@ -1,4 +1,5 @@
 <?php
+
 class Header
 {
 
@@ -132,7 +133,10 @@ class Header
             <li class="navbar-item"><a href="' . $this->pathlisteecurie . '" class="navbar-link">Ecuries</a></li>
         </ul>
         </li>
-        <li class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></li>
+        <li class="navbar-item connected-name-container">
+            <span class="navbar-link">' . ucfirst($_SESSION['role']) . ' : ' . strtok($_SESSION['username'], '@') . ' </span>
+            <div class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></div>
+        </li>
     </ul>
 </div>
 </header>';
@@ -144,10 +148,13 @@ class Header
         <li class="navbar-item"><a href="#" class="navbar-link">Ecurie</a>
         <ul class="sousmenu">
             <li class="navbar-item"><a href="' . $this->pathaddequipes . '" class="navbar-link">Ajouter une équipe</a></li>
-            <li class="navbar-item"><a href="' .$this->pathlisteequipeECU . '" class="navbar-link">Equipes</a></li>
+            <li class="navbar-item"><a href="' . $this->pathlisteequipeECU . '" class="navbar-link">Equipes</a></li>
         </ul>
         </li>
-        <li class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></li>
+        <li class="navbar-item connected-name-container">
+            <span class="navbar-link">' . ucfirst($_SESSION['role']) . ' : ' . strtok($_SESSION['username'], '@') . ' </span>
+            <div class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></div>
+        </li>
     </ul>
 </div>
 </header>';
@@ -162,7 +169,10 @@ class Header
             <li class="navbar-item"><a href="' . $this->pathtournoisInscrits . '" class="navbar-link">Mes tournois</a>
         </ul>
         </li>
-        <li class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></li>
+        <li class="navbar-item connected-name-container">
+            <span class="navbar-link">' . ucfirst($_SESSION['role']) . ' : ' . strtok($_SESSION['username'], '@') . ' </span>
+            <div class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></div>
+        </li>
     </ul>
 </div>
 </header>';
@@ -176,7 +186,10 @@ class Header
             <li class="navbar-item"><a href="' . $this->pathlistetournoiarbitre . '" class="navbar-link">Rentrer résultats</a>
         </ul>
         </li>
-        <li class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></li>
+        <li class="navbar-item connected-name-container">
+            <span class="navbar-link">' . ucfirst($_SESSION['role']) . ' : ' . strtok($_SESSION['username'], '@') . ' </span>
+            <div class="navbar-item"><a href="' . $this->pathconnexion . '" class="btn-connexion">Déconnexion</a></div>
+        </li>
     </ul>
 </div>
 </header>';

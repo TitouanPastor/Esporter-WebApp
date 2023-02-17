@@ -313,12 +313,26 @@ input[type=button].add:hover {
 .btn-connexion {
   color: var(--white-text);
   font-weight: 600;
-  font-size: 18px;
+  font-size: 15px;
   background-color: var(--purple);
   transition: all .2s ease-in-out;
-  padding: 8px 25px;
-  margin-left: 25px;
+  padding: 6px 12px;
   border-radius: var(--border-radius);
+}
+
+.connected-name-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 10px;
+  gap: 8px;
+}
+
+.connected-name-container span {
+  color: black;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 .btn-connexion:hover {
@@ -330,7 +344,7 @@ header {
   position: fixed;
   z-index: 1000;
   width: 100%;
-  padding: 4px 32px;
+  padding: 8px 32px;
   background-color: var(--white-text);
   box-shadow: var(--little-shadow);
 }
