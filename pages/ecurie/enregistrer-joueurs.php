@@ -50,7 +50,7 @@ if (isset($_POST['ajouter'])) {
                             if (strtotime($_POST['dtn-joueur3']) <= strtotime(date("Y-m-d") . ' - 12 years')) {
                                 // Vérification de si le joueur4 à plus de 12ans
                                 if (strtotime($_POST['dtn-joueur4']) <= strtotime(date("Y-m-d") . ' - 12 years')) {
-                                    //Vérification de si une équipe du même nom n'existe pas déjà
+                                    //Vérification de si le pseudo et le mail du joueur1 sont déjà utilisés
                                     $joueurs = $sql->getJoueur();
                                     $samePseudo1 = False;
                                     $sameMail1 = False;
@@ -62,6 +62,7 @@ if (isset($_POST['ajouter'])) {
                                             $sameMail1 = True;
                                         }
                                     }
+                                    //Vérification de si le pseudo et le mail du joueur2 sont déjà utilisés
                                     $samePseudo2 = False;
                                     $sameMail2 = False;
                                     while ($joueur2 = $joueurs->fetch()) {
@@ -72,6 +73,7 @@ if (isset($_POST['ajouter'])) {
                                             $sameMail2 = True;
                                         }
                                     }
+                                    //Vérification de si le pseudo et le mail du joueur3 sont déjà utilisés
                                     $samePseudo3 = False;
                                     $sameMail3 = False;
                                     while ($joueur3 = $joueurs->fetch()) {
@@ -82,6 +84,7 @@ if (isset($_POST['ajouter'])) {
                                             $sameMail3 = True;
                                         }
                                     }
+                                    //Vérification de si le pseudo et le mail du joueur4 sont déjà utilisés
                                     $samePseudo4 = False;
                                     $sameMail4 = False;
                                     while ($joueur4 = $joueurs->fetch()) {
@@ -92,6 +95,7 @@ if (isset($_POST['ajouter'])) {
                                             $sameMail4 = True;
                                         }
                                     }
+                                    //Message d'erreur si une des conditions est fausse
                                     if (!$sameMail1) {
                                         if (!$samePseudo1) {
                                             if (!$sameMail2) {
@@ -101,7 +105,7 @@ if (isset($_POST['ajouter'])) {
                                                             if (!$sameMail4) {
                                                                 if (!$samePseudo4) {
                                                                     try {
-                                                                        // Récupération de l'ID dernier tournoi créer
+                                                                        // Récupération de l'ID dernier équipe créer
                                                                         $idEquipe = $sql->getLastIDEquipe();
                                                                         //Ajout du joueur1 
                                                                         $sql->addJoueur($_POST['nom-joueur1'], $_POST['prenom-joueur1'], $_POST['dtn-joueur1'], $_POST['pseudo-joueur1'], $_POST['email-joueur1'], $idEquipe);
