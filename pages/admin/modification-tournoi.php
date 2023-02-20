@@ -97,8 +97,8 @@
                                         }
                                         
                                         //Modification tu tournoi
-                                        $reqModifier = $sql->modifierTournoi($_POST['nom-tournoi'], $_POST['date-tournoi-deb'], $_POST['date-tournoi-fin'], $_POST['type-tournoi'], $_POST['lieu-tournoi'],$ptsMAX,$idTournois);
-                                        
+                                        $reqModifier = $sql->modifierTournoi(htmlspecialchars($_POST['nom-tournoi']), htmlspecialchars($_POST['date-tournoi-deb']), htmlspecialchars($_POST['date-tournoi-fin']), htmlspecialchars($_POST['type-tournoi']), htmlspecialchars($_POST['lieu-tournoi']),$ptsMAX,$idTournois);
+
                                         //Suppression des jeux du tournoi
                                         $reqSupprimerJeuxTournois = $sql->supprimerJeuxTournoi($idTournois);
                                         

@@ -46,7 +46,7 @@
     if (isset($_GET['id'])) {
         $param = [];
         $param[0] = $sql->getIdEquipe($_SESSION['username']);
-        $param[1] = $_GET['id'];
+        $param[1] = htmlspecialchars($_GET['id']);
         $param[2] = $sql->getIdJeu($jeuEquipe);
         $reqInscription = $sql->inscriptionTournoi($param);
     }

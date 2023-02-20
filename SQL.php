@@ -10,10 +10,10 @@ class requeteSQL
     public function __construct()
     {
         ///Connexion au serveur MySQL avec PDO
-        $server = '54.37.31.19';
-        $login = 'u743447366_admin';
-        $mdp = 'YAksklOw6qN$';
-        $db = 'u743447366_esporter';
+        $server = 'sql849.main-hosting.eu';
+        $login  = 'u743447366_admin';
+        $mdp    = 'YAksklOw6qN$';
+        $db     = 'u743447366_esporter';
 
         try {
             $this->linkpdo = new PDO("mysql:host=$server;dbname=$db", $login, $mdp);
@@ -526,7 +526,6 @@ class requeteSQL
         while ($row = $req->fetch()) {
             return $row['id_equipe'];
         }
-
     }
 
 
@@ -1051,7 +1050,6 @@ class requeteSQL
             die("Erreur getTournoiNomByIdTournoi");
         }
         return $req;
-
     }
 
 
@@ -1307,7 +1305,8 @@ class requeteSQL
     }
 
 
-    public function terminerTournoi($idTournoi){
+    public function terminerTournoi($idTournoi)
+    {
         $req = $this->linkpdo->prepare("UPDATE tournoi SET estFerme = 2 WHERE id_tournoi = :idTournoi");
         $req->execute(array(
             'idTournoi' => $idTournoi
@@ -1362,13 +1361,11 @@ class requeteSQL
             matchs_gagnes
         DESC");
 
-        $testReq = $req -> execute(
+        $testReq = $req->execute(
             array(
                 "id_poule" => $idPoule
             )
         );
         return $req;
     }
-
-
 }

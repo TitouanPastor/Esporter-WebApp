@@ -34,7 +34,7 @@
             //connexion à la base de données
             $sql = new requeteSQL();
             //verification de la validité de l'email et du mot de passe
-            if ($sql->checkLogin($_POST['username'], $_POST['password'], $_POST['role'])) {
+            if ($sql->checkLogin(htmlspecialchars($_POST['username']), htmlspecialchars($_POST['password']), htmlspecialchars($_POST['role']))) {
                 //connexion de l'utilisateur
                 $_SESSION['username'] = $_POST['username'];
                 $_SESSION['password'] = $_POST['password'];

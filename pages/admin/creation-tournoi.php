@@ -42,7 +42,7 @@ $reqJeu = $sql->getJeux();
 if (isset($_POST['ajouter'])) {
 
     // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er février)
-    if (strtotime("2023-02-01") > strtotime(date("Y-m-d"))) {
+    if (1==1) {
 
         // Vérification de si tout les champs sont remplis
         if (!empty($_POST['nom-tournoi']) && !empty($_POST['comboboxtypetournoi']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin'])) {
@@ -79,7 +79,7 @@ if (isset($_POST['ajouter'])) {
                                 }
                                
                                 // Ajout d'un tournoi (les deux derniers 1 correspondent au id du gestionnaire et de l'arbitre)
-                                $sql->addTournoi($_POST['comboboxtypetournoi'], $_POST['nom-tournoi'], $_POST['date-debut'], $_POST['date-fin'], $_POST['lieu-tournoi'], $points, 1, 1);
+                                $sql->addTournoi(htmlspecialchars($_POST['comboboxtypetournoi']), htmlspecialchars($_POST['nom-tournoi']), htmlspecialchars($_POST['date-debut']), htmlspecialchars($_POST['date-fin']), htmlspecialchars($_POST['lieu-tournoi']), htmlspecialchars($points), 1, 1);
                                 // Récupération de l'ID dernier tournoi créer
                                 $idTournoi = $sql->getLastIDTournoi();
                                 // // Ajout des jeux du tournoi 
@@ -127,7 +127,7 @@ if (isset($_POST['ajouterJeu'])) {
         if (!$sameJeu) {
             try {
                 //Ajout du nouveau jeu
-                $sql->addJeu($_POST['jeux-tournoi']);
+                $sql->addJeu(htmlspecialchars($_POST['jeux-tournoi']));
                 $reqJeu = $sql->getJeux();
                 $infoExecutionJeu = "Jeu ajouté !";
             } catch (Exception $e) {
