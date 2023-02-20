@@ -1070,6 +1070,19 @@ class requeteSQL
         return $req;
     }
 
+    public function getPouleFinaleByIdTournoi($idTournoi){
+        $req = $this->linkpdo->prepare("SELECT id_poule, libelle FROM poule WHERE id_tournoi = :id_tournoi AND libelle = 'Finale'");
+        $testReq = $req->execute(
+            array(
+                "id_tournoi" => $idTournoi
+            )
+        );
+        if ($testReq == false) {
+            die('Erreur getPouleFinaleByIdTournoi');
+        }
+        return $req;
+    }
+    
     public function getPouleIdTournoi($idTournoi)
     {
         $req = $this->linkpdo->prepare("SELECT Id_Poule FROM poule WHERE id_tournoi = :id_tournoi");
