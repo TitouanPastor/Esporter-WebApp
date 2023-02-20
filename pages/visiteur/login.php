@@ -26,6 +26,7 @@
     $_SESSION['username'] = "";
     $_SESSION['password'] = "";
     $_SESSION['role'] = "";
+    $role = array("ecurie" => '', "equipe" => '', "gestionnaire" => '', "arbitre" => '');
 
     //verification de la validation du formulaire
     if (isset($_POST['submit'])) {
@@ -42,11 +43,10 @@
                 header('Location: ../../index.php');
             } else {
                 $infoLogin = "Email ou mot de passe incorrect";
+                $role[$_POST['role']] = "selected";
             }
         }
     }
-
-
     ?>
 
     <main class="main-login">
@@ -57,10 +57,10 @@
                 <div class="role">
                     <label for="role">Votre rôle</label>
                     <select name="role" id="role" required>
-                        <option value="ecurie">Ecurie</option>
-                        <option value="equipe">Equipe</option>
-                        <option value="gestionnaire">Gestionnaire</option>
-                        <option value="arbitre">Arbitre</option>
+                        <option value="ecurie" <?= $role['ecurie'] ?>>Ecurie</option>
+                        <option value="equipe" <?= $role['equipe'] ?>>Equipe</option>
+                        <option value="gestionnaire" <?= $role['gestionnaire'] ?>>Gestionnaire</option>
+                        <option value="arbitre" <?= $role['arbitre'] ?>>Arbitre</option>
                     </select>
                 </div>
                 <div class="utilisateur">
@@ -87,4 +87,4 @@
     </main>
 </body>
 
-</html>  
+</html>
