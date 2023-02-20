@@ -13,29 +13,34 @@
 
 <body>
     <?php
+
+    # Initialisation de la session
+    session_start();
+
+    # Importation des fichiers
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
     require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-    $infoLogin = "";
+   
 
-    // Construction du header
+    # Affichage du header
     $header = new header(2);
     echo $header->headerLogin();
 
-    //On se déconnecte
-    session_start();
+    # Déclaration des variables de session et variable d'erreur
+    $infoLogin = "";
     $_SESSION['username'] = "";
     $_SESSION['password'] = "";
     $_SESSION['role'] = "";
 
-    //verification de la validation du formulaire
+    # Validation du formulaire
     if (isset($_POST['submit'])) {
-        //verification de la validité des champs
+        # Vérification que les champs ne sont pas vides
         if (!empty($_POST['username']) && !empty($_POST['password'])) {
-            //connexion à la base de données
+            # Connexion à la base de données
             $sql = new requeteSQL();
-            //verification de la validité de l'email et du mot de passe
+            # verification de la validité de l'email et du mot de passe en fonction du role
             if ($sql->checkLogin($_POST['username'], $_POST['password'], $_POST['role'])) {
-                //connexion de l'utilisateur
+                # Si connecté Création des variables de session et redirection vers la page d'accueil
                 $_SESSION['username'] = $_POST['username'];
                 $_SESSION['password'] = $_POST['password'];
                 $_SESSION['role'] = $_POST['role'];
@@ -77,7 +82,6 @@
                     <input type="password" name="password" required placeholder="Entrer le mot de passe">
                 </div>
                 <div class="button">
-                    <!-- <input type="button" name="mdp_oublie" class="bouton" value="Mot de passe oublié"> -->
                     <span><?php echo $infoLogin ?></span>
                     <input type="submit" name="submit" class="submit" value="Se Connecter">
                 </div>

@@ -11,14 +11,20 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <?php
-// création du header
+
+# Initualisation de la session
 session_start();
+# Inclusion des fichiers nécessaires 
 require_once(realpath(dirname(__FILE__) . '/class/header.php'));
+
+# Création de l'header
 $header = new header(0);
 
+# Affichage de l'header suivant le rôle de connexion 
 if (isset($_SESSION['role'])) {
     echo $header->customizeHeader($_SESSION['role']);
 } else {
+    # Affichage de l'header par défaut (visiteur) 
     echo $header->customizeHeader();
 }
 ?>

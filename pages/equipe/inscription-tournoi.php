@@ -14,35 +14,38 @@
 <body>
     <?php
     
-    ## Importation des fichiers ##
-    session_start();
+    # Initialisation de la session
+    session_start(); 
+    
+    # Importation des fichiers
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php')); 
     require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 
+    # Affichage du header ou redirection vers la page d'accès refusé
     $header = new header(2);
-
     if ($_SESSION['role'] == "equipe") {
         echo $header->customizeHeader($_SESSION['role']);
     } else {
         header('Location: ../../acces-refuse.php');
     }
-
-    //Sql
-   
+    
+    #Connexion à la base de données
     $sql = new requeteSQL();
 
-    //Sauvegarde de la valeur de la liste
+    # Persistance des données du formulaire
     if (isset($_POST["tournoi-jeu"])) {
         $valueTournoiJeu = $_POST["tournoi-jeu"];
     } else {
         $valueTournoiJeu = "default";
     }
+
+    # Requête pour récupérer les tournois en fonction du jeu de l'équipe
     $req = $sql->getJeuEquipe($_SESSION['username']);
     $jeuEquipe = $req->fetchColumn();
     $param = $jeuEquipe;
     $req = $sql->getTournoiInscription($param);
 
-    //Requête d'inscription au tournoi cliqué
+    # Requête d'inscription au tournoi cliqué
     if (isset($_GET['id'])) {
         $param = [];
         $param[0] = $sql->getIdEquipe($_SESSION['username']);
@@ -114,6 +117,7 @@
                         </thead>
                         <tbody>
                             <?php
+                            # Affichage des tournois auxquels l'équipe n'est pas inscrite
                             while ($donnees = $req->fetch()) {
                                 if ($sql->estInscritTournoi($_SESSION['username'], $donnees[0]) == 0) {
                                     $reqNbEquipe = $sql->getNbEquipeTournoi($donnees[0]);
@@ -145,7 +149,9 @@
         </section>
 
     </main>
+
     <script>
+        
         function openPopUp(a) {
             document.querySelector('.popupconfirm').style.display = 'flex';
             document.querySelector('.idTournoi').innerHTML = a.getAttribute('value');

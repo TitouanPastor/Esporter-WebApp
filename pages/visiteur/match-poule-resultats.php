@@ -12,35 +12,36 @@
     <body>
         <?php
         
-            ## Importation des fichiers ##
+            # Initialisation de la session 
             session_start();
+            # Importation des fichiers 
             require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
             require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
             require_once(realpath(dirname(__FILE__) . '/../admin/bracket.php'));
 
 
-            $afficherBoutonFermerResultat  = False;
            
+            # Affichage de l'header suivant le rôle de connexion 
             $header = new header(2);
             echo $header->customizeHeader($_SESSION['role']);
             
-            $sql = new requeteSQL();
 
+            # Création des objets 
+            $sql = new requeteSQL();
             $bracket = new bracket();
 
-            //Id
+            # Récupération des variables en GET 
             $idTournoi = $_GET["id_tournoi"];
             $idJeu = $_GET["id_jeu"];
 
-            //Nom tournoi par id_tournoi
+            # Initialisation des variables
             $reqNomTournoi = $sql -> getTournoiNomByIdTournoi($idTournoi) -> fetch()[0];
             $PoulesTermines = false;
-            $pouleFinaleCreer = false;
+            $pouleFinaleCreer = false;  
+            $afficherBoutonFermerResultat  = False;
             $idPouleFinale = 0;
 
-            //Poule par id_tournoi
-            $reqPoule = $sql->getPouleIdTournoi($idTournoi);
-
+            # ID et Libelle des poules du tournoi $idTournoi
             $reqPoule = $sql->getPouleByIdTournoi($idTournoi);
         ?>
 
@@ -53,6 +54,7 @@
 
                             <div class="poule-gauche">
                                 <?php
+                                    # Affichage des poules
                                     $num_poule = 0;
                                     while ($poule = $reqPoule -> fetch()){
                                         $num_poule++;
@@ -64,7 +66,8 @@
                                                     <span>'.$poule[1].'</span>
                                                 </div>
                                             ';
-                                        while ($equipe = $reqEquipePouleTrie -> fetch()){
+                                            #Affichage des équipes de la poule
+                                            while ($equipe = $reqEquipePouleTrie -> fetch()){
                                             $equipeNom = $equipe[0];
                                             $equipeNbMatchGagne = $equipe[1];
                                             if ($clair % 2 == 0) {
@@ -92,7 +95,10 @@
                             </div>
                             
                             <?php
+                             
                                 $idPouleAffiche;
+                                
+                                # Affichage des rencontres de la poule sélectionnée
                                 if (isset($_POST["submitPoule"])) {
                                     $idPouleAffiche = $_POST["submitPoule"];
                                     $nomPouleAffiche = $sql->getNomPoule($idPouleAffiche)->fetch()[0];
@@ -103,7 +109,7 @@
                                             <div class="tout-match">';
                                             $numMatch = 1;
                                             
-                                
+                                            
                                             while ($rencontre = $reqRecontre -> fetch()){
                                                 $nomEquipe1 = $sql -> getNomEquipeById($rencontre[1]) -> fetch()[0];
                                                 $nomEquipe2 = $sql -> getNomEquipeById($rencontre[2])->fetch()[0];
@@ -123,6 +129,8 @@
                                                         
                                                     </div>
                                                     ';
+                                                
+                                                    # Affichage des resultats des rencontres si matchs terminés
                                                 } else {
                                                     $gagnant = $sql -> getGagnantRencontre($rencontre[0]) -> fetch()[0];
                                                     if ($nomEquipe1 == $gagnant){

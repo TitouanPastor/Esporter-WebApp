@@ -12,17 +12,18 @@
     <body>
         <?php
 
-            ## Importation des fichiers ##
-            session_start();
+            # Initialisation de la session
+            session_start(); 
+            # Importation des fichiers
             require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
             require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
            
-            
+            # Affichage du header
             $header = new header(2);
             echo $header->customizeHeader($_SESSION['role']);
 
 
-            //Sql
+            #Récupération des tournois commencés
             $sql = new requeteSQL();
             $req = $sql->getTournoiCommence();
 
@@ -44,6 +45,7 @@
                             </thead>
                             <tbody>
                                 <?php
+                                    # Affichage des tournois commencés
                                     $pair = 0;
                                     while ($donnees = $req -> fetch()){
                                         if ($pair % 2 == 0){
@@ -79,7 +81,7 @@
                                                 </td>
                                             </tr>
                                         ";
-                                        //Si le tournoi a plusieurs jeux
+                                        # Si le tournoi a plusieurs jeux
                                         if ($nbJeu > 1){
                                             for ($i = 1; $i < $nbJeu-1; $i++){
                                             $idTournoi = strval($donnees[2]);

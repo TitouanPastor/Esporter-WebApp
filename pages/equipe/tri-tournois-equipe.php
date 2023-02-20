@@ -17,7 +17,15 @@ class TriTournoisEquipe
 
 
 
-    //function qui affiche un tournoi
+    # Fonction qui permet d'afficher un tournoi
+    # Paramètres : $nom : nom du tournoi
+    #              $dateDebut : date de début du tournoi (superieur à la date du jour)
+    #              $dateFin : date de fin du tournoi (superieur à la date du debut)
+    #              $lieu : lieu du tournoi
+    #              $type : type du tournoi (Local, National, International)
+    #              $id : id du tournoi
+    # Retour : $str : chaine de caractère contenant le code html de l'affichage du tournoi
+
     public function afficherUnTournoi($nom, $dateDebut, $dateFin, $lieu, $type, $id)
     {
         $req = $this->sql->getJeuxTournois($id);
@@ -37,6 +45,9 @@ class TriTournoisEquipe
         return $str;
     }
 
+    # Fonction qui permet d'afficher tous les tournois
+    # Paramètres : aucun
+    # Retour : aucun (echo)
     public function afficherLesTournois()
     {
         while ($row = $this->req->fetch()) {
@@ -44,40 +55,53 @@ class TriTournoisEquipe
         }
     }
 
+    # Fonction qui permet de récupérer le nombre de tournois
+    # Paramètres : aucun
+    # Retour : nombre de tournois
     public function getNombreTournois(): int
     {
         return $this->nbTournois;
     }
 
-    //Fonction trie les tournois par type
+    # Fonction qui affiche les tournois triés par type
+    # Paramètres : aucun
+    # Retour : aucun (echo)
     public function trierParTypeTournoisEquipe()
     {
         $this->req = $this->sql->tournoisByType($this->idEquipe);
         $this->afficherLesTournois();
     }
 
-    //Fonction trie les tournois par lieu
+    # Fonction qui affiche les tournois triés par lieu
+    # Paramètres : aucun
+    # Retour : aucun (echo)
     public function trierParLieuTournoisEquipe()
     {
         $this->req = $this->sql->tournoisByLieu($this->idEquipe);
         $this->afficherLesTournois();
     }
 
-    //Fonction trie les tournois par nom
+    # Fonction qui affiche les tournois triés par equipe
+    # Paramètres : aucun
+    # Retour : aucun (echo)
     public function trierParNomTournoisEquipe()
     {
         $this->req = $this->sql->tournoisByNom($this->idEquipe);
         $this->afficherLesTournois();
     }
 
-    //Fonction trie les tournois par id (filtre de base)
+    # Fonction qui affiche les tournois triés par date
+    # Paramètres : aucun
+    # Retour : aucun (echo)
     public function trierParDateTournoisEquipe()
     {
         $this->req = $this->sql->tournoisByDate($this->idEquipe);
         $this->afficherLesTournois();
     }
 
-    //Fonction trie les tournois par id (filtre de base)
+    # Fonction qui affiche les tournois triés par id (filtre de base)
+    # Paramètres : aucun
+    # Retour : aucun (echo)
     public function trierParIdTournoisEquipe()
     {
         $this->req = $this->sql->getTournoi($this->idEquipe);

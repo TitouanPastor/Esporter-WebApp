@@ -14,21 +14,25 @@
 <body>
     <?php
     
-    ## Importation des fichiers ##
+    # Initialisation de la session
     session_start();
+    
+    # Importation des fichiers
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
     require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
     
-    
+    # Affichage du header
     $header = new header(2);
     echo $header->customizeHeader($_SESSION['role']);
 
     
-    
+    # Connexion à la base de données
     $sql = new requeteSQL();
+
+    #Initialisation des variables
     $checkValider = 0;
 
-    //Exécution de la requête en fonction des paramètres fournis (liste rempli ou non)
+    # Exécution de la requête en fonction des paramètres fournis (liste rempli ou non)
     if (isset($_POST["valider"])) {
         if ($_POST['equipe_jeu'] != "default") {
             $checkValider = 1;
@@ -36,7 +40,7 @@
         }
     }
 
-    //Valeur et affichage d'une liste -> conserver la valeur après validation
+    # Valeur et affichage d'une liste conserver la valeur après validation
     if (isset($_POST["equipe_jeu"])) {
         $valueEquipeJeu = $_POST["equipe_jeu"];
     } else {
@@ -83,6 +87,7 @@
                     <select name="equipe_jeu" class="element">
                         <option value="default" selected>Sélectionner un jeu</option>
                         <?php
+                        # Affichage de la liste des jeux dans une liste déroulante
                         $jeu = $sql->getJeux();
                         while ($donnees = $jeu->fetch()) { ?>
                             <option value="<?php echo $donnees['Id_Jeu']; ?>" <?php if ($valueEquipeJeu == $donnees['Id_Jeu']) echo 'selected'; ?>>
@@ -97,7 +102,7 @@
 
                 if ($checkValider == 1) {
                     if ($req->rowCount() == 0) {
-                        echo "<div style='display : flex; justify-content :center; padding-top : 50px;'> Il n'y a pas de tournoi pour ces critères </div>";
+                        echo "<div style='display : flex; justify-content :center; padding-top : 50px;'> Aucune équipe disponible </div>";
                     } else {
                         echo "
                 <div class = 'tableau-style'>
@@ -117,7 +122,7 @@
                             echo '
                         <tr>'; 
                             
-                            //Place
+                            //Affichage de l'icone de place
                             if ($i == 1) {
                                 echo '<td><svg width="50px" height="50px" viewBox="-3.5 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M9.73795 18.8436L12.9511 20.6987L6.42625 32L4.55349 27.8233L9.73795 18.8436Z" fill="#CE4444"/>
@@ -194,7 +199,7 @@
                                 echo '<td>' . $i . '</td>';
                             }
                             
-                            //Nom équipe
+                            //Affichage des noms des équipes
                             if ($i == 1) {
                                 echo '<td style="font-size: 30px; font-weight: bold; color: #c09525;">' . $donnees[0] . '</td>';
                             } elseif ($i == 2) {
@@ -205,7 +210,7 @@
                                 echo '<td>' . $donnees[0] . '</td>';
                             }
                             
-                            //Nombre de points
+                            //Affichages des nombres de points 
                             if ($i == 1) {
                                 echo '<td style="font-size: 30px; font-weight: bold; color: #c09525;">' . $donnees[1] . '</td>';
                             } elseif ($i == 2) {

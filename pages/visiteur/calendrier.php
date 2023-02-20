@@ -14,21 +14,23 @@
 <body>
     <?php
     
-        ## Importation des fichiers ##
+        # Initialisation de la session
         session_start();
+
+        # Importation des fichiers
         require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
         require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
         
-        
+        # Affichage du header
         $header = new header(2);
         echo $header->customizeHeader($_SESSION['role']);
 
-        //Sql
-        
+       
+        # Création object et initialisation des variables
         $sql = new requeteSQL();
         $checkValider = 0;
         
-        //Exécution de la requête en fonction des paramètres fournis (liste rempli ou non)
+        #Exécution de la requête en fonction des paramètres fournis (liste rempli ou non)
         if (isset($_POST["valider"])) {
             $checkValider = 1;
             $param = array();
@@ -38,13 +40,13 @@
             $req = $sql -> getTournoiCalendrier($param);
         }
 
-        //Contrôle sur la date 01/01/2023 -> 31/12/2023
+        # Contrôle sur la minimum et maximum à selectionner (date 01/01/2023 au 31/12/2023)
         $min = new DateTime('01-01-2023');
         $max = new DateTime('31-12-2023');    
         $dateMin = $min -> format('Y-m-d');
         $dateMax = $max -> format('Y-m-d');
 
-        //Valeur et affichage d'une liste -> conserver la valeur après validation
+        # Valeur et affichage d'une liste -> conserver la valeur après validation
         if (isset($_POST["tournoi_date"])){
             $valueTournoiDate = $_POST["tournoi_date"];
         } else {
@@ -77,12 +79,13 @@
 
             <form action="" method="post">
                 <div class="container">
-
+                    <!-- Affichage du choix des dates -->
                     <input type="date" name="tournoi_date" class="element" value="<?php echo $valueTournoiDate?>"min="<?php echo $dateMin;?>" max="<?php echo $dateMax;?>">
 
                     <select name="tournoi_nom" class="element" class="select">
                         <option value="default" selected>Sélectionner un tournoi</option>
                         <?php
+                            # Affichages des tournois dans une liste déroulante
                             $tournoi = $sql->getTournoi();
                             while ($donnees = $tournoi->fetch()) { ?>
                         <option value="<?php echo $donnees['Nom']; ?>" <?php if ($valueTournoiNom == $donnees['Nom']) echo 'selected'?>>
@@ -94,6 +97,7 @@
                     <select name="tournoi_jeu" class="element" class="select">
                         <option value="default" selected>Sélectionner un jeu</option>
                             <?php
+                             # Affichages des jeux dans une liste déroulante
                             $jeu = $sql->getJeux();
                             while ($donnees = $jeu->fetch()) { ?>
                             <option value="<?php echo $donnees['Libelle']; ?>" <?php if ($valueTournoiJeu == $donnees['Libelle']) echo 'selected';?>>
@@ -106,6 +110,7 @@
                 </div>
                 <?php
                 
+                # Affichage des tournois selon les critères séléctionné 
                 if ($checkValider == 1) {
                     if ($req -> rowCount() == 0){
                         echo "<div style='display : flex; justify-content :center; padding-top : 50px;'> Il n'y a pas de tournoi pour ces critères </div>";

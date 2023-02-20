@@ -13,12 +13,15 @@
 <body>
 <?php
 
-    ## Importation des fichiers ##
+    # Initialisation de la session
     session_start();
+    
+    # Importation des fichiers 
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
     require_once(realpath(dirname(__FILE__) . '/tri-tournois-equipe.php'));
+    
+    # Affichage du header ou page d'acces refuse si droit insufisant 
     $header = new header(2);    
-
     if ($_SESSION['role'] == "equipe") {
         echo $header->customizeHeader($_SESSION['role']);
     } else {
@@ -42,7 +45,7 @@
                 </div>
 
                 <?php
-                
+                # Affichage des tournois avec des filtres et de l'ecurie connecté 
                 $triTournoisEquipe = new TriTournoisEquipe($_SESSION['username']);
                 ?>
 
