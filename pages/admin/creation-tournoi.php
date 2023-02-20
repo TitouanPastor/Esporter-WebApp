@@ -199,7 +199,7 @@ if (isset($_POST['ajouterJeu'])) {
                     </div>
                 </div>
                 <div class="button_container" style="display: flex; flex-direction: column; align-items:center; gap: 5px;">
-                    <input id="submit" class="submit-gris" type="submit" name="ajouter" value="Ajouter">
+                    <input id="submit" class="submit-gris" type="submit" name="ajouter" value="Ajouter" disabled>
                     <span><?php echo $infoExecution ?></span>
                     <a class="return bouton" href="../../index.php">Retour</a>
                 </div>
@@ -226,11 +226,10 @@ if (isset($_POST['ajouterJeu'])) {
                     hiddenselect.removeChild(hiddenselect.firstChild);
                 }
                 if (a.length == 0) {
-                    mainsubmit.classList.remove("submit-active");
                     spaninfojeu.innerHTML = "Aucun jeu sélectionné";
-                    submitselectionjeux.classList.remove("submit-valid");
                 } else {
                     mainsubmit.classList.add("submit-active");
+                    mainsubmit.removeAttribute("disabled");
                     spaninfojeu.innerHTML = a.length + " jeu(x) enregistré(s) !";
                     submitselectionjeux.classList.add("ajouterjeu-valid");
                 }
