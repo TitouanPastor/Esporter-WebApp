@@ -51,7 +51,7 @@ if (isset($_POST['ajouter'])) {
             if (!$sameMail) {
                 try {
                     // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
-                    $sql->addEcurie($_POST['nom-ecurie'], $_POST['combobox-statut'], $_POST['mdp-ecurie'], $_POST['email-ecurie'], 1);
+                    $sql->addEcurie(htmlspecialchars($_POST['nom-ecurie']), htmlspecialchars($_POST['combobox-statut']), htmlspecialchars($_POST['mdp-ecurie']), htmlspecialchars($_POST['email-ecurie']), 1);
                     $infoExecution = 'Ecurie enregistrée !';
                     header('Location: liste-ecuries.php?createEcurie=success');
                 } catch (Exception $e) {

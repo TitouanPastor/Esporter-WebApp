@@ -62,7 +62,7 @@ if (isset($_POST['ajouter'])) {
                 if (!$sameMail) {
                     try {
                         //Ajout d'une équipe (le 0 correspond au nombre de point au championnat initialisé à 0)
-                        $sql->addEquipe($_POST['nom-equipe'],$_POST['mdp-equipe'],$_POST['email-equipe'],0,$_POST['jeu_equipe'],$id);
+                        $sql->addEquipe(htmlspecialchars($_POST['nom-equipe']),htmlspecialchars($_POST['mdp-equipe']),htmlspecialchars($_POST['email-equipe']),0,htmlspecialchars($_POST['jeu_equipe']),$id);
                         $infoExecution = 'Equipe enregistrée !';
                         header("Refresh: 3;URL=enregistrer-joueurs.php");
                     } catch (Exception $e) {

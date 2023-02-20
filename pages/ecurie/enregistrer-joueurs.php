@@ -108,13 +108,13 @@ if (isset($_POST['ajouter'])) {
                                                                         // Récupération de l'ID dernier équipe créer
                                                                         $idEquipe = $sql->getLastIDEquipe();
                                                                         //Ajout du joueur1 
-                                                                        $sql->addJoueur($_POST['nom-joueur1'], $_POST['prenom-joueur1'], $_POST['dtn-joueur1'], $_POST['pseudo-joueur1'], $_POST['email-joueur1'], $idEquipe);
+                                                                        $sql->addJoueur(htmlspecialchars($_POST['nom-joueur1']), htmlspecialchars($_POST['prenom-joueur1']), htmlspecialchars($_POST['dtn-joueur1']), htmlspecialchars($_POST['pseudo-joueur1']), htmlspecialchars($_POST['email-joueur1']), $idEquipe);
                                                                         //Ajout du joueur2 
-                                                                        $sql->addJoueur($_POST['nom-joueur2'], $_POST['prenom-joueur2'], $_POST['dtn-joueur2'], $_POST['pseudo-joueur2'], $_POST['email-joueur2'], $idEquipe);
+                                                                        $sql->addJoueur(htmlspecialchars($_POST['nom-joueur2']), htmlspecialchars($_POST['prenom-joueur2']), htmlspecialchars($_POST['dtn-joueur2']), htmlspecialchars($_POST['pseudo-joueur2']), htmlspecialchars($_POST['email-joueur2']), $idEquipe);
                                                                         //Ajout du joueur3 
-                                                                        $sql->addJoueur($_POST['nom-joueur3'], $_POST['prenom-joueur3'], $_POST['dtn-joueur3'], $_POST['pseudo-joueur3'], $_POST['email-joueur3'], $idEquipe);
+                                                                        $sql->addJoueur(htmlspecialchars($_POST['nom-joueur3']), htmlspecialchars($_POST['prenom-joueur3']), htmlspecialchars($_POST['dtn-joueur3']), htmlspecialchars($_POST['pseudo-joueur3']), htmlspecialchars($_POST['email-joueur3']), $idEquipe);
                                                                         //Ajout du joueur4 
-                                                                        $sql->addJoueur($_POST['nom-joueur4'], $_POST['prenom-joueur4'], $_POST['dtn-joueur4'], $_POST['pseudo-joueur4'], $_POST['email-joueur4'], $idEquipe);
+                                                                        $sql->addJoueur(htmlspecialchars($_POST['nom-joueur4']), htmlspecialchars($_POST['prenom-joueur4']), htmlspecialchars($_POST['dtn-joueur4']), htmlspecialchars($_POST['pseudo-joueur4']), htmlspecialchars($_POST['email-joueur4']), $idEquipe);
                                                                         $infoExecution = 'Joueurs enregistrés !';
                                                                         header('Location: liste-equipes.php?createEquipe=success');
                                                                     } catch (Exception $e) {
