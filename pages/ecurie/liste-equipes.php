@@ -13,15 +13,16 @@
 <body>
     <?php
 
-    ## Importation des fichiers ##
+    # Initialisation de la session
     session_start();
+    
+    # Importation des fichiers
     require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));                
     require_once(realpath(dirname(__FILE__) . '/tri-equipe.php'));
     require_once('../../SQL.php');
     
-    
+    # Affichage du header ou page d'acces refuse si droit insufisant
     $header = new header(2);
-
     if ($_SESSION['role'] == "ecurie") {
         echo $header->customizeHeader($_SESSION['role']);
     } else {
@@ -68,9 +69,13 @@
                 </div>
 
                 <?php
-
+                #Connexion à la base de donneées
                 $sql = new requeteSQL();
+
+                #Récupération de l'id de l'écurie
                 $idEcurie = $sql->getIdEcurieByMail($_SESSION['username']);
+                
+                #Affichage de la liste des équipes en fonction des filtres et de l'id de l'écurie connectée
                 $triEquipe = new TriEquipe($idEcurie);
                 ?>
 

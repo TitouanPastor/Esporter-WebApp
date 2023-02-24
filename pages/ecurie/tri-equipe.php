@@ -21,7 +21,11 @@ class TriEquipe
 
 
 
-    //function qui affiche une écurie
+    # Fonction qui permet d'afficher une écurie
+    # Paramètres : $nom : nom de l'écurie
+    #              $point : nombre de point de l'écurie
+    #              $idEquipe : id de l'équipe
+    # Retour : $str : chaine de caractère contenant le code html de l'affichage de l'écurie
     public function afficherUneEcurie($nom, $point, $idEquipe)
     {
         
@@ -52,7 +56,9 @@ class TriEquipe
         return $str;
     }
     
-
+    # Fonction qui permet d'afficher toutes les écuries
+    # Paramètres : aucun
+    # Retour : aucun
     public function afficherLesEcuries()
     {
         while ($row = $this->req->fetch()) {
@@ -60,19 +66,25 @@ class TriEquipe
         }
     }
 
+    # Fonction qui permet de récupérer le nombre d'écurie
+    # Paramètres : aucun
+    # Retour : nombre d'écurie
     public function getNombreEcuries(): int
     {
         return $this->nbEcuries;
     }
 
-    
-
+    # Fonction qui permet de récupérer l'id de l'écurie
+    # Paramètres : aucun
+    # Retour : id de l'écurie
     public function getIdEcure(): int
     {
         return $this->idEcurie;
     }
 
-    //Fonction trie les écuries par statut
+    # Fonction qui permet d'afficher les écuries triées par point
+    # Paramètres : aucun
+    # Retour : aucun (echo)
     public function trierParPoint()
     {
         $this->req = $this->sql->equipeByPoint($this->idEcurie);
@@ -80,7 +92,9 @@ class TriEquipe
     }
 
 
-    //Fonction trie les écuries par nom
+    # Fonction qui permet d'afficher les écuries triées par nom
+    # Paramètres : aucun
+    # Retour : aucun (echo)
     public function trierParNom()
     {
         $this->req = $this->sql->equipeByNom($this->idEcurie);
@@ -88,7 +102,9 @@ class TriEquipe
     }
 
 
-    //Fonction trie les écuries par id (filtre de base)
+    # Fonction qui permet d'afficher les écuries triées par id (filtre de base)
+    # Paramètres : aucun
+    # Retour : aucun (echo)
     public function trierParId()
     {
 
