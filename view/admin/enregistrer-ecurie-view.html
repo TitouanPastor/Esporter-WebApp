@@ -10,22 +10,11 @@
     <link rel="stylesheet" href="../../css/style.css">
 </head>
 
-<?php
-
-// Importation des fichiers
-session_start();
-
-// On récupère les différents controllers
-require_once(realpath(dirname(__FILE__) . '/../../controller/admin/enregistrer-ecurie-controller.php'));
-require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
-
-?>
-
-<!-- vue -->
 <body>
+    ##header##
     <main class="main-creation-tournoi">
         <section class="creation-tournoi-container">
-            <form action="enregistrer-ecurie-view.php" method="POST">
+            <form action="enregistrer-ecurie-controller.php" method="POST">
 
                 <h1 class="creation-tournoi-title">Enregistrer une Écurie</h1>
                 <div class="creation-tournoi">
@@ -53,11 +42,10 @@ require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-con
 
                 </div>
                 <input class="submit" type="submit" name="ajouter" value="Ajouter">
-                <span><?php echo $infoExecution ?> </span>
+                <span>##infoExecution##</span>
             </form>
         </section>
     </main>
 </body>
-
 
 </html>

@@ -25,36 +25,36 @@ class Header
         $nomPage = $nomPage[count($nomPage) - 1];
         if ($nomPage == "index.php") {
             $this->pathindex = "#";
-            $this->pathresultats = "view/visiteur/liste-tournois-commence-view.php";
-            $this->pathcalendrier = "view/visiteur/calendrier-view.php";
-            $this->pathconnexion = "view/visiteur/login-view.php";
-            $this->pathaddtournoi = "view/admin/creation-tournoi-view.php";
-            $this->pathlistetournoi = "view/admin/liste-tournois-view.php";
-            $this->pathaddecurie = "view/admin/enregistrer-ecurie-view.php";
-            $this->pathlisteecurie = "view/admin/liste-ecurie-views.php";
-            $this->pathinscription = "view/equipe/inscription-tournoi-view.php";
-            $this->pathlistetournoiarbitre = "view/arbitre/liste-tournois-commence-view.php";
-            $this->pathaddequipes = "view/ecurie/enregistrer-equipe-view.php";
+            $this->pathresultats = "controller/visiteur/liste-tournois-commence-controller.php";
+            $this->pathcalendrier = "controller/visiteur/calendrier-controller.php";
+            $this->pathconnexion = "controller/visiteur/login-controller.php";
+            $this->pathaddtournoi = "controller/admin/creation-tournoi-controller.php";
+            $this->pathlistetournoi = "controller/admin/liste-tournois-controller.php";
+            $this->pathaddecurie = "controller/admin/enregistrer-ecurie-controller.php";
+            $this->pathlisteecurie = "controller/admin/liste-ecurie-controller.php";
+            $this->pathinscription = "controller/equipe/inscription-tournoi-controller.php";
+            $this->pathlistetournoiarbitre = "controller/arbitre/liste-tournois-commence-controller.php";
+            $this->pathaddequipes = "controller/ecurie/enregistrer-equipe-controller.php";
             $this->pathlogo = "img/esporter-logo.png";
-            $this->pathlisteequipeECU = "view/ecurie/liste-equipes-view.php";
-            $this->pathtournoisInscrits = "view/equipe/liste-tournois-inscrit-view.php";
-            $this->pathClassementCm = "view/visiteur/classementCM-view.php";
+            $this->pathlisteequipeECU = "controller/ecurie/liste-equipes-controller.php";
+            $this->pathtournoisInscrits = "controller/equipe/liste-tournois-inscrit-controller.php";
+            $this->pathClassementCm = "controller/visiteur/classementCM-controller.php";
         } else {
             $this->pathindex = "../../index.php";
-            $this->pathresultats = "../view/visiteur/liste-tournois-commence-view.php";
-            $this->pathcalendrier = "../view/visiteur/calendrier-view.php";
-            $this->pathconnexion = "../view/visiteur/login-view.php";
-            $this->pathaddtournoi = "../view/admin/creation-tournoi-view.php";
-            $this->pathlistetournoi = "../view/admin/liste-tournois-view.php";
-            $this->pathaddecurie = "../view/admin/enregistrer-ecurie-view.php";
-            $this->pathlisteecurie = "../view/admin/liste-ecuries-view.php";
-            $this->pathinscription = "../view/equipe/inscription-tournoi-view.php";
-            $this->pathlistetournoiarbitre = "../view/arbitre/liste-tournois-commence-view.php";
-            $this->pathaddequipes = "../view/ecurie/enregistrer-equipe-view.php";
+            $this->pathresultats = "../controller/visiteur/liste-tournois-commence-controller.php";
+            $this->pathcalendrier = "../controller/visiteur/calendrier-controller.php";
+            $this->pathconnexion = "../controller/visiteur/login-controller.php";
+            $this->pathaddtournoi = "../controller/admin/creation-tournoi-controller.php";
+            $this->pathlistetournoi = "../controller/admin/liste-tournois-controller.php";
+            $this->pathaddecurie = "../controller/admin/enregistrer-ecurie-controller.php";
+            $this->pathlisteecurie = "../controller/admin/liste-ecuries-controller.php";
+            $this->pathinscription = "../controller/equipe/inscription-tournoi-controller.php";
+            $this->pathlistetournoiarbitre = "../controller/arbitre/liste-tournois-commence-controller.php";
+            $this->pathaddequipes = "../controller/ecurie/enregistrer-equipe-controller.php";
             $this->pathlogo = "../../img/esporter-logo.png";
-            $this->pathlisteequipeECU = "../view/ecurie/liste-equipes-view.php";
-            $this->pathtournoisInscrits = "../view/equipe/liste-tournois-inscrit-view.php";
-            $this->pathClassementCm = "../view/visiteur/classementCM-view.php";
+            $this->pathlisteequipeECU = "../controller/ecurie/liste-equipes-controller.php";
+            $this->pathtournoisInscrits = "../controller/equipe/liste-tournois-inscrit-controller.php";
+            $this->pathClassementCm = "../controller/visiteur/classementCM-controller.php";
         }
 
 

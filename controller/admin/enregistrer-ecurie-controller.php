@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
 $infoExecution = "";
 // Ajouter une écurie
 if (isset($_POST['ajouter'])) {
@@ -8,7 +9,7 @@ if (isset($_POST['ajouter'])) {
     // Vérification de si tout les champs sont remplis
     if (!empty($_POST['nom-ecurie']) && !empty($_POST['combobox-statut']) && !empty($_POST['email-ecurie']) && !empty($_POST['mdp-ecurie'])) {
         //Vérification de si une écurie du même nom ou même adresse mail n'existe pas
-        $ecuries = $sql->getEcurie();
+        $ecuries = $ecurie->getEcurie();
         $sameEcurie = False;
         $sameMail = False;
         while ($ecurie = $ecuries->fetch()) {
@@ -23,7 +24,7 @@ if (isset($_POST['ajouter'])) {
             if (!$sameMail) {
                 try {
                     // Ajout d'une écurie (le dernier 1 correspond à l'id gestionnaire)
-                    $sql->addEcurie(htmlspecialchars($_POST['nom-ecurie']), htmlspecialchars($_POST['combobox-statut']), htmlspecialchars($_POST['mdp-ecurie']), htmlspecialchars($_POST['email-ecurie']), 1);
+                    $ecurie->addEcurie($_POST['nom-ecurie'], $_POST['combobox-statut'], $_POST['mdp-ecurie'], $_POST['email-ecurie'], 1);
                     $infoExecution = 'Ecurie enregistrée !';
                     header('Location: liste-ecuries.php?createEcurie=success');
                 } catch (Exception $e) {
@@ -40,3 +41,9 @@ if (isset($_POST['ajouter'])) {
         $infoExecution = "Veuillez remplir tous les champs";
     }
 }
+ob_start();
+require_once(realpath(dirname(__FILE__) . '/../../view/admin/enregistrer-ecurie-view.html'));
+$buffer = ob_get_clean();
+$buffer = str_replace("##infoExecution##", $infoExecution, $buffer);
+$buffer = str_replace("##header##", $header->customizeHeader($_SESSION['role']), $buffer);
+echo $buffer;

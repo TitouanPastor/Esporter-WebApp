@@ -13,4 +13,9 @@ class Ecurie
     {
         return $this->dao->getEcurie();
     }
+
+    public function addEcurie($nom, $statut, $mdp, $mail, $idGestionnaire)
+    {
+        $this->dao->addEcurie($nom, $statut, $mdp, $mail, $idGestionnaire);
+    }
 }
