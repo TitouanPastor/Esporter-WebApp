@@ -14,22 +14,26 @@
 
 <?php
 
-## Importation des fichiers ##
+# Démarrage de la session
 session_start();
+
+# Importation des fichiers 
 require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 
+# Initialisation des classes
 $header = new header(2);
+$sql = new requeteSQL();
 
+# Affichage du header
 if ($_SESSION['role'] == "ecurie") {
     echo $header->customizeHeader($_SESSION['role']);
 } else {
     header('Location: ../../acces-refuse.php');
 }
 
-// Initialisation des variables
+# Initialisation des variables 
 $infoExecution = "";
-$sql = new requeteSQL();
 $reqJeu = $sql->getJeux();
 
 // Ajouter une équipe

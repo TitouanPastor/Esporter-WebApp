@@ -13,23 +13,28 @@
 
 <?php
 
-## Importation des fichiers ##
+# Démarrage de la session
 session_start();
+
+# Importation des fichiers 
 require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 
+# Initialisation des classes
 $header = new header(2);
+$sql = new requeteSQL();
 
+# Affichage du header
 if ($_SESSION['role'] == "gestionnaire") {
     echo $header->customizeHeader($_SESSION['role']);
 } else {
     header('Location: ../../acces-refuse.php');
 }
 
-// Initialisation des variables
+# Initialisation des variables
 $infoExecution = "";
 
-$sql = new requeteSQL();
+
 
 // Ajouter une écurie
 if (isset($_POST['ajouter'])) {
@@ -39,6 +44,7 @@ if (isset($_POST['ajouter'])) {
         $ecuries = $sql->getEcurie();
         $sameEcurie = False;
         $sameMail = False;
+        # Vérification de si une écurie du même nom ou même adresse mail n'existe pas
         while ($ecurie = $ecuries->fetch()) {
             if (strtoupper($ecurie['Nom']) == strtoupper($_POST['nom-ecurie'])) {
                 $sameEcurie = True;
