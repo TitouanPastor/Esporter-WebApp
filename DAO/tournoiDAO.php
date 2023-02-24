@@ -1,6 +1,6 @@
 <?php 
 
-    class userConnexion
+    class TournoiDAO
     {
 
         private $linkpdo;

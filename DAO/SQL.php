@@ -192,15 +192,6 @@ class requeteSQL
         );
     }
 
-
-    //Fonction qui retourne les ecuries
-    public function getEcurie()
-    {
-        $req = $this->linkpdo->prepare("SELECT * FROM ecurie");
-        $req->execute();
-        return $req;
-    }
-
     //Fonction qui retourne une écurie en fonction de son mail
     public function getIdEcurieByMail($mail)
     {

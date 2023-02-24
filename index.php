@@ -11,16 +11,10 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <?php
-// création du header
+// Importation des controllers
 session_start();
-require_once(realpath(dirname(__FILE__) . '/class/header.php'));
-$header = new header(0);
+require_once(realpath(dirname(__FILE__) . '/controller/visiteur/header-controller.php'));
 
-if (isset($_SESSION['role'])) {
-    echo $header->customizeHeader($_SESSION['role']);
-} else {
-    echo $header->customizeHeader();
-}
 ?>
 
 <body>
