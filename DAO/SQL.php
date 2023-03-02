@@ -45,12 +45,6 @@ class requeteSQL
 
 
     //Fonction qui retourne les jeux
-    public function getJeux()
-    {
-        $req = $this->linkpdo->prepare('SELECT * FROM jeu');
-        $req->execute();
-        return $req;
-    }
 
 
     //Fonction qui retourne le dernier tuple de jeu
@@ -121,16 +115,7 @@ class requeteSQL
 
 
     //Fonction qui permet de remplir l'association concerner
-    public function addConcerner($idTournoi, $idJeu)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO concerner VALUES (:idTournoi, :idJeu)');
-        $req->execute(
-            array(
-                'idTournoi' => $idTournoi,
-                'idJeu' => $idJeu
-            )
-        );
-    }
+
 
 
     //Fonction qui retourne toute les informations contenu dans la dernière association concrner insérée
@@ -288,22 +273,7 @@ class requeteSQL
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
     //Sprint 3 & (en travaux) 
 
-    public function getTournoi($idEquipe = 0)
-    {
-        if ($idEquipe == 0) {
-            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by estFerme desc, id_tournoi");
-            $req->execute();
-            return $req;
-        } else {
-            $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe");
-            $req->execute(
-                array(
-                    'IdEquipe' => $idEquipe
-                )
-            );
-            return $req;
-        }
-    }
+    
 
     public function tournoisByType($idEquipe = 0)
     {

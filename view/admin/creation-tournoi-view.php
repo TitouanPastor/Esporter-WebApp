@@ -18,18 +18,12 @@
 </head>
 <?php
 
-## Importation des fichiers ##
+
 session_start();
-require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
+require_once(realpath(dirname(__FILE__) . '/../../controller/visteur/header-controller.php'));
 require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
 
-$header = new header(2);
 
-if ($_SESSION['role'] == "gestionnaire") {
-    echo $header->customizeHeader($_SESSION['role']);
-} else {
-    header('Location: ../../acces-refuse.php');
-}
 
 // Initialisation des variables
 $infoExecution = "";
@@ -42,7 +36,7 @@ $reqJeu = $sql->getJeux();
 if (isset($_POST['ajouter'])) {
 
     // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er février)
-    if (1==1) {
+    if (date("m") < 2) {
 
         // Vérification de si tout les champs sont remplis
         if (!empty($_POST['nom-tournoi']) && !empty($_POST['comboboxtypetournoi']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin'])) {

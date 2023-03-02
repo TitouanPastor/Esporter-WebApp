@@ -1,6 +1,6 @@
 <?php
 
-class connectDB
+class ConnectDB
 {
     private $linkpdo;
 
