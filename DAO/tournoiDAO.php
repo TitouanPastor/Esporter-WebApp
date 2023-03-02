@@ -5,8 +5,7 @@ class TournoiDAO
 
     private $linkpdo;
 
-    public function __construct()
-    {
+    public function __construct(){
         //Connexion to DB
         require_once('connectDB.php');
         $sql = new connectDB();

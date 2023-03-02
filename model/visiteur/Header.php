@@ -19,57 +19,45 @@ class Header
     private $pathtournoisInscrits = "#"; //etage 2
     private $pathClassementCm = "#"; //etage 2
 
-    public function __construct($etage)
+    public function __construct()
     {
-        if ($etage == 0) {
-            $this->pathindex = "index.php";
-            $this->pathresultats = "pages/visiteur/liste-tournois-commence.php";
-            $this->pathcalendrier = "pages/visiteur/calendrier.php";
-            $this->pathconnexion = "pages/visiteur/login.php";
-            $this->pathaddtournoi = "pages/admin/creation-tournoi.php";
-            $this->pathlistetournoi = "pages/admin/liste-tournois.php";
-            $this->pathaddecurie = "pages/admin/enregistrer-ecurie.php";
-            $this->pathlisteecurie = "pages/admin/liste-ecuries.php";
-            $this->pathinscription = "pages/equipe/inscription-tournoi.php";
-            $this->pathlistetournoiarbitre = "pages/arbitre/liste-tournois-commence.php";
-            $this->pathaddequipes = "pages/ecurie/enregistrer-equipe.php";
+        $nomPage = explode("/", $_SERVER["PHP_SELF"]);
+        $nomPage = $nomPage[count($nomPage) - 1];
+        if ($nomPage == "index.php") {
+            $this->pathindex = "#";
+            $this->pathresultats = "controller/visiteur/liste-tournois-commence-controller.php";
+            $this->pathcalendrier = "controller/visiteur/calendrier-controller.php";
+            $this->pathconnexion = "controller/visiteur/login-controller.php";
+            $this->pathaddtournoi = "controller/admin/creation-tournoi-controller.php";
+            $this->pathlistetournoi = "controller/admin/liste-tournois-controller.php";
+            $this->pathaddecurie = "controller/admin/enregistrer-ecurie-controller.php";
+            $this->pathlisteecurie = "controller/admin/liste-ecurie-controller.php";
+            $this->pathinscription = "controller/equipe/inscription-tournoi-controller.php";
+            $this->pathlistetournoiarbitre = "controller/arbitre/liste-tournois-commence-controller.php";
+            $this->pathaddequipes = "controller/ecurie/enregistrer-equipe-controller.php";
             $this->pathlogo = "img/esporter-logo.png";
-            $this->pathlisteequipeECU = "pages/ecurie/liste-equipes.php";
-            $this->pathtournoisInscrits = "pages/equipe/liste-tournois-inscrit.php";
-            $this->pathClassementCm = "pages/visiteur/classementCM.php";
-        } elseif ($etage == 1) {
-            $this->pathindex = "../index.php";
-            $this->pathresultats = "visiteur/liste-tournois-commence.php";
-            $this->pathcalendrier = "visiteur/calendrier.php";
-            $this->pathconnexion = "visiteur/login.php";
-            $this->pathaddtournoi = "admin/creation-tournoi.php";
-            $this->pathlistetournoi = "admin/liste-tournois.php";
-            $this->pathaddecurie = "admin/enregistrer-ecurie.php";
-            $this->pathlisteecurie = "admin/liste-ecuries.php";
-            $this->pathinscription = "equipe/inscription-tournoi.php";
-            $this->pathlistetournoiarbitre = "arbitre/liste-tournois-commence.php";
-            $this->pathaddequipes = "ecurie/enregistrer-equipe.php";
-            $this->pathlogo = "../img/esporter-logo.png";
-            $this->pathlisteequipeECU = "../pages/ecurie/liste-equipes.php";
-            $this->pathtournoisInscrits = "equipe/liste-tournois-inscrit.php";
-            $this->pathClassementCm = "visiteur/classementCM.php";
-        } elseif ($etage == 2) {
+            $this->pathlisteequipeECU = "controller/ecurie/liste-equipes-controller.php";
+            $this->pathtournoisInscrits = "controller/equipe/liste-tournois-inscrit-controller.php";
+            $this->pathClassementCm = "controller/visiteur/classementCM-controller.php";
+        } else {
             $this->pathindex = "../../index.php";
-            $this->pathresultats = "../visiteur/liste-tournois-commence.php";
-            $this->pathcalendrier = "../visiteur/calendrier.php";
-            $this->pathconnexion = "../visiteur/login.php";
-            $this->pathaddtournoi = "../admin/creation-tournoi.php";
-            $this->pathlistetournoi = "../admin/liste-tournois.php";
-            $this->pathaddecurie = "../admin/enregistrer-ecurie.php";
-            $this->pathlisteecurie = "../admin/liste-ecuries.php";
-            $this->pathinscription = "../equipe/inscription-tournoi.php";
-            $this->pathlistetournoiarbitre = "../arbitre/liste-tournois-commence.php";
-            $this->pathaddequipes = "../ecurie/enregistrer-equipe.php";
+            $this->pathresultats = "../controller/visiteur/liste-tournois-commence-controller.php";
+            $this->pathcalendrier = "../controller/visiteur/calendrier-controller.php";
+            $this->pathconnexion = "../controller/visiteur/login-controller.php";
+            $this->pathaddtournoi = "../controller/admin/creation-tournoi-controller.php";
+            $this->pathlistetournoi = "../controller/admin/liste-tournois-controller.php";
+            $this->pathaddecurie = "../controller/admin/enregistrer-ecurie-controller.php";
+            $this->pathlisteecurie = "../controller/admin/liste-ecuries-controller.php";
+            $this->pathinscription = "../controller/equipe/inscription-tournoi-controller.php";
+            $this->pathlistetournoiarbitre = "../controller/arbitre/liste-tournois-commence-controller.php";
+            $this->pathaddequipes = "../controller/ecurie/enregistrer-equipe-controller.php";
             $this->pathlogo = "../../img/esporter-logo.png";
-            $this->pathlisteequipeECU = "../ecurie/liste-equipes.php";
-            $this->pathtournoisInscrits = "../equipe/liste-tournois-inscrit.php";
-            $this->pathClassementCm = "../visiteur/classementCM.php";
+            $this->pathlisteequipeECU = "../controller/ecurie/liste-equipes-controller.php";
+            $this->pathtournoisInscrits = "../controller/equipe/liste-tournois-inscrit-controller.php";
+            $this->pathClassementCm = "../controller/visiteur/classementCM-controller.php";
         }
+
+
 
         echo '
             <header>
