@@ -8,11 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creation de tournois - E-Sporter</title>
     <link rel="icon" href="../../img/esporter-icon.png">
-    <link href="../../view/admin/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/bootstrap@3.3.2/dist/js/bootstrap.min.js"></script>
-    <script src="../../view/admin/bootstrap-multiselect.js"></script>
-    <link rel="stylesheet" href="../../view/admin/bootstrap-multiselect.css" />
+    <script src="../../js/bootstrap-multiselect.js"></script>
+    <script src="../../js/bouton-creation-tournoi.js"></script>
+    <link rel="stylesheet" href="../../css/bootstrap-multiselect.css" />
     <link rel="stylesheet" href="../../css/style.css">
 
 </head>
@@ -78,42 +79,7 @@
         </section>
     </main>
 
-    <script>
-        //Script pour ajouter les jeux dans le select caché
-        //cela permet de récuperer les jeux dans le POST
-        $(function() {
 
-            $('#chkveg').multiselect({
-                includeSelectAllOption: true
-            });
-
-            $('#ajouterjeux').click(function() {
-                var a = $('#chkveg').val();
-                var spaninfojeu = document.getElementById("spaninfojeu");
-                var hiddenselect = document.getElementById("hiddenselect");
-                var mainsubmit = document.getElementById("submit");
-                var submitselectionjeux = document.getElementById("ajouterjeux");
-                while (hiddenselect.firstChild) {
-                    hiddenselect.removeChild(hiddenselect.firstChild);
-                }
-                if (a.length == 0) {
-                    spaninfojeu.innerHTML = "Aucun jeu sélectionné";
-                } else {
-                    mainsubmit.classList.add("submit-active");
-                    mainsubmit.removeAttribute("disabled");
-                    spaninfojeu.innerHTML = a.length + " jeu(x) enregistré(s) !";
-                    submitselectionjeux.classList.add("ajouterjeu-valid");
-                }
-                for (var i = 0; i < a.length; i++) {
-                    var opt = document.createElement('option');
-                    opt.value = a[i];
-                    opt.innerHTML = a[i];
-                    opt.selected = true;
-                    hiddenselect.appendChild(opt);
-                }
-            });
-        });
-    </script>
 
 </body>
 

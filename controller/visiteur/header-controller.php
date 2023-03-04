@@ -10,12 +10,19 @@ $nomPage = explode("/", $_SERVER["PHP_SELF"]);
 $nomPage = $nomPage[count($nomPage) - 1];
 
 //On affiche le header en fonction de la page
-if ($nomPage == "index.php") {
-    echo $header->customizeHeader($_SESSION['role']);
-} else if ($nomPage == "enregistrer-ecurie-view.php") {
-    if ($_SESSION['role'] == "gestionnaire") {
+switch ($nomPage) {
+    case "index.php":
         echo $header->customizeHeader($_SESSION['role']);
-    } else {
-        header("Location: ../../index.php");
-    }
+        break;
+    case "enregistrer-ecurie-view.php":
+    case "creation-tournoi-controller.php":
+        if ($_SESSION['role'] == "gestionnaire") {
+            echo $header->customizeHeader($_SESSION['role']);
+        } else {
+            header("Location: ../../index.php");
+        }
+        break;
+
 }
+
+
