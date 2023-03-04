@@ -13,9 +13,12 @@ $nomPage = $nomPage[count($nomPage) - 1];
 switch ($nomPage) {
     case "index.php":
         echo $header->customizeHeader($_SESSION['role']);
-        break;
+        break; 
+    case "liste-tournois-controller.php":
     case "enregistrer-ecurie-view.php":
     case "creation-tournoi-controller.php":
+    case "liste-tournois-controller.php":
+   
         if ($_SESSION['role'] == "gestionnaire") {
             echo $header->customizeHeader($_SESSION['role']);
         } else {

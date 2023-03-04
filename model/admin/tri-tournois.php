@@ -8,8 +8,8 @@
 
 
         public function __construct(){
-            require_once('../../SQL.php');
-            $this->sql = new requeteSQL();
+            require_once('../../DAO/tournoiDAO.php');
+            $this->sql = new tournoiDAO();
             $this->req = $this->sql-> getTournoi();
             $this->nbTournois = $this->req->rowCount();
 
@@ -28,7 +28,7 @@
                             <div class="article-btns">
                             ';
                             if (!$this->sql->tournoiIsClosed($id)) {
-                                $str .= '<a href="modification-tournoi.php?id='.$id.'">Modifier</a>';
+                                $str .= '<a href="modification-tournoi-view.html?id='.$id.'">Modifier</a>';
                             } else {
                                 $str .= '<span style="color: #FF0032;" >Tournoi fermé</span>';
                             }
@@ -51,9 +51,12 @@
         }
 
         public function afficherLesTournois(){
+            $html = '';
             while ($row = $this->req->fetch()){
-                echo $this->afficherUnTournoi($row['Nom'], $row['Date_debut'],$row['Date_fin'], $row['Lieu'], $row['Type'], $row['Id_Tournoi']);
+                $html .= $this->afficherUnTournoi($row['Nom'], $row['Date_debut'],$row['Date_fin'], $row['Lieu'], $row['Type'], $row['Id_Tournoi']);
             }
+
+            return $html;
         }
 
         public function getNombreTournois(): int{
@@ -63,32 +66,34 @@
         //Fonction trie les tournois par type
         public function trierParType(){
             $this->req = $this->sql->tournoisByType();
-            $this->afficherLesTournois();
+            return $this->afficherLesTournois();
         }
 
         //Fonction trie les tournois par lieu
         public function trierParLieu(){
             $this->req = $this->sql->tournoisByLieu();
-            $this->afficherLesTournois();
+            return $this->afficherLesTournois();
         }
 
         //Fonction trie les tournois par nom
         public function trierParNom(){
             $this->req = $this->sql->tournoisByNom();
-            $this->afficherLesTournois();
+            return $this->afficherLesTournois();
         }
 
         //Fonction trie les tournois par id (filtre de base)
         public function trierParDate(){
             $this->req = $this->sql-> tournoisByDate();
-            $this->afficherLesTournois();
+            return $this->afficherLesTournois();
         }
 
         //Fonction trie les tournois par id (filtre de base)
         public function trierParId(){
             $this->req = $this->sql-> getTournoi();
-            $this->afficherLesTournois();
+            return $this->afficherLesTournois();
         }
+
+
 
 
 

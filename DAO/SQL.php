@@ -10,7 +10,7 @@ class requeteSQL
     public function __construct()
     {
         ///Connexion au serveur MySQL avec PDO
-        $server = 'sql849.main-hosting.eu';
+        $server = '89.116.147.154';
         $login  = 'u743447366_admin';
         $mdp    = 'YAksklOw6qN$';
         $db     = 'u743447366_esporter';
@@ -65,17 +65,7 @@ class requeteSQL
 
 
     //Fonction qui retourne toute les informations contenu dans le dernier tournoi inséré
-    public function tournoiId($id)
-    {
-        $req = $this->linkpdo->prepare("SELECT * FROM tournoi where Id_Tournoi = :IdTournoi");
-        $req->execute(
-            array(
-                'IdTournoi' => $id
-            )
-        );
 
-        return $req;
-    }
 
 
     //Fonction qui permet de remplir l'association concerner
@@ -208,79 +198,20 @@ class requeteSQL
         }
     }
 
+    public function getEcurie()
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM ecurie");
+        $req->execute();
+        return $req;
+    }
+
 
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
     //Sprint 3 & (en travaux) 
 
     
 
-    public function tournoisByType($idEquipe = 0)
-    {
-        if ($idEquipe == 0) {
-            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Type");
-            $req->execute();
-            return $req;
-        } else {
-            $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by Type");
-            $req->execute(
-                array(
-                    'IdEquipe' => $idEquipe
-                )
-            );
-            return $req;
-        }
-    }
-
-    public function tournoisByLieu($idEquipe = 0)
-    {
-        if ($idEquipe == 0) {
-            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by lieu");
-            $req->execute();
-            return $req;
-        } else {
-            $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by lieu");
-            $req->execute(
-                array(
-                    'IdEquipe' => $idEquipe
-                )
-            );
-            return $req;
-        }
-    }
-
-    public function tournoisByNom($idEquipe = 0)
-    {
-        if ($idEquipe == 0) {
-            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Nom");
-            $req->execute();
-            return $req;
-        } else {
-            $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by Nom");
-            $req->execute(
-                array(
-                    'IdEquipe' => $idEquipe
-                )
-            );
-            return $req;
-        }
-    }
-
-    public function tournoisByDate($idEquipe = 0)
-    {
-        if ($idEquipe == 0) {
-            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Date_Debut");
-            $req->execute();
-            return $req;
-        } else {
-            $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by Date_Debut");
-            $req->execute(
-                array(
-                    'IdEquipe' => $idEquipe
-                )
-            );
-            return $req;
-        }
-    }
+    
 
     public function getTournoiCommence()
     {
@@ -701,31 +632,8 @@ class requeteSQL
         return $req;
     }
 
-    public function modifierTournoi($nom, $dateDeb, $datefin, $type, $lieu, $pointMax, $id)
-    {
-        $req = $this->linkpdo->prepare('UPDATE tournoi SET Nom = :nom, Date_debut = :datedeb, Date_fin = :datefin, Type = :type, Lieu = :lieu, Nombre_point_max = :npm  WHERE Id_Tournoi = :idT');
-        $req->execute(
-            array(
-                'nom' => $nom,
-                'datedeb' => $dateDeb,
-                'datefin' => $datefin,
-                'type' => $type,
-                'lieu' => $lieu,
-                'npm' => $pointMax,
-                'idT' => $id
-            )
-        );
-    }
 
-    public function supprimerJeuxTournoi($idT)
-    {
-        $req = $this->linkpdo->prepare('DELETE FROM concerner WHERE Id_Tournoi = :idT');
-        $req->execute(
-            array(
-                'idT' => $idT
-            )
-        );
-    }
+
 
     public function supprimerTournoi($idT)
     {
@@ -897,20 +805,7 @@ class requeteSQL
         );
     }
 
-    public function tournoiIsClosed($idTournoi)
-    {
-        $req = $this->linkpdo->prepare('SELECT estFerme FROM tournoi WHERE Id_Tournoi = :id');
-        $req->execute(
-            array(
-                'id' => $idTournoi
-            )
-        );
-        $data = $req->fetch();
-        if ($data['estFerme'] == 1) {
-            return true;
-        }
-        return false;
-    }
+
 
     public function tournoiIsFull($idTournoi)
     {
@@ -937,15 +832,7 @@ class requeteSQL
         return false;
     }
 
-    public function tournoiIscloseable($id)
-    {
-        $isClosed = $this->tournoiIsClosed($id);
-        $isFull = $this->tournoiIsFull($id);
-        if (!$isClosed && $isFull) {
-            return true;
-        }
-        return false;
-    }
+   
 
     public function getTournoiNomByIdTournoi($idTournoi)
     {

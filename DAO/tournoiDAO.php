@@ -89,4 +89,192 @@ class TournoiDAO
             )
         );
     }
+
+    //Fonction qui retourne les jeux d'un tournois
+    public function getJeuxTournois($id, $choix = "default")
+    {
+        if ($choix == "libelle") {
+            $req = $this->linkpdo->prepare('SELECT jeu.libelle FROM jeu, concerner, tournoi WHERE tournoi.Id_tournoi = concerner.id_tournoi AND jeu.id_jeu = concerner.id_jeu AND concerner.Id_Tournoi = :IdTournoi ');
+        } else {
+            $req = $this->linkpdo->prepare('SELECT jeu.* FROM jeu, concerner, tournoi where tournoi.Id_Tournoi = concerner.Id_Tournoi and jeu.Id_Jeu = concerner.Id_Jeu and concerner.Id_Tournoi = :IdTournoi');
+        }
+
+        $req->execute(array("IdTournoi" => $id));
+        return $req;
+    }
+
+    //Retourne vrai si le tournoi est fermé ou faux sinon
+    public function tournoiIsClosed($idTournoi)
+    {
+        $req = $this->linkpdo->prepare('SELECT estFerme FROM tournoi WHERE Id_Tournoi = :id');
+        $req->execute(
+            array(
+                'id' => $idTournoi
+            )
+        );
+        $data = $req->fetch();
+        if ($data['estFerme'] == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    //Retourne vrai si le tournoi peut être fermé ou faux sinon
+    public function tournoiIscloseable($id)
+    {
+        $isClosed = $this->tournoiIsClosed($id);
+        $isFull = $this->tournoiIsFull($id);
+        if (!$isClosed && $isFull) {
+            return true;
+        }
+        return false;
+    }
+
+    //Retourne vrai si le tournoi est plein ou faux sinon
+    public function tournoiIsFull($idTournoi)
+    {
+        // On récupère le nombre de jeux du tournoi
+        $nbJeux = $this->linkpdo->prepare('SELECT count(*) FROM concerner WHERE id_Tournoi = :idTournoi');
+        $nbJeux->execute(
+            array(
+                'idTournoi' => $idTournoi
+            )
+        );
+        $nbJeux = $nbJeux->fetch();
+        // On récupère le nombre d'équipe inscrite au tournoi
+        $nbEquipes = $this->linkpdo->prepare('SELECT count(*) FROM etre_inscrit WHERE id_Tournoi = :idTournoi');
+        $nbEquipes->execute(
+            array(
+                'idTournoi' => $idTournoi
+            )
+        );
+        $nbEquipes = $nbEquipes->fetch();
+
+        if ($nbJeux[0] * 16 == $nbEquipes[0]) {
+            return true;
+        }
+        return false;
+    }
+
+    public function tournoisByType($idEquipe = 0)
+    {
+        if ($idEquipe == 0) {
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Type");
+            $req->execute();
+            return $req;
+        } else {
+            $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by Type");
+            $req->execute(
+                array(
+                    'IdEquipe' => $idEquipe
+                )
+            );
+            return $req;
+        }
+    }
+
+    public function tournoisByLieu($idEquipe = 0)
+    {
+        if ($idEquipe == 0) {
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by lieu");
+            $req->execute();
+            return $req;
+        } else {
+            $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by lieu");
+            $req->execute(
+                array(
+                    'IdEquipe' => $idEquipe
+                )
+            );
+            return $req;
+        }
+    }
+
+    public function tournoisByNom($idEquipe = 0)
+    {
+        if ($idEquipe == 0) {
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Nom");
+            $req->execute();
+            return $req;
+        } else {
+            $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by Nom");
+            $req->execute(
+                array(
+                    'IdEquipe' => $idEquipe
+                )
+            );
+            return $req;
+        }
+    }
+
+    public function tournoisByDate($idEquipe = 0)
+    {
+        if ($idEquipe == 0) {
+            $req = $this->linkpdo->prepare("SELECT * FROM tournoi order by Date_Debut");
+            $req->execute();
+            return $req;
+        } else {
+            $req = $this->linkpdo->prepare("SELECT tournoi.* FROM tournoi, etre_inscrit WHERE tournoi.Id_Tournoi = etre_inscrit.Id_Tournoi AND etre_inscrit.Id_Equipe = :IdEquipe order by Date_Debut");
+            $req->execute(
+                array(
+                    'IdEquipe' => $idEquipe
+                )
+            );
+            return $req;
+        }
+    }
+
+    
+    public function jeuNonPresentDansTournois($idT)
+    {
+        $req = $this->linkpdo->prepare('SELECT * FROM jeu WHERE Id_Jeu NOT IN (SELECT Id_Jeu FROM concerner WHERE Id_Tournoi = :idT)');
+        $req->execute(
+            array(
+                'idT' => $idT
+            )
+        );
+        return $req;
+    }
+
+    public function supprimerJeuxTournoi($idT)
+    {
+        $req = $this->linkpdo->prepare('DELETE FROM concerner WHERE Id_Tournoi = :idT');
+        $req->execute(
+            array(
+                'idT' => $idT
+            )
+        );
+    }
+
+    public function modifierTournoi($nom, $dateDeb, $datefin, $type, $lieu, $pointMax, $id)
+    {
+        $req = $this->linkpdo->prepare('UPDATE tournoi SET Nom = :nom, Date_debut = :datedeb, Date_fin = :datefin, Type = :type, Lieu = :lieu, Nombre_point_max = :npm  WHERE Id_Tournoi = :idT');
+        $req->execute(
+            array(
+                'nom' => $nom,
+                'datedeb' => $dateDeb,
+                'datefin' => $datefin,
+                'type' => $type,
+                'lieu' => $lieu,
+                'npm' => $pointMax,
+                'idT' => $id
+            )
+        );
+    }
+
+    public function tournoiId($id)
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM tournoi where Id_Tournoi = :IdTournoi");
+        $req->execute(
+            array(
+                'IdTournoi' => $id
+            )
+        );
+
+        return $req;
+    }
+
+
+
+
 }
