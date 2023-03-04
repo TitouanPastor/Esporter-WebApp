@@ -1,8 +1,21 @@
 <?php 
+
+session_start();
+require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
+require_once(realpath(dirname(__FILE__) . '/../../DAO/tournoiDAO.php'));
+require_once(realpath(dirname(__FILE__) . '/../../model/admin/Tournoi.php'));
+
+$infoExecution = "";
+$infoExecutionJeu = "";
+
+$sql = new TournoiDAO();
+$reqJeu = $sql->getJeux();
+
+// Ajouter un tournoi
 if (isset($_POST['ajouter'])) {
 
     // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er février)
-    if (1==1) {
+    if (date("m") < 2) {
 
         // Vérification de si tout les champs sont remplis
         if (!empty($_POST['nom-tournoi']) && !empty($_POST['comboboxtypetournoi']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin'])) {
@@ -98,3 +111,11 @@ if (isset($_POST['ajouterJeu'])) {
         }
     }
 }
+
+ob_start();
+require_once(realpath(dirname(__FILE__) . '/../../view/admin/creation-tournoi-view.html'));
+$buffer = ob_get_clean();
+$buffer = str_replace("##infoExecution##", $infoExecution, $buffer);
+$buffer = str_replace("##infoExecutionJeu##", $infoExecutionJeu, $buffer);
+$buffer = str_replace('##ListeJeu##', afficherListeJeux($reqJeu), $buffer);
+echo $buffer;

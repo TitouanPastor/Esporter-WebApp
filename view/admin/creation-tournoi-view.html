@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creation de tournois - E-Sporter</title>
+    <link rel="icon" href="../../img/esporter-icon.png">
+    <link href="../../view/admin/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/bootstrap@3.3.2/dist/js/bootstrap.min.js"></script>
+    <script src="../../view/admin/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="../../view/admin/bootstrap-multiselect.css" />
+    <link rel="stylesheet" href="../../css/style.css">
+
+</head>
+
+
+<body>
+    <main class="main-creation-tournoi">
+        <section class="creation-tournoi-container">
+            <form id="form" action="creation-tournoi-controller.php" method="POST">
+                <h1 class="creation-tournoi-title">Création d'un Tournoi</h1>
+                <div class="creation-tournoi">
+                    <div class="creation-tournoi-left">
+                        <div class="creation-tournoi-input">
+                            <label for="nom-tournoi">Nom du tournoi</label>
+                            <input type="text" name="nom-tournoi" id="nom-tournoi" placeholder="Nom">
+                        </div>
+                        <div class="creation-tournoi-input">
+                            <label for="jeux-tournoi">Jeux présents</label>
+
+                            <!-- Select caché pour récuperer les jeux dans le POST -->
+                            <select name="jeuxtournoi[]" id="hiddenselect" hidden multiple></select>
+
+                            <select name="comboboxjeutournoi" id="chkveg" multiple="multiple">
+                                ##ListeJeu##
+                            </select>
+                            <input class="add" type="button" id="ajouterjeux" value="Valider la sélection" style="margin-bottom: 30px;">
+
+                            <input type="text" name="jeux-tournoi" id="jeux-tournoi" placeholder="Ajouter un jeu non présent">
+                            <input type="submit" value="Ajouter un jeu" class="submit add" name="ajouterJeu">
+                            <span id="spaninfojeu">##infoExecutionJeu## </span>
+                        </div>
+                    </div>
+
+                    <div class="creation-tournoi-right">
+                        <div class="creation-tournoi-input">
+                            <label for="comboboxtypetournoi">Type du tournoi</label>
+                            <select name="comboboxtypetournoi" id="comboboxtypetournoi">
+                                <option value="Local">Local (100 points max)</option>
+                                <option value="National">National (200 points max)</option>
+                                <option value="International">International (300 points max)</option>
+                            </select>
+                        </div>
+                        <div class="creation-tournoi-input">
+                            <label for="lieu-tournoi">Lieu du tournoi</label>
+                            <input type="text" name="lieu-tournoi" id="lieu-tournoi" placeholder="Lieu">
+                        </div>
+                        <div class="creation-tournoi-input">
+                            <label for="date-debut">Début du tournoi</label>
+                            <input type="date" name="date-debut" id="date-debut">
+                        </div>
+                        <div class="creation-tournoi-input">
+                            <label for="date-fin">Fin du tournoi</label>
+                            <input type="date" name="date-fin" id="date-fin">
+                        </div>
+                    </div>
+                </div>
+                <div class="button_container" style="display: flex; flex-direction: column; align-items:center; gap: 5px;">
+                    <input id="submit" class="submit-gris" type="submit" name="ajouter" value="Ajouter" disabled>
+                    <span>##infoExecution##</span>
+                    <a class="return bouton" href="../../index.php">Retour</a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        //Script pour ajouter les jeux dans le select caché
+        //cela permet de récuperer les jeux dans le POST
+        $(function() {
+
+            $('#chkveg').multiselect({
+                includeSelectAllOption: true
+            });
+
+            $('#ajouterjeux').click(function() {
+                var a = $('#chkveg').val();
+                var spaninfojeu = document.getElementById("spaninfojeu");
+                var hiddenselect = document.getElementById("hiddenselect");
+                var mainsubmit = document.getElementById("submit");
+                var submitselectionjeux = document.getElementById("ajouterjeux");
+                while (hiddenselect.firstChild) {
+                    hiddenselect.removeChild(hiddenselect.firstChild);
+                }
+                if (a.length == 0) {
+                    spaninfojeu.innerHTML = "Aucun jeu sélectionné";
+                } else {
+                    mainsubmit.classList.add("submit-active");
+                    mainsubmit.removeAttribute("disabled");
+                    spaninfojeu.innerHTML = a.length + " jeu(x) enregistré(s) !";
+                    submitselectionjeux.classList.add("ajouterjeu-valid");
+                }
+                for (var i = 0; i < a.length; i++) {
+                    var opt = document.createElement('option');
+                    opt.value = a[i];
+                    opt.innerHTML = a[i];
+                    opt.selected = true;
+                    hiddenselect.appendChild(opt);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+
+</html>

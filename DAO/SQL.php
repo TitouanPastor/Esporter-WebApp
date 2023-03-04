@@ -32,16 +32,6 @@ class requeteSQL
     //-------------Page Créer un Tournoi
 
 
-    //Fonction pour ajouter un jeu
-    public function addJeu($libelle)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO jeu VALUES (NULL, :libelle)');
-        $req->execute(
-            array(
-                'libelle' => $libelle
-            )
-        );
-    }
 
 
     //Fonction qui retourne les jeux
@@ -71,34 +61,8 @@ class requeteSQL
     }
 
 
-    //Fonction pour ajouter un tournoi
-    public function addTournoi($Type, $nom, $dateDeb, $dateFin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO tournoi VALUES (NULL, :TypeT, :Nom, :Date_debut, :Date_fin, :Lieu, :NbPtsMax, :IdGestionnaireEsport, :IdArbitre,0)');
-        $req->execute(
-            array(
-                'TypeT' => $Type,
-                'Nom' => $nom,
-                'Date_debut' => $dateDeb,
-                'Date_fin' => $dateFin,
-                'Lieu' => $lieu,
-                'NbPtsMax' => $nbPtsMax,
-                'IdGestionnaireEsport' => $IdGestionnaireEsport,
-                'IdArbitre' => $idArbitre
-            )
-        );
-    }
+    
 
-
-    //Fonction qui retourne le dernier tuple de tournoi
-    public function getLastIDTournoi()
-    {
-        $req = $this->linkpdo->prepare('SELECT Id_Tournoi FROM tournoi ORDER BY Id_Tournoi DESC LIMIT 1');
-        $req->execute();
-        while ($data = $req->fetch()) {
-            return $data['Id_Tournoi'];
-        }
-    }
 
     //Fonction qui retourne toute les informations contenu dans le dernier tournoi inséré
     public function tournoiId($id)

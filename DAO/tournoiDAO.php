@@ -5,7 +5,8 @@ class TournoiDAO
 
     private $linkpdo;
 
-    public function __construct(){
+    public function __construct()
+    {
         //Connexion to DB
         require_once('connectDB.php');
         $sql = new connectDB();
@@ -50,5 +51,42 @@ class TournoiDAO
         return $req;
     }
 
+    //Fonction pour ajouter un tournoi
+    public function addTournoi($Type, $nom, $dateDeb, $dateFin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre)
+    {
+        $req = $this->linkpdo->prepare('INSERT INTO tournoi VALUES (NULL, :TypeT, :Nom, :Date_debut, :Date_fin, :Lieu, :NbPtsMax, :IdGestionnaireEsport, :IdArbitre,0)');
+        $req->execute(
+            array(
+                'TypeT' => $Type,
+                'Nom' => $nom,
+                'Date_debut' => $dateDeb,
+                'Date_fin' => $dateFin,
+                'Lieu' => $lieu,
+                'NbPtsMax' => $nbPtsMax,
+                'IdGestionnaireEsport' => $IdGestionnaireEsport,
+                'IdArbitre' => $idArbitre
+            )
+        );
+    }
+
+    //Fonction qui retourne le dernier tuple de tournoi
+    public function getLastIDTournoi()
+    {
+        $req = $this->linkpdo->prepare('SELECT Id_Tournoi FROM tournoi ORDER BY Id_Tournoi DESC LIMIT 1');
+        $req->execute();
+        while ($data = $req->fetch()) {
+            return $data['Id_Tournoi'];
+        }
+    }
+
+    //Fonction pour ajouter un jeu
+    public function addJeu($libelle)
+    {
+        $req = $this->linkpdo->prepare('INSERT INTO jeu VALUES (NULL, :libelle)');
+        $req->execute(
+            array(
+                'libelle' => $libelle
+            )
+        );
+    }
 }
-?>
