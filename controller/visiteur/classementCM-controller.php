@@ -4,14 +4,14 @@
     require_once(realpath(dirname(__FILE__) . '/../visiteur/header-controller.php'));
     require_once(realpath(dirname(__FILE__) . '/../../model/Tournoi.php'));
     
-    $sql = new TournoiDAO();
+    $tournoi = new Tournoi();
     $checkValider = 0;
 
     //Exécution de la requête en fonction des paramètres fournis (liste rempli ou non)
     if (isset($_POST["valider"])) {
         if ($_POST['equipe_jeu'] != "default") {
             $checkValider = 1;
-            $req = $sql->getClassementCM($_POST["equipe_jeu"]);
+            $req = $tournoi->getClassementCM($_POST["equipe_jeu"]);
         }
     }
 
@@ -25,7 +25,7 @@
     $affichageJeux = "";
 
     //Affichage de la liste des jeux
-    $jeu = $sql->getJeux();
+    $jeu = $tournoi->getJeux();
     while ($donnees = $jeu->fetch()) {
         $affichageJeux .= '<option value='.$donnees['Id_Jeu']; 
         if ($valueEquipeJeu == $donnees['Id_Jeu']) {
