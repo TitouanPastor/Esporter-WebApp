@@ -2,18 +2,16 @@
     
     session_start();
     require_once(realpath(dirname(__FILE__) . '/../visiteur/header-controller.php'));
-    require_once(realpath(dirname(__FILE__) . '/../../DAO/SQL.php'));
-    require_once(realpath(dirname(__FILE__) . '/../../DAO/connectDB.php'));
-    require_once(realpath(dirname(__FILE__) . '/../../DAO/tournoiDAO.php'));
+    require_once(realpath(dirname(__FILE__) . '/../../model/Tournoi.php'));
     
-    $sql = new TournoiDAO();
+    $tournoi = new Tournoi();
     $checkValider = 0;
 
     //Exécution de la requête en fonction des paramètres fournis (liste rempli ou non)
     if (isset($_POST["valider"])) {
         if ($_POST['equipe_jeu'] != "default") {
             $checkValider = 1;
-            $req = $sql->getClassementCM($_POST["equipe_jeu"]);
+            $req = $tournoi->getClassementCM($_POST["equipe_jeu"]);
         }
     }
 
@@ -27,7 +25,7 @@
     $affichageJeux = "";
 
     //Affichage de la liste des jeux
-    $jeu = $sql->getJeux();
+    $jeu = $tournoi->getJeux();
     while ($donnees = $jeu->fetch()) {
         $affichageJeux .= '<option value='.$donnees['Id_Jeu']; 
         if ($valueEquipeJeu == $donnees['Id_Jeu']) {
@@ -174,7 +172,6 @@
     ob_start();
     require_once(realpath(dirname(__FILE__) . '/../../view/visiteur/classementCM-view.html'));
     $buffer = ob_get_clean();
-    $buffer = str_replace('##header##', $header->customizeHeader($_SESSION['role']), $buffer);
     $buffer = str_replace("##AfficherJeux##", $affichageJeux, $buffer);
     $buffer = str_replace("##AffichageTableau##", $affichageTableau, $buffer);
     echo $buffer;
