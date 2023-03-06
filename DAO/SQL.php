@@ -86,30 +86,6 @@ class requeteSQL
     }
 
 
-    //-------------Page Login
-
-
-    // vérifie si le login et le mot de passe sont corrects
-    public function checkLogin($login, $mdp, $role)
-    {
-        $req = $this->linkpdo->prepare('SELECT count(*) FROM ' . $role . ' WHERE mail = :login AND Mot_de_passe = :mdp');
-        $req->execute(
-            array(
-                'login' => $login,
-                'mdp' => $mdp
-            )
-        );
-
-        $result = $req->fetch();
-        //condition si il y a un résultat
-        if ($result[0] != 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
     //Sprint 2 
 
@@ -522,16 +498,7 @@ class requeteSQL
         return $equipePouleFinale;
     }
 
-    public function updateClassementEquipe($idEquipe, $nbPoint)
-    {
-        $req = $this->linkpdo->prepare('UPDATE equipe SET Nb_pts_Champ = Nb_pts_Champ + :nbPoint  WHERE id_Equipe = :idEquipe');
-        $req->execute(
-            array(
-                'idEquipe' => $idEquipe,
-                'nbPoint' => $nbPoint
-            )
-        );
-    }
+
 
     public function getMultiplicateur($idTournoi)
     {
@@ -691,29 +658,7 @@ class requeteSQL
         );
     }
 
-    public function addPoule($nom, $idTournoi, $idJeu)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO poule VALUES (NULL, :nom, :idTournoi, :idJeu)');
-        $req->execute(
-            array(
-                'nom' => $nom,
-                'idTournoi' => $idTournoi,
-                'idJeu' => $idJeu
-            )
-        );
-    }
 
-    public function assignerPoule($idTournoi, $idPoule, $idEquipe)
-    {
-        $req = $this->linkpdo->prepare('UPDATE etre_inscrit SET id_poule = :idPoule WHERE id_Tournoi = :idTournoi AND id_Equipe = :idEquipe');
-        $req->execute(
-            array(
-                'idPoule' => $idPoule,
-                'idTournoi' => $idTournoi,
-                'idEquipe' => $idEquipe
-            )
-        );
-    }
 
     public function getIDPoule($idTournoi, $idJeu)
     {
@@ -731,37 +676,8 @@ class requeteSQL
         return $idsPoules;
     }
 
-    //Equipe inscrites sur un tournoi en fonction d'un jeu
-    public function getEquipeInscrites($idTournoi, $idJeu)
-    {
-        $req = $this->linkpdo->prepare('SELECT etre_inscrit.id_equipe FROM etre_inscrit, equipe WHERE id_Tournoi = :idTournoi AND etre_inscrit.id_Equipe = equipe.id_Equipe AND etre_inscrit.id_Jeu = :idJeu order by Nb_pts_Champ DESC');
-        $req->execute(
-            array(
-                'idTournoi' => $idTournoi,
-                'idJeu' => $idJeu
-            )
-        );
-        $idsEquipes = array(); //Tableau qui contiendra les id des poules
-        while ($datas = $req->fetch()) {
-            array_push($idsEquipes, $datas['id_equipe']);
-        }
-        return $idsEquipes;
-    }
 
-    public function getIDJeuxTournoi($idTournoi)
-    {
-        $req = $this->linkpdo->prepare('SELECT Id_Jeu FROM concerner where id_Tournoi = :id');
-        $req->execute(
-            array(
-                'id' => $idTournoi
-            )
-        );
-        $idsJeux = array(); //Tableau qui contiendra les id des jeux
-        while ($datas = $req->fetch()) {
-            array_push($idsJeux, $datas['Id_Jeu']);
-        }
-        return $idsJeux;
-    }
+
 
 
 
@@ -778,17 +694,7 @@ class requeteSQL
         return $req;
     }
 
-    public function addRencontre($idEquipe1, $idEquipe2, $idPoule)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO rencontre VALUES (NULL, :idEquipe1, :idEquipe2, :idPoule, NULL)');
-        $req->execute(
-            array(
-                'idEquipe1' => $idEquipe1,
-                'idEquipe2' => $idEquipe2,
-                'idPoule' => $idPoule
-            )
-        );
-    }
+
 
 
 
@@ -1034,25 +940,8 @@ class requeteSQL
         return $req;
     }
 
-    public function getLastIDPoule()
-    {
-        $req = $this->linkpdo->prepare("SELECT MAX(Id_Poule) FROM poule");
-        $req->execute();
-        while ($datas = $req->fetch()) {
-            return $datas['MAX(Id_Poule)'];
-        }
-    }
 
-    public function getResultatFinaux($idPoule)
-    {
-        $req = $this->linkpdo->prepare("SELECT equipe.id_equipe, count(gagnant), nom FROM rencontre, equipe WHERE rencontre.id_equipe = equipe.id_equipe AND id_Poule = :idPoule group by gagnant order by 2 desc");
-        $testReq = $req->execute(
-            array(
-                "idPoule" => $idPoule
-            )
-        );
-        return $req;
-    }
+
 
     public function pouleFinaleTerminer($idPoule)
     {
@@ -1109,21 +998,6 @@ class requeteSQL
         return false;
     }
 
-    public function getPerdantFinale($idPoule)
-    {
-        $req = $this->linkpdo->prepare('select distinct id_Equipe from rencontre where Id_Poule = :idPoule and id_Equipe not in ( SELECT id_Equipe FROM rencontre WHERE id_Poule = :idPoule group by gagnant) union select DISTINCT Id_Equipe_1 from rencontre where Id_Poule = :idPoule and Id_Equipe_1 not in ( SELECT id_equipe FROM rencontre WHERE id_Poule = :idPoule group by gagnant);');
-        $req->execute(
-            array(
-                'idPoule' => $idPoule
-
-            )
-        );
-        $equipePouleFinale = array();
-        while ($row = $req->fetch()) {
-            array_push($equipePouleFinale, $row['id_Equipe']);
-        }
-        return $equipePouleFinale;
-    }
 
     public function getEquipePouleTrie($idPoule)
     {

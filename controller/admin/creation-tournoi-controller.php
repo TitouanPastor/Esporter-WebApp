@@ -112,6 +112,16 @@ if (isset($_POST['ajouterJeu'])) {
     }
 }
 
+function afficherListeJeux($reqJeu){
+    $html = '';
+    while ($data = $reqJeu->fetch()) {
+
+        $html .= '<option value="' . $data['Id_Jeu'] . '">' . $data['Libelle'] . '</option>';
+    }
+
+    return $html;
+}
+
 ob_start();
 require_once(realpath(dirname(__FILE__) . '/../../view/admin/creation-tournoi-view.html'));
 $buffer = ob_get_clean();
