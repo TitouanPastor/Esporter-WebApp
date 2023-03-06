@@ -4,7 +4,7 @@ require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-con
 $infoExecution = "";
 // Ajouter une écurie
 if (isset($_POST['ajouter'])) {
-    require_once(realpath(dirname(__FILE__) . '/../../model/ecurie/Ecurie.php'));
+    require_once(realpath(dirname(__FILE__) . '/../../model/Ecurie.php'));
     $ecurie = new Ecurie();
     // Vérification de si tout les champs sont remplis
     if (!empty($_POST['nom-ecurie']) && !empty($_POST['combobox-statut']) && !empty($_POST['email-ecurie']) && !empty($_POST['mdp-ecurie'])) {
