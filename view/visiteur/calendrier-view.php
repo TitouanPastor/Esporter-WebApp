@@ -12,59 +12,7 @@
 </head>
 
 <body>
-    <?php
     
-        ## Importation des fichiers ##
-        session_start();
-        require_once(realpath(dirname(__FILE__) . '/../../class/header.php'));
-        require_once(realpath(dirname(__FILE__) . '/../../SQL.php'));
-        
-        
-        $header = new header(2);
-        echo $header->customizeHeader($_SESSION['role']);
-
-        //Sql
-        
-        $sql = new requeteSQL();
-        $checkValider = 0;
-        
-        //Exécution de la requête en fonction des paramètres fournis (liste rempli ou non)
-        if (isset($_POST["valider"])) {
-            $checkValider = 1;
-            $param = array();
-            $param[0] = $_POST["tournoi_date"];
-            $param[1] = $_POST["tournoi_nom"];
-            $param[2] = $_POST["tournoi_jeu"];
-            $req = $sql -> getTournoiCalendrier($param);
-        }
-
-        //Contrôle sur la date 01/01/2023 -> 31/12/2023
-        $min = new DateTime('01-01-2023');
-        $max = new DateTime('31-12-2023');    
-        $dateMin = $min -> format('Y-m-d');
-        $dateMax = $max -> format('Y-m-d');
-
-        //Valeur et affichage d'une liste -> conserver la valeur après validation
-        if (isset($_POST["tournoi_date"])){
-            $valueTournoiDate = $_POST["tournoi_date"];
-        } else {
-            $valueTournoiDate = "2023-01-01";
-        }
-
-        if (isset($_POST["tournoi_nom"])){ 
-            $valueTournoiNom = $_POST["tournoi_nom"];
-        } else {
-            $valueTournoiNom = "default";
-        }
-
-        if (isset($_POST["tournoi_jeu"])){
-            $valueTournoiJeu = $_POST["tournoi_jeu"];
-        } else {
-            $valueTournoiJeu = "default";
-        }
-
-
-    ?>
     <main class ="main-listes">
         <section class="main-listes-container">
             <div class="title">
@@ -75,20 +23,14 @@
             </div>
             <h1></h1>
 
-            <form action="" method="post">
+            <form action="calendrier-controller.php" method="post">
                 <div class="container">
 
-                    <input type="date" name="tournoi_date" class="element" value="<?php echo $valueTournoiDate?>"min="<?php echo $dateMin;?>" max="<?php echo $dateMax;?>">
+                    <input type="date" name="tournoi_date" class="element" value="##valueTournoiDate##" min="##dateMin##" max="##dateMax##">
 
                     <select name="tournoi_nom" class="element" class="select">
                         <option value="default" selected>Sélectionner un tournoi</option>
-                        <?php
-                            $tournoi = $sql->getTournoi();
-                            while ($donnees = $tournoi->fetch()) { ?>
-                        <option value="<?php echo $donnees['Nom']; ?>" <?php if ($valueTournoiNom == $donnees['Nom']) echo 'selected'?>>
-                            <?php echo $donnees['Nom']; ?>
-                        </option>
-                        <?php } ?>
+                        ##selectTournoi##
                     </select>
 
                     <select name="tournoi_jeu" class="element" class="select">

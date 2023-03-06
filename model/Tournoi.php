@@ -170,13 +170,5 @@
         return $tournoiDAO->tournoiId($id);
     }
 
-
-
-
-
-
-
-
-
     ?>
 
