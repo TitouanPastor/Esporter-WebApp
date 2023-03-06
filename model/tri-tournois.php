@@ -28,7 +28,7 @@
                             <div class="article-btns">
                             ';
                             if (!$this->sql->tournoiIsClosed($id)) {
-                                $str .= '<a href="modification-tournoi-view.html?id='.$id.'">Modifier</a>';
+                                $str .= '<a href="modification-tournoi-controller.php?id='.$id.'">Modifier</a>';
                             } else {
                                 $str .= '<span style="color: #FF0032;" >Tournoi fermé</span>';
                             }

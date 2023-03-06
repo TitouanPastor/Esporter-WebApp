@@ -3,7 +3,8 @@
 ## Importation des fichiers ##
 session_start();
 require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
-require_once(realpath(dirname(__FILE__) . '/../../DAOtournoiDAO.php'));
+//require_once(realpath(dirname(__FILE__) . '/../../DAO/tournoiDAO.php'));
+require_once(realpath(dirname(__FILE__) . '/../../model/admin/Tournoi.php'));
 
 
 
@@ -142,7 +143,7 @@ if (isset($_POST['ajouterJeu'])) {
 }
 
 ob_start();
-require_once('modification-tournoi-view.php');
+require_once(realpath(dirname(__FILE__) . '/../../view/admin/modification-tournoi-view.html'));
 $buffer = ob_get_clean();
 $buffer = str_replace("##idTournoi##", $idTournois, $buffer);
 $buffer = str_replace("##nom##", $nom, $buffer);
@@ -153,3 +154,4 @@ $buffer = str_replace("##dateTournoisFin##", $dateTournoisFin, $buffer);
 $buffer = str_replace("##lieu##", $lieu, $buffer);
 $buffer = str_replace("##infoExecution##", $infoExecution, $buffer);
 $buffer = str_replace("##typeTournoi##", afficherListeTypeTournoi($type), $buffer);
+echo $buffer;
