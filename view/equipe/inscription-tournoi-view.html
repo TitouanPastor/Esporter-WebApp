@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription Tournoi - E-Sporter</title>
+    <link rel="icon" href="../../img/esporter-icon.png">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/style-inscription.css">
+</head>
+
+<body>
+
+    <main class="main-listes">
+        <!-- div de notification pour informer que le tournoi à été généré -->
+        <div class="notification">
+            <div class="notification-content">
+                <div>
+                    <div class="notification-header">
+                        <h4>Confirmation</h4>
+                    </div>
+                    <div class="notification-body">
+                        <p>Inscription validée.</p>
+                    </div>
+                </div>
+                <div class="notification-footer">
+                    <!-- image svg check verte -->
+                    <svg height="20px" width="20px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
+                        <g>
+                            <g id="check">
+                                <g>
+                                    <polygon style="fill:#5f43b2;" points="11.941,28.877 0,16.935 5.695,11.24 11.941,17.486 26.305,3.123 32,8.818 			" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- div de confirmation pour fermer un tournoi -->
+        <div class="popupconfirm">
+            <div class="popupconfirm-content">
+                <div class="popupconfirm-header">
+                    <h2>Confirmation</h2>
+                </div>
+                <div class="popupconfirm-body">
+                    <p>Voulez-vous vraiment vous inscrire à ce tournoi ?</p>
+                    <span class="idTournoi" style="display: none;"></span>
+                </div>
+                <div class="popupconfirm-footer">
+                    <form action="post">
+                        <input style="background-color: var(--btn-submit); cursor:pointer;" type="button" onclick="popupYes()" class="popupconfirm-button" value="Oui">
+                        <input style="background-color: var(--btn-bouton); cursor:pointer;" type="button" onclick="popupNo()" class="popupconfirm-button" value="Non">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <section class="main-listes-container">
+            <h1>Liste des Tournois à Venir</h1>
+            <form action="post">
+                <div class="container">
+                    <span>Jeu de l'équipe :
+                    ##jeuEquipe##
+                    </span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom du tournoi</th>
+                                <th>Date du tournoi</th>
+                                <th>Equipes inscrites</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ##ListeTournoiDispo##
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+
+        </section>
+
+    </main>
+    <script>
+        function openPopUp(a) {
+            document.querySelector('.popupconfirm').style.display = 'flex';
+            document.querySelector('.idTournoi').innerHTML = a.getAttribute('value');
+        }
+
+        function popupYes() {
+            document.querySelector('.popupconfirm').style.display = 'none';
+            window.location.href = document.querySelector('.idTournoi').innerHTML;
+        }
+
+        function popupNo() {
+            document.querySelector('.popupconfirm').style.display = 'none';
+        }
+
+        // Fonction qui notifie l'utilisateur que le tournoi a bien été fermé et qui s'affiche sous la forme d'une notification
+        function notify() {
+            var notification = document.querySelector('.notification');
+            notification.classList.add('notification-active');
+            setTimeout(function() {
+                notification.classList.remove('notification-active');
+            }, 5000);
+        }
+        // Fonction qui cherche lorsque la page est chargée si il y a un paramètre ?id dans l'url
+        window.onload = function() {
+            var url = window.location.href;
+            if (url.indexOf('?id') != -1) {
+                notify();
+            }
+        }
+    </script>
+</body>
+
+</html>
