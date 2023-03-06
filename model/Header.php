@@ -77,19 +77,14 @@ class Header
     {
         if ($role == "arbitre") {
             return $this->header_arbitre();
-            echo "arbitre";
         } elseif ($role == "ecurie") {
             return $this->header_ecurie();
-            echo "ecurie";
         } elseif ($role == "gestionnaire") {
             return $this->header_admin();
-            echo "admin";
         } elseif ($role == "equipe") {
             return $this->header_equipe();
-            echo "admin";
         } else {
             return $this->header_visiteur();
-            echo "visiteur";
         }
     }
 
