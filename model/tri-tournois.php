@@ -33,7 +33,7 @@
                                 $str .= '<span style="color: #FF0032;" >Tournoi fermé</span>';
                             }
                             if ($this->sql->tournoiIscloseable($id)) {
-                                $str .= '<a style="text-decoration: underline;cursor:pointer;" value="liste-tournois.php?close_id='.$id.'" onclick="openPopUp(this)">Fermer les inscriptions</a>';
+                                $str .= '<a style="text-decoration: underline;cursor:pointer;" value="liste-tournois-controller.php?close_id='.$id.'" onclick="openPopUp(this)">Fermer les inscriptions</a>';
                             };
                             $str .= '
                             </div>
