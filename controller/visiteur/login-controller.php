@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
+require_once(realpath(dirname(__FILE__) . '/../visiteur/header-controller.php'));
 require_once(realpath(dirname(__FILE__) . '/../../model/Login.php'));
+$login = new Login();
 $infoLogin = "";
 
 //On se déconnecte
-session_start();
 $_SESSION['username'] = "";
 $_SESSION['password'] = "";
 $_SESSION['role'] = "";
@@ -15,10 +15,9 @@ $role = array("ecurie" => '', "equipe" => '', "gestionnaire" => '', "arbitre" =>
 if (isset($_POST['submit'])) {
     //verification de la validité des champs
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
-        //connexion à la base de données
-        $sql = new requeteSQL();
+        
         //verification de la validité de l'email et du mot de passe
-        if ($sql->checkLogin(htmlspecialchars($_POST['username']), htmlspecialchars($_POST['password']), htmlspecialchars($_POST['role']))) {
+        if ($login->checkLogin(htmlspecialchars($_POST['username']), htmlspecialchars($_POST['password']), htmlspecialchars($_POST['role']))) {
             //connexion de l'utilisateur
             $_SESSION['username'] = $_POST['username'];
             $_SESSION['password'] = $_POST['password'];
@@ -30,3 +29,12 @@ if (isset($_POST['submit'])) {
         }
     }
 }
+ob_start();
+require_once(realpath(dirname(__FILE__) . '/../../view/visiteur/login-view.html'));
+$buffer = ob_get_clean();
+$buffer = str_replace("##infoLogin##", $infoLogin, $buffer);
+$buffer = str_replace("##roleEcurie##", $role['ecurie'], $buffer);
+$buffer = str_replace("##roleEquipe##", $role['equipe'], $buffer);
+$buffer = str_replace("##roleGestionnaire##", $role['gestionnaire'], $buffer);
+$buffer = str_replace("##roleArbitre##", $role['arbitre'], $buffer);
+echo $buffer;

@@ -23,9 +23,9 @@ require_once(realpath(dirname(__FILE__) . '/controller/visiteur/header-controlle
             <h1>Vivez votre passion</h1>
             <span>E-Sporter centralise tous les résultats de vos équipes préférées dans une seule et même application. Ne perdez plus de temps à chercher, informez vous rapidement sur les différents classements, les matchs et les tournois à venir !</span>
             <div class="home-btns">
-                <a href="pages/visiteur/liste-tournois-commence.php" class="main-btn">Résultats</a>
-                <a href="pages/visiteur/classementCM.php" class="main-btn">Classement</a>
-                <a href="pages/visiteur/calendrier.php" class="main-btn">Calendrier</a>
+                <a href="controller/visiteur/liste-tournois-commence-controller.php" class="main-btn">Résultats</a>
+                <a href="controller/visiteur/classementCM-controller.php" class="main-btn">Classement</a>
+                <a href="controller/visiteur/calendrier-controller.php" class="main-btn">Calendrier</a>
             </div>
         </div>
 
