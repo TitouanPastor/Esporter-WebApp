@@ -276,21 +276,6 @@ class requeteSQL
         return $req;
     }
 
-
-    //Fonctions pour classementCM.php
-    //Prend en parametre l'id du jeu
-    public function getClassementCM($idJeu)
-    {
-        $req = $this->linkpdo->prepare('SELECT equipe.nom, equipe.nb_pts_champ FROM equipe, jeu WHERE equipe.id_jeu = jeu.id_jeu AND jeu.Id_Jeu = :idJeu ORDER BY equipe.nb_pts_champ DESC');
-        $testReq = $req->execute(array("idJeu" => $idJeu));
-        if ($testReq == false) {
-            die('Erreur getClassementCMr (SQL.php) execute 2');
-        }
-
-        return $req;
-    }
-
-
     //Fonction qui renvoie tournoi.nom, tournoi.date, nb de place disponible
     public function getTournoiInscription($jeuLibelle)
     {
