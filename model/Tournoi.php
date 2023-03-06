@@ -1,6 +1,6 @@
 <?php 
 
-    require_once(realpath(dirname(__FILE__) . '/../../DAO/tournoiDAO.php'));
+    require_once(realpath(dirname(__FILE__) . '/../DAO/tournoiDAO.php'));
     require_once('tri-tournois.php');
 
     // ==== Creation Tournoi ===

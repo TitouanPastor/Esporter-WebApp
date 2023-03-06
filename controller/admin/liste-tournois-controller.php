@@ -2,8 +2,8 @@
 
 session_start();
 require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
-require_once(realpath(dirname(__FILE__) .'/../../model/admin/bracket.php'));
-require_once(realpath(dirname(__FILE__) . '/../../model/admin/Tournoi.php'));
+require_once(realpath(dirname(__FILE__) .'/../../model/bracket.php'));
+require_once(realpath(dirname(__FILE__) . '/../../model/Tournoi.php'));
 
 
 $bracket = new bracket();

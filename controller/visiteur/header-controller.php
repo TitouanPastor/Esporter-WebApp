@@ -1,7 +1,7 @@
 <?php
 
 
-require_once(realpath(dirname(__FILE__) . '/../../model/visiteur/Header.php'));
+require_once(realpath(dirname(__FILE__) . '/../../model/Header.php'));
 
 $header = new header();
 
