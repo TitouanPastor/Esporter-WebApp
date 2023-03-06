@@ -274,6 +274,17 @@ class TournoiDAO
         return $req;
     }
 
+    //Fonctions pour classementCM.php
+    //Prend en parametre l'id du jeu
+    public function getClassementCM($idJeu)
+    {
+        $req = $this->linkpdo->prepare('SELECT equipe.nom, equipe.nb_pts_champ FROM equipe, jeu WHERE equipe.id_jeu = jeu.id_jeu AND jeu.Id_Jeu = :idJeu ORDER BY equipe.nb_pts_champ DESC');
+        $testReq = $req->execute(array("idJeu" => $idJeu));
+        if ($testReq == false) {
+            die('Erreur getClassementCM (SQL.php) execute 2');
+        }
+    }
+
     public function closeTournois($id)
     {
         $req = $this->linkpdo->prepare('UPDATE tournoi SET estFerme = 1 WHERE Id_Tournoi = :id');
@@ -461,9 +472,10 @@ class TournoiDAO
                 'nbPoint' => $nbPoint
             )
         );
+    
+
+
+        return $req;
     }
-
-
-
 
 }
