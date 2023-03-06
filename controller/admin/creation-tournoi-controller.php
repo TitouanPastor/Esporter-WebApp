@@ -2,7 +2,6 @@
 
 session_start();
 require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
-require_once(realpath(dirname(__FILE__) . '/../../DAO/tournoiDAO.php'));
 require_once(realpath(dirname(__FILE__) . '/../../model/Tournoi.php'));
 
 $infoExecution = "";

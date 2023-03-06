@@ -2,7 +2,7 @@
 
  ## Importation des fichiers ##
  session_start();
- require_once(realpath(dirname(__FILE__) . '/../../class/header.php')); 
+ require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
  require_once(realpath(dirname(__FILE__) . '/../../model/Equipe.php'));
 
 
@@ -12,10 +12,10 @@
  } else {
      $valueTournoiJeu = "default";
  }
- $req = $sql->getJeuEquipe($_SESSION['username']);
+ $req = getJeuEquipe($_SESSION['username']);
  $jeuEquipe = $req->fetchColumn();
  $param = $jeuEquipe;
- $req = $sql->getTournoiInscription($param);
+ $req = getTournoiInscription($param);
 
  //Requête d'inscription au tournoi cliqué
  if (isset($_GET['id'])) {

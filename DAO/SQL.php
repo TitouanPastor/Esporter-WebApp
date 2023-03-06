@@ -289,22 +289,6 @@ class requeteSQL
     }
 
 
-
- 
-
-
-
-    //Fonction pour récupérer le jeu d'une équipe à partir de l'username
-    public function getIdEquipe($username)
-    {
-        $req = $this->linkpdo->prepare("SELECT id_equipe from equipe WHERE equipe.mail = :username");
-        $testReq = $req->execute(array("username" => $username));
-        if ($testReq == false) {
-            die("Erreur getIdEquipe");
-        }
-        return $req->fetchColumn();
-    }
-
     public function getIdEquipeByMail($mail)
     {
         $req = $this->linkpdo->prepare("SELECT id_equipe from equipe WHERE equipe.mail = :mail");

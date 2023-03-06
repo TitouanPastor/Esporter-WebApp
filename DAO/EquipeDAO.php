@@ -104,4 +104,6 @@ class EquipeDAO
         }
         return $req;
     }
+
+
 }
