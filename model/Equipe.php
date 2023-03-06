@@ -1,63 +1,73 @@
-<?php 
+<?php
 
-require_once(realpath(dirname(__FILE__) . '/../DAO/EquipeDAO.php'));
-require_once("tri-tournois-equipe.php");
+class Equipe
+{
+    private $dao;
 
-
-// === DAO === //
-function getJeuEquipe($username){
-    $equipeDAO = new EquipeDAO();
-    return $equipeDAO->getJeuEquipe($username);
-   
-}
-
-function getTournoiInscription($jeuLibelle){
-    $equipeDAO = new EquipeDAO();
-    return $equipeDAO->getTournoiInscription($jeuLibelle);
-}
-
-function getIdEquipe($username){
-    $equipeDAO = new EquipeDAO();
-    return $equipeDAO->getIdEquipe($username);
-}
-
-function getIdJeu($libelle){
-    $equipeDAO = new EquipeDAO();
-    return $equipeDAO->getIdJeu($libelle);
-}
-
-function estInscritTournoi($mail, $tournoiNom){
-    $equipeDAO = new EquipeDAO();
-    return $equipeDAO->estInscritTournoi($mail, $tournoiNom);
-}
-
-function getNbEquipeTournoi($nom_tournoi){
-    $equipeDAO = new EquipeDAO();
-    return $equipeDAO->getNbEquipeTournoi($nom_tournoi);
-}
-
-function trierPar(string $by, $equipe){
-    $triTournois = new TriTournoisEquipe($equipe);
-    switch($by){
-        case 'type':
-            return $triTournois->trierParTypeTournoisEquipe();
-            break;
-        case 'lieu':
-            return $triTournois->trierParLieuTournoisEquipe();
-            break;
-        case 'nom':
-            return $triTournois->trierParNomTournoisEquipe();
-            break;
-        case 'date':
-            return $triTournois->trierParDateTournoisEquipe();
-            break;
-        default:
-            return $triTournois->trierParIdTournoisEquipe();
-            break;
+    function __construct()
+    {
+        require_once(realpath(dirname(__FILE__) . '/../DAO/EquipeDAO.php'));
+        $this->dao = new EquipeDAO();
     }
-    return "Erreur de tri";
-    
+
+    // === DAO === //
+    function getJeuEquipe($username)
+    {
+        $this->dao = new EquipeDAO();
+        return $this->dao->getJeuEquipe($username);
+    }
+
+    function getTournoiInscription($jeuLibelle)
+    {
+        $this->dao = new EquipeDAO();
+        return $this->dao->getTournoiInscription($jeuLibelle);
+    }
+
+    function getIdEquipe($username)
+    {
+        $this->dao = new EquipeDAO();
+        return $this->dao->getIdEquipe($username);
+    }
+
+    function getIdJeu($libelle)
+    {
+        $this->dao = new EquipeDAO();
+        return $this->dao->getIdJeu($libelle);
+    }
+
+    function estInscritTournoi($mail, $tournoiNom)
+    {
+        $this->dao = new EquipeDAO();
+        return $this->dao->estInscritTournoi($mail, $tournoiNom);
+    }
+
+    function getNbEquipeTournoi($nom_tournoi)
+    {
+        $this->dao = new EquipeDAO();
+        return $this->dao->getNbEquipeTournoi($nom_tournoi);
+    }
+
+    function trierPar(string $by, $equipe)
+    {
+        require_once("tri-tournois-equipe.php");
+        $triTournois = new TriTournoisEquipe($equipe);
+        switch ($by) {
+            case 'type':
+                return $triTournois->trierParTypeTournoisEquipe();
+                break;
+            case 'lieu':
+                return $triTournois->trierParLieuTournoisEquipe();
+                break;
+            case 'nom':
+                return $triTournois->trierParNomTournoisEquipe();
+                break;
+            case 'date':
+                return $triTournois->trierParDateTournoisEquipe();
+                break;
+            default:
+                return $triTournois->trierParIdTournoisEquipe();
+                break;
+        }
+        return "Erreur de tri";
+    }
 }
-
-
-?>
