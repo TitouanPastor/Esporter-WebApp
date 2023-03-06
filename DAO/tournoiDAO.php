@@ -224,7 +224,7 @@ class TournoiDAO
         }
     }
 
-    
+
     public function jeuNonPresentDansTournois($idT)
     {
         $req = $this->linkpdo->prepare('SELECT * FROM jeu WHERE Id_Jeu NOT IN (SELECT Id_Jeu FROM concerner WHERE Id_Tournoi = :idT)');
@@ -283,6 +283,7 @@ class TournoiDAO
         if ($testReq == false) {
             die('Erreur getClassementCM (SQL.php) execute 2');
         }
+        return $req;
     }
 
     public function closeTournois($id)
@@ -310,7 +311,7 @@ class TournoiDAO
         return $idsJeux;
     }
 
-    
+
     public function addPoule($nom, $idTournoi, $idJeu)
     {
         $req = $this->linkpdo->prepare('INSERT INTO poule VALUES (NULL, :nom, :idTournoi, :idJeu)');
@@ -323,7 +324,7 @@ class TournoiDAO
         );
     }
 
-    
+
     public function getIDPoule($idTournoi, $idJeu)
     {
         $req = $this->linkpdo->prepare('SELECT Id_Poule FROM poule WHERE id_Tournoi = :idTournoi AND id_jeu = :idJeu');
@@ -340,24 +341,24 @@ class TournoiDAO
         return $idsPoules;
     }
 
-        //Equipe inscrites sur un tournoi en fonction d'un jeu
-        public function getEquipeInscrites($idTournoi, $idJeu)
-        {
-            $req = $this->linkpdo->prepare('SELECT etre_inscrit.id_equipe FROM etre_inscrit, equipe WHERE id_Tournoi = :idTournoi AND etre_inscrit.id_Equipe = equipe.id_Equipe AND etre_inscrit.id_Jeu = :idJeu order by Nb_pts_Champ DESC');
-            $req->execute(
-                array(
-                    'idTournoi' => $idTournoi,
-                    'idJeu' => $idJeu
-                )
-            );
-            $idsEquipes = array(); //Tableau qui contiendra les id des poules
-            while ($datas = $req->fetch()) {
-                array_push($idsEquipes, $datas['id_equipe']);
-            }
-            return $idsEquipes;
+    //Equipe inscrites sur un tournoi en fonction d'un jeu
+    public function getEquipeInscrites($idTournoi, $idJeu)
+    {
+        $req = $this->linkpdo->prepare('SELECT etre_inscrit.id_equipe FROM etre_inscrit, equipe WHERE id_Tournoi = :idTournoi AND etre_inscrit.id_Equipe = equipe.id_Equipe AND etre_inscrit.id_Jeu = :idJeu order by Nb_pts_Champ DESC');
+        $req->execute(
+            array(
+                'idTournoi' => $idTournoi,
+                'idJeu' => $idJeu
+            )
+        );
+        $idsEquipes = array(); //Tableau qui contiendra les id des poules
+        while ($datas = $req->fetch()) {
+            array_push($idsEquipes, $datas['id_equipe']);
         }
+        return $idsEquipes;
+    }
 
-        
+
     public function assignerPoule($idTournoi, $idPoule, $idEquipe)
     {
         $req = $this->linkpdo->prepare('UPDATE etre_inscrit SET id_poule = :idPoule WHERE id_Tournoi = :idTournoi AND id_Equipe = :idEquipe');
@@ -381,7 +382,7 @@ class TournoiDAO
             )
         );
     }
-    
+
     public function getLastIDPoule()
     {
         $req = $this->linkpdo->prepare("SELECT MAX(Id_Poule) FROM poule");
@@ -391,23 +392,23 @@ class TournoiDAO
         }
     }
 
-        //Fonction qui retourne le premier d'une poule a partir d'un tournoi et d'un jeu donnée 
-        public function getPremierPoule($idTournoi, $idJeu, $idPoule)
-        {
-            $req = $this->linkpdo->prepare('SELECT etre_inscrit.id_Equipe FROM etre_inscrit, poule WHERE poule.id_Tournoi = :idTournoi and poule.Id_Jeu = :idJeu and poule.id_Poule = etre_inscrit.id_poule and etre_inscrit.id_poule = :idPoule order by nb_Match_Gagne desc limit 1');
-            $req->execute(
-                array(
-                    'idTournoi' => $idTournoi,
-                    'idJeu' => $idJeu,
-                    'idPoule' => $idPoule
-                )
-            );
-            while ($row = $req->fetch()) {
-                return $row['id_Equipe'];
-            }
+    //Fonction qui retourne le premier d'une poule a partir d'un tournoi et d'un jeu donnée 
+    public function getPremierPoule($idTournoi, $idJeu, $idPoule)
+    {
+        $req = $this->linkpdo->prepare('SELECT etre_inscrit.id_Equipe FROM etre_inscrit, poule WHERE poule.id_Tournoi = :idTournoi and poule.Id_Jeu = :idJeu and poule.id_Poule = etre_inscrit.id_poule and etre_inscrit.id_poule = :idPoule order by nb_Match_Gagne desc limit 1');
+        $req->execute(
+            array(
+                'idTournoi' => $idTournoi,
+                'idJeu' => $idJeu,
+                'idPoule' => $idPoule
+            )
+        );
+        while ($row = $req->fetch()) {
+            return $row['id_Equipe'];
         }
+    }
 
-            //Retourne le nombre de point total de la poule 
+    //Retourne le nombre de point total de la poule 
     public function getNbPointPoule($idPoule)
     {
         $req = $this->linkpdo->prepare('SELECT sum(nb_Match_Gagne) as nbMatchJouer FROM etre_inscrit WHERE etre_inscrit.id_poule = :idPoule');
@@ -421,7 +422,7 @@ class TournoiDAO
         }
     }
 
-    
+
     public function getPerdantFinale($idPoule)
     {
         $req = $this->linkpdo->prepare('select distinct id_Equipe from rencontre where Id_Poule = :idPoule and id_Equipe not in ( SELECT id_Equipe FROM rencontre WHERE id_Poule = :idPoule group by gagnant) union select DISTINCT Id_Equipe_1 from rencontre where Id_Poule = :idPoule and Id_Equipe_1 not in ( SELECT id_equipe FROM rencontre WHERE id_Poule = :idPoule group by gagnant);');
@@ -472,10 +473,5 @@ class TournoiDAO
                 'nbPoint' => $nbPoint
             )
         );
-    
-
-
-        return $req;
     }
-
 }
