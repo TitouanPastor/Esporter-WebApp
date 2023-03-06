@@ -24,6 +24,7 @@ switch ($nomPage) {
     case "enregistrer-ecurie-view.php":
     case "creation-tournoi-controller.php":
     case "modification-tournoi-controller.php":
+    case "fermer-tournoi-controller.php":
    
         if ($_SESSION['role'] == "gestionnaire") {
             echo $header->customizeHeader($_SESSION['role']);
@@ -31,7 +32,6 @@ switch ($nomPage) {
             header("Location: ../../acces-refuse.php");
         }
         break;
-
 }
 
 

@@ -10,21 +10,14 @@
 </head>
 
 <body>
-    <?php
-
-    ?>
 
     <main class="fermer-tournoi">
         <form action="fermer-tournoi.php">
             <h1>Fermer les inscriptions</h1>
-            <h2><?php echo $sql->tournoiId($idTournoi)->fetch()['Nom'];?></h2>
+            <h2>##nomTournoi##</h2>
             <section class="fermer-tournoi-container">
                 <div class="fermer-tournoi-left-container">
-                    <?php
-
-                    echo $bracket->display_games($idTournoi);
-
-                    ?>
+                    ##games##
                 </div>
 
                 <div class="fermer-tournoi-right-container">
