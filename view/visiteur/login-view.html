@@ -14,17 +14,17 @@
 <body>
 
     <main class="main-login">
-        <form action="" method="post">
+        <form action="login-controller.php" method="post">
             <h1>Se Connecter</h1>
             <hr>
             <div class="container">
                 <div class="role">
                     <label for="role">Votre rôle</label>
                     <select name="role" id="role" required>
-                        <option value="ecurie" <?= $role['ecurie'] ?>>Ecurie</option>
-                        <option value="equipe" <?= $role['equipe'] ?>>Equipe</option>
-                        <option value="gestionnaire" <?= $role['gestionnaire'] ?>>Gestionnaire</option>
-                        <option value="arbitre" <?= $role['arbitre'] ?>>Arbitre</option>
+                        <option value="ecurie" ##roleEcurie##>Ecurie</option>
+                        <option value="equipe" ##roleEquipe##>Equipe</option>
+                        <option value="gestionnaire" ##roleGestionnaire##>Gestionnaire</option>
+                        <option value="arbitre" ##roleArbitre##>Arbitre</option>
                     </select>
                 </div>
                 <div class="utilisateur">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="button">
                     <!-- <input type="button" name="mdp_oublie" class="bouton" value="Mot de passe oublié"> -->
-                    <span><?php echo $infoLogin ?></span>
+                    <span>##infoLogin##</span>
                     <input type="submit" name="submit" class="submit" value="Se Connecter">
                 </div>
 

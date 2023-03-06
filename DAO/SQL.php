@@ -86,30 +86,6 @@ class requeteSQL
     }
 
 
-    //-------------Page Login
-
-
-    // vérifie si le login et le mot de passe sont corrects
-    public function checkLogin($login, $mdp, $role)
-    {
-        $req = $this->linkpdo->prepare('SELECT count(*) FROM ' . $role . ' WHERE mail = :login AND Mot_de_passe = :mdp');
-        $req->execute(
-            array(
-                'login' => $login,
-                'mdp' => $mdp
-            )
-        );
-
-        $result = $req->fetch();
-        //condition si il y a un résultat
-        if ($result[0] != 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
     //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
     //Sprint 2 
 
@@ -291,6 +267,26 @@ class requeteSQL
     }
 
 
+    //Fonction qui renvoie tournoi.nom, tournoi.date, nb de place disponible
+    public function getTournoiInscription($jeuLibelle)
+    {
+        $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut,tournoi.id_tournoi FROM tournoi, concerner, jeu WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND jeu.libelle = :libelle ORDER BY tournoi.date_debut');
+        $testReq = $req->execute(array("libelle" => $jeuLibelle));
+        if ($testReq == false) {
+            die('Erreur getTournoiInscription');
+        }
+        return $req;
+    }
+    //Fonction pour récupérer le jeu d'une équipe à partir de l'username
+    public function getJeuEquipe($username)
+    {
+        $req = $this->linkpdo->prepare("SELECT jeu.libelle FROM jeu, equipe WHERE equipe.id_jeu = jeu.id_jeu AND equipe.mail = :username");
+        $testReq = $req->execute(array("username" => $username));
+        if ($testReq == false) {
+            die("Erreur getJeuEquipe");
+        }
+        return $req;
+    }
 
 
 
