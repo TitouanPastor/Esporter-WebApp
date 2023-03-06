@@ -25,13 +25,21 @@ switch ($nomPage) {
     case "creation-tournoi-controller.php":
     case "modification-tournoi-controller.php":
     case "fermer-tournoi-controller.php":
-   
         if ($_SESSION['role'] == "gestionnaire") {
             echo $header->customizeHeader($_SESSION['role']);
         } else {
             header("Location: ../../acces-refuse.php");
         }
         break;
+    case "inscription-tournoi-controller.php":
+           
+        if ($_SESSION['role'] == "equipe") {
+            echo $header->customizeHeader($_SESSION['role']);
+        } else {
+            header("Location: ../../index.php");
+        }
+        break;
+
 }
 
 
