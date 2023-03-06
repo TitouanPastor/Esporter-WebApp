@@ -10,7 +10,7 @@ class requeteSQL
     public function __construct()
     {
         ///Connexion au serveur MySQL avec PDO
-        $server = 'sql849.main-hosting.eu';
+        $server = '89.116.147.154';
         $login  = 'u743447366_admin';
         $mdp    = 'YAksklOw6qN$';
         $db     = 'u743447366_esporter';
