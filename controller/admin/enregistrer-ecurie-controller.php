@@ -45,5 +45,4 @@ ob_start();
 require_once(realpath(dirname(__FILE__) . '/../../view/admin/enregistrer-ecurie-view.html'));
 $buffer = ob_get_clean();
 $buffer = str_replace("##infoExecution##", $infoExecution, $buffer);
-$buffer = str_replace("##header##", $header->customizeHeader($_SESSION['role']), $buffer);
 echo $buffer;

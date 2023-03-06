@@ -33,7 +33,6 @@ ob_start();
 require_once(realpath(dirname(__FILE__) . '/../../view/visiteur/login-view.html'));
 $buffer = ob_get_clean();
 $buffer = str_replace("##infoLogin##", $infoLogin, $buffer);
-$buffer = str_replace("##header##", $headerHTML, $buffer);
 $buffer = str_replace("##roleEcurie##", $role['ecurie'], $buffer);
 $buffer = str_replace("##roleEquipe##", $role['equipe'], $buffer);
 $buffer = str_replace("##roleGestionnaire##", $role['gestionnaire'], $buffer);
