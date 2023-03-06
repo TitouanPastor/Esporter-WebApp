@@ -2,9 +2,7 @@
     
     session_start();
     require_once(realpath(dirname(__FILE__) . '/../visiteur/header-controller.php'));
-    require_once(realpath(dirname(__FILE__) . '/../../DAO/SQL.php'));
-    require_once(realpath(dirname(__FILE__) . '/../../DAO/connectDB.php'));
-    require_once(realpath(dirname(__FILE__) . '/../../DAO/tournoiDAO.php'));
+    require_once(realpath(dirname(__FILE__) . '/../../model/Tournoi.php'));
     
     $sql = new TournoiDAO();
     $checkValider = 0;
@@ -174,7 +172,6 @@
     ob_start();
     require_once(realpath(dirname(__FILE__) . '/../../view/visiteur/classementCM-view.html'));
     $buffer = ob_get_clean();
-    $buffer = str_replace('##header##', $header->customizeHeader($_SESSION['role']), $buffer);
     $buffer = str_replace("##AfficherJeux##", $affichageJeux, $buffer);
     $buffer = str_replace("##AffichageTableau##", $affichageTableau, $buffer);
     echo $buffer;

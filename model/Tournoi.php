@@ -51,6 +51,12 @@
         return $tournoiDAO->getJeux();
     }
 
+    function getClassementCM($idJeu)
+    {
+        $tournoiDAO = new TournoiDAO();
+        return $tournoiDAO->getClassementCM($idJeu);
+    }
+
     function addTournoi($Type, $nom, $dateDeb, $dateFin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre){
         $tournoiDAO = new TournoiDAO();
         return $tournoiDAO->addTournoi($Type, $nom, $dateDeb, $dateFin, $lieu, $nbPtsMax, $IdGestionnaireEsport, $idArbitre);
