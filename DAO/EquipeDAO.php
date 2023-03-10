@@ -129,5 +129,13 @@ class EquipeDAO
         return $req;
     }
 
-    
+    //Fonction qui retourne le dernier tuple de equipe
+    public function getLastIDEquipe()
+    {
+        $req = $this->linkpdo->prepare('SELECT Id_Equipe FROM equipe ORDER BY Id_Equipe DESC LIMIT 1');
+        $req->execute();
+        while ($data = $req->fetch()) {
+            return $data['Id_Equipe'];
+        }
+    }
 }
