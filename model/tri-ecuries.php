@@ -69,7 +69,7 @@ class TriEcuries
     public function trierParStatut()
     {
         $this->req = $this->sql->ecuriesByStatut();
-        $this->afficherLesEcuries();
+        return $this->afficherLesEcuries();
     }
 
 
@@ -77,7 +77,7 @@ class TriEcuries
     public function trierParNom()
     {
         $this->req = $this->sql->ecuriesByNom();
-        $this->afficherLesEcuries();
+        return $this->afficherLesEcuries();
     }
 
 
@@ -85,6 +85,6 @@ class TriEcuries
     public function trierParId()
     {
         $this->req = $this->sql->getEcurie();
-        $this->afficherLesEcuries();
+        return $this->afficherLesEcuries();
     }
 }
