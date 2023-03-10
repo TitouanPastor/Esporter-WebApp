@@ -51,6 +51,10 @@ class Tournoi
     {
         return $this->dao->getTournoi($idEquipe);
     }
+    
+    function getTournoiCalendrier($param){
+        return $this->dao->getTournoiCalendrier($param);
+    }
 
     function getJeux()
     {

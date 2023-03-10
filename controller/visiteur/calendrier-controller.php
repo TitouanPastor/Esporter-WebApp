@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once(realpath(dirname(__FILE__) .'/header-controller.php'));
-    require_once(realpath(dirname(__FILE__) .))
+    require_once(realpath(dirname(__FILE__) .'/../../model/Tournoi.php'));
 
     $checkValider = 0;
     $tournoi = new Tournoi();
@@ -38,13 +38,12 @@
         $param[0] = $_POST["tournoi_date"];
         $param[1] = $_POST["tournoi_nom"];
         $param[2] = $_POST["tournoi_jeu"];
-        $req = $sql -> getTournoiCalendrier($param);
+        $req = $tournoi -> getTournoiCalendrier($param);
     }
 
-    $tournoi = $sql->getTournoi();
+    $getTournoi = $tournoi -> getTournoi();
     $selectTournoi = "";
-    while ($donnees = $tournoi->fetch()) {
-        // echo "<option value='.$donnees['Nom'];
+    while ($donnees = $getTournoi->fetch()) {
         $selectTournoi .= "<option value=".$donnees['Nom'];
         if ($valueTournoiNom == $donnees['Nom']) {
             $selectTournoi .= ' selected >';
@@ -55,11 +54,62 @@
         $selectTournoi .= '</option>';
     }
 
+    $getJeux = $tournoi -> getJeux();
+    $selectJeu = "";
+    while ($donnees = $getJeux->fetch()) {
+        $selectJeu .= "<option value=".$donnees['Libelle'];
+        if ($valueTournoiJeu == $donnees['Libelle']) {
+            $selectJeu .= ' selected >';
+        } else {
+            $selectJeu .= '>';
+        }
+        $selectJeu .= $donnees['Libelle'];
+        $selectJeu .= '</option>';
+    }
+    
+    $tableau = "";
+    if ($checkValider == 1) {
+        if ($req -> rowCount() == 0){
+            $tableau .= "<div style='display : flex; justify-content :center; padding-top : 50px;'> Il n'y a pas de tournoi pour ces critères </div>";
+        } else {
+            $tableau .= "
+        <div class = 'tableau-style'>
+        <table>
+            <thead>
+                <tr>
+                    <th> Nom du Tournoi </th>
+                    <th> Date du tournoi</th>
+                    <th> Jeu du Tournoi </th>
+                </tr>
+            </thead>
+
+            <tbody>";
+            while ($donnees = $req->fetch()) {
+                $tableau .= '
+                <tr>
+                    <td>' . $donnees[0] . '</td>
+                    <td>' . date('d / m / Y', strtotime($donnees[1])). '</td>
+                    <td>' . $donnees[2] . '</td>
+                </tr>
+                ';
+            }
+            $tableau .= "
+                </tbody>
+                </table>
+                </div>
+            </form>
+        ";
+        } 
+    }
+
     ob_start();
-    realpath(dirname(__FILE__) .'../../view/visiteur/calendrier-view.php');
-    $buffer = ob_clean();
+    require_once(realpath(dirname(__FILE__) .'/../../view/visiteur/calendrier-view.html'));
+    $buffer = ob_get_clean();
     $buffer = str_replace("##valueTournoiDate##", $valueTournoiDate, $buffer);
     $buffer = str_replace("##dateMin##", $dateMin, $buffer);
     $buffer = str_replace("##dateMax##", $dateMax, $buffer);
     $buffer = str_replace("##selectTournoi##", $selectTournoi, $buffer);
+    $buffer = str_replace("##selectJeu##", $selectJeu, $buffer);
+    $buffer = str_replace("##tableau##", $tableau, $buffer);
+    echo $buffer;
 ?>
