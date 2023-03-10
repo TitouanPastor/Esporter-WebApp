@@ -35,4 +35,30 @@ class EcurieDAO
             )
         );
     }
+
+    //Fonction qui retourne une écurie en fonction de son mail
+    public function getIdEcurieByMail($mail)
+    {
+        $req = $this->linkpdo->prepare('SELECT Id_Ecurie FROM ecurie where Mail = :mail');
+        $req->execute(
+            array(
+                'mail' => $mail
+            )
+        );
+        while ($data = $req->fetch()) {
+            return $data['Id_Ecurie'];
+        }
+    }
+
+    // Fonction qui retourne les equipes d'une Ecurie
+    public function getEquipeEcurie($id)
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM equipe where Id_Ecurie = :IdEcurie");
+        $req->execute(
+            array(
+                'IdEcurie' => $id
+            )
+        );
+        return $req;
+    }
 }
