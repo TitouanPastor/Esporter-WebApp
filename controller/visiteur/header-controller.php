@@ -12,14 +12,15 @@ $nomPage = $nomPage[count($nomPage) - 1];
 switch ($nomPage) {
     case "index.php":
     case "liste-tournois-commence-controller.php":
+    case "classementCM-controller.php":
+    case "calendrier-controller.php":
         echo $header->customizeHeader($_SESSION['role']);
         break; 
     case "login-controller.php":
         echo $header->headerLogin();
         break;
-    case "classementCM-controller.php":
-        echo $header->customizeHeader($_SESSION['role']);
-        break;
+    
+    // Gestionnaire
     case "liste-tournois-controller.php":
     case "enregistrer-ecurie-view.php":
     case "creation-tournoi-controller.php":
@@ -31,12 +32,14 @@ switch ($nomPage) {
             header("Location: ../../acces-refuse.php");
         }
         break;
+
+    // Equipe
     case "inscription-tournoi-controller.php":
     case "liste-tournois-inscrit-controller.php":
         if ($_SESSION['role'] == "equipe") {
             echo $header->customizeHeader($_SESSION['role']);
         } else {
-            header("Location: ../../index.php");
+            header("Location: ../../acces-refuse.php");
         }
         break;
     case "liste-tournois-commence-arbitre-controller.php":
@@ -47,6 +50,17 @@ switch ($nomPage) {
         }
         break;
 
+    // Arbitre
+    
+    // Ecurie
+    case 'enregistrer-joueurs-controller.php':
+    case 'enregistrer-equipe-controller.php':
+    if ($_SESSION['role'] == "ecurie") {
+        echo $header->customizeHeader($_SESSION['role']);
+    } else {
+        header("Location: ../../acces-refuse.php");
+    }
+    break;
 }
 
 

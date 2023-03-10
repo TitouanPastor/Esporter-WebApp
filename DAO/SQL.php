@@ -112,33 +112,6 @@ class requeteSQL
     //-------------Page Enregistrer une équipe
 
 
-    //Fonction pour ajouter une equipe
-    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $idJeu, $idEcurie)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :mdp, :mail, :nbPtsChamps, :id_jeu, :id_ecurie)');
-        $req->execute(
-            array(
-                'nom' => $nom,
-                'mdp' => $mdp,
-                'mail' => $mail,
-                'nbPtsChamps' => $nbPtsChamps,
-                'id_ecurie' => $idEcurie,
-                'id_jeu' => $idJeu
-            )
-        );
-    }
-
-
-    //Fonction qui retourne le dernier tuple de equipe
-    public function getLastIDEquipe()
-    {
-        $req = $this->linkpdo->prepare('SELECT Id_Equipe FROM equipe ORDER BY Id_Equipe DESC LIMIT 1');
-        $req->execute();
-        while ($data = $req->fetch()) {
-            return $data['Id_Equipe'];
-        }
-    }
-
     public function getEcurie()
     {
         $req = $this->linkpdo->prepare("SELECT * FROM ecurie");
@@ -422,35 +395,6 @@ class requeteSQL
             return $row['Nombre_point_max'];
         }
     }
-
-
-    //Fonction pour ajouter un joueur
-    public function addJoueur($nom, $prenom, $dateNaissance, $pseudo, $mail, $idEquipe)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO joueur VALUES (NULL, :nom, :prenom, :dateNaissance, :pseudo, :mail, :idEquipe)');
-        $req->execute(
-            array(
-                'nom' => $nom,
-                'prenom' => $prenom,
-                'dateNaissance' => $dateNaissance,
-                'pseudo' => $pseudo,
-                'mail' => $mail,
-                'idEquipe' => $idEquipe
-            )
-        );
-    }
-
-
-    // Fonction qui retourne les joueurs
-    public function getJoueur()
-    {
-        $req = $this->linkpdo->prepare('SELECT * FROM joueur');
-        $req->execute();
-        return $req;
-    }
-
-
-
 
     // Fonction qui retourne les matchs
     public function getGame()

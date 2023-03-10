@@ -11,8 +11,15 @@ class Equipe
     }
 
     // === DAO === //
+    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $idJeu, $idEcurie)
+    {
+        $this->dao = new EquipeDAO();
+        $this->dao->addEquipe($nom, $mdp, $mail, $nbPtsChamps, $idJeu, $idEcurie);
+    }
+    
     public function getEquipe()
     {
+        $this->dao = new EquipeDAO();
         return $this->dao->getEquipe();
     }
     
@@ -74,5 +81,11 @@ class Equipe
                 break;
         }
         return "Erreur de tri";
+    }
+
+    function getLastIDEquipe()
+    {
+        $this->dao = new EquipeDAO();
+        return $this->dao->getLastIDEquipe();
     }
 }
