@@ -82,4 +82,10 @@ class Equipe
         }
         return "Erreur de tri";
     }
+
+    function getLastIDEquipe()
+    {
+        $this->dao = new EquipeDAO();
+        return $this->dao->getLastIDEquipe();
+    }
 }

@@ -33,7 +33,7 @@ class Header
             $this->pathaddecurie = "controller/admin/enregistrer-ecurie-controller.php";
             $this->pathlisteecurie = "controller/admin/liste-ecurie-controller.php";
             $this->pathinscription = "controller/equipe/inscription-tournoi-controller.php";
-            $this->pathlistetournoiarbitre = "controller/arbitre/liste-tournois-commence-controller.php";
+            $this->pathlistetournoiarbitre = "controller/arbitre/liste-tournois-commence-arbitre-controller.php";
             $this->pathaddequipes = "controller/ecurie/enregistrer-equipe-controller.php";
             $this->pathlogo = "img/esporter-logo.png";
             $this->pathlisteequipeECU = "controller/ecurie/liste-equipes-controller.php";
@@ -49,7 +49,7 @@ class Header
             $this->pathaddecurie = "../admin/enregistrer-ecurie-controller.php";
             $this->pathlisteecurie = "../admin/liste-ecuries-controller.php";
             $this->pathinscription = "../equipe/inscription-tournoi-controller.php";
-            $this->pathlistetournoiarbitre = "../arbitre/liste-tournois-commence-controller.php";
+            $this->pathlistetournoiarbitre = "../arbitre/liste-tournois-commence-arbitre-controller.php";
             $this->pathaddequipes = "../ecurie/enregistrer-equipe-controller.php";
             $this->pathlogo = "../../img/esporter-logo.png";
             $this->pathlisteequipeECU = "../ecurie/liste-equipes-controller.php";
