@@ -10,14 +10,11 @@ class TriEcuries
 
     public function __construct()
     {
-        require_once('../../SQL.php');
-        $this->sql = new requeteSQL();
+        require_once('../../DAO/EcurieDAO.php');
+        $this->sql = new EcurieDAO();
         $this->req = $this->sql->getEcurie();
-        $this->nbEcuries = $this->req->rowCount();
-        
+        $this->nbEcuries = $this->req->rowCount(); 
     }
-
-
 
     //function qui affiche une écurie
     public function afficherUneEcurie($nom, $statut, $id)

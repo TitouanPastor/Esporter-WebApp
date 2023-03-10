@@ -68,8 +68,12 @@ class EcurieDAO
         $req->execute();
         return $req;
     }
-
-    
+    public function getEquipeByIdEcurie($id)
+    {
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE ' . $id . ' = equipe.Id_Ecurie');
+        $req->execute();
+        return $req;
+    }
 
     public function getJoueurByIdEquipe($id)
     {
@@ -97,6 +101,20 @@ class EcurieDAO
                 'id_ecurie' => $idEcurie
             )
         );
+        return $req;
+    }
+
+    public function ecuriesByNom()
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM ecurie order by Nom");
+        $req->execute();
+        return $req;
+    }
+
+    public function ecuriesByStatut()
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM ecurie order by Statut DESC");
+        $req->execute();
         return $req;
     }
 }
