@@ -1,6 +1,6 @@
 
 // Fonction qui notifie l'utilisateur que le tournoi a bien été fermé et qui s'affiche sous la forme d'une notification
-function notify() {
+function notifyTournoi() {
     var notification = document.querySelector('.notification');
     notification.classList.add('notification-active');
     setTimeout(function () {

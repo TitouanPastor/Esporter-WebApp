@@ -12,11 +12,7 @@
             $this->sql = new tournoiDAO();
             $this->req = $this->sql-> getTournoi();
             $this->nbTournois = $this->req->rowCount();
-
-            
         }
-
-        
 
         //function qui affiche un tournoi
         public function afficherUnTournoi($nom, $dateDebut, $dateFin, $lieu, $type,$id){

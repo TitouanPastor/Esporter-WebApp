@@ -7,6 +7,24 @@ class Ecurie
     {
         require_once(realpath(dirname(__FILE__) . '/../DAO/EcurieDAO.php'));
         $this->dao = new EcurieDAO();
+    } 
+
+    function trierPar(string $by)
+    {
+        require_once('tri-ecuries.php');
+        $triEcuries = new TriEcuries();
+        switch ($by) {
+            case 'nom':
+                return $triEcuries->trierParNom();
+                break;
+            case 'statut':
+                return $triEcuries->trierParStatut();
+                break;
+            default:
+                return $triEcuries->trierParId();
+                break;
+        }
+        return "Erreur de tri";
     }
 
     public function getEcurie()
@@ -27,5 +45,25 @@ class Ecurie
     public function getEquipeEcurie($id)
     {
         return $this->dao->getEquipeEcurie($id);
+    }
+
+    public function getEquipeByIdEcurie($id)
+    {
+        return $this->dao->getEquipeByIdEcurie($id);
+    }
+
+    public function getJeuByIdEquipe($id)
+    {
+        return $this->dao->getJeuByIdEquipe($id);
+    }
+
+    public function ecuriesByNom()
+    {
+        return $this->dao->ecuriesByNom();
+    }
+
+    public function ecuriesByStatut()
+    {
+        return $this->dao->ecuriesByStatut();
     }
 }
