@@ -13,13 +13,29 @@ class EquipeDAO
         $this->linkpdo = $sql->getConnection();
     }
 
-     // Fonction qui retourne les equipes 
-     public function getEquipe()
-     {
-         $req = $this->linkpdo->prepare("SELECT * FROM equipe");
-         $req->execute();
-         return $req;
-     }
+    //Fonction pour ajouter une equipe
+    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $idJeu, $idEcurie)
+    {
+        $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :mdp, :mail, :nbPtsChamps, :id_jeu, :id_ecurie)');
+        $req->execute(
+            array(
+                'nom' => $nom,
+                'mdp' => $mdp,
+                'mail' => $mail,
+                'nbPtsChamps' => $nbPtsChamps,
+                'id_ecurie' => $idEcurie,
+                'id_jeu' => $idJeu
+            )
+        );
+    }
+
+    // Fonction qui retourne les equipes 
+    public function getEquipe()
+    {
+        $req = $this->linkpdo->prepare("SELECT * FROM equipe");
+        $req->execute();
+        return $req;
+    }
 
     //Fonction pour récupérer le jeu d'une équipe à partir de l'username
     public function getJeuEquipe($username)

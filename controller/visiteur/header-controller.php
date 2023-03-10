@@ -45,8 +45,9 @@ switch ($nomPage) {
 
     // Arbitre
     
-    // ecurie
+    // Ecurie
     case 'enregistrer-joueurs-controller.php':
+    case 'enregistrer-equipe-controller.php':
     if ($_SESSION['role'] == "ecurie") {
         echo $header->customizeHeader($_SESSION['role']);
     } else {

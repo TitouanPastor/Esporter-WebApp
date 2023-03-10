@@ -112,23 +112,7 @@ class requeteSQL
     //-------------Page Enregistrer une équipe
 
 
-    //Fonction pour ajouter une equipe
-    public function addEquipe($nom, $mdp, $mail, $nbPtsChamps, $idJeu, $idEcurie)
-    {
-        $req = $this->linkpdo->prepare('INSERT INTO equipe VALUES (NULL, :nom, :mdp, :mail, :nbPtsChamps, :id_jeu, :id_ecurie)');
-        $req->execute(
-            array(
-                'nom' => $nom,
-                'mdp' => $mdp,
-                'mail' => $mail,
-                'nbPtsChamps' => $nbPtsChamps,
-                'id_ecurie' => $idEcurie,
-                'id_jeu' => $idJeu
-            )
-        );
-    }
-
-
+    
     //Fonction qui retourne le dernier tuple de equipe
     public function getLastIDEquipe()
     {
