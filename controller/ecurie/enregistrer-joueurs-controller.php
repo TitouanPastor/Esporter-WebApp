@@ -1,10 +1,10 @@
 <?php
 session_start();
 require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
+require_once(realpath(dirname(__FILE__) . '/../../model/Joueur.php'));
 $infoExecution = "";
 
-/*
-$sql = new requeteSQL();
+$joueurModel = new Joueur();
 
 // Ajouter une équipe
 if (isset($_POST['ajouter'])) {
@@ -25,7 +25,7 @@ if (isset($_POST['ajouter'])) {
                                 // Vérification de si le joueur4 à plus de 12ans
                                 if (strtotime($_POST['dtn-joueur4']) <= strtotime(date("Y-m-d") . ' - 12 years')) {
                                     //Vérification de si le pseudo et le mail du joueur1 sont déjà utilisés
-                                    $joueurs = $sql->getJoueur();
+                                    $joueurs = $joueurModel->getJoueur();
                                     $samePseudo1 = False;
                                     $sameMail1 = False;
                                     while ($joueur1 = $joueurs->fetch()) {
@@ -82,13 +82,13 @@ if (isset($_POST['ajouter'])) {
                                                                         // Récupération de l'ID dernier équipe créer
                                                                         $idEquipe = $sql->getLastIDEquipe();
                                                                         //Ajout du joueur1 
-                                                                        $sql->addJoueur(htmlspecialchars($_POST['nom-joueur1']), htmlspecialchars($_POST['prenom-joueur1']), htmlspecialchars($_POST['dtn-joueur1']), htmlspecialchars($_POST['pseudo-joueur1']), htmlspecialchars($_POST['email-joueur1']), $idEquipe);
+                                                                        $sql->joueurModel(htmlspecialchars($_POST['nom-joueur1']), htmlspecialchars($_POST['prenom-joueur1']), htmlspecialchars($_POST['dtn-joueur1']), htmlspecialchars($_POST['pseudo-joueur1']), htmlspecialchars($_POST['email-joueur1']), $idEquipe);
                                                                         //Ajout du joueur2 
-                                                                        $sql->addJoueur(htmlspecialchars($_POST['nom-joueur2']), htmlspecialchars($_POST['prenom-joueur2']), htmlspecialchars($_POST['dtn-joueur2']), htmlspecialchars($_POST['pseudo-joueur2']), htmlspecialchars($_POST['email-joueur2']), $idEquipe);
+                                                                        $sql->joueurModel(htmlspecialchars($_POST['nom-joueur2']), htmlspecialchars($_POST['prenom-joueur2']), htmlspecialchars($_POST['dtn-joueur2']), htmlspecialchars($_POST['pseudo-joueur2']), htmlspecialchars($_POST['email-joueur2']), $idEquipe);
                                                                         //Ajout du joueur3 
-                                                                        $sql->addJoueur(htmlspecialchars($_POST['nom-joueur3']), htmlspecialchars($_POST['prenom-joueur3']), htmlspecialchars($_POST['dtn-joueur3']), htmlspecialchars($_POST['pseudo-joueur3']), htmlspecialchars($_POST['email-joueur3']), $idEquipe);
+                                                                        $sql->joueurModel(htmlspecialchars($_POST['nom-joueur3']), htmlspecialchars($_POST['prenom-joueur3']), htmlspecialchars($_POST['dtn-joueur3']), htmlspecialchars($_POST['pseudo-joueur3']), htmlspecialchars($_POST['email-joueur3']), $idEquipe);
                                                                         //Ajout du joueur4 
-                                                                        $sql->addJoueur(htmlspecialchars($_POST['nom-joueur4']), htmlspecialchars($_POST['prenom-joueur4']), htmlspecialchars($_POST['dtn-joueur4']), htmlspecialchars($_POST['pseudo-joueur4']), htmlspecialchars($_POST['email-joueur4']), $idEquipe);
+                                                                        $sql->joueurModel(htmlspecialchars($_POST['nom-joueur4']), htmlspecialchars($_POST['prenom-joueur4']), htmlspecialchars($_POST['dtn-joueur4']), htmlspecialchars($_POST['pseudo-joueur4']), htmlspecialchars($_POST['email-joueur4']), $idEquipe);
                                                                         $infoExecution = 'Joueurs enregistrés !';
                                                                         header('Location: liste-equipes.php?createEquipe=success');
                                                                     } catch (Exception $e) {
@@ -143,7 +143,7 @@ if (isset($_POST['ajouter'])) {
         $infoExecution = "Veuillez remplir tous les champs du Joueur1";
     }
 }
-*/
+
 ob_start();
 require_once(realpath(dirname(__FILE__) . '/../../view/ecurie/enregistrer-joueurs-view.html'));
 $buffer = ob_get_clean();
