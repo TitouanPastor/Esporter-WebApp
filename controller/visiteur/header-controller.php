@@ -11,13 +11,12 @@ $nomPage = $nomPage[count($nomPage) - 1];
 //On affiche le header en fonction de la page
 switch ($nomPage) {
     case "index.php":
+    case "classementCM-controller.php":
+    case "calendrier-controller.php":
         echo $header->customizeHeader($_SESSION['role']);
         break; 
     case "login-controller.php":
         echo $header->headerLogin();
-        break;
-    case "classementCM-controller.php":
-        echo $header->customizeHeader($_SESSION['role']);
         break;
     
     // Gestionnaire
