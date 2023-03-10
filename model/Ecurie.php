@@ -28,4 +28,24 @@ class Ecurie
     {
         return $this->dao->getEquipeEcurie($id);
     }
+
+    public function getJeuByIdEquipe($idEquipe)
+    {
+        return $req = $this->dao->getJeuByIdEquipe($idEquipe);
+    }
+
+    public function getJoueurByIdEquipe($id)
+    {
+        return $req = $this->dao->getJoueurByIdEquipe($id);
+    }
+
+    public function equipeByPoint($idEcurie)
+    {
+        return $req = $this->dao->equipeByPoint($idEcurie);
+    }
+
+    public function equipeByNom($idEcurie)
+    {
+        return $req = $this->dao->equipeByNom($idEcurie);
+    }
 }

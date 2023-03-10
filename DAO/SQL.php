@@ -476,46 +476,9 @@ class requeteSQL
         return $req;
     }
 
-    public function equipeByNom($idEcurie)
-    {
-        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nom ASC');
-        $req->execute(
-            array(
-                'id_ecurie' => $idEcurie
-            )
-        );
-        return $req;
-    }
-
-    public function equipeByPoint($idEcurie)
-    {
-        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nb_pts_Champ DESC');
-        $req->execute(
-            array(
-                'id_ecurie' => $idEcurie
-            )
-        );
-        return $req;
-    }
-
     public function getEquipeByIdTournoi($id)
     {
         $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE ' . $id . ' = equipe.Id_Tournoi');
-        $req->execute();
-        return $req;
-    }
-
-
-    public function getJoueurByIdEquipe($id)
-    {
-        $req = $this->linkpdo->prepare('SELECT * FROM  joueur WHERE ' . $id . ' = joueur.Id_Equipe');
-        $req->execute();
-        return $req;
-    }
-
-    public function getJeuByIdEquipe($idEquipe)
-    {
-        $req = $this->linkpdo->prepare('SELECT jeu.* FROM  jeu, equipe WHERE ' . $idEquipe . ' = equipe.Id_Equipe and jeu.Id_Jeu = equipe.Id_Jeu');
         $req->execute();
         return $req;
     }
