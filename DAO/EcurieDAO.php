@@ -62,6 +62,12 @@ class EcurieDAO
         return $req;
     }
 
+    public function getJeuByIdEquipe($idEquipe)
+    {
+        $req = $this->linkpdo->prepare('SELECT jeu.* FROM  jeu, equipe WHERE ' . $idEquipe . ' = equipe.Id_Equipe and jeu.Id_Jeu = equipe.Id_Jeu');
+        $req->execute();
+        return $req;
+    }
     public function getEquipeByIdEcurie($id)
     {
         $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE ' . $id . ' = equipe.Id_Ecurie');
@@ -76,10 +82,25 @@ class EcurieDAO
         return $req;
     }
 
-    public function getJeuByIdEquipe($idEquipe)
+    public function equipeByPoint($idEcurie)
     {
-        $req = $this->linkpdo->prepare('SELECT jeu.* FROM  jeu, equipe WHERE ' . $idEquipe . ' = equipe.Id_Equipe and jeu.Id_Jeu = equipe.Id_Jeu');
-        $req->execute();
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nb_pts_Champ DESC');
+        $req->execute(
+            array(
+                'id_ecurie' => $idEcurie
+            )
+        );
+        return $req;
+    }
+
+    public function equipeByNom($idEcurie)
+    {
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nom ASC');
+        $req->execute(
+            array(
+                'id_ecurie' => $idEcurie
+            )
+        );
         return $req;
     }
 

@@ -437,6 +437,13 @@ class requeteSQL
         );
     }
 
+    public function getEquipeByIdEcurie($id)
+    {
+        $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE ' . $id . ' = equipe.Id_Ecurie');
+        $req->execute();
+        return $req;
+    }
+    
     public function equipeByNom($idEcurie)
     {
         $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nom ASC');

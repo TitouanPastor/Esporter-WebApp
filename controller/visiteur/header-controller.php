@@ -54,6 +54,7 @@ switch ($nomPage) {
 
     
     // Ecurie
+    case 'liste-equipes-controller.php':
     case 'enregistrer-joueurs-controller.php':
     case 'enregistrer-equipe-controller.php':
     if ($_SESSION['role'] == "ecurie") {

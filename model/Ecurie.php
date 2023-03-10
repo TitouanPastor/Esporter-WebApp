@@ -7,7 +7,7 @@ class Ecurie
     {
         require_once(realpath(dirname(__FILE__) . '/../DAO/EcurieDAO.php'));
         $this->dao = new EcurieDAO();
-    } 
+    }
 
     function trierPar(string $by)
     {
@@ -47,14 +47,28 @@ class Ecurie
         return $this->dao->getEquipeEcurie($id);
     }
 
+    public function getJeuByIdEquipe($idEquipe)
+    {
+        return $this->dao->getJeuByIdEquipe($idEquipe);
+    }
+
+    public function getJoueurByIdEquipe($id)
+    {
+        return $this->dao->getJoueurByIdEquipe($id);
+    }
+
+    public function equipeByPoint($idEcurie)
+    {
+        return $this->dao->equipeByPoint($idEcurie);
+    }
+
+    public function equipeByNom($idEcurie)
+    {
+        return $this->dao->equipeByNom($idEcurie);
+    }
     public function getEquipeByIdEcurie($id)
     {
         return $this->dao->getEquipeByIdEcurie($id);
-    }
-
-    public function getJeuByIdEquipe($id)
-    {
-        return $this->dao->getJeuByIdEquipe($id);
     }
 
     public function ecuriesByNom()
