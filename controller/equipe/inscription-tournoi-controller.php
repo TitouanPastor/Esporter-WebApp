@@ -5,17 +5,17 @@
  require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
  require_once(realpath(dirname(__FILE__) . '/../../model/Equipe.php'));
 
-
+$equipe = new Equipe();
  //Sauvegarde de la valeur de la liste
  if (isset($_POST["tournoi-jeu"])) {
      $valueTournoiJeu = $_POST["tournoi-jeu"];
  } else {
      $valueTournoiJeu = "default";
  }
- $req = getJeuEquipe($_SESSION['username']);
+ $req = $equipe->getJeuEquipe($_SESSION['username']);
  $jeuEquipe = $req->fetchColumn();
  $param = $jeuEquipe;
- $req = getTournoiInscription($param);
+ $req = $equipe->getTournoiInscription($param);
 
  //Requête d'inscription au tournoi cliqué
  if (isset($_GET['id'])) {
@@ -29,11 +29,11 @@
 
 function listeTournoiDisponible($req)
 {
-
+    $equipe = new Equipe();
     $html = '';
     while ($donnees = $req->fetch()) {
-        if (estInscritTournoi($_SESSION['username'], $donnees[0]) == 0) {
-            $reqNbEquipe = getNbEquipeTournoi($donnees[0]);
+        if ($equipe->estInscritTournoi($_SESSION['username'], $donnees[0]) == 0) {
+            $reqNbEquipe = $equipe->getNbEquipeTournoi($donnees[0]);
             $nbEquipe = $reqNbEquipe->fetchColumn();
             $idTournoi = $donnees[2];
             $html .= 

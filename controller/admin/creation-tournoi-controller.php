@@ -7,7 +7,7 @@ require_once(realpath(dirname(__FILE__) . '/../../model/Tournoi.php'));
 $infoExecution = "";
 $infoExecutionJeu = "";
 
-$sql = new TournoiDAO();
+$sql = new Tournoi();
 $reqJeu = $sql->getJeux();
 
 // Ajouter un tournoi

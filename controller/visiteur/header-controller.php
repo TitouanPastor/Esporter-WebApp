@@ -19,6 +19,7 @@ switch ($nomPage) {
         echo $header->headerLogin();
         break;
     
+    // Gestionnaire
     case "liste-tournois-controller.php":
     case "enregistrer-ecurie-view.php":
     case "creation-tournoi-controller.php":
@@ -30,15 +31,28 @@ switch ($nomPage) {
             header("Location: ../../acces-refuse.php");
         }
         break;
+
+    // Equipe
     case "inscription-tournoi-controller.php":
-           
+    case "liste-tournois-inscrit-controller.php":
         if ($_SESSION['role'] == "equipe") {
             echo $header->customizeHeader($_SESSION['role']);
         } else {
-            header("Location: ../../index.php");
+            header("Location: ../../acces-refuse.php");
         }
         break;
 
+    // Arbitre
+    
+    // Ecurie
+    case 'enregistrer-joueurs-controller.php':
+    case 'enregistrer-equipe-controller.php':
+    if ($_SESSION['role'] == "ecurie") {
+        echo $header->customizeHeader($_SESSION['role']);
+    } else {
+        header("Location: ../../acces-refuse.php");
+    }
+    break;
 }
 
 
