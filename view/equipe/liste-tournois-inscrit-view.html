@@ -8,6 +8,8 @@
     <title>Mes tournois - E-Sporter</title>
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="icon" href="../../img/esporter-icon.png">
+    <script type="text/javascript" src="../../js/popup.js"></script>
+    <script type="text/javascript" src="../../js/notify.js"></script>
 </head>
 
 <body>
@@ -29,10 +31,7 @@
                 </div>
 
                 <div id="filter1" class="liste">
-                    ##TypeEquipe##
-                    <?php
-                    echo $triTournoisEquipe->trierParTypeTournoisEquipe();
-                    ?>
+                    ##typeEquipe##
                 </div>
 
                 <div id="filter2" class="liste">
@@ -58,8 +57,7 @@
     </main>
 
     <script type="text/javascript" src="../../main.js"></script>
-    <script>
-    </script>
+
 </body>
 
 </html>
