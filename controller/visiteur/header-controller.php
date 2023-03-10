@@ -42,6 +42,7 @@ switch ($nomPage) {
             header("Location: ../../acces-refuse.php");
         }
         break;
+    // Arbitre
     case "liste-tournois-commence-arbitre-controller.php":
         if ($_SESSION['role'] == "arbitre") {
             echo $header->customizeHeader($_SESSION['role']);
@@ -50,7 +51,6 @@ switch ($nomPage) {
         }
         break;
 
-    // Arbitre
     
     // Ecurie
     case 'enregistrer-joueurs-controller.php':
