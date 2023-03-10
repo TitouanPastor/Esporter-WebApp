@@ -11,6 +11,7 @@ $nomPage = $nomPage[count($nomPage) - 1];
 //On affiche le header en fonction de la page
 switch ($nomPage) {
     case "index.php":
+    case "liste-tournois-commence-controller.php":
         echo $header->customizeHeader($_SESSION['role']);
         break; 
     case "login-controller.php":
@@ -33,6 +34,13 @@ switch ($nomPage) {
     case "inscription-tournoi-controller.php":
     case "liste-tournois-inscrit-controller.php":
         if ($_SESSION['role'] == "equipe") {
+            echo $header->customizeHeader($_SESSION['role']);
+        } else {
+            header("Location: ../../index.php");
+        }
+        break;
+    case "liste-tournois-commence-arbitre-controller.php":
+        if ($_SESSION['role'] == "arbitre") {
             echo $header->customizeHeader($_SESSION['role']);
         } else {
             header("Location: ../../index.php");
