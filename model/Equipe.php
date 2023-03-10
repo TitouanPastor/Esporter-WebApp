@@ -11,6 +11,11 @@ class Equipe
     }
 
     // === DAO === //
+    public function getEquipe()
+    {
+        return $this->dao->getEquipe();
+    }
+    
     function getJeuEquipe($username)
     {
         $this->dao = new EquipeDAO();

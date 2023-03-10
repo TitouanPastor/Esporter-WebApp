@@ -13,6 +13,14 @@ class EquipeDAO
         $this->linkpdo = $sql->getConnection();
     }
 
+     // Fonction qui retourne les equipes 
+     public function getEquipe()
+     {
+         $req = $this->linkpdo->prepare("SELECT * FROM equipe");
+         $req->execute();
+         return $req;
+     }
+
     //Fonction pour récupérer le jeu d'une équipe à partir de l'username
     public function getJeuEquipe($username)
     {
