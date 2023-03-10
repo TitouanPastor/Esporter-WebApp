@@ -42,9 +42,12 @@ class TriTournoisEquipe
 
     public function afficherLesTournois()
     {
+        $html = '';
         while ($row = $this->req->fetch()) {
-            echo $this->afficherUnTournoi($row['Nom'], $row['Date_debut'], $row['Date_fin'], $row['Lieu'], $row['Type'], $row['Id_Tournoi']);
+            $html .= $this->afficherUnTournoi($row['Nom'], $row['Date_debut'], $row['Date_fin'], $row['Lieu'], $row['Type'], $row['Id_Tournoi']);
         }
+
+        return $html;
     }
 
     public function getNombreTournois(): int

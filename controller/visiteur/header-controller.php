@@ -31,7 +31,7 @@ switch ($nomPage) {
         }
         break;
     case "inscription-tournoi-controller.php":
-           
+    case "liste-tournois-inscrit-controller.php":
         if ($_SESSION['role'] == "equipe") {
             echo $header->customizeHeader($_SESSION['role']);
         } else {

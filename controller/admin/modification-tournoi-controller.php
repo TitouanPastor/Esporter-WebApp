@@ -9,7 +9,7 @@ require_once(realpath(dirname(__FILE__) . '/../../model/Tournoi.php'));
 
 
 
-$sql = new TournoiDAO();
+$sql = new Tournoi();
 $idTournois = $_GET['id'];
 $reqTournoisId = $sql->tournoiId($idTournois);
 $infoExecutionJeu = "";
