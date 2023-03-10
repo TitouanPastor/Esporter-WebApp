@@ -52,9 +52,12 @@ class TriEcuries
 
     public function afficherLesEcuries()
     {
+        $html = '';
         while ($row = $this->req->fetch()) {
-            echo $this->afficherUneEcurie($row['Nom'], $row['Statut'], $row['Id_Ecurie']);
+            $html .=  $this->afficherUneEcurie($row['Nom'], $row['Statut'], $row['Id_Ecurie']);
         }
+
+        return $html;
     }
 
     public function getNombreEcuries(): int
