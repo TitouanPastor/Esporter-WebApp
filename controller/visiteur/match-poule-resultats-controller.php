@@ -13,6 +13,7 @@
 
     $afficherBoutonFermerResultat  = False;
 
+    //Id
     $idTournoi = $_GET["id_tournoi"];
     $idJeu = $_GET["id_jeu"];
 
@@ -22,89 +23,13 @@
     $pouleFinaleCreer = false;
     $idPouleFinale = 0;
 
-    //Poule par id_tournoi
-    $reqPoule = $pouleModel -> getPouleIdTournoi($idTournoi);
+    $reqPoule = $pouleModel->getPouleByIdTournoi($idTournoi);
 
-    if (isset($_POST["valider"])){
-        if (!$bracketModel -> pouleTerminer(array_slice($reqPoule, 0, 4))){
-            if (isset($_POST["match1"])){
-                $req = $pouleModel -> setGagnantRencontre($_POST["idMatch1"], $_POST["match1"]);
-            }
-
-            if (isset($_POST["match2"])){
-                $req = $pouleModel -> setGagnantRencontre($_POST["idMatch2"], $_POST["match2"]);
-            }
-
-            if (isset($_POST["match3"])){
-                $req = $pouleModel-> setGagnantRencontre($_POST["idMatch3"], $_POST["match3"]);
-            }
-
-            if (isset($_POST["match4"])){
-                $req = $pouleModel -> setGagnantRencontre($_POST["idMatch4"], $_POST["match4"]);
-            }
-
-            if (isset($_POST["match5"])){
-                $req = $pouleModel -> setGagnantRencontre($_POST["idMatch5"], $_POST["match5"]);
-            }
-
-            if (isset($_POST["match6"])){
-                $req = $pouleModel -> setGagnantRencontre($_POST["idMatch6"], $_POST["match6"]);
-            }
-
-            if ($bracketModel -> pouleTerminer(array_slice($reqPoule, 0, 4))){
-                $poulesTermines = true;
-                echo "Toute les poules sont terminées";
-                $idPouleFinale = $bracketModel -> genererPouleFinale($idTournoi,$tournoi->getIdJeu($idJeu),array_slice($reqPoule, 0, 4));
-                
-            }else{
-                echo "Toute les poules ne sont pas terminées";
-            }
-                
-        } else if ($pouleFinaleCreer){// Si poule terminée
-            print_r ($reqPoule);
-        }
-    }        
-            
-    if (isset($_POST["valider_finale"])){
-        $idPouleFinale = $pouleModel -> getIDPouleFinale($idTournoi, $tournoiModel -> getIdJeu($idJeu));
-
-        if (isset($_POST["match1"])){
-            $req = $pouleModel -> setGagnantRencontreFinale($_POST["idMatch1"], $_POST["match1"]);
-        }
-
-        if (isset($_POST["match2"])){
-            $req = $pouleModel -> setGagnantRencontreFinale($_POST["idMatch2"], $_POST["match2"]);
-        }
-
-        if (isset($_POST["match3"])){
-            $req = $pouleModel -> setGagnantRencontreFinale($_POST["idMatch3"], $_POST["match3"]);
-        }
-
-        if (isset($_POST["match4"])){
-            $req = $pouleModel -> setGagnantRencontreFinale($_POST["idMatch4"], $_POST["match4"]);
-        }
-
-        if (isset($_POST["match5"])){
-            $req = $pouleModel -> setGagnantRencontreFinale($_POST["idMatch5"], $_POST["match5"]);
-        }
-
-        if (isset($_POST["match6"])){
-            $req = $pouleModel -> setGagnantRencontreFinale($_POST["idMatch6"], $_POST["match6"]);
-        }
-
-        if ($pouleModel -> pouleFinaleTermine($idPouleFinale)){
-            $tournoiModel -> terminerTournoi($idTournoi);
-            $bracketModel -> updateClassementGeneral($idPouleFinale,$idTournoi);
-        }
-    }
-    
-    $reqPoule = $pouleModel -> getPouleByIdTournoi($idTournoi);
-
-    //Affichage des poules (boucle while (nb de poule))
+    //pouleGauche
     $pouleGauche = "";
-    $numPoule = 0;
+    $num_poule = 0;
     while ($poule = $reqPoule -> fetch()){
-        $numPoule++;
+        $num_poule++;
         $reqEquipePouleTrie = $pouleModel -> getEquipePouleTrie($poule[0]);
         $clair = 0;
         $pouleGauche .= '
@@ -137,13 +62,13 @@
             </button>
         ';
     }
-    
-    //Affichage des rencontres 
+
+    //pouleDroite
     $pouleDroite = "";
     $idPouleAffiche;
     if (isset($_POST["submitPoule"])) {
         $idPouleAffiche = $_POST["submitPoule"];
-        $nomPouleAffiche = $pouleModel -> getNomPoule($idPouleAffiche)->fetch()[0];
+        $nomPouleAffiche = $pouleModel->getNomPoule($idPouleAffiche)->fetch()[0];
         $reqRecontre = $pouleModel -> getRencontre($idPouleAffiche);
         $pouleDroite .= '
             <div class="poule-droite">
@@ -160,15 +85,12 @@
                         $pouleDroite .= '
                         <div class="match">
                             <h2 class="equipe-match">Match '.$numMatch.'</h2>
-                            <div class="radioEquipe">
-                                <input type="hidden" name="idMatch'.$numMatch.'" value="'.$rencontre[0].'">
-                                <div class="radioEquipe1">
-                                    <input type="radio" class="radio" id="choixEquipe'.$numMatch.'" name="match'.$numMatch.'" value="'.$rencontre[1].'" >
-                                    <label for="choixEquipe"'.$numMatch.'">'.$nomEquipe1.'</label>
+                            <div class="rencontre-equipe">
+                                <div class="Equipe1">
+                                    <span">'.$nomEquipe1.'</span>
                                 </div>
-                                <div class="radioEquipe2">
-                                    <input type="radio" class="radio" id="choixEquipe'.$numMatch.'" name="match'.$numMatch.'" value="'.$rencontre[2].'" >
-                                    <label for="choixEquipe"'.$numMatch.'">'.$nomEquipe2.'</label>
+                                <div class="Equipe2">
+                                    <span>'.$nomEquipe2.'</span>
                                 </div>
                             </div>
                             
@@ -217,22 +139,13 @@
                     $numMatch += 1;
                     
                 }
-                
-                if (!$tournoiModel -> isTournoiTermine($idTournoi)){
-                    if ($nomPouleAffiche == "Finale"){
-                        $pouleDroite .= '<button type="submit" class="submit submit-valider" name="valider_finale">Valider les résultats</button>';
-                    }else{
-                        $pouleDroite .= '<button type="submit" class="submit submit-valider" name="valider">Valider</button>';        
-                    }
-                }
-
-                $pouleDroite .=' </div>
+            $pouleDroite .=' </div>
             </div>
         ';
     }
 
     ob_start();
-    require_once(realpath(dirname(__FILE__) .'/../../view/arbitre/match-poule-view.html'));
+    require_once(realpath(dirname(__FILE__) .'/../../view/visiteur/match-poule-resultats-view.php'));
     $buffer = ob_get_clean();
     $buffer = str_replace("##pouleGauche##", $pouleGauche, $buffer);
     $buffer = str_replace("##pouleDroite##", $pouleDroite, $buffer);

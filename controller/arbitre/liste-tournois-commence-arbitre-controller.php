@@ -5,12 +5,8 @@ session_start();
 require_once(realpath(dirname(__FILE__) . '/../visiteur/header-controller.php'));
 require_once(realpath(dirname(__FILE__) . '/../../model/Arbitre.php'));
 
-
-
-
 $arbitre = new Arbitre();
 $req = $arbitre->getTournoiCommence();
-
 
 function afficherTableau($req, $arbitre)
 {
@@ -37,7 +33,7 @@ function afficherTableau($req, $arbitre)
             <td>$listeJeu[0]</td>
             <td>
                 <label>" . '
-                <a href="match-poule.php?id_tournoi=' . $idTournoi . '&id_jeu=' . $listeJeu[0] . '">
+                <a href="match-poule-controller.php?id_tournoi=' . $idTournoi . '&id_jeu=' . $listeJeu[0] . '">
                     <svg width="30px" height="30px" viewBox="0 -2 20 20" xmlns="http://www.w3.org/2000/svg">
                     <g id="basketball-field-2" transform="translate(-2 -4)">
                     <path id="secondary" fill="#2ca9bc" d="M21,15H19a3,3,0,0,1,0-6h2V5H3V9H5a3,3,0,0,1,0,6H3v4H21Z"/>
@@ -61,7 +57,7 @@ function afficherTableau($req, $arbitre)
                 <td>$listeJeu[$i]</td>
                 <td>
                     <label>" . '
-                        <a href="match-poule.php?id_tournoi=' . $idTournoi . '&id_jeu=' . $idTournoi . '">
+                        <a href="match-poule-controller.php?id_tournoi=' . $idTournoi . '&id_jeu=' . $idTournoi . '">
                         <svg width="30px" height="30px" viewBox="0 -2 20 20" xmlns="http://www.w3.org/2000/svg">
                         <g id="basketball-field-2" transform="translate(-2 -4)">
                         <path id="secondary" fill="#2ca9bc" d="M21,15H19a3,3,0,0,1,0-6h2V5H3V9H5a3,3,0,0,1,0,6H3v4H21Z"/>

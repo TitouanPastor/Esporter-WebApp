@@ -85,6 +85,20 @@ class EquipeDAO
         return $req->fetchColumn();
     }
 
+    public function getNomEquipeById($idEquipe)
+    {
+        $req = $this->linkpdo->prepare("SELECT nom FROM equipe WHERE id_equipe = :id_equipe");
+        $testReq = $req->execute(
+            array(
+                "id_equipe" => $idEquipe
+            )
+        );
+        if ($testReq == false) {
+            die("Erreur getNomEquipeById");
+        }
+        return $req;
+    }
+
     //Inscription Tournoi
     public function inscriptionTournoi($param)
     {

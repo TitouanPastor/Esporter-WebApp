@@ -47,6 +47,11 @@ class Equipe
         return $this->dao->getIdJeu($libelle);
     }
 
+    public function getNomEquipeById($idEquipe)
+    {
+        return $this->dao->getNomEquipeById($idEquipe);
+    }
+
     function estInscritTournoi($mail, $tournoiNom)
     {
         $this->dao = new EquipeDAO();

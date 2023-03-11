@@ -156,7 +156,15 @@ class Tournoi
         return $this->dao->tournoiId($idTournoi)->fetch()['Nom'];
     }
 
+    public function terminerTournoi($idTournoi)
+    {
+        $this -> dao -> terminerTournoi($idTournoi);
+    }
     
+    public function isTournoiTermine($idTournoi)
+    {
+        return $this -> dao -> isTournoiTermine($idTournoi);
+    }
 
     
 }
