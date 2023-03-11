@@ -93,35 +93,11 @@ class requeteSQL
 
 
 
-    public function ecuriesByNom()
-    {
-        $req = $this->linkpdo->prepare("SELECT * FROM ecurie order by Nom");
-        $req->execute();
-        return $req;
-    }
-
-
-    public function ecuriesByStatut()
-    {
-        $req = $this->linkpdo->prepare("SELECT * FROM ecurie order by Statut DESC");
-        $req->execute();
-        return $req;
-    }
+    
 
 
     //-------------Page Enregistrer une équipe
 
-
-    
-    //Fonction qui retourne le dernier tuple de equipe
-    public function getLastIDEquipe()
-    {
-        $req = $this->linkpdo->prepare('SELECT Id_Equipe FROM equipe ORDER BY Id_Equipe DESC LIMIT 1');
-        $req->execute();
-        while ($data = $req->fetch()) {
-            return $data['Id_Equipe'];
-        }
-    }
 
     public function getEcurie()
     {
@@ -138,15 +114,7 @@ class requeteSQL
 
     
 
-    public function getTournoiCommence()
-    {
-        $req = $this->linkpdo->prepare("SELECT nom, date_debut, id_tournoi FROM tournoi where tournoi.date_debut < curdate()");
-        $testReq = $req->execute();
-        if ($testReq == false) {
-            die('Erreur getTournoiCommence');
-        }
-        return $req;
-    }
+
 
     //Fonctions pour calendrier.php
     //Prend en parametre un array, si les valeurs sont null ou "default" alors les requêtes changent
@@ -327,18 +295,7 @@ class requeteSQL
         return $req;
     }
 
-    //Fonction qui retourne les jeux d'un tournois
-    public function getJeuxTournois($id, $choix = "default")
-    {
-        if ($choix == "libelle") {
-            $req = $this->linkpdo->prepare('SELECT jeu.libelle FROM jeu, concerner, tournoi WHERE tournoi.Id_tournoi = concerner.id_tournoi AND jeu.id_jeu = concerner.id_jeu AND concerner.Id_Tournoi = :IdTournoi ');
-        } else {
-            $req = $this->linkpdo->prepare('SELECT jeu.* FROM jeu, concerner, tournoi where tournoi.Id_Tournoi = concerner.Id_Tournoi and jeu.Id_Jeu = concerner.Id_Jeu and concerner.Id_Tournoi = :IdTournoi');
-        }
-
-        $req->execute(array("IdTournoi" => $id));
-        return $req;
-    }
+    
 
 
 
@@ -474,7 +431,7 @@ class requeteSQL
         $req->execute();
         return $req;
     }
-
+    
     public function equipeByNom($idEcurie)
     {
         $req = $this->linkpdo->prepare('SELECT * FROM  equipe WHERE Id_Ecurie = :id_ecurie ORDER BY Nom ASC');
@@ -504,20 +461,6 @@ class requeteSQL
         return $req;
     }
 
-
-    public function getJoueurByIdEquipe($id)
-    {
-        $req = $this->linkpdo->prepare('SELECT * FROM  joueur WHERE ' . $id . ' = joueur.Id_Equipe');
-        $req->execute();
-        return $req;
-    }
-
-    public function getJeuByIdEquipe($idEquipe)
-    {
-        $req = $this->linkpdo->prepare('SELECT jeu.* FROM  jeu, equipe WHERE ' . $idEquipe . ' = equipe.Id_Equipe and jeu.Id_Jeu = equipe.Id_Jeu');
-        $req->execute();
-        return $req;
-    }
 
     public function closeTournois($id)
     {

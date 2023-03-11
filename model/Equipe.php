@@ -16,13 +16,13 @@ class Equipe
         $this->dao = new EquipeDAO();
         $this->dao->addEquipe($nom, $mdp, $mail, $nbPtsChamps, $idJeu, $idEcurie);
     }
-    
+
     public function getEquipe()
     {
         $this->dao = new EquipeDAO();
         return $this->dao->getEquipe();
     }
-    
+
     function getJeuEquipe($username)
     {
         $this->dao = new EquipeDAO();
@@ -81,5 +81,29 @@ class Equipe
                 break;
         }
         return "Erreur de tri";
+    }
+
+    function listeEquipeTrierPar(string $by, $idEcurie)
+    {
+        require_once('tri-equipe.php');
+        $triTournois = new TriEquipe($idEcurie);
+        switch ($by) {
+            case 'nom':
+                return $triTournois->trierParNom();
+                break;
+            case 'point':
+                return $triTournois->trierParPoint();
+                break;
+            default:
+                return $triTournois->trierParId();
+                break;
+        }
+        return "Erreur de tri";
+    }
+
+    function getLastIDEquipe()
+    {
+        $this->dao = new EquipeDAO();
+        return $this->dao->getLastIDEquipe();
     }
 }

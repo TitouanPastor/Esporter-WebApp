@@ -10,14 +10,11 @@ class TriEcuries
 
     public function __construct()
     {
-        require_once('../../SQL.php');
-        $this->sql = new requeteSQL();
+        require_once('../../DAO/EcurieDAO.php');
+        $this->sql = new EcurieDAO();
         $this->req = $this->sql->getEcurie();
-        $this->nbEcuries = $this->req->rowCount();
-        
+        $this->nbEcuries = $this->req->rowCount(); 
     }
-
-
 
     //function qui affiche une écurie
     public function afficherUneEcurie($nom, $statut, $id)
@@ -55,9 +52,12 @@ class TriEcuries
 
     public function afficherLesEcuries()
     {
+        $html = '';
         while ($row = $this->req->fetch()) {
-            echo $this->afficherUneEcurie($row['Nom'], $row['Statut'], $row['Id_Ecurie']);
+            $html .=  $this->afficherUneEcurie($row['Nom'], $row['Statut'], $row['Id_Ecurie']);
         }
+
+        return $html;
     }
 
     public function getNombreEcuries(): int
@@ -69,7 +69,7 @@ class TriEcuries
     public function trierParStatut()
     {
         $this->req = $this->sql->ecuriesByStatut();
-        $this->afficherLesEcuries();
+        return $this->afficherLesEcuries();
     }
 
 
@@ -77,7 +77,7 @@ class TriEcuries
     public function trierParNom()
     {
         $this->req = $this->sql->ecuriesByNom();
-        $this->afficherLesEcuries();
+        return $this->afficherLesEcuries();
     }
 
 
@@ -85,6 +85,6 @@ class TriEcuries
     public function trierParId()
     {
         $this->req = $this->sql->getEcurie();
-        $this->afficherLesEcuries();
+        return $this->afficherLesEcuries();
     }
 }

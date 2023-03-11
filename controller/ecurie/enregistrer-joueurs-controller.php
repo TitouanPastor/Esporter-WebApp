@@ -2,9 +2,11 @@
 session_start();
 require_once(realpath(dirname(__FILE__) . '/../../controller/visiteur/header-controller.php'));
 require_once(realpath(dirname(__FILE__) . '/../../model/Joueur.php'));
+require_once(realpath(dirname(__FILE__) . '/../../model/Equipe.php'));
 $infoExecution = "";
 
 $joueurModel = new Joueur();
+$equipeModel = new Equipe();
 
 // Ajouter une équipe
 if (isset($_POST['ajouter'])) {
@@ -80,15 +82,15 @@ if (isset($_POST['ajouter'])) {
                                                                 if (!$samePseudo4) {
                                                                     try {
                                                                         // Récupération de l'ID dernier équipe créer
-                                                                        $idEquipe = $sql->getLastIDEquipe();
+                                                                        $idEquipe = $equipeModel->getLastIDEquipe();
                                                                         //Ajout du joueur1 
-                                                                        $sql->joueurModel(htmlspecialchars($_POST['nom-joueur1']), htmlspecialchars($_POST['prenom-joueur1']), htmlspecialchars($_POST['dtn-joueur1']), htmlspecialchars($_POST['pseudo-joueur1']), htmlspecialchars($_POST['email-joueur1']), $idEquipe);
+                                                                        $joueurModel->addJoueur(htmlspecialchars($_POST['nom-joueur1']), htmlspecialchars($_POST['prenom-joueur1']), htmlspecialchars($_POST['dtn-joueur1']), htmlspecialchars($_POST['pseudo-joueur1']), htmlspecialchars($_POST['email-joueur1']), $idEquipe);
                                                                         //Ajout du joueur2 
-                                                                        $sql->joueurModel(htmlspecialchars($_POST['nom-joueur2']), htmlspecialchars($_POST['prenom-joueur2']), htmlspecialchars($_POST['dtn-joueur2']), htmlspecialchars($_POST['pseudo-joueur2']), htmlspecialchars($_POST['email-joueur2']), $idEquipe);
+                                                                        $joueurModel->addJoueur(htmlspecialchars($_POST['nom-joueur2']), htmlspecialchars($_POST['prenom-joueur2']), htmlspecialchars($_POST['dtn-joueur2']), htmlspecialchars($_POST['pseudo-joueur2']), htmlspecialchars($_POST['email-joueur2']), $idEquipe);
                                                                         //Ajout du joueur3 
-                                                                        $sql->joueurModel(htmlspecialchars($_POST['nom-joueur3']), htmlspecialchars($_POST['prenom-joueur3']), htmlspecialchars($_POST['dtn-joueur3']), htmlspecialchars($_POST['pseudo-joueur3']), htmlspecialchars($_POST['email-joueur3']), $idEquipe);
+                                                                        $joueurModel->addJoueur(htmlspecialchars($_POST['nom-joueur3']), htmlspecialchars($_POST['prenom-joueur3']), htmlspecialchars($_POST['dtn-joueur3']), htmlspecialchars($_POST['pseudo-joueur3']), htmlspecialchars($_POST['email-joueur3']), $idEquipe);
                                                                         //Ajout du joueur4 
-                                                                        $sql->joueurModel(htmlspecialchars($_POST['nom-joueur4']), htmlspecialchars($_POST['prenom-joueur4']), htmlspecialchars($_POST['dtn-joueur4']), htmlspecialchars($_POST['pseudo-joueur4']), htmlspecialchars($_POST['email-joueur4']), $idEquipe);
+                                                                        $joueurModel->addJoueur(htmlspecialchars($_POST['nom-joueur4']), htmlspecialchars($_POST['prenom-joueur4']), htmlspecialchars($_POST['dtn-joueur4']), htmlspecialchars($_POST['pseudo-joueur4']), htmlspecialchars($_POST['email-joueur4']), $idEquipe);
                                                                         $infoExecution = 'Joueurs enregistrés !';
                                                                         header('Location: liste-equipes.php?createEquipe=success');
                                                                     } catch (Exception $e) {
