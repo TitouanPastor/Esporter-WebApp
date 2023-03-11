@@ -252,19 +252,7 @@ class requeteSQL
 
 
 
-    public function getIdJeu($libelle)
-    {
-        $req = $this->linkpdo->prepare("SELECT id_jeu FROM jeu where libelle = :libelle");
-        $testReq = $req->execute(
-            array(
-                "libelle" => $libelle
-            )
-        );
-        if ($testReq == false) {
-            die('Erreur getIDJeu');
-        }
-        return $req->fetchColumn();
-    }
+    
 
     public function getIdJeuByLibelle($libelle)
     {
@@ -606,22 +594,6 @@ class requeteSQL
         return false;
     }
 
-   
-
-    public function getTournoiNomByIdTournoi($idTournoi)
-    {
-        $req = $this->linkpdo->prepare("SELECT nom FROM tournoi WHERE id_tournoi = :id_tournoi");
-        $testReq = $req->execute(
-            array(
-                "id_tournoi" => $idTournoi
-            )
-        );
-        if ($testReq == false) {
-            die("Erreur getTournoiNomByIdTournoi");
-        }
-        return $req;
-    }
-
 
     //renvoie les id et libelle des poule correspondant au tournoi voulu (id_tournoi)
     public function getPouleByIdTournoi($idTournoi)
@@ -638,23 +610,7 @@ class requeteSQL
         return $req;
     }
 
-    public function getPouleIdTournoi($idTournoi)
-    {
-        $req = $this->linkpdo->prepare("SELECT Id_Poule FROM poule WHERE id_tournoi = :id_tournoi");
-        $testReq = $req->execute(
-            array(
-                "id_tournoi" => $idTournoi
-            )
-        );
-        if ($testReq == false) {
-            die('Erreur getPouleByIdTournoi');
-        }
-        $idsPoule = array();
-        while ($datas = $req->fetch()) {
-            array_push($idsPoule, $datas['Id_Poule']);
-        }
-        return $idsPoule;
-    }
+    
 
     public function getNomPoule($idPoule)
     {
@@ -751,42 +707,9 @@ class requeteSQL
         return $req;
     }
 
-    public function addMatchGagne($idRencontre, $idEquipe)
-    {
-        $reqIdPoule = $this->linkpdo->prepare("SELECT id_poule FROM rencontre WHERE gagnant = :id_equipe");
-        $testReqIdPoule = $reqIdPoule->execute(
-            array(
-                "id_equipe" => $idEquipe
-            )
-        );
+    
 
-        $idPoule = $reqIdPoule->fetch()[0];
-
-        $req = $this->linkpdo->prepare("UPDATE etre_inscrit SET nb_match_gagne = nb_match_gagne + 1 WHERE id_equipe = :id_equipe AND id_poule = :id_poule");
-        $req->execute(
-            array(
-                "id_equipe" => $idEquipe,
-                "id_poule" => $idPoule
-            )
-        );
-    }
-
-    public function setGagnantRencontre($idRencontre, $idEquipe)
-    {
-        $req = $this->linkpdo->prepare("UPDATE rencontre SET gagnant = :id_equipe WHERE id_rencontre = :id_rencontre ");
-        $testReq = $req->execute(
-            array(
-                "id_equipe" => $idEquipe,
-                "id_rencontre" => $idRencontre
-            )
-        );
-        if ($testReq == false) {
-            die("erreur setGagnantRencontre");
-            exit(2);
-        }
-        $this->addMatchGagne($idRencontre, $idEquipe);
-        return $req;
-    }
+    
 
     public function setGagnantRencontreFinale($idRencontre, $idEquipe)
     {

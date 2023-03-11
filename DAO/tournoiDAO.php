@@ -43,6 +43,21 @@ class TournoiDAO
         }
     }
 
+    public function getTournoiNomByIdTournoi($idTournoi)
+    {
+        $req = $this->linkpdo->prepare("SELECT nom FROM tournoi WHERE id_tournoi = :id_tournoi");
+        $testReq = $req->execute(
+            array(
+                "id_tournoi" => $idTournoi
+            )
+        );
+        if ($testReq == false) {
+            die("Erreur getTournoiNomByIdTournoi");
+        }
+        return $req;
+    }
+    
+
     //Jeux renseigné dans la BDD
     public function getJeux()
     {
@@ -362,7 +377,20 @@ class TournoiDAO
         return $idsJeux;
     }
 
-
+    public function getIdJeu($libelle)
+    {
+        $req = $this -> linkpdo -> prepare("SELECT id_jeu FROM jeu where libelle = :libelle");
+        $testReq = $req->execute(
+            array(
+                "libelle" => $libelle
+            )
+        );
+        if ($testReq == false) {
+            die('Erreur getIDJeu');
+        }
+        return $req->fetchColumn();
+    }
+    
     public function addPoule($nom, $idTournoi, $idJeu)
     {
         $req = $this->linkpdo->prepare('INSERT INTO poule VALUES (NULL, :nom, :idTournoi, :idJeu)');
@@ -374,7 +402,6 @@ class TournoiDAO
             )
         );
     }
-
 
     public function getIDPoule($idTournoi, $idJeu)
     {
