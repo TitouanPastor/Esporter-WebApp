@@ -55,6 +55,10 @@ class Tournoi
     function getTournoiCalendrier($param){
         return $this->dao->getTournoiCalendrier($param);
     }
+    
+    function getTournoiNomByIdTournoi($idTournoi){
+        return $this->dao->getTournoiNomByIdTournoi($idTournoi);
+    }
 
     function getJeux()
     {
@@ -122,6 +126,11 @@ class Tournoi
         return $this->dao->tournoisByDate($idEquipe);
     }
 
+    public function getIdJeu($libelle)
+    {
+       return $this -> dao -> getIdJeu($libelle);
+    }
+
     function jeuNonPresentDansTournois($idT)
     {
         return $this->dao->jeuNonPresentDansTournois($idT);
@@ -146,4 +155,16 @@ class Tournoi
     {
         return $this->dao->tournoiId($idTournoi)->fetch()['Nom'];
     }
+
+    public function terminerTournoi($idTournoi)
+    {
+        $this -> dao -> terminerTournoi($idTournoi);
+    }
+    
+    public function isTournoiTermine($idTournoi)
+    {
+        return $this -> dao -> isTournoiTermine($idTournoi);
+    }
+
+    
 }

@@ -11,8 +11,6 @@ class bracket
         $this->sql = new TournoiDAO();
     }
 
-
-
     public function genererBracket($idTournoi)
     {
         if ($this->sql->tournoiIsClosed($idTournoi) == false) {

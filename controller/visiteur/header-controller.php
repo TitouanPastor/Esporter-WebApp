@@ -12,6 +12,7 @@ $nomPage = $nomPage[count($nomPage) - 1];
 switch ($nomPage) {
     case "index.php":
     case "liste-tournois-commence-controller.php":
+    case "match-poule-resultats-controller.php":
     case "classementCM-controller.php":
     case "calendrier-controller.php":
         echo $header->customizeHeader($_SESSION['role']);
@@ -22,7 +23,7 @@ switch ($nomPage) {
     
     // Gestionnaire
     case "liste-tournois-controller.php":
-    case "enregistrer-ecurie-view.php":
+    case "enregistrer-ecurie-controller.php":
     case "creation-tournoi-controller.php":
     case "liste-ecuries-controller.php":
     case "modification-tournoi-controller.php":
@@ -44,6 +45,7 @@ switch ($nomPage) {
         }
         break;
     // Arbitre
+    case "match-poule-controller.php":
     case "liste-tournois-commence-arbitre-controller.php":
         if ($_SESSION['role'] == "arbitre") {
             echo $header->customizeHeader($_SESSION['role']);

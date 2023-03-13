@@ -43,6 +43,21 @@ class TournoiDAO
         }
     }
 
+    public function getTournoiNomByIdTournoi($idTournoi)
+    {
+        $req = $this->linkpdo->prepare("SELECT nom FROM tournoi WHERE id_tournoi = :id_tournoi");
+        $testReq = $req->execute(
+            array(
+                "id_tournoi" => $idTournoi
+            )
+        );
+        if ($testReq == false) {
+            die("Erreur getTournoiNomByIdTournoi");
+        }
+        return $req;
+    }
+    
+
     //Jeux renseigné dans la BDD
     public function getJeux()
     {
@@ -362,7 +377,20 @@ class TournoiDAO
         return $idsJeux;
     }
 
-
+    public function getIdJeu($libelle)
+    {
+        $req = $this -> linkpdo -> prepare("SELECT id_jeu FROM jeu where libelle = :libelle");
+        $testReq = $req->execute(
+            array(
+                "libelle" => $libelle
+            )
+        );
+        if ($testReq == false) {
+            die('Erreur getIDJeu');
+        }
+        return $req->fetchColumn();
+    }
+    
     public function addPoule($nom, $idTournoi, $idJeu)
     {
         $req = $this->linkpdo->prepare('INSERT INTO poule VALUES (NULL, :nom, :idTournoi, :idJeu)');
@@ -374,7 +402,6 @@ class TournoiDAO
             )
         );
     }
-
 
     public function getIDPoule($idTournoi, $idJeu)
     {
@@ -473,7 +500,6 @@ class TournoiDAO
         }
     }
 
-
     public function getPerdantFinale($idPoule)
     {
         $req = $this->linkpdo->prepare('select distinct id_Equipe from rencontre where Id_Poule = :idPoule and id_Equipe not in ( SELECT id_Equipe FROM rencontre WHERE id_Poule = :idPoule group by gagnant) union select DISTINCT Id_Equipe_1 from rencontre where Id_Poule = :idPoule and Id_Equipe_1 not in ( SELECT id_equipe FROM rencontre WHERE id_Poule = :idPoule group by gagnant);');
@@ -524,5 +550,28 @@ class TournoiDAO
                 'nbPoint' => $nbPoint
             )
         );
+    }
+
+    public function terminerTournoi($idTournoi)
+    {
+        $req = $this->linkpdo->prepare("UPDATE tournoi SET estFerme = 2 WHERE id_tournoi = :idTournoi");
+        $req->execute(array(
+            'idTournoi' => $idTournoi
+        ));
+    }
+
+    public function isTournoiTermine($idTournoi)
+    {
+        $req = $this->linkpdo->prepare("SELECT estFerme FROM tournoi WHERE id_Tournoi = :idTournoi");
+        $testReq = $req->execute(
+            array(
+                "idTournoi" => $idTournoi
+            )
+        );
+        $datas = $req->fetch();
+        if ($datas['estFerme'] == 2) {
+            return true;
+        }
+        return false;
     }
 }
