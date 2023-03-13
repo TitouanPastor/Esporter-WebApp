@@ -859,3 +859,8 @@ form.form-ajout-joueur {
   display: flex;
   flex-direction: column;
 }
+
+/* caption des tableau en none */
+caption {
+  display: none;
+}

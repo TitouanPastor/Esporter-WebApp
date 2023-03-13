@@ -81,7 +81,7 @@ function afficherTableau($req, $arbitre)
 }
 
 ob_start();
-require_once(realpath(dirname(__FILE__) . '/../../view/arbitre/liste-tournois-commence-view.html'));
+require_once(realpath(dirname(__FILE__) . '/../../view/visiteur/liste-tournois-commence-view.html'));
 $buffer = ob_get_clean();
 $buffer = str_replace("##afficherTableau##", afficherTableau($req, $arbitre), $buffer);
 echo $buffer;
