@@ -45,9 +45,9 @@ class EcurieDAO
                 'mail' => $mail
             )
         );
-        while ($data = $req->fetch()) {
-            return $data['Id_Ecurie'];
-        }
+        $data = $req->fetch();
+        return $data['Id_Ecurie'];
+        
     }
 
     // Fonction qui retourne les equipes d'une Ecurie
