@@ -4,7 +4,7 @@ class Joueur
 {
     private $dao;
 
-    function __construct()
+    public function __construct()
     {
         require_once(realpath(dirname(__FILE__) . '/../DAO/JoueurDAO.php'));
         $this->dao = new JoueurDAO();
