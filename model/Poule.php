@@ -2,13 +2,13 @@
     class Poule {
         private $dao;
 
-        function __construct()
+        public function __construct()
         {
             require_once(realpath(dirname(__FILE__) . '/../DAO/pouleDAO.php'));
             $this->dao = new PouleDAO();
         }
 
-        function getPouleIdTournoi($idTournoi)
+        public function getPouleIdTournoi($idTournoi)
         {
             return $this->dao->getPouleIdTournoi($idTournoi);
         }
@@ -42,11 +42,11 @@
             return $this -> dao -> getEquipePouleTrie($idPoule);
         }
 
-        function pouleFinaleTermine($idPoule){
+        public function pouleFinaleTermine($idPoule){
             return $this->dao->pouleFinaleTermine($idPoule);
         }
 
-        function setGagnantRencontre($idRencontre, $idEquipe){
+        public function setGagnantRencontre($idRencontre, $idEquipe){
             return $this->dao->setGagnantRencontre($idRencontre, $idEquipe);
         }
 
