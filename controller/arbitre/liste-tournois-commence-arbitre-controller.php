@@ -73,8 +73,9 @@ function afficherTableau($req, $arbitre)
             }
         }
 
-        return $html;
+        
     }
+    return $html;
 }
 
 ob_start();

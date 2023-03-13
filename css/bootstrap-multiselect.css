@@ -8,7 +8,6 @@
 
 
 .btn-group>.btn:first-child{
-    width: 250px;
     box-shadow: var(--little-shadow);
     display: flex;
     flex-direction: column;

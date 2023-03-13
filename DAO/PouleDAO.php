@@ -55,9 +55,9 @@
                 )
             );
 
-            while ($datas = $req->fetch()) {
-                return $datas['Id_Poule'];
-            }
+            $datas = $req->fetch();
+            return $datas['Id_Poule'];
+            
         }
 
         public function getNomPoule($idPoule)
