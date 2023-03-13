@@ -23,7 +23,7 @@ switch ($nomPage) {
     
     // Gestionnaire
     case "liste-tournois-controller.php":
-    case "enregistrer-ecurie-view.php":
+    case "enregistrer-ecurie-controller.php":
     case "creation-tournoi-controller.php":
     case "liste-ecuries-controller.php":
     case "modification-tournoi-controller.php":
