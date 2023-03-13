@@ -9,7 +9,7 @@ class Ecurie
         $this->dao = new EcurieDAO();
     }
 
-    function trierPar(string $by)
+    public function trierPar(string $by)
     {
         require_once('tri-ecuries.php');
         $triEcuries = new TriEcuries();
