@@ -1,5 +1,5 @@
 // Fonction qui notifie l'utilisateur que le tournoi a bien été fermé et qui s'affiche sous la forme d'une notification
-function notify() {
+function notifyEquipe() {
     var notification = document.querySelector('.notification');
     notification.classList.add('notification-active');
     setTimeout(function () {
@@ -13,7 +13,7 @@ window.onload = function () {
         var texteNotif = document.querySelector('.notification-body p');
         texteNotif.innerHTML = "L'équipe à bien été ajoutée.";
         // On change l'url de la page en enlevant le variable ?close_id
-        window.history.pushState("", "", "liste-equipes.php");
-        notify();
+        window.history.pushState("", "", "liste-equipes-controller.php");
+        notifyEquipe();
     }
 }

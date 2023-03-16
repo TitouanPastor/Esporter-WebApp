@@ -14,17 +14,17 @@ window.onload = function () {
         var texteNotif = document.querySelector('.notification-body p');
         texteNotif.innerHTML = "Le tournoi a bien été fermé.";
         // On change l'url de la page en enlevant le variable ?close_id
-        window.history.pushState("", "", "liste-tournois.html");
-        notify();
+        window.history.pushState("", "", "liste-tournois-controller.php");
+        notifyTournoi();
     } else if (url.indexOf('?modifyTournoi') != -1) {
         var texteNotif = document.querySelector('.notification-body p');
         texteNotif.innerHTML = "Le tournoi a bien été modifié.";
-        window.history.pushState("", "", "liste-tournois.html");
-        notify();
+        window.history.pushState("", "", "liste-tournois-controller.php");
+        notifyTournoi();
     } else if (url.indexOf('?createTournoi') != -1) {
         var texteNotif = document.querySelector('.notification-body p');
         texteNotif.innerHTML = "Le tournoi a bien été créé.";
-        window.history.pushState("", "", "liste-tournois.html");
-        notify();
+        window.history.pushState("", "", "liste-tournois-controller.php");
+        notifyTournoi();
     }
 }
