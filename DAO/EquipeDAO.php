@@ -133,10 +133,13 @@ class EquipeDAO
     }
 
     //Fonction qui renvoie le nombre d'équipe participant à un tournoi
-    public function getNbEquipeTournoi($nom_tournoi)
+    public function getNbEquipeTournoi($nom_tournoi, $id_jeu)
     {
-        $req = $this->linkpdo->prepare("SELECT count(*) FROM tournoi,etre_inscrit WHERE etre_inscrit.id_tournoi = tournoi.id_tournoi AND tournoi.nom = :nom_tournoi");
-        $testReq = $req->execute(array("nom_tournoi" => $nom_tournoi));
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM tournoi,etre_inscrit WHERE etre_inscrit.id_tournoi = tournoi.id_tournoi AND tournoi.nom = :nom_tournoi AND etre_inscrit.id_jeu = :id_jeu");
+        $testReq = $req->execute(array(
+            "nom_tournoi" => $nom_tournoi,
+             "id_jeu" => $id_jeu
+        ));
         if ($testReq == false) {
             die("Erreur getNbEquipeTournoi");
         }
