@@ -44,7 +44,7 @@ function listeTournoiDisponible($req, $id_jeu)
                         <td>';
                         $html .=  $nbEquipe . ' / 16';
                         $html .=  '<td>';
-            if ((16 - $nbEquipe) != 0) {
+            if ((16 - $nbEquipe) > 0) {
                 $html .=  "<a style='text-decoration: underline;cursor:pointer;color:blue;' value='inscription-tournoi-controller.php?id=$idTournoi' onclick='openPopUp(this)' >S'inscrire</a>";
                 
             } else {

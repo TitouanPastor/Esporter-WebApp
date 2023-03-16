@@ -12,6 +12,7 @@ function afficherTableau($req, $arbitre)
 {
     $pair = 0;
     $html = '';
+    $i = 0;
     while ($donnees = $req->fetch()) {
         if ($pair % 2 == 0) {
             $bg = "white";
@@ -20,20 +21,22 @@ function afficherTableau($req, $arbitre)
         }
         $pair += 1;
         $idTournoi = strval($donnees[2]);
-        $reqJeux = $arbitre->getJeuxTournois($idTournoi, "libelle");
+        $reqJeuxId = $arbitre->getJeuxTournois($idTournoi, "id");
         $listeJeu = array();
-        while ($nomJeu = $reqJeux->fetch()) {
+        $listeJeuId = array();
+        while ($nomJeu = $reqJeuxId->fetch()) {
             array_push($listeJeu, $nomJeu['libelle']);
+            array_push($listeJeuId, $nomJeu['Id_Jeu']);
         }
         $nbJeu = count($listeJeu);
         $html .= "
         <tr class=" . $bg . ">
             <td>$donnees[0]</td>
             <td>" . date('d / m / Y', strtotime($donnees[1])) . "</td>
-            <td>$listeJeu[0]</td>
+            <td>$listeJeu[$i]</td>
             <td>
                 <label>" . '
-                <a href="match-poule-controller.php?id_tournoi=' . $idTournoi . '&id_jeu=' . $listeJeu[0] . '">
+                <a href="match-poule-controller.php?id_tournoi=' . $idTournoi . '&id_jeu=' . $listeJeuId[$i] . '">
                     <svg width="30px" height="30px" viewBox="0 -2 20 20" xmlns="http://www.w3.org/2000/svg">
                     <g id="basketball-field-2" transform="translate(-2 -4)">
                     <path id="secondary" fill="#2ca9bc" d="M21,15H19a3,3,0,0,1,0-6h2V5H3V9H5a3,3,0,0,1,0,6H3v4H21Z"/>
@@ -72,8 +75,7 @@ function afficherTableau($req, $arbitre)
         ";
             }
         }
-
-        
+        $i++;
     }
     return $html;
 }
