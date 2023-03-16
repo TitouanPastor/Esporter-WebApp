@@ -20,10 +20,10 @@ $equipe = new Equipe();
  //Requête d'inscription au tournoi cliqué
  if (isset($_GET['id'])) {
      $param = [];
-     $param[0] = $sql->getIdEquipe($_SESSION['username']);
+     $param[0] = $equipe->getIdEquipe($_SESSION['username']);
      $param[1] = htmlspecialchars($_GET['id']);
-     $param[2] = $sql->getIdJeu($jeuEquipe);
-     $reqInscription = $sql->inscriptionTournoi($param);
+     $param[2] = $equipe->getIdJeu($jeuEquipe);
+     $reqInscription = $equipe->inscriptionTournoi($param);
  }
 
 
@@ -44,7 +44,7 @@ function listeTournoiDisponible($req)
                         $html .=  $nbEquipe . ' / 16';
                         $html .=  '<td>';
             if ((16 - $nbEquipe) != 0) {
-                $html .=  "<a style='text-decoration: underline;cursor:pointer;color:blue;' value='inscription-tournoi.php?id=$idTournoi' onclick='openPopUp(this)' >S'inscrire</a>";
+                $html .=  "<a style='text-decoration: underline;cursor:pointer;color:blue;' value='inscription-tournoi-controller.php?id=$idTournoi' onclick='openPopUp(this)' >S'inscrire</a>";
                 
             } else {
                 $html .=  "<input type = 'button' class = 'bouton' title = 'Complet' disabled>";

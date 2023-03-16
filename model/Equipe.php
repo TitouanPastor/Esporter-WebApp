@@ -111,4 +111,10 @@ class Equipe
         $this->dao = new EquipeDAO();
         return $this->dao->getLastIDEquipe();
     }
+
+    public function inscriptionTournoi($param)
+    {
+        $this->dao = new EquipeDAO();
+        return $this->dao->inscriptionTournoi($param);
+    }
 }
