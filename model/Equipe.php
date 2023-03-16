@@ -58,10 +58,10 @@ class Equipe
         return $this->dao->estInscritTournoi($mail, $tournoiNom);
     }
 
-    public function getNbEquipeTournoi($nom_tournoi, $id_jeu)
+    public function getNbEquipeTournoi($id_tournoi, $id_jeu)
     {
         $this->dao = new EquipeDAO();
-        return $this->dao->getNbEquipeTournoi($nom_tournoi, $id_jeu);
+        return $this->dao->getNbEquipeTournoi($id_tournoi, $id_jeu);
     }
 
     public function trierPar(string $by, $equipe)

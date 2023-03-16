@@ -40,7 +40,7 @@ class EquipeDAO
     //Fonction pour récupérer le jeu d'une équipe à partir de l'username
     public function getJeuEquipe($username)
     {
-        $req = $this->linkpdo->prepare("SELECT jeu.libelle FROM jeu, equipe WHERE equipe.id_jeu = jeu.id_jeu AND equipe.mail = :username");
+        $req = $this->linkpdo->prepare("SELECT jeu.libelle, jeu.id_jeu FROM jeu, equipe WHERE equipe.id_jeu = jeu.id_jeu AND equipe.mail = :username");
         $testReq = $req->execute(array("username" => $username));
         if ($testReq == false) {
             die("Erreur getJeuEquipe");
@@ -49,10 +49,10 @@ class EquipeDAO
     }
 
     //Fonction qui renvoie tournoi.nom, tournoi.date, nb de place disponible
-    public function getTournoiInscription($jeuLibelle)
+    public function getTournoiInscription($idJeu)
     {
-        $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut,tournoi.id_tournoi FROM tournoi, concerner, jeu WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND jeu.libelle = :libelle ORDER BY tournoi.date_debut');
-        $testReq = $req->execute(array("libelle" => $jeuLibelle));
+        $req = $this->linkpdo->prepare('SELECT tournoi.nom, tournoi.date_debut,tournoi.id_tournoi FROM tournoi, concerner, jeu WHERE tournoi.id_tournoi = concerner.id_tournoi AND concerner.id_jeu = jeu.id_jeu AND jeu.id_jeu = :id_jeu ORDER BY tournoi.date_debut');
+        $testReq = $req->execute(array("id_jeu" => $idJeu));
         if ($testReq == false) {
             die('Erreur getTournoiInscription');
         }
@@ -133,12 +133,12 @@ class EquipeDAO
     }
 
     //Fonction qui renvoie le nombre d'équipe participant à un tournoi
-    public function getNbEquipeTournoi($nom_tournoi, $id_jeu)
+    public function getNbEquipeTournoi($id_tournoi, $id_jeu)
     {
-        $req = $this->linkpdo->prepare("SELECT count(*) FROM tournoi,etre_inscrit WHERE etre_inscrit.id_tournoi = tournoi.id_tournoi AND tournoi.nom = :nom_tournoi AND etre_inscrit.id_jeu = :id_jeu");
+        $req = $this->linkpdo->prepare("SELECT count(*) FROM tournoi,etre_inscrit WHERE etre_inscrit.id_tournoi = tournoi.id_tournoi AND etre_inscrit.id_tournoi = :id_tournoi AND etre_inscrit.id_jeu = :id_jeu");
         $testReq = $req->execute(array(
-            "nom_tournoi" => $nom_tournoi,
-             "id_jeu" => $id_jeu
+            "id_tournoi" => $id_tournoi,
+            "id_jeu" => $id_jeu
         ));
         if ($testReq == false) {
             die("Erreur getNbEquipeTournoi");

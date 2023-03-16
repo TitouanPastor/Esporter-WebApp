@@ -13,8 +13,10 @@ $equipe = new Equipe();
      $valueTournoiJeu = "default";
  }
  $req = $equipe->getJeuEquipe($_SESSION['username']);
- $jeuEquipe = $req->fetchColumn();
- $req = $equipe->getTournoiInscription($jeuEquipe);
+ $tabJeu = $req->fetch();
+ $jeuEquipe = $tabJeu[0];
+ $id_jeu = $tabJeu[1];
+ $req = $equipe->getTournoiInscription($id_jeu);
 
  //Requête d'inscription au tournoi cliqué
  if (isset($_GET['id'])) {
@@ -26,13 +28,13 @@ $equipe = new Equipe();
  }
 
 
-function listeTournoiDisponible($req, $jeuEquipe)
+function listeTournoiDisponible($req, $id_jeu)
 {
     $equipe = new Equipe();
     $html = '';
     while ($donnees = $req->fetch()) {
         if ($equipe->estInscritTournoi($_SESSION['username'], $donnees[0]) == 0) {
-            $reqNbEquipe = $equipe->getNbEquipeTournoi($donnees[0], $jeuEquipe);
+            $reqNbEquipe = $equipe->getNbEquipeTournoi($donnees[2], $id_jeu);
             $nbEquipe = $reqNbEquipe->fetchColumn();
             $idTournoi = $donnees[2];
             $html .= 
@@ -60,5 +62,5 @@ ob_start();
 require_once(realpath(dirname(__FILE__) . '/../../view/equipe/inscription-tournoi-view.html'));
 $buffer = ob_get_clean();
 $buffer = str_replace("##jeuEquipe##", $jeuEquipe, $buffer);
-$buffer = str_replace("##ListeTournoiDispo##", listeTournoiDisponible($req, $jeuEquipe) , $buffer);
+$buffer = str_replace("##ListeTournoiDispo##", listeTournoiDisponible($req, $id_jeu) , $buffer);
 echo $buffer;
