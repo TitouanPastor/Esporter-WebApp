@@ -13,9 +13,9 @@
             return $this->dao->getPouleIdTournoi($idTournoi);
         }
 
-        public function getPouleByIdTournoi($idTournoi)
+        public function getPouleByIdTournoiIdJeu($idTournoi, $idJeu)
         {
-            return $this -> dao -> getPouleByIdTournoi($idTournoi);
+            return $this -> dao -> getPouleByIdTournoiIdJeu($idTournoi, $idJeu);
         }
 
         public function getIDPouleFinale($idTournoi, $idJeu)

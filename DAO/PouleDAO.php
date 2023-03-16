@@ -31,12 +31,13 @@
             return $idsPoule;
         }
 
-        public function getPouleByIdTournoi($idTournoi)
+        public function getPouleByIdTournoiIdJeu($idTournoi, $idJeu)
         {
-            $req = $this->linkpdo->prepare("SELECT id_poule, libelle FROM poule WHERE id_tournoi = :id_tournoi");
+            $req = $this->linkpdo->prepare("SELECT id_poule, libelle FROM poule WHERE id_tournoi = :id_tournoi AND id_jeu = :id_jeu");
             $testReq = $req->execute(
                 array(
-                    "id_tournoi" => $idTournoi
+                    "id_tournoi" => $idTournoi,
+                    "id_jeu" => $idJeu
                 )
             );
             if ($testReq == false) {

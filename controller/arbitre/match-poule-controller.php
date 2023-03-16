@@ -53,15 +53,10 @@
 
             if ($bracketModel -> pouleTerminer(array_slice($reqPoule, 0, 4))){
                 $poulesTermines = true;
-                echo "Toute les poules sont terminées";
-                $idPouleFinale = $bracketModel -> genererPouleFinale($idTournoi,$tournoi->getIdJeu($idJeu),array_slice($reqPoule, 0, 4));
-                
+                $idPouleFinale = $bracketModel -> genererPouleFinale($idTournoi, $idJeu,array_slice($reqPoule, 0, 4));
             }else{
                 echo "Toute les poules ne sont pas terminées";
             }
-                
-        } else if ($pouleFinaleCreer){// Si poule terminée
-            print_r ($reqPoule);
         }
     }        
             
@@ -98,7 +93,7 @@
         }
     }
     
-    $reqPoule = $pouleModel -> getPouleByIdTournoi($idTournoi);
+    $reqPoule = $pouleModel -> getPouleByIdTournoiIdJeu($idTournoi, $idJeu);
 
     //Affichage des poules (boucle while (nb de poule))
     $pouleGauche = "";
