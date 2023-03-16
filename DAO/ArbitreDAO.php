@@ -28,7 +28,7 @@
 
     public function getTournoiCommence()
     {
-        $req = $this->linkpdo->prepare("SELECT t.nom, t.Date_debut, t.Id_Tournoi,count(etre_inscrit.id_Tournoi) FROM tournoi as t, etre_inscrit where t.Date_debut < curdate() and etre_inscrit.id_Tournoi = t.Id_Tournoi group by etre_inscrit.Id_Tournoi having count(etre_inscrit.Id_Tournoi )>= 16");
+        $req = $this->linkpdo->prepare("SELECT t.nom, t.Date_debut, t.Id_Tournoi,count(etre_inscrit.id_Tournoi) FROM tournoi as t, etre_inscrit where t.Date_debut < curdate() and etre_inscrit.id_Tournoi = t.Id_Tournoi group by etre_inscrit.Id_Tournoi, etre_inscrit.id_Jeu having count(etre_inscrit.Id_Tournoi )>= 16;");
         $testReq = $req->execute();
         if ($testReq == false) {
             die('Erreur getTournoiCommence');
