@@ -56,7 +56,7 @@ class TournoiDAO
         }
         return $req;
     }
-    
+
 
     //Jeux renseigné dans la BDD
     public function getJeux()
@@ -89,9 +89,8 @@ class TournoiDAO
     {
         $req = $this->linkpdo->prepare('SELECT Id_Tournoi FROM tournoi ORDER BY Id_Tournoi DESC LIMIT 1');
         $req->execute();
-        $data = $req->fetch();  
+        $data = $req->fetch();
         return $data['Id_Tournoi'];
-        
     }
 
     //Fonction pour ajouter un jeu
@@ -379,7 +378,7 @@ class TournoiDAO
 
     public function getIdJeu($libelle)
     {
-        $req = $this -> linkpdo -> prepare("SELECT id_jeu FROM jeu where libelle = :libelle");
+        $req = $this->linkpdo->prepare("SELECT id_jeu FROM jeu where libelle = :libelle");
         $testReq = $req->execute(
             array(
                 "libelle" => $libelle
@@ -390,7 +389,7 @@ class TournoiDAO
         }
         return $req->fetchColumn();
     }
-    
+
     public function addPoule($nom, $idTournoi, $idJeu)
     {
         $req = $this->linkpdo->prepare('INSERT INTO poule VALUES (NULL, :nom, :idTournoi, :idJeu)');
@@ -449,6 +448,19 @@ class TournoiDAO
         );
     }
 
+    public function insertEtreInscrit($idTournoi, $idEquipe, $idJeu, $idPoule)
+    {
+        $req = $this->linkpdo->prepare('INSERT INTO etre_inscrit VALUES (:idEquipe, :idTournoi, :idJeu, :idPoule,0)');
+        $req->execute(
+            array(
+                'idTournoi' => $idTournoi,
+                'idEquipe' => $idEquipe,
+                'idJeu' => $idJeu,
+                'idPoule' => $idPoule
+            )
+        );
+    }
+
     public function addRencontre($idEquipe1, $idEquipe2, $idPoule)
     {
         $req = $this->linkpdo->prepare('INSERT INTO rencontre VALUES (NULL, :idEquipe1, :idEquipe2, :idPoule, NULL)');
@@ -467,7 +479,6 @@ class TournoiDAO
         $req->execute();
         $datas = $req->fetch();
         return $datas['MAX(Id_Poule)'];
-        
     }
 
     //Fonction qui retourne le premier d'une poule a partir d'un tournoi et d'un jeu donnée 
@@ -483,7 +494,6 @@ class TournoiDAO
         );
         $row = $req->fetch();
         return $row['id_Equipe'];
-        
     }
 
     //Retourne le nombre de point total de la poule 
@@ -497,7 +507,6 @@ class TournoiDAO
         );
         $row = $req->fetch();
         return $row['nbMatchJouer'];
-        
     }
 
     public function getPerdantFinale($idPoule)
@@ -537,7 +546,6 @@ class TournoiDAO
 
         $row = $req->fetch();
         return $row['Nombre_point_max'];
-        
     }
 
     public function updateClassementEquipe($idEquipe, $nbPoint)
@@ -573,5 +581,4 @@ class TournoiDAO
         }
         return false;
     }
-
 }

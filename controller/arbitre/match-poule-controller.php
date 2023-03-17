@@ -61,7 +61,7 @@
     }        
             
     if (isset($_POST["valider_finale"])){
-        $idPouleFinale = $pouleModel -> getIDPouleFinale($idTournoi, $tournoiModel -> getIdJeu($idJeu));
+        $idPouleFinale = $pouleModel -> getPouleFinale($idTournoi, $idJeu);
 
         if (isset($_POST["match1"])){
             $req = $pouleModel -> setGagnantRencontreFinale($_POST["idMatch1"], $_POST["match1"]);
@@ -88,8 +88,8 @@
         }
 
         if ($pouleModel -> isTournoiTermine($idTournoi)){
-            $tournoiModel -> terminerTournoi($idTournoi);
-            $bracketModel -> updateClassementGeneral($idTournoi,$idJeu);
+            // $tournoiModel -> terminerTournoi($idTournoi);
+            var_dump($bracketModel -> updateClassementGeneral($idTournoi,$idJeu));
         }
         // if ($pouleModel -> pouleFinaleTermine($idPouleFinale)){
     }
