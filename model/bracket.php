@@ -4,11 +4,14 @@ class bracket
 {
 
     private $sql;
+    private $pouleModel;
 
     public function __construct()
     {
         require_once('../../DAO/TournoiDAO.php');
+        require_once('../../model/Poule.php');
         $this->sql = new TournoiDAO();
+        $this->pouleModel = new Poule();
     }
 
     public function genererBracket($idTournoi)
@@ -90,21 +93,25 @@ class bracket
         return true;
     }
 
-    public function updateClassementGeneral($idPoule, $idTournoi)
+    public function updateClassementGeneral($idTournoi)
     {
-        $pouleFinale = $this->sql->getPerdantFinale($idPoule);
-        $resultatFinaux = $this->sql->getResultatFinaux($idPoule);
-        $multiplicateur = $this->sql->getMultiplicateur($idTournoi);
-        $points = [100, 60, 30, 10];
-        $i = 0;
-        while ($row = $resultatFinaux->fetch()) {
-            $this->sql->updateClassementEquipe($row["id_equipe"], $row["count(gagnant)"] * 5 + $points[$i] * $multiplicateur);
-            $i++;
-        }
-        
-        foreach($pouleFinale as $idEquipe){
-            $this->sql->updateClassementEquipe($idEquipe, $points[$i] * $multiplicateur);
-            $i++;
+        $idPoulesFinalesTournoi = $this->pouleModel->getPoulesFinalesByIdTournoi($idTournoi)[0];
+
+        foreach ($idPoulesFinalesTournoi as $idPoule) {
+            $pouleFinale = $this->sql->getPerdantFinale($idPoule);
+            $resultatFinaux = $this->sql->getResultatFinaux($idPoule);
+            $multiplicateur = $this->sql->getMultiplicateur($idTournoi);
+            $points = [100, 60, 30, 10];
+            $i = 0;
+            while ($row = $resultatFinaux->fetch()) {
+                $this->sql->updateClassementEquipe($row["id_equipe"], $row["count(gagnant)"] * 5 + $points[$i] * $multiplicateur);
+                $i++;
+            }
+            
+            foreach ($pouleFinale as $idEquipe) {
+                $this->sql->updateClassementEquipe($idEquipe, $points[$i] * $multiplicateur);
+                $i++;
+            }
         }
     }
 

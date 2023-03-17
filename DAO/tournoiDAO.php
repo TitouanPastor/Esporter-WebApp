@@ -506,7 +506,6 @@ class TournoiDAO
         $req->execute(
             array(
                 'idPoule' => $idPoule
-
             )
         );
         $equipePouleFinale = array();
@@ -574,4 +573,5 @@ class TournoiDAO
         }
         return false;
     }
+
 }

@@ -13,12 +13,13 @@
         }
         
         /**Getter */
-        public function getPouleIdTournoi($idTournoi)
+        public function getPouleIdTournoi($idTournoi, $idJeu)
         {
-            $req = $this->linkpdo->prepare("SELECT Id_Poule FROM poule WHERE id_tournoi = :id_tournoi");
+            $req = $this->linkpdo->prepare("SELECT Id_Poule FROM poule WHERE id_tournoi = :id_tournoi AND id_jeu = :id_jeu");
             $testReq = $req->execute(
                 array(
-                    "id_tournoi" => $idTournoi
+                    "id_tournoi" => $idTournoi,
+                    "id_jeu" => $idJeu
                 )
             );
             if ($testReq == false) {
@@ -122,6 +123,16 @@
             return $req;
         }
 
+        public function getPoulesFinalesByIdTournoi($idTournoi){
+            $req = $this->linkpdo->prepare("SELECT id_poule FROM poule WHERE id_tournoi = :id_tournoi AND libelle = 'Finale'");
+            $testReq = $req->execute(
+                array(
+                    "id_tournoi" => $idTournoi
+                )
+            );
+            return $req -> fetchAll(PDO::FETCH_ASSOC);
+        }
+
         
 
         /**SETTER */
@@ -174,8 +185,32 @@
             );
         }
 
+        public function getPouleBydIdTournoi($idTournoi){
+            $req = $this->linkpdo->prepare("SELECT id_poule FROM poule WHERE id_tournoi = :id_tournoi");
+            $testReq = $req->execute(
+                array(
+                    "id_tournoi" => $idTournoi
+                )
+            );
+            if ($testReq == false) {
+                die('Erreur getPouleByIdTournoi');
+            }
+            return $req;
+        }
+
+        public function isTournoiTermine($idTournoi){
+            $req = $this -> getPouleBydIdTournoi($idTournoi) -> fetchAll();
+            foreach ($req as $poule){
+                if ($this->isPouleTermine($poule['id_poule']) == false){
+                    return false;
+                }
+            }
+            return true;
+
+        }
+
         /**Boolean */
-        public function pouleFinaleTermine($idPoule)
+        public function isPouleTermine($idPoule)
         {
             $req = $this->linkpdo->prepare("SELECT count(*) FROM rencontre WHERE id_Poule = :idPoule and gagnant is null");
             $testReq = $req->execute(

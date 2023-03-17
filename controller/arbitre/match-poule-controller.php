@@ -23,7 +23,7 @@
     $idPouleFinale = 0;
 
     //Poule par id_tournoi
-    $reqPoule = $pouleModel -> getPouleIdTournoi($idTournoi);
+    $reqPoule = $pouleModel -> getPouleIdTournoi($idTournoi, $idJeu);
 
     if (isset($_POST["valider"])){
         if (!$bracketModel -> pouleTerminer(array_slice($reqPoule, 0, 4))){
@@ -87,10 +87,11 @@
             $req = $pouleModel -> setGagnantRencontreFinale($_POST["idMatch6"], $_POST["match6"]);
         }
 
-        if ($pouleModel -> pouleFinaleTermine($idPouleFinale)){
+        if ($pouleModel -> isTournoiTermine($idTournoi)){
             $tournoiModel -> terminerTournoi($idTournoi);
-            $bracketModel -> updateClassementGeneral($idPouleFinale,$idTournoi);
+            $bracketModel -> updateClassementGeneral($idTournoi);
         }
+        // if ($pouleModel -> pouleFinaleTermine($idPouleFinale)){
     }
     
     $reqPoule = $pouleModel -> getPouleByIdTournoiIdJeu($idTournoi, $idJeu);
@@ -213,7 +214,7 @@
                     
                 }
                 
-                if (!$tournoiModel -> isTournoiTermine($idTournoi)){
+                if (!$pouleModel -> isTournoiTermine($idTournoi)){
                     if ($nomPouleAffiche == "Finale"){
                         $pouleDroite .= '<button type="submit" class="submit submit-valider" name="valider_finale">Valider les résultats</button>';
                     }else{
