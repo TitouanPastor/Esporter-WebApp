@@ -123,14 +123,15 @@
             return $req;
         }
 
-        public function getPoulesFinalesByIdTournoi($idTournoi){
-            $req = $this->linkpdo->prepare("SELECT id_poule FROM poule WHERE id_tournoi = :id_tournoi AND libelle = 'Finale'");
+        public function getPouleFinale($idTournoi, $idJeu){
+            $req = $this->linkpdo->prepare("SELECT id_poule FROM poule WHERE id_tournoi = :id_tournoi AND id_jeu = :id_jeu AND libelle = 'Finale'");
             $testReq = $req->execute(
                 array(
-                    "id_tournoi" => $idTournoi
+                    "id_tournoi" => $idTournoi,
+                    "id_jeu" => $idJeu
                 )
             );
-            return $req -> fetchAll(PDO::FETCH_ASSOC);
+            return $req -> fetch();
         }
 
         
@@ -224,6 +225,18 @@
             }
             return false;
         }
+
+        //fonction qui récupère les équipes d'une poule en triant par le nombre de match gagné   DESC
+        public function getEquipesPoule($idPoule) {
+            $req = $this->linkpdo->prepare("SELECT id_Equipe, nb_Match_Gagne FROM etre_inscrit, equipe WHERE etre_inscrit.id_equipe = equipe.id_equipe AND etre_inscrit.id_poule = :idPoule ORDER BY etre_inscrit.nb_match_gagne DESC");
+            $testReq = $req->execute(
+                array(
+                    "idPoule" => $idPoule
+                )
+            );
+            return $req;
+        }
+
 
     }   
 

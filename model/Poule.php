@@ -18,8 +18,8 @@
             return $this -> dao -> getPouleByIdTournoiIdJeu($idTournoi, $idJeu);
         }
 
-        public function getPoulesFinalesByIdTournoi($idTournoi){
-            return $this->dao->getPoulesFinalesByIdTournoi($idTournoi);
+        public function getPouleFinale($idTournoi, $idJeu){
+            return $this->dao->getPouleFinale($idTournoi, $idJeu);
         }
         public function getIDPouleFinale($idTournoi, $idJeu)
         {
@@ -45,9 +45,9 @@
             return $this -> dao -> getEquipePouleTrie($idPoule);
         }
 
-        public function pouleFinaleTermine($idPoule){
-            return $this->dao->pouleFinaleTermine($idPoule);
-        }
+        // public function pouleFinaleTermine($idPoule){
+        //     return $this->dao->pouleFinaleTermine($idPoule);
+        // }
 
         public function setGagnantRencontre($idRencontre, $idEquipe){
             return $this->dao->setGagnantRencontre($idRencontre, $idEquipe);
@@ -61,6 +61,11 @@
         public function isTournoiTermine($idTournoi)
         {
             return $this->dao->isTournoiTermine($idTournoi);
+        }
+
+        public function getEquipesPoule($idPoule)
+        {
+            return $this->dao->getEquipesPoule($idPoule);
         }
     }
 ?>

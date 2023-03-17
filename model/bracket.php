@@ -93,26 +93,19 @@ class bracket
         return true;
     }
 
-    public function updateClassementGeneral($idTournoi)
+    public function updateClassementGeneral($idTournoi, $idJeu)
     {
-        $idPoulesFinalesTournoi = $this->pouleModel->getPoulesFinalesByIdTournoi($idTournoi)[0];
-
-        foreach ($idPoulesFinalesTournoi as $idPoule) {
-            $pouleFinale = $this->sql->getPerdantFinale($idPoule);
-            $resultatFinaux = $this->sql->getResultatFinaux($idPoule);
-            $multiplicateur = $this->sql->getMultiplicateur($idTournoi);
-            $points = [100, 60, 30, 10];
-            $i = 0;
-            while ($row = $resultatFinaux->fetch()) {
-                $this->sql->updateClassementEquipe($row["id_equipe"], $row["count(gagnant)"] * 5 + $points[$i] * $multiplicateur);
-                $i++;
-            }
-            
-            foreach ($pouleFinale as $idEquipe) {
-                $this->sql->updateClassementEquipe($idEquipe, $points[$i] * $multiplicateur);
-                $i++;
-            }
+        $idPouleFinale = $this->pouleModel->getPouleFinale($idTournoi,$idJeu)['Id_Poule'];
+        $equipes = $this->pouleModel->getEquipesPoule($idPouleFinale);
+        $i = 0;
+        $points = [100, 60, 30, 10];
+        $multiplicateur = $this->sql->getMultiplicateur($idTournoi);
+        while($equipe = $equipes->fetch()){
+            $point = $equipe['nb_Match_Gagne'] * 5 + $points[$i] * $multiplicateur;
+            $this->sql->updateClassementEquipe($equipe['id_Equipe'],$point);
+            $i++;
         }
+       
     }
 
    

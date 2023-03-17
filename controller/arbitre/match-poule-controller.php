@@ -89,7 +89,7 @@
 
         if ($pouleModel -> isTournoiTermine($idTournoi)){
             $tournoiModel -> terminerTournoi($idTournoi);
-            $bracketModel -> updateClassementGeneral($idTournoi);
+            $bracketModel -> updateClassementGeneral($idTournoi,$idJeu);
         }
         // if ($pouleModel -> pouleFinaleTermine($idPouleFinale)){
     }
