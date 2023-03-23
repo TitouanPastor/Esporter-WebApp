@@ -14,7 +14,7 @@ $reqJeu = $sql->getJeux();
 if (isset($_POST['ajouter'])) {
 
     // Vérification de si nous avons le droit de créer un tounoi (si c'est avant le 1er février)
-    if (date("m") < 2) {
+    if (date("m") < 4) {
 
         // Vérification de si tout les champs sont remplis
         if (!empty($_POST['nom-tournoi']) && !empty($_POST['comboboxtypetournoi']) && !empty($_POST['lieu-tournoi']) && !empty($_POST['date-debut']) && !empty($_POST['date-fin'])) {
@@ -59,7 +59,7 @@ if (isset($_POST['ajouter'])) {
                                     $sql->addConcerner($idTournoi, $jeu);
                                 }
                                 $infoExecution = 'Tournoi ajouté !';
-                                header('Location: liste-tournois.php?createTournoi=success');
+                                header('Location: liste-tournois-controller.php?createTournoi=success');
                             } catch (Exception $e) {
                                 $infoExecution = "Erreur lors de l'ajout du tournoi ! Veuillez réessayer.";
                             }
