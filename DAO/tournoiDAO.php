@@ -7,10 +7,10 @@ class TournoiDAO
 
     public function __construct()
     {
-        //Connexion to DB
-        require_once('connectDB.php');
-        $sql = new connectDB();
-        $this->linkpdo = $sql->getConnection();
+        //Connexion to DB with singleton
+        require_once('ConnectDB.php');
+        $db = ConnectDB::getInstance();
+        $this->linkpdo = $db->getConnection();
     }
 
     // Ajouter un jeu à un tournoi

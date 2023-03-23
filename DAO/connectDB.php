@@ -1,7 +1,9 @@
 <?php
 
+//Connexion à la base de données en singleton
 class ConnectDB
 {
+    private static $instance = null;
     private $linkpdo;
 
     public function __construct()
@@ -25,6 +27,14 @@ class ConnectDB
         }
     }
 
+    public static function getInstance()
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new ConnectDB();
+        }
+        return self::$instance;
+    }
+
     public function getConnection()
     {
         return $this->linkpdo;
@@ -35,3 +45,6 @@ class ConnectDB
         $this->linkpdo = null;
     }
 }
+
+
+
