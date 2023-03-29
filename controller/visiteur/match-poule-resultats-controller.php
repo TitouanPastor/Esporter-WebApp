@@ -23,12 +23,12 @@
     $pouleFinaleCreer = false;
     $idPouleFinale = 0;
 
-    $reqPoule = $pouleModel->getPouleByIdTournoi($idTournoi);
+    $reqPoule = $pouleModel->getPouleIdTournoi($idTournoi, $idJeu);
 
     //pouleGauche
     $pouleGauche = "";
     $num_poule = 0;
-    while ($poule = $reqPoule -> fetch()){
+    while ($poule = $reqPoule){
         $num_poule++;
         $reqEquipePouleTrie = $pouleModel -> getEquipePouleTrie($poule[0]);
         $clair = 0;
@@ -145,8 +145,9 @@
     }
 
     ob_start();
-    require_once(realpath(dirname(__FILE__) .'/../../view/visiteur/match-poule-resultats-view.php'));
+    require_once(realpath(dirname(__FILE__) .'/../../view/visiteur/match-poule-resultats-view.html'));
     $buffer = ob_get_clean();
+    $buffer = str_replace("##nomTournoi##",$reqNomTournoi, $buffer);
     $buffer = str_replace("##pouleGauche##", $pouleGauche, $buffer);
     $buffer = str_replace("##pouleDroite##", $pouleDroite, $buffer);
     echo $buffer;
