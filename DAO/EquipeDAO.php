@@ -152,7 +152,7 @@ class EquipeDAO
         $req = $this->linkpdo->prepare('SELECT Id_Equipe FROM equipe ORDER BY Id_Equipe DESC LIMIT 1');
         $req->execute();
         $data = $req->fetch();
-        $data['Id_Equipe'];
+        return $data['Id_Equipe'];
         
     }
 }
