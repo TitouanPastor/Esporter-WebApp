@@ -46,7 +46,8 @@
                             //Ajout d'une équipe (le 0 correspond au nombre de point au championnat initialisé à 0)
                            
                             $infoExecution = 'Equipe enregistrée !';
-                            header("Refresh: 3;URL=enregistrer-joueurs-controller.php?nom=" . $_POST['nom-equipe'] . "&jeu=" . $_POST['jeu_equipe'] . "&email=" . $_POST['email-equipe'] . "&mdp=" . $_POST['mdp-equipe']);
+                            header("Refresh: 3;URL=enregistrer-joueurs-controller.php?nom=" . $_POST['nom-equipe'] . "&jeu=" . 
+                            $_POST['jeu_equipe'] . "&email=" . $_POST['email-equipe'] . "&mdp=" . $_POST['mdp-equipe']);
                         } catch (Exception $e) {
                             $infoExecution = "Erreur : " . $e->getMessage();
                         }

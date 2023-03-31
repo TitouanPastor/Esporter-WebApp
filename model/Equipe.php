@@ -91,16 +91,16 @@ class Equipe
     public function listeEquipeTrierPar(string $by, $idEcurie)
     {
         require_once('tri-equipe.php');
-        $triTournois = new TriEquipe($idEcurie);
+        $triEquipe = new TriEquipe($idEcurie);
         switch ($by) {
             case 'nom':
-                return $triTournois->trierParNom();
+                return $triEquipe->trierParNom();
                 break;
             case 'point':
-                return $triTournois->trierParPoint();
+                return $triEquipe->trierParPoint();
                 break;
             default:
-                return $triTournois->trierParId();
+                return $triEquipe->trierParId();
                 break;
         }
         return "Erreur de tri";
